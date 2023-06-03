@@ -2,7 +2,8 @@ import os, shutil
 from datetime import datetime as dt
 
 version = dt.now().strftime("%d%m%y.%H%M%S")
-os.system(f'pyinstaller --onefile --icon icon.ico -n Dreszcz_{version} menu.py functions.py constants.py entities.py obj_class.py gamebook.py')
+os.system(
+    f'pyinstaller --onefile --icon icon.ico -n Dreszcz_{version} menu.py functions.py constants.py entities.py obj_class.py gamebook.py')
 
 src_path = f'e:/PycharmProjects/Dreszcz_Gra_Paragrafowa/dist/Dreszcz_{version}.exe'
 dst_path = f'e:/PycharmProjects/Dreszcz_Gra_Paragrafowa/Dreszcz_{version}.exe'

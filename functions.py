@@ -9,6 +9,7 @@ def loading(duration):  # loading animation
         time.sleep(0.3)
         duration -= 1
 
+
 def debug_message(msg):
     if constants.debug_msg_enable:
         print(f'{constants.debug_txt_clr}DEBUG: {msg}{constants.def_txt_clr}')
@@ -22,7 +23,7 @@ def error_message(error_name, msg):
 
 
 def clear_terminal():
-    toggle = False
+    toggle = True
 
     if toggle:
         subprocess.call('cls' if os.name == 'nt' else 'clear', shell=True)
@@ -30,14 +31,13 @@ def clear_terminal():
         debug_message('function clear_terminal() is disabled for debugging purposes')
 
 
-def dub_play(string, audio_file_id, voice = None):
+def dub_play(string, audio_file_id, voice=None):
     if voice == None:  # 'Dunmer' voice
         audio_path = constants.assets_audio_pth
     elif voice.lower() == 'adam':
         audio_path = constants.assets_audio_pth_adam
     elif voice.lower() == 'fx':
         audio_path = constants.assets_audio_effects_pth
-
 
     try:
         current_sound = pygame.mixer.Sound(f'{audio_path}/{audio_file_id}')
@@ -48,7 +48,6 @@ def dub_play(string, audio_file_id, voice = None):
 
     pygame.mixer.stop()
     current_sound.set_volume(constants.def_action_volume)
-
 
     # znajdź wolny kanał
     channel = None
@@ -80,8 +79,10 @@ def dub_play(string, audio_file_id, voice = None):
 
 
 def name_randomizer():
-    first_parts = ['Bogdan', 'Dobrosław', 'Jarosław', 'Grzesiu', 'Mścisław', 'Radosław', 'Sławomir', 'Zbyszko z Bogdańca', 'Władysław', 'Zbigniew', 'Stanisław']
-    last_parts = ['z Levygradu', 'Mądry', 'Odważny', 'z Małomorza', 'Prawy', 'Sprawiedliwy', 'Słomka', 'Wielki', 'Zacny', 'Zuchwały', 'Pyzdra']
+    first_parts = ['Bogdan', 'Dobrosław', 'Jarosław', 'Grzesiu', 'Mścisław', 'Radosław', 'Sławomir',
+                   'Zbyszko z Bogdańca', 'Władysław', 'Zbigniew', 'Stanisław']
+    last_parts = ['z Levygradu', 'Mądry', 'Odważny', 'z Małomorza', 'Prawy', 'Sprawiedliwy', 'Słomka', 'Wielki',
+                  'Zacny', 'Zuchwały', 'Pyzdra']
 
     first_name = random.choice(first_parts)
     last_name = ''
@@ -127,9 +128,8 @@ def rpar():
     return constants.z_init, constants.z_count, constants.w_init, constants.w_count, constants.s_init, constants.s_count
 
 
-def pth_selector(path_strings = [], actions = [], visit_check = False, room_id = 0):
-
-    if room_id != 0: # dolicz wizytę jeśli podano numer pokoju
+def pth_selector(path_strings=[], actions=[], visit_check=False, room_id=0):
+    if room_id != 0:  # dolicz wizytę jeśli podano numer pokoju
         room_id.visit_count = update_num_variable(room_id.visit_count, 1)
         debug_message(f'dodano wizytę: numer wizyty w pokoju {room_id.room_num} = {room_id.visit_count}')
 
@@ -170,7 +170,8 @@ def pth_selector(path_strings = [], actions = [], visit_check = False, room_id =
         if room_id.room_state:  # jeśli otwarte
 
             dub_play(
-                f'Drzwi {constants.special_txt_clr}{room_id.room_num}{constants.def_txt_clr} są {constants.special_txt_clr}otwarte{constants.def_txt_clr}.', 'infobook_adam_door_open.mp3', 'adam')
+                f'Drzwi {constants.special_txt_clr}{room_id.room_num}{constants.def_txt_clr} są {constants.special_txt_clr}otwarte{constants.def_txt_clr}.',
+                'infobook_adam_door_open.mp3', 'adam')
 
             if not room_id.visit_count - 1 >= room_id.max_visit_count:  # użytkownik odwiedza pokój więcej niż dozwolona liczba razy
                 if room_id.visit_count == 1:  # gracz jest pierwszy raz w pokoju
@@ -186,7 +187,8 @@ def pth_selector(path_strings = [], actions = [], visit_check = False, room_id =
 
         else:  # jeśli zamknięte
             dub_play(
-                f'Drzwi {constants.special_txt_clr}{room_id.room_num}{constants.def_txt_clr} są {constants.special_txt_clr}zamknięte{constants.def_txt_clr}.', 'infobook_adam_door_closed.mp3', 'adam')
+                f'Drzwi {constants.special_txt_clr}{room_id.room_num}{constants.def_txt_clr} są {constants.special_txt_clr}zamknięte{constants.def_txt_clr}.',
+                'infobook_adam_door_closed.mp3', 'adam')
             debug_message(f'eval: {actions[1]}')
             eval(actions[1])
 
@@ -231,10 +233,12 @@ def check_for_gold_amount(true_path, false_path, req_amount):
         print('Nie masz wystarczającej ilości złota.')
         eval(false_path)
 
+
 def eatables():
     if constants.eatables_count != 0:
         if constants.w_count != constants.w_init:
-            dub_play(f'{constants.special_txt_clr}Czy chcesz zjeśc prowiant? (+4 Wytrzymałość) (tak/nie)', f'{constants.assets_audio_pth}/eatables.mp3')
+            dub_play(f'{constants.special_txt_clr}Czy chcesz zjeśc prowiant? (+4 Wytrzymałość) (tak/nie)',
+                     f'{constants.assets_audio_pth}/eatables.mp3')
             print(f"/// Wytrzymałość: {constants.w_count}/{constants.w_init}")
             print(f"/// Prowiant: {constants.eatables_count}/{constants.init_eatables_count}")
             odp = input(f"{constants.input_sign}\
@@ -277,11 +281,13 @@ def eatables():
 
             return constants.w_count, constants.eatables_count
 
+
 def show_equipment_list():
     for i in constants.main_eq:
         print(f'- {i}')
     input(f"{constants.input_sign} ")
     time.sleep(constants.delay)
+
 
 def eq_change(new_item_name):
     input(f"/// {constants.special_txt_clr}Zdobyto nowy przedmiot: {new_item_name}{constants.def_txt_clr}\
@@ -302,10 +308,10 @@ def show_entity_stats(entity):
         \nStatystyki {entity.name}{constants.combat_txt_clr}:\
         \nWytrzymałość: {entity.entity_w_count}/{entity.entity_w_init}\
         \nZręczność: {entity.entity_z_count}/{entity.entity_z_init}')
-    time.sleep(2*constants.delay)
+    time.sleep(2 * constants.delay)
 
 
-def stats_change(attribute_name, variable ,amount):
+def stats_change(attribute_name, variable, amount):
     if amount < 0:
         inter = ''
     else:
@@ -318,7 +324,8 @@ def stats_change(attribute_name, variable ,amount):
     #         new_count = min(constants.s_count + amount, constants.s_init + 1)
     #         constants.s_count = new_count
 
-    print(f'{constants.special_txt_clr}/// {attribute_name} {inter}{amount} >>> {variable + amount}{constants.def_txt_clr}')
+    print(
+        f'{constants.special_txt_clr}/// {attribute_name} {inter}{amount} >>> {variable + amount}{constants.def_txt_clr}')
     time.sleep(constants.delay)
 
     return variable
@@ -350,7 +357,7 @@ def combat_init(entity, state, esc_possible, escape_id, stay_id, win_path_id):
 
 
 def combat_main(entity, state, esc_possible, escape_id, stay_id, to_the_end, p_w_count, e_w_count, win_path):
-    if e_w_count <= 0: #  jeśli wróg nie żyje
+    if e_w_count <= 0:  # jeśli wróg nie żyje
         pygame.mixer.music.fadeout(1500)
         rnd_choice = random.choice(constants.music_main)  # losowanie muzyki z listy
         pygame.mixer.music.load(rnd_choice)
@@ -386,7 +393,8 @@ def combat_main(entity, state, esc_possible, escape_id, stay_id, to_the_end, p_w
             odp = input(f"tak/nie {constants.input_sign} \
             \n")
             if len(odp) == 0:
-                print(f"{constants.special_txt_clr}Wytrzymałość: {constants.w_count} {constants.input_sign} {constants.w_count - 2}{constants.def_txt_clr}\
+                print(
+                    f"{constants.special_txt_clr}Wytrzymałość: {constants.w_count} {constants.input_sign} {constants.w_count - 2}{constants.def_txt_clr}\
                 \n")
                 constants.w_count -= 2
                 eval(ecape_opt)
@@ -396,13 +404,13 @@ def combat_main(entity, state, esc_possible, escape_id, stay_id, to_the_end, p_w
         else:
             eval(win_path)
 
-    elif p_w_count <= 0: #  jeśli gracz nie żyje
+    elif p_w_count <= 0:  # jeśli gracz nie żyje
         print()
         dub_play(f'Zostałeś zabity przez {Fore.LIGHTRED_EX}{entity.name}{constants.combat_txt_clr}!\
         \n', f'{constants.assets_audio_pth}/combat_die.mp3')
         kill()
 
-    else: # jeśli oboje żyją
+    else:  # jeśli oboje żyją
         combat_round(entity, state, esc_possible, escape_id, stay_id, to_the_end, p_w_count, e_w_count, win_path)
 
     return state, constants.w_count, constants.count
@@ -426,7 +434,7 @@ def combat_round(entity, state, esc_possible, escape_id, stay_id, to_the_end, p_
         loading(1)
         if a > b:
 
-            if constants.w_count > 0: #  jeśli wróg wygrał rundę
+            if constants.w_count > 0:  # jeśli wróg wygrał rundę
                 if e_w_count <= 0:
                     state = False
                     combat_main(entity, state, esc_possible, escape_id, stay_id, to_the_end, p_w_count, e_w_count,
@@ -440,7 +448,7 @@ def combat_round(entity, state, esc_possible, escape_id, stay_id, to_the_end, p_
 
         elif a < b:
 
-            if entity.entity_w_count > 0: #  jeśli gracz wygrał rundę
+            if entity.entity_w_count > 0:  # jeśli gracz wygrał rundę
                 entity.entity_w_count += constants.p_hit_val_
                 print(f"{Fore.LIGHTYELLOW_EX}{constants.player_name}{constants.combat_txt_clr} zadał cios!\
                 \n{constants.special_txt_clr}/// Wytrzymałość {Fore.LIGHTRED_EX}{entity.name}{constants.special_txt_clr}: {entity.entity_w_count}/{entity.entity_w_init}")
@@ -453,10 +461,7 @@ def combat_round(entity, state, esc_possible, escape_id, stay_id, to_the_end, p_
             print(f'{constants.special_txt_clr}Remis!')
             dub_play('', f'{constants.assets_audio_pth}/dreszcz_remis.mp3')
 
-        if constants.allow_skip_dub: # jeśli opcja pomijania dubbingu jest włączona
+        if constants.allow_skip_dub:  # jeśli opcja pomijania dubbingu jest włączona
             time.sleep(2 * constants.delay)
 
-
-
     combat_main(entity, state, esc_possible, escape_id, stay_id, to_the_end, p_w_count, e_w_count, win_path)
-

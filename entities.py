@@ -1,6 +1,5 @@
 import obj_class, constants
 
-
 # /// declare entities
 # - - - - - - - - -
 # - - - - - - - - -
@@ -43,7 +42,8 @@ entity_092_w_init = entity_092_w_count = entity_092.entity_w_count
 # - - - - - - - - -
 # /// 098:
 # /// HERSZT GOBLINÓW
-entity_098 = obj_class.Entity(f'{constants.entity_txt_clr}HERSZT GOBLINÓW{constants.def_txt_clr}', 9, 9, 8, 8, True, False)
+entity_098 = obj_class.Entity(f'{constants.entity_txt_clr}HERSZT GOBLINÓW{constants.def_txt_clr}', 9, 9, 8, 8, True,
+                              False)
 entity_098_z_init = entity_098_z_count = entity_098.entity_z_count
 entity_098_w_init = entity_098_w_count = entity_098.entity_w_count
 # - - - - - - - - -
@@ -51,7 +51,8 @@ entity_098_w_init = entity_098_w_count = entity_098.entity_w_count
 # - - - - - - - - -
 # /// 107:
 # /// STRAŻNIK TAJEMNICY
-entity_107 = obj_class.Entity(f'{constants.entity_txt_clr}STRAŻNIK TAJEMNICY{constants.def_txt_clr}', 10, 10, 14, 14, True, False)
+entity_107 = obj_class.Entity(f'{constants.entity_txt_clr}STRAŻNIK TAJEMNICY{constants.def_txt_clr}', 10, 10, 14, 14,
+                              True, False)
 entity_107_z_init = entity_107_z_count = entity_107.entity_z_count
 entity_107_w_init = entity_107_w_count = entity_107.entity_w_count
 # - - - - - - - - -
@@ -127,7 +128,8 @@ entity_332_w_init = entity_332_w_count = entity_332.entity_w_count
 # - - - - - - - - -
 # /// 344:
 # /// STRAŻNIK TAJEMNICY
-entity_344 = obj_class.Entity(f'{constants.entity_txt_clr}STRAŻNIK TAJEMNICY{constants.def_txt_clr}', 10, 10, 16, 16, True, False)
+entity_344 = obj_class.Entity(f'{constants.entity_txt_clr}STRAŻNIK TAJEMNICY{constants.def_txt_clr}', 10, 10, 16, 16,
+                              True, False)
 entity_344_z_init = entity_344_z_count = entity_344.entity_z_count
 entity_344_w_init = entity_344_w_count = entity_344.entity_w_count
 # - - - - - - - - -

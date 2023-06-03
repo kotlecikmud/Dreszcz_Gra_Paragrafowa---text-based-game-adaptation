@@ -13,19 +13,18 @@ import time, pygame, msvcrt, os, random
 import functions, constants, paragraphs
 from colorama import Fore
 
-
-version = f'ver.{constants.debug_txt_clr}---'
-
-
 # check if the assets audio path exists, and if not, display an error message and exit the program
 if not os.path.exists(constants.assets_audio_pth):
     functions.error_message('', 'assets path not found')
     input('press any key to exit...')
     exit()
 
+
 def main_menu():
     while True:
-        print(version)
+        if constants.ver_num != '':
+            print(f'ver.{constants.debug_txt_clr}{constants.ver_num}')
+
         functions.clear_terminal()
         print(f'{constants.def_txt_clr}Witaj {constants.player_name}!')
         print(f'{constants.special_txt_clr}MENU GŁÓWNE{constants.def_txt_clr}')
@@ -222,7 +221,6 @@ def main_menu():
                                     for choice_difficulty_lvl, description in choices_difficulty_lvl:
                                         if usr_input == choice_difficulty_lvl:
 
-
                                             if choice_difficulty_lvl == 'łatwy':
                                                 difficulty_lvl = constants.d_lvl_e
 
@@ -350,7 +348,6 @@ def main_menu():
                     main_menu()
 
 
-
 #  loading player parameters
 functions.rpar()
 
@@ -358,9 +355,7 @@ functions.rpar()
 rnd_choice = random.choice(constants.music_main)  # losowanie muzyki z listy
 pygame.mixer.music.load(rnd_choice)
 pygame.mixer.music.set_volume(constants.def_bckg_volume)
-pygame.mixer.music.play(-1)  #  loop
+pygame.mixer.music.play(-1)  # loop
 
 # main menu
 main_menu()
-
-

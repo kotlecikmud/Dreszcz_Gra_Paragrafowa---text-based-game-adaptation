@@ -82,12 +82,14 @@ def _01():
 def _02():
     functions.dub_play(gb.gameboook_03, 'audiobook_adam_002.mp3', 'adam')
     # initiate combat with entity_002
-    functions.combat_init(entities.entity_002, True, entities.entity_002.esc_possible, 'paragraphs._372(', '', 'paragraphs._380()')
+    functions.combat_init(entities.entity_002, True, entities.entity_002.esc_possible, 'paragraphs._372(', '',
+                          'paragraphs._380()')
 
 
 def _03():
     functions.dub_play(gb.gameboook_03, 'audiobook_adam_003.mp3', 'adam')
-    path_strings = ['Spróbuj jeszcze raz (wymagane conajmniej 13 sztuk złota)', 'Wyciągnij z plecaka linę', 'Podejdź do mostu', 'Spróbuj przeskoczyć przez rozpadlinę (przynajmniej 18W i 9Z)']
+    path_strings = ['Spróbuj jeszcze raz (wymagane conajmniej 13 sztuk złota)', 'Wyciągnij z plecaka linę',
+                    'Podejdź do mostu', 'Spróbuj przeskoczyć przez rozpadlinę (przynajmniej 18W i 9Z)']
     actions = ['paragraphs._136()', 'paragraphs._13()', 'paragraphs._269()', 'paragraphs._74()', 'paragraphs._110()']
     functions.pth_selector(path_strings, actions)
 
@@ -290,6 +292,7 @@ def _31():
     path_strings = []
     actions = ['paragraphs._119()']
     functions.pth_selector(path_strings, actions)
+
 
 def _32():
     functions.dub_play(gb.gameboook_32, 'dreszcz_p_32.mp3')
@@ -572,7 +575,8 @@ def _115():
 
 def _116a():
     functions.dub_play(gb.gameboook_116a, 'dreszcz_p_116a.mp3')
-    functions.combat_init(entities.entity_116, entities.entity_116.state, entities.entity_116.esc_possible, '', '', 'paragraphs._116b()')
+    functions.combat_init(entities.entity_116, entities.entity_116.state, entities.entity_116.esc_possible, '', '',
+                          'paragraphs._116b()')
 
 
 def _116b():
@@ -580,7 +584,6 @@ def _116b():
     path_strings = ['Rozejrzyj się', 'Opuść pieczarę']
     actions = ['paragraphs._89()', 'paragraphs._120()']
     functions.pth_selector(path_strings, actions)
-
 
 
 def _119():
@@ -591,7 +594,7 @@ def _119():
 
 
 def _120():
-    functions.dub_play(gb.gameboook_120,  'dreszcz_p_120.mp3')
+    functions.dub_play(gb.gameboook_120, 'dreszcz_p_120.mp3')
     path_strings = []
     actions = ['paragraphs._64()']
     functions.pth_selector(path_strings, actions)
@@ -704,7 +707,6 @@ def _179():
 
 
 def _180():
-
     if entities.room_364.visit_count <= 2:
         functions.dub_play(gb.gameboook_180, 'dreszcz_p_180.mp3')
 
@@ -815,7 +817,9 @@ def _224():
 def _226():
     functions.dub_play(gb.gameboook_226, 'dreszcz_p_226.mp3')
     path_strings = ['tak', 'nie']
-    actions = ['paragraphs._101(entity, state, esc_possible, escape_id, stay_id, to_the_end, p_w_count, e_w_count, win_path(', 'paragraphs._385()']
+    actions = [
+        'paragraphs._101(entity, state, esc_possible, escape_id, stay_id, to_the_end, p_w_count, e_w_count, win_path(',
+        'paragraphs._385()']
     functions.pth_selector(path_strings, actions)
 
 
@@ -848,23 +852,28 @@ def _234():
 
 def _238a():
     functions.dub_play(gb.gameboook_238a, 'dreszcz_p_238a.mp3')
-    functions.combat_init(entities.entity_238_1, entities.entity_238_1.state, entities.entity_238_1.esc_possible, 'paragraphs._316(', 'paragraphs._238b(', 'paragraphs._xx()')
+    functions.combat_init(entities.entity_238_1, entities.entity_238_1.state, entities.entity_238_1.esc_possible,
+                          'paragraphs._316(', 'paragraphs._238b(', 'paragraphs._xx()')
 
 
 def _238b():
-    functions.combat_init(entities.entity_238_2, entities.entity_238_2.state, entities.entity_238_2.esc_possible, 'paragraphs._316(', 'paragraphs._238c(', 'paragraphs._xx()')
+    functions.combat_init(entities.entity_238_2, entities.entity_238_2.state, entities.entity_238_2.esc_possible,
+                          'paragraphs._316(', 'paragraphs._238c(', 'paragraphs._xx()')
 
 
 def _238c():
-    functions.combat_init(entities.entity_238_3, entities.entity_238_3.state, entities.entity_238_3.esc_possible, 'paragraphs._316(', 'paragraphs._238d(', 'paragraphs._xx()')
+    functions.combat_init(entities.entity_238_3, entities.entity_238_3.state, entities.entity_238_3.esc_possible,
+                          'paragraphs._316(', 'paragraphs._238d(', 'paragraphs._xx()')
 
 
 def _238d():
-    functions.combat_init(entities.entity_238_4, entities.entity_238_4.state, entities.entity_238_4.esc_possible, 'paragraphs._316(', 'paragraphs._238e(', 'paragraphs._xx()')
+    functions.combat_init(entities.entity_238_4, entities.entity_238_4.state, entities.entity_238_4.esc_possible,
+                          'paragraphs._316(', 'paragraphs._238e(', 'paragraphs._xx()')
 
 
 def _238e():
-    functions.combat_init(entities.entity_238_5, entities.entity_238_5.state, entities.entity_238_5.esc_possible, 'paragraphs._316(', 'paragraphs._xx(', 'paragraphs._xx()')
+    functions.combat_init(entities.entity_238_5, entities.entity_238_5.state, entities.entity_238_5.esc_possible,
+                          'paragraphs._316(', 'paragraphs._xx(', 'paragraphs._xx()')
 
 
 def _241():
@@ -893,6 +902,7 @@ def _251():
     actions = ['paragraphs._39()']
     functions.pth_selector(path_strings, actions)
 
+
 def _264():
     functions.dub_play(gb.gameboook_264, 'dreszcz_p_264.mp3')
     path_strings = []
@@ -913,7 +923,8 @@ def _268():
 def _269():
     functions.dub_play(gb.gameboook_269, 'dreszcz_p_269.mp3')
     functions.stats_change('Wytrzymałosć', constants.w_count, -2)
-    path_strings = ['Zapłać według taryfy(przynajmniej 10 sztuk złota)', 'Podejdź do mostu', 'Spróbuj przeskoczyć przez rozpadlinę(przynajmniej 18W i 9Z)', 'Ponów próbę z liną']
+    path_strings = ['Zapłać według taryfy(przynajmniej 10 sztuk złota)', 'Podejdź do mostu',
+                    'Spróbuj przeskoczyć przez rozpadlinę(przynajmniej 18W i 9Z)', 'Ponów próbę z liną']
     actions = ['check_for_gold_amount((_35(), pass, _10()', '_110()', '_358()']
     functions.pth_selector(path_strings, actions)
 
@@ -1000,7 +1011,8 @@ def _316():
 
 def _317a():
     functions.dub_play(gb.gameboook_317a, 'dreszcz_p_317a.mp3')
-    functions.combat_init(entities.entity_317, entities.entity_317.state, entities.entity_317.esc_possible, '', '', 'paragraphs._317b()')
+    functions.combat_init(entities.entity_317, entities.entity_317.state, entities.entity_317.esc_possible, '', '',
+                          'paragraphs._317b()')
     # combat_init(entity, state, esc_possible, escape_id, stay_id, win_path_id):
 
 

@@ -37,13 +37,10 @@ class Entity:
         self.state = False
 
 
-
 # // room builder
 class Room:
-    def __init__(self, room_num, room_state = False, max_visit_count = 999, visit_count = 0):
+    def __init__(self, room_num, room_state=False, max_visit_count=999, visit_count=0):
         self.room_num = room_num
         self.room_state = room_state
         self.max_visit_count = max_visit_count
         self.visit_count = visit_count
-
-
