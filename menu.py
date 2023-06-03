@@ -37,7 +37,7 @@ def main_menu():
             ('Ustawienia', 'ustawienia'),
             ('Wyjdź z gry', 'wyjdź z gry'),
             ('eval()', 'wykonywanie kodu, tylko do testów'),
-            # ('bool_settings', 'globalne stałę dla różnych funkcji, tylko do testów')
+            # ('bool_set', 'globalne stałę dla różnych funkcji, tylko do testów')
         ]
 
         for i, (choice_main_menu, description) in enumerate(choices_main_menu, 1):  # wyświetlanie listy w menu głównym

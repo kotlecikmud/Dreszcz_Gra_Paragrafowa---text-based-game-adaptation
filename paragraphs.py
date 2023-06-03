@@ -536,7 +536,7 @@ def _112():
 def _113():
     functions.dub_play(gb.gameboook_113, 'dreszcz_p_113.mp3')
     path_strings = ['blank', 'blank']
-    actions = ['paragraphs.xx()', 'paragraphs.xx()']
+    actions = ['paragraphs._xx()', 'paragraphs._xx()']
     functions.pth_selector(path_strings, actions)
 
 

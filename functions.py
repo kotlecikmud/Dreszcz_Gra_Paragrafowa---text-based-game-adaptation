@@ -3,7 +3,6 @@ import constants, obj_class, paragraphs
 from colorama import Fore
 
 
-# /// Drobne
 def loading(duration):  # loading animation
     while duration > 0:
         print('.', end='')
@@ -23,8 +22,12 @@ def error_message(error_name, msg):
 
 
 def clear_terminal():
-    subprocess.call('cls' if os.name == 'nt' else 'clear', shell=True)
-    # debug_message('function clear_terminal() is disabled for debugging purposes')
+    toggle = False
+
+    if toggle:
+        subprocess.call('cls' if os.name == 'nt' else 'clear', shell=True)
+    else:
+        debug_message('function clear_terminal() is disabled for debugging purposes')
 
 
 def dub_play(string, audio_file_id, voice = None):
