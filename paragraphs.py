@@ -32,13 +32,13 @@ def _xx():  # placeholder
 
 # - - - - - - - - -
 def par_00():
-    functions.dub_play(gb.gameboook_00a, 'dreszcz_intro.mp3')
+    functions.dub_play(gb.gameboook_00a, 'audiobook_adam_000a.mp3', 'adam')
 
     while True:
         functions.dub_play(f'{constants.special_txt_clr}Wybierz eliksir:\
             \n1. Zręczności\
             \n2. Wytrzymałości\
-            \n3. Szczęścia', 'elxr_choice.mp3')
+            \n3. Szczęścia', 'audiobook_adam_elxr_choice.mp3', 'adam')
         choice = input(f'{constants.input_sign}')
 
         if choice == '1':
@@ -506,7 +506,7 @@ def _104():
 
 
 def _105():
-    functions.dub_play(gb.gameboook_105, 'dreszcz_p_105.mp3')
+    functions.dub_play(gb.gameboook_105, 'audiobook_adam_105.mp3', 'adam')
     functions.stats_change('Wytrzymałość', constants.w_count, -1)
     print('Czy chcesz ponowić próbę?')
     path_strings = ['tak', 'nie']

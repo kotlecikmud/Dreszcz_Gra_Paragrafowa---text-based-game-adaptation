@@ -65,7 +65,8 @@ music_combat = [f'{assets_audio_music_pth}/music_combat_1.mp3',  # List of comba
                 f'{assets_audio_music_pth}/music_combat_2.mp3']
 
 music_main = [f'{assets_audio_music_pth}/music_main_1.mp3',  # List of main music tracks
-              f'{assets_audio_music_pth}/music_main_2.mp3']
+              f'{assets_audio_music_pth}/music_main_2.mp3',
+              f'{assets_audio_music_pth}/dark_strings_15_11_2020.wav']
 
 # /// sound mixing
 pygame.mixer.init(frequency=44100, size=-16, channels=1,
