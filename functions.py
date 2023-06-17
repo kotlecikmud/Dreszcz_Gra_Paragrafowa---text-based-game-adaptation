@@ -23,7 +23,7 @@ def error_message(error_name, msg):
 
 
 def clear_terminal():
-    toggle = True
+    toggle = False
 
     if toggle:
         subprocess.call('cls' if os.name == 'nt' else 'clear', shell=True)
@@ -107,6 +107,8 @@ def name_randomizer():
     else:
         last_name = random.choice(last_parts)
     player_name = f'{Fore.LIGHTYELLOW_EX}{first_name} {last_name}{constants.def_txt_clr}'
+    print(player_name)
+    time.sleep(1)
     constants.player_name = player_name
     return constants.player_name
 
@@ -432,9 +434,9 @@ def combat_round(entity, state, esc_possible, escape_id, stay_id, to_the_end, p_
 
     if state:
         loading(1)
-        if a > b:
+        if a > b:  # jeśli wróg wygrał rundę
 
-            if constants.w_count > 0:  # jeśli wróg wygrał rundę
+            if constants.w_count > 0:
                 if e_w_count <= 0:
                     state = False
                     combat_main(entity, state, esc_possible, escape_id, stay_id, to_the_end, p_w_count, e_w_count,
@@ -446,9 +448,9 @@ def combat_round(entity, state, esc_possible, escape_id, stay_id, to_the_end, p_
 
                 constants.w_count = max(constants.w_count, 0)
 
-        elif a < b:
+        elif a < b:  # jeśli gracz wygrał rundę
 
-            if entity.entity_w_count > 0:  # jeśli gracz wygrał rundę
+            if entity.entity_w_count > 0:
                 entity.entity_w_count += constants.p_hit_val_
                 print(f"{Fore.LIGHTYELLOW_EX}{constants.player_name}{constants.combat_txt_clr} zadał cios!\
                 \n{constants.special_txt_clr}/// Wytrzymałość {Fore.LIGHTRED_EX}{entity.name}{constants.special_txt_clr}: {entity.entity_w_count}/{entity.entity_w_init}")
@@ -456,8 +458,7 @@ def combat_round(entity, state, esc_possible, escape_id, stay_id, to_the_end, p_
 
                 entity.entity_w_count = max(entity.entity_w_count, 0)
 
-        else:
-            # jeśli remis
+        else:  # jeśli remis
             print(f'{constants.special_txt_clr}Remis!')
             dub_play('', f'{constants.assets_audio_pth}/dreszcz_remis.mp3')
 

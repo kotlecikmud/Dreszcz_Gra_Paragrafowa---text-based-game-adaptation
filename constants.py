@@ -7,7 +7,7 @@ ver_num = ''
 debug_msg_enable = True  # Enables or disables debugging messages.
 allow_skip_dub = False  # Determines whether dubbing can be skipped.
 skip_dub = False  # Determines whether dubbing has been skipped.
-automatic_battle = True  # Determines whether battles are automatic.
+automatic_battle = False  # Determines whether battles are automatic.
 menu_explainer = False  # Toggle between showing/hiding settings description
 
 # /// initiators
@@ -18,7 +18,7 @@ d_lvl_e = 1  # Difficulty level: easy
 d_lvl_m = d_lvl_e * 1.3  # Difficulty level: medium
 d_lvl_h = d_lvl_e * 1.6  # Difficulty level: hard
 p_luck = None  # Player's luck
-player_name = f'{Fore.LIGHTYELLOW_EX}Śmiałek{Fore.LIGHTWHITE_EX} '  # Player's name
+player_name = f'{Fore.LIGHTYELLOW_EX}Śmiałek{Fore.LIGHTWHITE_EX}'  # Player's name
 round_count = 0  # Round counter
 s_count = s_init = 0  # Action points counter: luck
 w_count = w_init = 0  # Action points counter: stamina
@@ -92,7 +92,6 @@ main_eq = ['plecak na Prowiant', f'prowiant ({eatables_count} porcji)', 'tarcza'
 #             }
 
 # /// słowniki wyborów
-
 choices_115 = {'Miecz': '_232()',
                'Kościany kordelas': '_324()',
                'Rękawice': '_95()',

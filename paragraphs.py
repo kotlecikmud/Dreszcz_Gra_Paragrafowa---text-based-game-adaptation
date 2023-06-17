@@ -800,6 +800,11 @@ def _200():
     functions.pth_selector(path_strings, actions, True, entities.room_364)
 
 
+def _210():
+    print(gb.gameboook_210)
+    _xx()
+
+
 def _212():
     functions.dub_play(gb.gameboook_212, 'dreszcz_p_212.mp3')
     path_strings = ['zachód', 'północ', 'zachód', 'połódnie']

@@ -360,7 +360,7 @@ gameboook_113 = ''
 
 gameboook_114 = ''
 
-gameboook_115 = 'Wybierz dwie żeczy:'
+gameboook_115 = 'Wybierz żeczy:'
 
 gameboook_116a = f'Odbiegasz w kąt pieczary. Kamienie pryskają spod stóp.\
     \n{entities.entity_116.name} przygląda się uważnie i naciera. Musisz walczyć.'

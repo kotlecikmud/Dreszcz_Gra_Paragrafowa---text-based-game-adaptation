@@ -5,7 +5,7 @@
 # GRA PARAGRAFOWA
 # autor: Jacek Ciesielski 1987
 # oprogramowanie: Filip Pawłowski 2023
-# /// wersja: 0.3
+# /// wersja: 17.19.17.06.2023
 # - - - - - - - - -
 # - - - - - - - - -
 # - - - - - - - - -
@@ -35,8 +35,8 @@ def main_menu():
             ('Zasady Gry', 'przeczytaj zasady'),
             ('Ustawienia', 'ustawienia'),
             ('Wyjdź z gry', 'wyjdź z gry'),
-            ('eval()', 'wykonywanie kodu, tylko do testów'),
-            # ('bool_set', 'globalne stałę dla różnych funkcji, tylko do testów')
+            # ('eval()', 'wykonywanie kodu, tylko do testów'),
+            # ('bool_settings', 'globalne stałę dla różnych funkcji, tylko do testów')
         ]
 
         for i, (choice_main_menu, description) in enumerate(choices_main_menu, 1):  # wyświetlanie listy w menu głównym
