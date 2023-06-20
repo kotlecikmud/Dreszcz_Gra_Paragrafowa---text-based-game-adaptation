@@ -113,9 +113,9 @@ gameboook_13 = 'Nie musisz się rozglądać. Od razu powiem ci wszystko. W tej k
     \nBłyskawicznie chwytasz oburącz swój miecz. Robisz zamach...\
     \ni zastygasz nieruchomo. Zielone ślepia paraliżują twe ciało'
 
-gameboook_14 = ''
+gameboook_14 = 'Możesz wyjść północnymi drzwiami - patrz 197, albo wschodnimi - patrz 39.'
 
-gameboook_15 = ''
+gameboook_15 = 'Jeśli rezygnuiesz z przepłynięcia jeziora - patrz 241, Natomiast jeżeli decydujesz się podjqć próbę przepłynięcia jeziora, zapisz numer niniejszego paragrafu i patrz 113.'
 
 gameboook_16a = 'Wychodzisz na korytarz. Po pewnym czasie skręca on na południe. W tym samym\
     \nmiejscu możesz usiąść i zjeść Prowiant.'
@@ -123,7 +123,7 @@ gameboook_16a = 'Wychodzisz na korytarz. Po pewnym czasie skręca on na południ
 gameboook_16b = 'Ruszasz dalej. Idziesz na południe do czasu, gdy tunel skręca na znowu zachód.\
     \nW odległości dwudziestu kroków widzisz przed sobą wejście do komnaty.'
 
-gameboook_17 = ''
+gameboook_17 = 'JeŚli chcesz zobaczyć co za nimi iest - patrz 265, jeśli wolisz się wycofać - patrz 50.'
 
 gameboook_18 = 'Wchodzisz do małej pieczary, przylegającej do komnaty. Za tobą trzy ZŁE.\
     \nStaruszek został w pokoju. Za wyłomem skalnym widzisz przykutego do skały\
@@ -140,53 +140,94 @@ gameboook_20 = 'Po długim marszu dochodzisz do jakiejś wielkiej jaskini.\
     \nSłyszysz jakiś hałas. Co sił wnogach biegniesz na zachód.\
     \nJednak potwory dopadają cię.'
 
-gameboook_21 = ''
+gameboook_21 = 'Jeśli chcesz zobaczyć co jest za drzwiami - patrz 332, jeśli nie - zawracasz i patrz 212.'
 
-gameboook_22 = ''
+gameboook_22 = 'To chyba juz kres twej wędrówki. Tak ślicznej komnaty ieszcze nie widziałeŚ.\
+\nWszędzie jasno, unosi się zielonkawa mgiełka. Posadzka jeszcze gładsza niż nad przepaścią.\
+\nNa podłodze siedzi jakiś ludek. Ah, to prawdziwy KRASNAL bawi się smoczkiem, nakręcanym,\
+\nz ruchomymi nogami i czerwonym językiem, który mu się co chwilę wysuwa. JeŚli masz\
+\nblaszanego motyla, możesz odpocząć i pobawić się z KRASNALEM - patrz 321.\
+\nJeśli masz szmaragd, możesz pokazać go KRASNALOWI - patrz 187. Tylko wtedy,\
+\ngdy masz drewniany pal, możesz próbować postraszyć albo nawet zaatakowac KRASNALA -patrz 9.\
+\nJeżeli masz więcej niż,iedną z wymienionych rzeczy, musisz wybrac tylko jedną możliwość'
 
-gameboook_23 = ''
+gameboook_23 = 'Drzwi do skarbca stoia przed toba... otworem? o, nie! są zamknięte.\
+\nWidzisz dwa zamki. Jeśli masz przynaimniej dwa numerowane kluczyki,\
+\nmożesz otworzyć nimi drzwi - patrz 185. Jeśli nie masz choć dwóch kluczy,\
+\ntu kończy się twoja Wyprawa. A było tak blisko!'
 
-gameboook_24 = ''
+gameboook_24 = 'Rzuć raz kostką. Jeśli wy|osujesz 1, 2, 3 - twoja broń\
+\nokaże się skutecznym narzędziem w walce z ROBALAMI - patrz 58.\
+\nJeŚli wylosujesz 4, 5, 6, nic z tego - patrz 168.'
 
 gameboook_25 = 'Na kamieniu siedzi stary człowiek. Radzi ci iść na zachód,\
     \na później na kilku najbliższych skrzyżowaniach skręcać w prawo.'
 
-gameboook_26 = ''
+gameboook_26 = 'Za celne trafienie każdego grubasa dostajesz 5 sztuk złota. Patrz 171.'
 
-gameboook_27 = ''
+gameboook_27 = 'Korytarz prowadzi prosto na północ. Po drodze możesz zjeść Prowiant.\
+\nZaczyna się rozszerzać, powiększać, aż wychodzisz na bezkresną równinę, To szalone Pola.\
+\nLepiej się tam nie zapuszczaj. Ale... czy słyszysz to dudnienie? To na pewno potwory.\
+\nPatrz 238. JeŚli je pokonasz albo wycofasz się w trakcie walki - patrz 316.\
+\nZapisz ten numer, bo zgubisz drogę.'
 
 gameboook_28 = 'Podnieś wielki kamień leżący przy ścianie.'
 
 gameboook_29 = f'Potykasz się na kamyku. Miecz brzęknął o skałę. {entities.entity_116.name} podnosi głowę.\
     \nZauważył cię. Rzuca się do walki.'
 
-gameboook_30 = ''
+gameboook_30 = 'SSS. Jeśli masz S - patrz 159. JeŚli nie masz S - patrz 342.'
 
 gameboook_31 = 'Poświeć latarnią niżej. Rozgarnij mieczem to padło. A widzisz - znalazteś 5 sztuk ztota!'
 
-gameboook_32 = ''
+gameboook_32 = 'Wyczerpany siadasz pod skałą. Możesz zjeść coś z Prowiantu.\
+\nLedwie skończyłeś posiłek, gdy do pieczary wpadają WILKOLUDY, znacznie\
+\nsłabsze od WILKOŁAKA, ale za to są trzy. Traktujesz je jako jednego potwra i walczysz.\
+\nWILKOLUDY Z:8 W:7\
+\nJeśli zwyciężyłeś - patrz 275.'
 
-gameboook_33 = ''
+gameboook_33 = 'Jeszcze trochę i będziesz na skrzyżowaniu.\
+\nIdziesz na: . północ - patrz 293, na wschód - patrz 188, na południe - patrz 247'
 
-gameboook_34 = ''
+gameboook_34 = 'Ujawniasz swe odkrycie: drzwi w północnej ścianie. Nie robi to na nich wrażenia.\
+\nMówisz. że chcesz zobaczyć, co za nimi jest. Nie protestują.. Wstajesz od stołu i wzdłuż ściany\
+\ndochodzisz do sekretnych drzwi. Jeden z KRASNOLUDÓW przekręca ukrytą w ziemi gałkę.\
+\nDrzwi otwierają się. Wchodzisz - patrz 128'
 
-gameboook_35 = ''
+gameboook_35 = 'Płacisz wedtug taryfy (10 sztuk ztota). On rozkracza się nad rozpadliną. Podstawia ci ogon.\
+\nWchodzisz. Zapewne zaraz przeniesie cię na druga stronę wąwozu. Ale... Smok ma swoie humory. Często mu się zmieniają.\
+\nWłaśnie teraz obłapiasz jego ogon Wiszac nad czerwoną otchłanią. SSS. Jeśli masz S, przechodzisz na drugi brzeg - patrz 186.\
+\nJeśli nie masz S, Smok zrzuca cię z powrotem na krawędz skalną - patrz 158'
 
-gameboook_36 = ''
+gameboook_36 = 'SSS. Jeśli masz S - patrz 152. .jeśli nie masz S - patrz 176'
 
-gameboook_37 = ''
+gameboook_37 = 'Jaka tarczę wybierasz: metalową, paradną, czy skórzaną? Wpisz swój wybór na listę ekwipunku - patrz 324.'
 
-gameboook_38 = ''
+gameboook_38 = 'Korytarz prowadzi najpierw na północ, a pózniej łagodnym łukiem skręca ku wschodowi.\
+\nRozszerza się nieco i kończy schodami biegnącymi w dół. Stajesz przed drzwiami pokrytymi wyszukanymi ozdobami.\
+\nCzy byłeś iuż za tymi drzwiami? Jeśli tak - patrz 167, jeśli nie - patrz 328.'
 
 gameboook_39 = 'Dochodzisz do skrzyżowania. Jego odnogi prowadzą na:'
 
-gameboook_40 = ''
+gameboook_40 = 'Czy będziesz polegał tylko na kartach? - patrz 334, czy też będziesz korzystał ze swoiego SZCZĘŚCIA? - patrz 62'
 
-gameboook_41 = ''
+gameboook_41 = 'Udało ci się zrobić tylko parę kroków a tu korytarz zupełnie zatarasowany masą kamieni i piasku.\
+\nSpróbuj tupnac noga. Stare gremliny mówią, że to jest sposób na takie zawalidrogi. SSS. Jeśli masz S - góra skał\
+\nwpada gdzieŚ w przepaść, możesz iść da|ej - patrz 348. Jeśli nie masz S - musisz wrócić - oatrz 221,'
 
-gameboook_42 = ''
+gameboook_42 = 'Mówią o nim BARBARZYŃCA. czy słusznie? Kto wie? Gdy tak siedzi na ławie z wyciągniętymi nogami i rękami założonymi\
+\nna piersiach, nie wyglada groźnie. Cicho chrapie. Walisz mieczem w ścianę. Co jest? Ocknął się. Wchodzisz teraz do komnaty\
+\ni pokazujesz na drzwi po przeciwnej, zachodniej stronie. Otwieraj szybko tamte drzwi - pokazuiesz mu końcem miecza.\
+\nSam sobie otwórz - rechoce - Klucz jest w zamku: Istotnie. Podchodzisz do drzwi. obawiając się zasadzki,\
+\nnie dotykasz ręką klucza, lecz wsadzasz czub miecza w oko klucza i próbujesz przekręcic. Nic z tego. \
+\nNic z tego...- ryczy BARBARZYŃCA - Zaklęcie znasz? Jeśli nie znasz, to lepiej się stąd wynoś!\
+\nNo, właśnie, pamiętasz zaklęcie ze starej księgi gremlinów? Zaraz, a może ty wcale nie widziałeś tej księgi\
+\nTak czy owak, jeśli nie znasz zaklęcia, to koniec z tobą, bratku. spróbuj jeszcze raz, od samego początku.\
+\nJeśli wydaje ci się, że pamiętasz zaklęcie, powtórz je, Teraz zairzyj do paragrafu 122. Jeśli zapamiętałeś prawidłowo - patrz 376.\
+\nJeżeli zrobiłeś choćby najmniejszy błąd, kończysz przygodę. Jej dalsze prowadzenie w takiej sytuacji nie jest godne prawdziwego Śmiałka.'
 
-gameboook_43 = ''
+gameboook_43 = 'Musisz wrócić tędy, którędy przyszedłeś, aż znaidziesz się na drugim końcu przepaści. Po drodze z nikim nie walczysz,\
+\nniczego nie kupujesz, niczego nie zabierasz. Musisz spróbować innego wyjścia. Wymienione są w paragrafie 186.'
 
 gameboook_44 = 'Idziesz na wschód. Widzisz przed sobą solidne drzwi.\
     \nPróbujesz je otworzyć. Nie ustępują...'
@@ -194,54 +235,65 @@ gameboook_44 = 'Idziesz na wschód. Widzisz przed sobą solidne drzwi.\
 gameboook_45 = 'Kierujesz się w stronę fontanny. Nabierasz wody. Jest zaczarowana.\
     \nChowasz naczynie do plecaka. Spostrzegasz, że fontanna jest już pusta.'
 
-gameboook_46 = ''
+gameboook_46 = 'Wypatrujesz, jak wyjść z północnego brzegu pieczary. Widzisz niewielki otwór. Ruszasz w jego stronę i przeciskasz się z trudem. Patrz 53'
 
-gameboook_47 = ''
+gameboook_47 = 'Przeszedłeś zaledwie kilkanaście kroków i korytarz skręca w prawo, a zaraz potem kończy się. Możesz usiąść i sokojnie zjeść Prowiant.\
+\nPotem wracaj do skrzyźownia i idż na północ - patrz 191'
 
-gameboook_48 = ''
+gameboook_48 = 'Otwierasz plecak i sięgasz po naczvnie, by przesypać skarb. W tej samej chwili złoto rozpryskuje się we wszystkie strony,\
+\na wazy przemieniają się w dwa potężne, skrzydlate DEMONY, które wznoszą się i siadają na slnym występie. Możesz zaatakować je - patrz 169,\
+\nalbo wziąć się do zbierania rozsypanego złota - patrz - 33.'
 
-gameboook_49 = ''
+gameboook_49 = 'Możesz wziąc tę księgę ze sobą (wpisz na listę ekwipunku) albo ją zostawić. Patrz 286.'
 
 gameboook_50 = 'Zbliżasz się do skrzyżowania.\
     \nMożesz iść:'
 
-gameboook_51 = ''
+gameboook_51 = 'Możesz wyjść drzwiami południowi - patrz 134, albo północnymi - patrz 33. Jedne i drugie drzwi zostaw otwarte'
 
-gameboook_52 = ''
+gameboook_52 = 'Z otworu w ścianie wystrzeliwuje strumień gryzącego gazu. Jeśli masz hełm garnkowy, nie dzieje ci się krzywda.\
+\nChoć hełm ulega zniszczeniu. Jeśli nie masz takieqo hełmu - patrz najpierw 315, a potem 274 (zapisz ten numer).'
 
-gameboook_53 = ''
+gameboook_53 = 'Lądujesz w przestronnym chodniku. Wiedzie na północ, a po pewnym czasie skręca ostro na wschód.\
+\nRobisz kilkadziesiąt kroków i stajesz przed ciężkimi drzwiami, - Czy byłeś już tu? Jeśli tak - patrz 322, jeśli nie - patrz 299'
 
-gameboook_54 = ''
+gameboook_54 = 'Miotasz mtotem. Trafiłeś celnie. STRAŻNIK traci 2 W, ale nadal stoi jak słup. Patrz 107.'
 
-gameboook_55 = ''
+gameboook_55 = 'Dajesz złoto, bierzesz pal, słój albo jedno i drugie - patrz 196.'
 
 gameboook_56 = 'Ponownie próbujesz wyważyć drzwi. Znowu bezskutecznie.'
 
-gameboook_57 = ''
+gameboook_57 = 'Po wylądowaniu łajdak żqda całego twoiego zlota. Możesz powiedzieć, że dasz tylko tyle, ile żądał - patrz 335,\
+\nalbo że - w takim razie - nie dasz nic - patrz 91'
 
-gameboook_58 = ''
+gameboook_58 = 'Stosujesz swą tajemną broń. Całkowicie paralizue ROBALE. Jeśli chcesz zanurzyć się między ich cielska i\
+\nponownie przeszukać basen - patrz 142, jeśli nie . patrz 320.'
 
 gameboook_59 = 'Wchodzisz, ale niczego tu nie znajdujesz.\
     \nCzy znasz inne wyjście z tej komnaty niż to, którym właśnie wszedłeś?'
 
-gameboook_60 = ''
+gameboook_60 = 'KRASNAL proponuje 20 sztuk złota. Akceptujesz? Tak - patrz 262, nie - patrz 338.'
 
-gameboook_61 = ''
+gameboook_61 = 'Idziesz korytarzem. Po drodze możesz zieść Prowiant. Po pewnym czasie odchodzi od niego rozgałęzienie na północ,\
+\nale ty uparcie podążasz na zachód. Kilkanaście kroków za tym rozgałęzieniem widzisz drzwi. Otwierasz je - patrz 42.'
 
-gameboook_62 = ''
+gameboook_62 = 'SSS. Jeśli masz S - patrz 201, Jeśli nie masz S - patrz 145'
 
-gameboook_63 = ''
+gameboook_63 = 'Miecz nie jest skuteczną bronią przeciw WILKOŁAKOM. Jeśli masz któryś z wymienionych przedmiotów, możesz użyc go do walki:\
+\nkośc ze szkieletu przedwiecznego potwora - patrz 157\
+\nmłot goblinów - patz 346, metafowa tarcza - patrz 216,\
+\nsieć - patrz 377, pęk kluczy - patrz 181. Jeśli nie masz żadnego z tych przedmiotów, pozostaie ci tylko Ucieczka - patrz 275.'
 
 gameboook_64 = 'Zbliżasz się do skrzyżowania. Możesz iść w każdym z czterech kierunków.\
     \nWybierz kierunek:'
 
-gameboook_65 = ''
+gameboook_65 = 'Masz już dosyć tego miejsca? Jeśli tak - patrz 195,  jeśli nie - patrz 283.'
 
-gameboook_66 = ''
+gameboook_66 = 'Rzucasz dwiema kostkami. Pokaża ci ile sztuk złota wygrywasz. Chcesz grac dalej? - patrz 229. Nie chcesz? - patrz 19'
 
-gameboook_67 = ''
+gameboook_67 = 'Musisz się wycofać- patrz 50.'
 
-gameboook_68 = ''
+gameboook_68 = 'Wychodzisz ze zbrojowni. Jedyne drzwi prowadzą na północ. Podążasz korytarzem aż do najbliższego skrzyżowania. Po drodze możesz usiąść i zjeść Prowiant. Patrz 212.'
 
 gameboook_69a = 'Sam tego chciałeś. Pod ścianą komnaty siedzą dwa koszmarne upiory.\
     \nTakie spotkanie może zakończyć się tylko walką, najpierw z jednym, a później z drugim potworem.'
@@ -609,9 +661,9 @@ gameboook_218 = ''
 
 gameboook_219 = ''
 
-gameboook_220 = ''
+gameboook_220 = 'Jeśli wybrałeś kość potwora, słój z wszystkożerami, blaszanego motyla lub włócznię - patrz 109, a jeśli klucz. patrz 366.'
 
-gameboook_221 = ''
+gameboook_221 = 'Dochodzisz do skrzyżowania, którym możesz przedostać się na: północ - patrz 339, - wschód - patrz 41, o południe - patrz 173.'
 
 gameboook_222 = ''
 
@@ -796,7 +848,7 @@ gameboook_304 = ''
 
 gameboook_305 = 'W tej komnacie ukryte jest coś bardzo wartościowego. Żeby to znaleźć musisz wybrać jedną z podanych metod:'
 
-gameboook_306 = ''
+gameboook_306 = 'Nabierasz wody. Jest zaczarowana. Chowasz naczynie do plecaka. Dostajesz +2s. Patrz - 109'
 
 gameboook_307 = ''
 
@@ -989,14 +1041,15 @@ gameboook_380 = ''
 
 gameboook_381 = ''
 
-gameboook_382 = ''
+gameboook_382 = 'Po pewnvm czasie korytarz skręca na północ. Na zakręcie mozesz zjeść Prowiant. Patrz - 134'
 
-gameboook_383 = ''
+gameboook_383 = 'Ogarnia cię wściekłość. Chwytasz za miecz i atakujesz - patrz 318.'
 
-gameboook_384 = ''
+gameboook_384 = 'Pięćdziesiąt kroków naprzód, a potem skręt W lewo (czyli na północ) i trzydzieści kroków. Patrz 221.'
 
 gameboook_385 = 'Możesz wydostać się z komnaty DEMONÓW albo przez wschodnie albo przez zachodnie drzwi.'
 
-gameboook_386 = ''
+gameboook_386 = 'Zbliżasz sie do skrzyżwania. Możesz iść albo na zachÓd - patrz 345, albo na wschÓd - patrz 273.'
 
-gameboook_387 = ''
+gameboook_387 = 'Wkładasz klucze do zamka. Najpierw pierwszy... stuk, później drugi... stuk i trzeci... stuk. Detikatnie podnosisz wieko skrzvni.\
+\nNa jej dnie leżą jakieś papiery. Nie, to złożony na 16 stron, ilustrowany druk. ostrożnie przewracasz kartki. Znajdujesz w nim dokładny opis wędrówki po podziemnym labiryncie. Zatrzymaj go, bo to papier niezwykle wartościowv'

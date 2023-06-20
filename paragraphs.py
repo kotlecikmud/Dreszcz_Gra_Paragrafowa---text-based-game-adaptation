@@ -10,11 +10,11 @@ import gamebook as gb
 def _xx():  # placeholder
     pygame.mixer.music.fadeout(1200)
     while True:
-        odp = input(f"--placeholder function--\
+        odp = input(f"{constants.special_txt_clr}--placeholder function--\
                 \n\
                 \npress enter to return to _64()\
                 \nor type any command here:\
-                \n{constants.input_sign}")
+                \n{constants.input_sign}{constants.def_txt_clr}")
 
         rnd_choice = random.choice(constants.music_main)  # losowanie muzyki z listy
         pygame.mixer.music.load(rnd_choice)
@@ -58,7 +58,7 @@ def par_00():
     functions.clear_terminal()
     print(f"/// eliksir {potion} = {constants.count_potion}/2\
             \n{constants.def_txt_clr}")
-    time.sleep(2)
+    time.sleep(1.3)
 
     rnd_choice = random.choice(constants.music_main)  # losowanie muzyki z listy
     pygame.mixer.music.load(rnd_choice)
@@ -817,6 +817,11 @@ def _224():
     path_strings = []
     actions = ['paragraphs._180()', 'paragraphs._301()']
     functions.pth_selector(path_strings, actions, True, entities.room_364)
+
+
+def _220():
+    print(gb.gameboook_220)
+    _xx()
 
 
 def _226():

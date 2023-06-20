@@ -4,8 +4,8 @@
 # 'DRESZCZ'
 # GRA PARAGRAFOWA
 # autor: Jacek Ciesielski 1987
-# oprogramowanie: Filip Pawłowski 2023
-# /// wersja: 17.19.17.06.2023
+# oprogramowanie: Filip Pawłowski 2023 (filippawlowski2012@gmail.com)
+# /// wersja: xx.xx.16.06.2023
 # - - - - - - - - -
 # - - - - - - - - -
 # - - - - - - - - -
@@ -35,7 +35,7 @@ def main_menu():
             ('Zasady Gry', 'przeczytaj zasady'),
             ('Ustawienia', 'ustawienia'),
             ('Wyjdź z gry', 'wyjdź z gry'),
-            # ('eval()', 'wykonywanie kodu, tylko do testów'),
+            ('eval()', 'wykonywanie kodu, tylko do testów'),
             # ('bool_settings', 'globalne stałę dla różnych funkcji, tylko do testów')
         ]
 
