@@ -3,7 +3,7 @@ import constants, obj_class, paragraphs
 from colorama import Fore
 
 
-def loading(duration):  # loading animation
+def loading(duration):  # loading 'animation'
     while duration > 0:
         print('.', end='')
         time.sleep(0.3)
@@ -11,28 +11,27 @@ def loading(duration):  # loading animation
 
 
 def debug_message(msg):
-    if constants.debug_msg_enable:
+    if constants.dev_mode:
         print(f'{constants.debug_txt_clr}DEBUG: {msg}{constants.def_txt_clr}')
 
 
 def error_message(error_name, msg):
-    if error_name == '':
-        error_name = 'ERROR'
-    if constants.debug_msg_enable:
+    if constants.dev_mode:
+        if error_name == '':
+            error_name = 'ERROR'
         print(f'{constants.error_txt_clr}{error_name}{constants.debug_txt_clr} || {msg}{constants.def_txt_clr}')
 
 
 def clear_terminal():
-    toggle = False
-
-    if toggle:
-        subprocess.call('cls' if os.name == 'nt' else 'clear', shell=True)
-    else:
+    if constants.dev_mode:
         debug_message('function clear_terminal() is disabled for debugging purposes')
+    else:
+        subprocess.call('cls' if os.name == 'nt' else 'clear', shell=True)
 
 
 def dub_play(string, audio_file_id, voice=None):
-    if voice == None:  # 'Dunmer' voice
+    audio_path = None
+    if not voice:  # default 'Dunmer' voice
         audio_path = constants.assets_audio_pth
     elif voice.lower() == 'adam':
         audio_path = constants.assets_audio_pth_adam
@@ -49,22 +48,22 @@ def dub_play(string, audio_file_id, voice=None):
     pygame.mixer.stop()
     current_sound.set_volume(constants.def_action_volume)
 
-    # znajdź wolny kanał
+    # find empty channel
     channel = None
     for i in range(pygame.mixer.get_num_channels()):
         if not pygame.mixer.Channel(i).get_busy():
             channel = pygame.mixer.Channel(i)
             break
     if channel is None:
-        debug_message('Nie znaleziono wolnego kanału.')
+        debug_message('Could not find empty channel.')
         return
 
-    # odtwórz dźwięk na znalezionym kanale
+    # play sound on found channel
     channel.play(current_sound)
     if len(string) > 0:
         print(string)
 
-    # czekaj, aż plik audio się skończy
+    # wait until audio stops playing
     if constants.allow_skip_dub:
         input(f'pomiń {constants.input_sign}')
         pygame.mixer.stop()
@@ -86,7 +85,7 @@ def name_randomizer():
 
     first_name = random.choice(first_parts)
     last_name = ''
-    if first_name == 'Zbyszko z Bogdańca':
+    if first_name == 'Zbyszko z Bogdańca':  # meme for ya (probabbly only poles could understand, sorry)
         audio_file_id = f"{constants.assets_audio_effects_pth}/zbych.mp3"
         try:
             def_action_volume = constants.def_action_volume
@@ -94,7 +93,7 @@ def name_randomizer():
             current_sound.set_volume(def_action_volume)
             channel = pygame.mixer.find_channel()
             if channel is None:
-                debug_message('Nie znaleziono wolnego kanału.')
+                debug_message('Could not find empty channel.')
                 return
             channel.play(current_sound)
         except FileNotFoundError:
@@ -131,13 +130,13 @@ def rpar():
 
 
 def pth_selector(path_strings=[], actions=[], visit_check=False, room_id=0):
-    if room_id != 0:  # dolicz wizytę jeśli podano numer pokoju
+    if room_id != 0:  # add visit count if room number was given
         room_id.visit_count = update_num_variable(room_id.visit_count, 1)
-        debug_message(f'dodano wizytę: numer wizyty w pokoju {room_id.room_num} = {room_id.visit_count}')
+        debug_message(f'added visit: visit count of room number {room_id.room_num} = {room_id.visit_count}')
 
     if not visit_check:
         debug_message(f'actions: {actions}')
-        #  jeśli istnieje tylko jedna ścieżka: kontynuuj automatycznie
+        #  if there is only one path, continue automatically
         if len(actions) != 1:
 
             for i, path in enumerate(path_strings):
@@ -169,25 +168,25 @@ def pth_selector(path_strings=[], actions=[], visit_check=False, room_id=0):
             eval(actions[odp - 1])
 
     else:
-        if room_id.room_state:  # jeśli otwarte
+        if room_id.room_state:  # if open
 
             dub_play(
                 f'Drzwi {constants.special_txt_clr}{room_id.room_num}{constants.def_txt_clr} są {constants.special_txt_clr}otwarte{constants.def_txt_clr}.',
                 'infobook_adam_door_open.mp3', 'adam')
 
-            if not room_id.visit_count - 1 >= room_id.max_visit_count:  # użytkownik odwiedza pokój więcej niż dozwolona liczba razy
-                if room_id.visit_count == 1:  # gracz jest pierwszy raz w pokoju
+            if not room_id.visit_count - 1 >= room_id.max_visit_count:  # Player is visiting the room more times than the allowed number.
+                if room_id.visit_count == 1:  # Player first time in room
                     debug_message(f'eval: {actions[1]}')
                     eval(actions[1])
 
-                elif room_id.visit_count >= 2:  # użytkownik odwiedził już pokój wcześniej, ale nie przekroczył dozwolonej liczby odwiedzin
+                elif room_id.visit_count >= 2:  # Player has already visited the room before, but did not exceed the allowed number of visits.
                     debug_message(f'eval: {actions[0]}')
                     eval(actions[0])
 
             else:
                 print('Nie masz tu czego szukać')
 
-        else:  # jeśli zamknięte
+        else:  # if close
             dub_play(
                 f'Drzwi {constants.special_txt_clr}{room_id.room_num}{constants.def_txt_clr} są {constants.special_txt_clr}zamknięte{constants.def_txt_clr}.',
                 'infobook_adam_door_closed.mp3', 'adam')
@@ -319,6 +318,8 @@ def stats_change(attribute_name, variable, amount):
     else:
         inter = '+'
 
+    # this block is disabled because of non compatibility with source material
+    #
     # if variable == constants.s_count:
     #     if constants.s_count == constants.s_init:
     #         constants.s_count += 1
@@ -339,7 +340,7 @@ def stats_change(attribute_name, variable, amount):
 def combat_init(entity, state, esc_possible, escape_id, stay_id, win_path_id):
     pygame.mixer.music.fadeout(1500)
 
-    rnd_choice = random.choice(constants.music_combat)  # losowanie muzyki z listy
+    rnd_choice = random.choice(constants.music_combat)  # randomize music from list
     pygame.mixer.music.load(rnd_choice)
     pygame.mixer.music.set_volume(constants.def_bckg_volume)
     pygame.mixer.music.play(-1)
@@ -359,21 +360,20 @@ def combat_init(entity, state, esc_possible, escape_id, stay_id, win_path_id):
 
 
 def combat_main(entity, state, esc_possible, escape_id, stay_id, to_the_end, p_w_count, e_w_count, win_path):
-    if e_w_count <= 0:  # jeśli wróg nie żyje
+    if e_w_count <= 0:  # if enemy dead
         pygame.mixer.music.fadeout(1500)
-        rnd_choice = random.choice(constants.music_main)  # losowanie muzyki z listy
+        rnd_choice = random.choice(constants.music_main)  # randomize music from list
         pygame.mixer.music.load(rnd_choice)
         pygame.mixer.music.set_volume(constants.def_bckg_volume)
         pygame.mixer.music.play(-1)
 
         state = False
 
-        # death_sound = pygame.mixer.Sound(f'{constants.assets_audio_pth}/placeholder.mp3')
-        # obj_class.Entity.die(death_sound)
+        # obj_class.Entity.die(pygame.mixer.Sound(f'{constants.assets_audio_pth}/placeholder.mp3'))
 
         dub_play(f'\
         \n{constants.combat_txt_clr}Pokonałeś {Fore.LIGHTRED_EX}{entity.name}{constants.combat_txt_clr}!\
-        \n', f'{constants.assets_audio_pth}/combat_win.mp3')
+        \n', f'{constants.assets_audio_pth}/combat_win.wav')
 
         time.sleep(constants.delay)
         show_player_stats()
@@ -381,7 +381,7 @@ def combat_main(entity, state, esc_possible, escape_id, stay_id, to_the_end, p_w
 
         if esc_possible:
 
-            # /// wybór ucieczka czy nie
+            # /// choice of escape or not
             ecape_opt = "{0}{1}".format(escape_id, (
                 "entity, state, esc_possible, escape_id, stay_id, to_the_end, p_w_count, e_w_count)"))
             stay_opt = "{0}{1}".format(stay_id, (
@@ -406,13 +406,13 @@ def combat_main(entity, state, esc_possible, escape_id, stay_id, to_the_end, p_w
         else:
             eval(win_path)
 
-    elif p_w_count <= 0:  # jeśli gracz nie żyje
+    elif p_w_count <= 0:  # if player dead
         print()
         dub_play(f'Zostałeś zabity przez {Fore.LIGHTRED_EX}{entity.name}{constants.combat_txt_clr}!\
-        \n', f'{constants.assets_audio_pth}/combat_die.mp3')
+        \n', f'{constants.assets_audio_pth}/combat_die.wav')
         kill()
 
-    else:  # jeśli oboje żyją
+    else:  # if both player and enemy are alive
         combat_round(entity, state, esc_possible, escape_id, stay_id, to_the_end, p_w_count, e_w_count, win_path)
 
     return state, constants.w_count, constants.count
@@ -434,7 +434,7 @@ def combat_round(entity, state, esc_possible, escape_id, stay_id, to_the_end, p_
 
     if state:
         loading(1)
-        if a > b:  # jeśli wróg wygrał rundę
+        if a > b:  # if enemy won
 
             if constants.w_count > 0:
                 if e_w_count <= 0:
@@ -444,25 +444,25 @@ def combat_round(entity, state, esc_possible, escape_id, stay_id, to_the_end, p_
                 constants.w_count += constants.e_hit_val_
                 print(f"{Fore.LIGHTRED_EX}{entity.name}{constants.combat_txt_clr} zadał cios!\
                 \n{constants.special_txt_clr}/// Wytrzymałość {Fore.LIGHTYELLOW_EX}{constants.player_name}{constants.special_txt_clr}: {constants.w_count}/{constants.w_init}")
-                dub_play('', f'{constants.assets_audio_pth}/dreszcz_enemy_hit.mp3')
+                dub_play('', f'{constants.assets_audio_pth}/dreszcz_enemy_won_round.wav')
 
                 constants.w_count = max(constants.w_count, 0)
 
-        elif a < b:  # jeśli gracz wygrał rundę
+        elif a < b:  # if player won
 
             if entity.entity_w_count > 0:
                 entity.entity_w_count += constants.p_hit_val_
                 print(f"{Fore.LIGHTYELLOW_EX}{constants.player_name}{constants.combat_txt_clr} zadał cios!\
                 \n{constants.special_txt_clr}/// Wytrzymałość {Fore.LIGHTRED_EX}{entity.name}{constants.special_txt_clr}: {entity.entity_w_count}/{entity.entity_w_init}")
-                dub_play('', f'{constants.assets_audio_pth}/dreszcz_player_hit.mp3')
+                dub_play('', f'{constants.assets_audio_pth}/dreszcz_player_won_round.wav')
 
                 entity.entity_w_count = max(entity.entity_w_count, 0)
 
-        else:  # jeśli remis
+        else:  # if remis
             print(f'{constants.special_txt_clr}Remis!')
-            dub_play('', f'{constants.assets_audio_pth}/dreszcz_remis.mp3')
+            dub_play('', f'{constants.assets_audio_pth}/dreszcz_remis.wav')
 
-        if constants.allow_skip_dub:  # jeśli opcja pomijania dubbingu jest włączona
+        if constants.allow_skip_dub:  # If the option to skip the dubbing is enabled
             time.sleep(2 * constants.delay)
 
     combat_main(entity, state, esc_possible, escape_id, stay_id, to_the_end, p_w_count, e_w_count, win_path)

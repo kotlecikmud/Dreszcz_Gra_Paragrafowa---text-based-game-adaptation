@@ -135,18 +135,6 @@ entity_344_w_init = entity_344_w_count = entity_344.entity_w_count
 # - - - - - - - - -
 
 
-# # /// declare doors
-# # - - - - - - - - -
-# # - - - - - - - - -
-# door_200 = obj_class.Door('200', False, 0)
-# # - - - - - - - - -
-# door_268 = obj_class.Door('268', False, 0)
-# # - - - - - - - - -
-# door_310 = obj_class.Door('310', False, 0)
-# # - - - - - - - - -
-# door_xxx = obj_class.Door('xxx', False, 0)
-
-
 # self, room_id, room_state, visit_in_turn)
 # /// declare rooms
 # - - - - - - - - -

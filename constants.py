@@ -3,12 +3,13 @@ from colorama import Fore
 
 ver_num = ''
 
+dev_mode = True  # Toggle for developer mode; enables debug information, error indicators and other information while playing
+
 # /// settings
-debug_msg_enable = True  # Enables or disables debugging messages.
+language = 'PL'
 allow_skip_dub = False  # Determines whether dubbing can be skipped.
 skip_dub = False  # Determines whether dubbing has been skipped.
-automatic_battle = False  # Determines whether battles are automatic.
-menu_explainer = False  # Toggle between showing/hiding settings description
+automatic_battle = True  # Determines whether battles are automatic.
 
 # /// initiators
 count = 0  # Counter
@@ -51,7 +52,7 @@ combat_txt_clr = Fore.LIGHTCYAN_EX  # color for combat text
 debug_txt_clr = Fore.LIGHTBLACK_EX  # color for debug messages
 error_txt_clr = Fore.LIGHTRED_EX  # color for error messages
 
-template = "({}) {} - {}" if menu_explainer else "({}) {}"  # template for list printing
+template = "({}) {} - {}" if dev_mode else "({}) {}"  # template for list printing
 
 # /// paths
 
@@ -80,16 +81,7 @@ def_bckg_volume = 0.8  # Default volume for background music
 # główny ekwipunek
 main_eq = ['plecak na Prowiant', f'prowiant ({eatables_count} porcji)', 'tarcza', 'miecz',
            f'złoto({gold_amount} sztuk)']
-# main_eq =   {'slot0': 'plecak na Prowiant',
-#             'slot1': f'prowiant ({eatables_count} porcji)',
-#             'slot2': 'tarcza',
-#             'slot3': 'miecz',
-#             'slot4': f'złoto({gold_amount} sztuk)',
-#             'slot5': 'empty',
-#             'slot6': 'empty',
-#             'slot7': 'empty',
-#             'slot8': 'empty',
-#             }
+
 
 # /// słowniki wyborów
 choices_115 = {'Miecz': '_232()',

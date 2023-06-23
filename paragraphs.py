@@ -16,7 +16,7 @@ def _xx():  # placeholder
                 \nor type any command here:\
                 \n{constants.input_sign}{constants.def_txt_clr}")
 
-        rnd_choice = random.choice(constants.music_main)  # losowanie muzyki z listy
+        rnd_choice = random.choice(constants.music_main)  # randomizing music from list
         pygame.mixer.music.load(rnd_choice)
         pygame.mixer.music.set_volume(constants.def_bckg_volume)
         pygame.mixer.music.play(-1)
@@ -30,6 +30,8 @@ def _xx():  # placeholder
             _64()
 
 
+# - - - - - - - - -
+# - - - - - - - - -
 # - - - - - - - - -
 def par_00():
     functions.dub_play(gb.gameboook_00a, 'audiobook_adam_000a.mp3', 'adam')
@@ -60,7 +62,7 @@ def par_00():
             \n{constants.def_txt_clr}")
     time.sleep(1.3)
 
-    rnd_choice = random.choice(constants.music_main)  # losowanie muzyki z listy
+    rnd_choice = random.choice(constants.music_main)  # randomizing music from list
     pygame.mixer.music.load(rnd_choice)
     pygame.mixer.music.set_volume(constants.def_bckg_volume)
     pygame.mixer.music.play(-1)

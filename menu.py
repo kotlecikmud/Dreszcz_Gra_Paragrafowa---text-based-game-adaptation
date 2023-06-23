@@ -11,7 +11,8 @@
 # - - - - - - - - -
 import time, pygame, msvcrt, os, random
 import functions, constants, paragraphs
-from colorama import Fore
+import gamebook as gb
+from colorama import Fore, Style
 
 # check if the assets audio path exists, and if not, display an error message and exit the program
 if not os.path.exists(constants.assets_audio_pth):
@@ -31,25 +32,27 @@ def main_menu():
         time.sleep(constants.delay)
 
         choices_main_menu = [
-            ('Graj', 'zagraj w grę'),
-            ('Zasady Gry', 'przeczytaj zasady'),
-            ('Ustawienia', 'ustawienia'),
-            ('Wyjdź z gry', 'wyjdź z gry'),
-            ('eval()', 'wykonywanie kodu, tylko do testów'),
-            # ('bool_settings', 'globalne stałę dla różnych funkcji, tylko do testów')
+            ('Graj', 'play'),
+            ('Zasady Gry', 'read the rules'),
+            ('Ustawienia', 'settings'),
+            ('Wyjdź z gry', 'exit game'),
         ]
 
-        for i, (choice_main_menu, description) in enumerate(choices_main_menu, 1):  # wyświetlanie listy w menu głównym
+        if constants.dev_mode:
+            choices_main_menu.append(
+                ('eval()', f'{Fore.LIGHTRED_EX}evaluating paragraph functions, for dev only{Style.RESET_ALL}'))
+
+        for i, (choice_main_menu, description) in enumerate(choices_main_menu, 1):  # displaying list in main menu
             print(constants.template.format(i, choice_main_menu, description))
 
         usr_input = input(f'{constants.input_sign}{constants.special_txt_clr} ').strip()
 
-        if usr_input.isdigit():  # sprawdzenie czy wpisano cyfrę
+        if usr_input.isdigit():  # is digit
             index = int(usr_input) - 1
-            if 0 <= index < len(choices_main_menu):  # sprawdzenie czy cyfra jest w zakresie
+            if 0 <= index < len(choices_main_menu):  # is digit in range
                 usr_input = choices_main_menu[index][0]
 
-        for choice_main_menu, description in choices_main_menu:  # wyświetlenie listy
+        for choice_main_menu, description in choices_main_menu:  # displaying list
             if usr_input == choice_main_menu:
 
                 if choice_main_menu == 'Graj':
@@ -66,13 +69,13 @@ def main_menu():
                         time.sleep(constants.delay)
 
                         choices_rules = [
-                            ('Wyposażenie i cechy', 'blank'),
-                            ('Walka', 'blank'),
-                            ('Ucieczka', 'blank'),
-                            ('Szczęście', 'blank'),
-                            ('Podwyższanie poziomu cech', 'blank'),
-                            ('Prowiant', 'blank'),
-                            ('Cel wyprawy', 'blank'),
+                            ('Wyposażenie i cechy', 'Equipment and attributes'),
+                            ('Walka', 'Combat'),
+                            ('Ucieczka', 'Escape'),
+                            ('Szczęście', 'Luck'),
+                            ('Podwyższanie poziomu cech', 'Leveling up attributes'),
+                            ('Prowiant', 'Provisions'),
+                            ('Cel wyprawy', 'Purpose of the expedition'),
                             ('wróć', 'go back')
                         ]
 
@@ -177,8 +180,9 @@ def main_menu():
                         time.sleep(constants.delay)
 
                         choices_settings = [
+                            ('Język', 'change language'),
                             ('Poziom trudności', 'set difficulty level'),
-                            # ('Dźwięk', 'change sound levels'),
+                            # ('Dźwięk', 'change sound levels'),  # currently broken, planning to solve issue with this later
                             ('Imię postaci', 'change characters name'),
                             ('Losuj nowe atrybuty postaci', 'randomize player stats'),
                             ('wróć', 'go back')
@@ -197,15 +201,53 @@ def main_menu():
                         for choice_settings, description in choices_settings:
                             if usr_input == choice_settings:
 
+                                if choice_settings == 'Język':
+                                    # dictionary with available UI languages
+                                    languages = {
+                                        'en': 'English menu selected.',
+                                        'pl': 'Wybrano język polski.',
+                                        'es': 'Menú en español seleccionado.',
+                                        'fr': 'Menu français sélectionné.',
+                                        'it': 'Menu italiano selezionato.',
+                                        'cn': '选择了中文菜单。',
+                                        'jp': '日本語メニューが選択されました。',
+                                    }
+
+                                    while True:
+                                        lang_choice = input('choose lang_choiceuage: ')
+                                        lang_choice = lang_choice.lower()
+
+                                        if lang_choice in languages:
+                                            print(languages[lang_choice])
+                                            break
+                                        else:
+                                            print('not available')
+                                            time.sleep(1)
+
+                                    if lang_choice == 'en':
+                                        gb.language = 'en'
+                                    if lang_choice == 'pl':
+                                        gb.language = 'pl'
+                                    if lang_choice == 'es':
+                                        gb.language = 'es'
+                                    if lang_choice == 'fr':
+                                        gb.language = 'fr'
+                                    if lang_choice == 'it':
+                                        gb.language = 'it'
+                                    if lang_choice == 'cn':
+                                        gb.language = 'cn'
+                                    if lang_choice == 'jp':
+                                        gb.language = 'jp'
+
                                 if choice_settings == 'Poziom trudności':
                                     functions.clear_terminal()
                                     print(f"{constants.special_txt_clr}// {choice_settings}{constants.def_txt_clr}")
                                     time.sleep(constants.delay)
 
                                     choices_difficulty_lvl = [
-                                        ('łatwy', 'easy level'),
-                                        ('średni', 'medium level'),
-                                        ('trudny', 'hard level')
+                                        ('łatwy', 'easy'),
+                                        ('średni', 'medium'),
+                                        ('trudny', 'hard')
                                     ]
 
                                     for i, (choice_difficulty_lvl, description) in enumerate(choices_difficulty_lvl, 1):
@@ -242,10 +284,10 @@ def main_menu():
                                     time.sleep(constants.delay)
 
                                     choices_sound_settings = [
-                                        ('Dialogi', 'Ustawia głośność dialogów.'),
-                                        ('Efekty', 'Ustawia głośność efektów dźwiękowych.'),
-                                        ('Muzyka', 'Ustawia głośność muzyki w tle.'),
-                                        ('wróć', 'Powrót do menu głównego.')
+                                        ('Dialogi', 'Adjusts the volume of dialogues.'),
+                                        ('Efekty', 'Adjusts the volume of sound effects.'),
+                                        ('Muzyka', 'Adjusts the volume of background music.'),
+                                        ('wróć', 'Return to the main menu.')
                                     ]
 
                                     for i, (choice_sound_settings, description) in enumerate(choices_sound_settings, 1):
@@ -317,35 +359,9 @@ def main_menu():
                         functions.loading(2.2)
                         exit()
 
-                elif choice_main_menu == 'eval()':  # only for developer
+                elif choice_main_menu == 'eval()':  # only for dev purposes; evaluating functions in paragraphs.py module
                     time.sleep(constants.delay)
                     paragraphs._xx()
-
-
-                elif choice_main_menu == 'bool_settings':  # only for developer
-                    input_1 = input(f'constants.debug_msg_enable{constants.input_sign}')
-                    if input_1:
-                        functions.update_bool_variable(constants.debug_msg_enable, input_1)
-
-                    input_2 = input(f'constants.allow_skip_dub{constants.input_sign}')
-                    if input_2:
-                        functions.update_bool_variable(constants.allow_skip_dub, input_2)
-
-                    input_3 = input(f'constants.skip_dub{constants.input_sign}')
-                    if input_3:
-                        functions.update_bool_variable(constants.skip_dub, input_3)
-
-                    input_4 = input(f'constants.automatic_battle{constants.input_sign}')
-                    if input_4:
-                        functions.update_bool_variable(constants.automatic_battle, input_4)
-
-                    input_5 = input(f'constants.menu_explainer{constants.input_sign}')
-                    if input_5:
-                        functions.update_bool_variable(constants.menu_explainer, input_5)
-                    constants.template = "({}) {} - {}" if input_5 else "({}) {}"
-
-                else:
-                    main_menu()
 
 
 #  loading player parameters

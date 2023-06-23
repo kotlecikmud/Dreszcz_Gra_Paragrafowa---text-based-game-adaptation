@@ -22,7 +22,7 @@ class Entity:
     # /// die action
     def die(self):
         print(f"{self.name} został zabity!")
-        # znajdź wolny kanał
+        # find empty channel
         channel = None
         for i in range(pygame.mixer.get_num_channels()):
             if not pygame.mixer.Channel(i).get_busy():
@@ -32,7 +32,7 @@ class Entity:
             print("DEBUG: Nie znaleziono wolnego kanału.")
             return
 
-        # odtwórz dźwięk na znalezionym kanale
+        # play sound on found channel
         channel.play(f'{constants.assets_audio_effects_pth}/{self.name}_kill_sound.mp3')
         self.state = False
 
