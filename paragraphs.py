@@ -796,7 +796,8 @@ def _199():
 
 
 def _200():
-    functions.dub_play('200', 'dreszcz_p_200.mp3')
+
+    functions.dub_play('200', 'audiobook_adam_200.mp3', 'adam')
     path_strings = []
     actions = ['paragraphs._120()', 'paragraphs._301()']
     functions.pth_selector(path_strings, actions, True, entities.room_364)
