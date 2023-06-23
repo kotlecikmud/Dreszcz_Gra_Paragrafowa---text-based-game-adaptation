@@ -3,7 +3,7 @@ from colorama import Fore
 
 ver_num = ''
 
-dev_mode = True  # Toggle for developer mode; enables debug information, error indicators and other information while playing
+dev_mode = False  # Toggle for developer mode; enables debug information, error indicators and other information while playing
 
 # /// settings
 language = 'PL'
@@ -55,7 +55,6 @@ error_txt_clr = Fore.LIGHTRED_EX  # color for error messages
 template = "({}) {} - {}" if dev_mode else "({}) {}"  # template for list printing
 
 # /// paths
-
 assets_audio_pth = 'Assets/Audio/Dunmer'  # Path to Dunmer audio files
 assets_audio_effects_pth = 'Assets/Audio/fx'  # Path to sound effects
 assets_audio_music_pth = 'Assets/Audio/music'  # Path to music
