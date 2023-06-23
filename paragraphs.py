@@ -203,7 +203,7 @@ def _16():
 
 
 def _17():
-    path_strings = ['Zobacć co za nimi jest', 'Wycofaj się']
+    path_strings = ['Zobacz co za nimi jest', 'Wycofaj się']
     actions = ['paragraphs._265()', 'paragraphs._50()']
     functions.pth_selector(path_strings, actions)
 
@@ -278,7 +278,7 @@ def _28():
 
 
 def _29():
-    functions.dub_play('29', 'dreszcz_p_029.mp3')
+    functions.dub_play('29', 'audiobook_adam_029.mp3', 'adam')
     path_strings = []
     actions = ['paragraphs._116a()']
     functions.pth_selector(path_strings, actions)
@@ -389,7 +389,7 @@ def _50():
 
 
 def _56():
-    functions.dub_play('56', 'dreszcz_p_056.mp3')
+    functions.dub_play('56', 'audiobook_adam_56.mp3', 'adam')
     functions.stats_change('Wytrzymałość', constants.w_count, -1)
     path_strings = []
     actions = ['paragraphs._75()']
@@ -404,14 +404,14 @@ def _59():
 
 
 def _64():
-    functions.dub_play('64', 'audiobook_adam_064.mp3', 'adam')
+    functions.dub_play('64', 'audiobook_adam_64.mp3', 'adam')
     path_strings = ['zachód', 'północ', 'wschód', 'południe']
     actions = ['paragraphs._296()', 'paragraphs._264()', 'paragraphs._284()', 'paragraphs._224()']
     functions.pth_selector(path_strings, actions)
 
 
 def _67():
-    functions.dub_play('67', 'audiobook_adam_067.mp3', 'adam')
+    functions.dub_play('67', 'audiobook_adam_67.mp3', 'adam')
     path_strings = ['Musisz się wycofać.']
     actions = ['paragraphs._50()']
     functions.pth_selector(path_strings, actions)
@@ -796,7 +796,6 @@ def _199():
 
 
 def _200():
-
     functions.dub_play('200', 'audiobook_adam_200.mp3', 'adam')
     path_strings = []
     actions = ['paragraphs._120()', 'paragraphs._301()']
@@ -815,16 +814,16 @@ def _212():
     functions.pth_selector(path_strings, actions)
 
 
+def _220():
+    print(gb.gameboook['220'])
+    _xx()
+
+
 def _224():
     functions.dub_play('224', 'audiobook_adam_224.mp3', 'adam')
     path_strings = []
     actions = ['paragraphs._180()', 'paragraphs._301()']
     functions.pth_selector(path_strings, actions, True, entities.room_364)
-
-
-def _220():
-    print(gb.gameboook['220'])
-    _xx()
 
 
 def _226():

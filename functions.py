@@ -469,7 +469,7 @@ def combat_round(entity, state, esc_possible, escape_id, stay_id, to_the_end, p_
 
         else:  # if remis
             print(f'{constants.special_txt_clr}Remis!')
-            dub_play('', f'{constants.assets_audio_pth}/dreszcz_remis.wav')
+            dub_play('', 'audiobook_adam_round_none.mp3', 'adam')
 
         if constants.allow_skip_dub:  # If the option to skip the dubbing is enabled
             time.sleep(2 * constants.delay)
