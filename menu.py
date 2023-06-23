@@ -210,8 +210,6 @@ def main_menu():
                                     except Exception as e:
                                         functions.error_message(e)
 
-                                time.sleep(1)
-
                                 if choice_settings == 'Poziom trudności':
                                     functions.clear_terminal()
                                     print(f"{constants.special_txt_clr}// {choice_settings}{constants.def_txt_clr}")
@@ -344,5 +342,5 @@ pygame.mixer.music.play(-1)  # loop
 # main menu
 functions.rpar()  # loading player parameters
 os.system('cls')
-
+input(gb.gameboook)
 main_menu()  # enterance point

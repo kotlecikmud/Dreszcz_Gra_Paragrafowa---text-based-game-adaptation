@@ -1,5 +1,6 @@
 import random, time, pygame, os, subprocess, keyboard
 import constants, obj_class, paragraphs
+import gamebook as gb
 from colorama import Fore
 
 
@@ -29,7 +30,7 @@ def clear_terminal():
         subprocess.call('cls' if os.name == 'nt' else 'clear', shell=True)
 
 
-def dub_play(string, audio_file_id, voice=None):
+def dub_play(string_id, audio_file_id, voice=None):
     audio_path = None
     if not voice:  # default 'Dunmer' voice
         audio_path = constants.assets_audio_pth
@@ -60,8 +61,8 @@ def dub_play(string, audio_file_id, voice=None):
 
     # play sound on found channel
     channel.play(current_sound)
-    if len(string) > 0:
-        print(string)
+    if len(string_id) > 0:
+        (print(gb.gameboook[string_id]))
 
     # wait until audio stops playing
     if constants.allow_skip_dub:
