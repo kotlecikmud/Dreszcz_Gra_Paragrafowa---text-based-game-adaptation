@@ -994,7 +994,7 @@ def _298():
 
 
 def _301():
-    functions.dub_play('301', 'dreszcz_p_301.mp3')
+    functions.dub_play('301', 'audiobook_adam_301.mp3', 'adam')
     path_strings = ['Spróbuj otworzyć drzwi', 'Zawróć']
     actions = ['paragraphs._364()', 'paragraphs._120()']
     functions.pth_selector(path_strings, actions)

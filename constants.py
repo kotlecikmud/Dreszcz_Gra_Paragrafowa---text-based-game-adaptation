@@ -3,7 +3,7 @@ from colorama import Fore
 
 ver_num = ''
 
-dev_mode = False  # Toggle for developer mode; enables debug information, error indicators and other information while playing
+dev_mode = True  # Toggle for developer mode; enables debug information, error indicators and other information while playing
 
 # /// settings
 language = 'PL'

@@ -62,7 +62,10 @@ def dub_play(string_id, audio_file_id, voice=None):
     # play sound on found channel
     channel.play(current_sound)
     if len(string_id) > 0:
-        (print(gb.gameboook[string_id]))
+        if len(string_id) <= 4:
+            print(gb.gb_update()[string_id])
+        else:
+            print(string_id)
 
     # wait until audio stops playing
     if constants.allow_skip_dub:
@@ -137,33 +140,38 @@ def pth_selector(path_strings=[], actions=[], visit_check=False, room_id=0):
 
     if not visit_check:
         debug_message(f'actions: {actions}')
-        #  if there is only one path, continue automatically
-        if len(actions) != 1:
+
+        if len(actions) != 1:  # if there is more than one path, display choice menu
 
             for i, path in enumerate(path_strings):
                 print(f'{i + 1} · {path}')
                 time.sleep(constants.delay)
 
-            odp = input(f'{constants.input_sign}')
-            pygame.mixer.stop()
+            while True:
+                odp = input(f'{constants.input_sign}')
 
-            try:
-                odp = int(odp)
+                try:
+                    odp = int(odp)
 
-                if odp == 0:
-                    print(f'/!/ {constants.special_txt_clr}Wybór nie może być równy zeru.{constants.def_txt_clr}')
-                elif odp < 0:
-                    print(f'/!/ {constants.special_txt_clr}Wybór nie może być ujemny.{constants.def_txt_clr}')
-                elif odp > len(path_strings):
-                    print(f'/!/ {constants.special_txt_clr}Nie ma wyboru o numerze: {odp}{constants.def_txt_clr}')
-                else:
-                    clear_terminal()
-                    eval(actions[odp - 1])
+                    if odp == 0:
+                        print(f'/!/ {constants.special_txt_clr}Wybór nie może być równy zeru.{constants.def_txt_clr}')
+                    elif odp < 0:
+                        print(f'/!/ {constants.special_txt_clr}Wybór nie może być ujemny.{constants.def_txt_clr}')
+                    elif odp > len(path_strings):
+                        print(f'/!/ {constants.special_txt_clr}Nie ma wyboru o numerze: {odp}{constants.def_txt_clr}')
+                    elif odp == '':
+                        print(f'/!/ {constants.special_txt_clr}Nie wpisano numeru: {odp}{constants.def_txt_clr}')
+                    else:
+                        break
 
-            except ValueError:
-                print(f'/!/ {constants.special_txt_clr}Wybierz numer z listy.{constants.def_txt_clr}')
+                except ValueError:
+                    print(f'/!/ {constants.special_txt_clr}Wybierz numer z listy.{constants.def_txt_clr}')
 
-        else:
+            clear_terminal()
+            pygame.mixer.stop()  # abort any dubbing currently playing
+            eval(actions[odp - 1])
+
+        else:  # if there is only one path, continue automatically
             clear_terminal()
             odp = 1
             eval(actions[odp - 1])

@@ -342,5 +342,5 @@ pygame.mixer.music.play(-1)  # loop
 # main menu
 functions.rpar()  # loading player parameters
 os.system('cls')
-input(gb.gameboook)
+gameboook = gb.gb_update('en')  # initialize gamebook with polish language
 main_menu()  # enterance point
