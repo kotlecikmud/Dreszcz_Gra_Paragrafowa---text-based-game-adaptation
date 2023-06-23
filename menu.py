@@ -3,9 +3,9 @@
 # - - - - - - - - -
 # 'DRESZCZ'
 # GRA PARAGRAFOWA
-# autor: Jacek Ciesielski 1987
-# oprogramowanie: Filip Pawłowski 2023 (filippawlowski2012@gmail.com)
-# /// wersja: xx.xx.16.06.2023
+# author: Jacek Ciesielski 1987
+# programmer: Filip Pawłowski 2023 (filippawlowski2012@gmail.com)
+# github repo: https://github.com/kotlecikmud/Dreszcz_Gra_Paragrafowa.git
 # - - - - - - - - -
 # - - - - - - - - -
 # - - - - - - - - -
@@ -202,42 +202,15 @@ def main_menu():
                             if usr_input == choice_settings:
 
                                 if choice_settings == 'Język':
-                                    # dictionary with available UI languages
-                                    languages = {
-                                        'en': 'English menu selected.',
-                                        'pl': 'Wybrano język polski.',
-                                        'es': 'Menú en español seleccionado.',
-                                        'fr': 'Menu français sélectionné.',
-                                        'it': 'Menu italiano selezionato.',
-                                        'cn': '选择了中文菜单。',
-                                        'jp': '日本語メニューが選択されました。',
-                                    }
 
-                                    while True:
-                                        lang_choice = input('choose lang_choiceuage: ')
-                                        lang_choice = lang_choice.lower()
+                                    try:
+                                        lc = str(input(f'{constants.def_txt_clr}choose language: ').lower())
+                                        gb.gb_update(lc)
 
-                                        if lang_choice in languages:
-                                            print(languages[lang_choice])
-                                            break
-                                        else:
-                                            print('not available')
-                                            time.sleep(1)
+                                    except Exception as e:
+                                        functions.error_message(e)
 
-                                    if lang_choice == 'en':
-                                        gb.language = 'en'
-                                    if lang_choice == 'pl':
-                                        gb.language = 'pl'
-                                    if lang_choice == 'es':
-                                        gb.language = 'es'
-                                    if lang_choice == 'fr':
-                                        gb.language = 'fr'
-                                    if lang_choice == 'it':
-                                        gb.language = 'it'
-                                    if lang_choice == 'cn':
-                                        gb.language = 'cn'
-                                    if lang_choice == 'jp':
-                                        gb.language = 'jp'
+                                time.sleep(1)
 
                                 if choice_settings == 'Poziom trudności':
                                     functions.clear_terminal()
@@ -260,6 +233,7 @@ def main_menu():
                                         if 0 <= index < len(choices_difficulty_lvl):
                                             usr_input = choices_difficulty_lvl[index][0]
 
+                                    difficulty_lvl = None
                                     for choice_difficulty_lvl, description in choices_difficulty_lvl:
                                         if usr_input == choice_difficulty_lvl:
 
@@ -273,8 +247,6 @@ def main_menu():
                                                 difficulty_lvl = constants.d_lvl_h
 
                                             constants.e_mult_choice = difficulty_lvl
-
-
 
 
                                 elif choice_settings == 'Dźwięk':
@@ -328,7 +300,6 @@ def main_menu():
                                                 main_menu()
 
 
-
                                 elif choice_settings == 'Imię postaci':
                                     time.sleep(constants.delay)
 
@@ -359,13 +330,10 @@ def main_menu():
                         functions.loading(2.2)
                         exit()
 
-                elif choice_main_menu == 'eval()':  # only for dev purposes; evaluating functions in paragraphs.py module
+                elif choice_main_menu == 'eval()':  # only for dev purposes; evaluating functions in paragraphs.py
                     time.sleep(constants.delay)
                     paragraphs._xx()
 
-
-#  loading player parameters
-functions.rpar()
 
 # loading background music
 rnd_choice = random.choice(constants.music_main)  # losowanie muzyki z listy
@@ -373,6 +341,8 @@ pygame.mixer.music.load(rnd_choice)
 pygame.mixer.music.set_volume(constants.def_bckg_volume)
 pygame.mixer.music.play(-1)  # loop
 
-os.system('cls')
 # main menu
-main_menu()
+functions.rpar()  # loading player parameters
+os.system('cls')
+
+main_menu()  # enterance point
