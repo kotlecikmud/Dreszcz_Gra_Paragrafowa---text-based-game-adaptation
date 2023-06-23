@@ -373,5 +373,6 @@ pygame.mixer.music.load(rnd_choice)
 pygame.mixer.music.set_volume(constants.def_bckg_volume)
 pygame.mixer.music.play(-1)  # loop
 
+os.system('cls')
 # main menu
 main_menu()
