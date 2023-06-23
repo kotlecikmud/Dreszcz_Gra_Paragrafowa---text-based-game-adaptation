@@ -902,8 +902,7 @@ def gb_update(language='pl'):
 
                             "304": "",
 
-                            "305":
-                                "W tej komnacie ukryte jest coś bardzo wartościowego. Żeby to znaleźć musisz wybrać jedną z podanych metod:",
+                            "305":"W tej komnacie ukryte jest coś bardzo wartościowego. Żeby to znaleźć musisz wybrać jedną z podanych metod:",
 
                             "306": "Nabierasz wody. Jest zaczarowana. Chowasz naczynie do plecaka. Dostajesz +2s. Patrz - 109",
 

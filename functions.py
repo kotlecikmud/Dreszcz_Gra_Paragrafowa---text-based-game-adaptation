@@ -382,7 +382,7 @@ def combat_main(entity, state, esc_possible, escape_id, stay_id, to_the_end, p_w
 
         dub_play(f'\
         \n{constants.combat_txt_clr}Pokonałeś {Fore.LIGHTRED_EX}{entity.name}{constants.combat_txt_clr}!\
-        \n', f'{constants.assets_audio_pth}/combat_win.wav')
+        \n', 'audiobook_adam_combat_true.mp3', 'adam')
 
         time.sleep(constants.delay)
         show_player_stats()
@@ -418,7 +418,7 @@ def combat_main(entity, state, esc_possible, escape_id, stay_id, to_the_end, p_w
     elif p_w_count <= 0:  # if player dead
         print()
         dub_play(f'Zostałeś zabity przez {Fore.LIGHTRED_EX}{entity.name}{constants.combat_txt_clr}!\
-        \n', f'{constants.assets_audio_pth}/combat_die.wav')
+        \n', 'combat_die.wav')
         kill()
 
     else:  # if both player and enemy are alive
@@ -438,8 +438,8 @@ def combat_round(entity, state, esc_possible, escape_id, stay_id, to_the_end, p_
         a = random.randint(2, 12) + entity.entity_z_count * constants.e_mult_choice
         b = random.randint(2, 12) + constants.z_count
     else:
-        a = input(f"Wylosuj wartość 'a' rzuć dwiema kośćmi{constants.input_sign}")
-        b = input(f"Wylosuj wartość 'b' - rzuć dwiema kośćmi{constants.input_sign}")
+        a = input(f"Podaj wartość 'a' rzucając dwiema kośćmi{constants.input_sign}")
+        b = input(f"Podaj wartość 'b' rzucając dwiema kośćmi{constants.input_sign}")
 
     if state:
         loading(1)
@@ -453,7 +453,7 @@ def combat_round(entity, state, esc_possible, escape_id, stay_id, to_the_end, p_
                 constants.w_count += constants.e_hit_val_
                 print(f"{Fore.LIGHTRED_EX}{entity.name}{constants.combat_txt_clr} zadał cios!\
                 \n{constants.special_txt_clr}/// Wytrzymałość {Fore.LIGHTYELLOW_EX}{constants.player_name}{constants.special_txt_clr}: {constants.w_count}/{constants.w_init}")
-                dub_play('', f'{constants.assets_audio_pth}/dreszcz_enemy_won_round.wav')
+                dub_play('', 'audiobook_adam_round_false.mp3', 'adam')
 
                 constants.w_count = max(constants.w_count, 0)
 
@@ -463,7 +463,7 @@ def combat_round(entity, state, esc_possible, escape_id, stay_id, to_the_end, p_
                 entity.entity_w_count += constants.p_hit_val_
                 print(f"{Fore.LIGHTYELLOW_EX}{constants.player_name}{constants.combat_txt_clr} zadał cios!\
                 \n{constants.special_txt_clr}/// Wytrzymałość {Fore.LIGHTRED_EX}{entity.name}{constants.special_txt_clr}: {entity.entity_w_count}/{entity.entity_w_init}")
-                dub_play('', f'{constants.assets_audio_pth}/dreszcz_player_won_round.wav')
+                dub_play('', 'audiobook_adam_round_true.mp3', 'adam')
 
                 entity.entity_w_count = max(entity.entity_w_count, 0)
 

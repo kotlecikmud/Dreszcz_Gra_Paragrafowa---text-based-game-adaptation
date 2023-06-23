@@ -576,13 +576,13 @@ def _115():
 
 
 def _116a():
-    functions.dub_play('116a', 'dreszcz_p_116a.mp3')
+    functions.dub_play('116a', 'audiobook_adam_116a.mp3', 'adam')
     functions.combat_init(entities.entity_116, entities.entity_116.state, entities.entity_116.esc_possible, '', '',
                           'paragraphs._116b()')
 
 
 def _116b():
-    functions.dub_play('116b', 'dreszcz_p_116b.mp3')
+    functions.dub_play('116b', 'audiobook_adam_116b.mp3', 'adam')
     path_strings = ['Rozejrzyj się', 'Opuść pieczarę']
     actions = ['paragraphs._89()', 'paragraphs._120()']
     functions.pth_selector(path_strings, actions)
