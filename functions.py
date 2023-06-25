@@ -63,7 +63,8 @@ def dub_play(string_id, audio_file_id, voice=None):
     channel.play(current_sound)
     if len(string_id) > 0:
         if len(string_id) <= 4:
-            print(gb.gb_update()[string_id])
+            gameboook = gb.get_translation(constants.translation)
+            print(gameboook[string_id])
         else:
             print(string_id)
 
@@ -233,7 +234,7 @@ def check_for_luck():
     constants.s_count -= 1
     time.sleep(1)
 
-    return constants.p_luck
+    return constants.p_luck, constants.s_count
 
 
 def check_for_gold_amount(true_path, false_path, req_amount):
@@ -321,13 +322,15 @@ def show_entity_stats(entity):
     time.sleep(2 * constants.delay)
 
 
-def stats_change(attribute_name, variable, amount):
+def stats_change(attribute_name, updated_variable, amount):
+    updated_variable += amount
+
     if amount < 0:
         inter = ''
     else:
         inter = '+'
 
-    # this block is disabled because of non compatibility with source material
+    # because of non compatibility with source material, this block is disabled for now
     #
     # if variable == constants.s_count:
     #     if constants.s_count == constants.s_init:
@@ -336,11 +339,10 @@ def stats_change(attribute_name, variable, amount):
     #         new_count = min(constants.s_count + amount, constants.s_init + 1)
     #         constants.s_count = new_count
 
-    print(
-        f'{constants.special_txt_clr}/// {attribute_name} {inter}{amount} >>> {variable + amount}{constants.def_txt_clr}')
+    print(f'{constants.special_txt_clr}/// {attribute_name} {inter}{amount} >>> {updated_variable + amount}{constants.def_txt_clr}')
     time.sleep(constants.delay)
 
-    return variable
+    return updated_variable
 
 
 # - - - - - - - - -

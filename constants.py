@@ -6,12 +6,12 @@ ver_num = ''
 dev_mode = True  # Toggle for developer mode; enables debug information, error indicators and other information while playing
 
 # /// settings
-language = 'PL'
 allow_skip_dub = False  # Determines whether dubbing can be skipped.
 skip_dub = False  # Determines whether dubbing has been skipped.
 automatic_battle = True  # Determines whether battles are automatic.
 
 # /// initiators
+translation = None  # container for language option
 count = 0  # Counter
 count_potion = 2  # Number of available potions
 choice_count = 0  # Number of choices
@@ -80,7 +80,6 @@ def_bckg_volume = 0.8  # Default volume for background music
 # główny ekwipunek
 main_eq = ['plecak na Prowiant', f'prowiant ({eatables_count} porcji)', 'tarcza', 'miecz',
            f'złoto({gold_amount} sztuk)']
-
 
 # /// słowniki wyborów
 choices_115 = {'Miecz': '_232()',

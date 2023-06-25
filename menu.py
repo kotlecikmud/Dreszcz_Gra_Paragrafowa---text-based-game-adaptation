@@ -127,7 +127,7 @@ def main_menu():
                                     print('Podczas wędrówki sprawdzasz, czy szczęście ci sprzyja. Robisz to w następujący sposób:\
                                         \nRzucasz 2K. Jeśli wynik jest równy lub mniejszy od aktualnego poziomu SZCZĘŚCIA, to masz SZCZĘŚCIE.\
                                         \nJeśli wynik jest większy, nie masz SZCZĘŚCIA.\
-                                        \nTa procedura nazywa się /Sprawdzanie Swojego Szczęścia (SSS).\
+                                        \nTa procedura nazywa się Sprawdzanie Swojego Szczęścia (SSS).\
                                         \nPo każdym SSS - niezależnie od wyniku - należy odjąć 1 od aktualnego poziomu SZCZĘŚCIA.\
                                         \nSSS trzeba zrobić, gdy przewiduje to tekst, a także można zrobić podczas walki.\
                                         \nPodczas walki SSS robi się w odpowiednim momencie rundy (patrz wyżej), a jego wynik stosuje się tylko do tej rundy.\
@@ -202,13 +202,9 @@ def main_menu():
                             if usr_input == choice_settings:
 
                                 if choice_settings == 'Język':
-
-                                    try:
-                                        lc = str(input(f'{constants.def_txt_clr}choose language: ').lower())
-                                        gb.gb_update(lc)
-
-                                    except Exception as e:
-                                        functions.error_message(e)
+                                    translation = str(input(f'{constants.def_txt_clr}Choose language: ')).lower()
+                                    gb.get_translation(translation)
+                                    functions.debug_message(f'wybrałeś: {constants.translation}')
 
                                 if choice_settings == 'Poziom trudności':
                                     functions.clear_terminal()
@@ -342,5 +338,8 @@ pygame.mixer.music.play(-1)  # loop
 # main menu
 functions.rpar()  # loading player parameters
 os.system('cls')
-gameboook = gb.gb_update('en')  # initialize gamebook with polish language
+
+language = str(input(f'{constants.def_txt_clr}Choose language: ')).lower()
+gb.get_translation(language)
+
 main_menu()  # enterance point
