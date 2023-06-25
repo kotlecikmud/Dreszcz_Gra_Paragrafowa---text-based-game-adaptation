@@ -37,7 +37,7 @@ def par_00():
     functions.dub_play('00a', 'adam')
 
     while True:  # elixir choice menu
-        functions.dub_play('elxr_chc', 'adam')
+        functions.dub_play('elxr_info', 'adam')
         choice = input(f'{constants.input_sign}')
 
         if choice == '1':

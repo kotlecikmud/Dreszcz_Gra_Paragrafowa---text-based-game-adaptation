@@ -25,10 +25,11 @@ def main_menu():
     while True:
         if constants.ver_num != '':
             print(f'ver.{constants.debug_txt_clr}{constants.ver_num}')
+            time.sleep(2)
 
         functions.clear_terminal()
-        print(f'{constants.def_txt_clr}Witaj {constants.player_name}!')
-        print(f'{constants.special_txt_clr}MENU GŁÓWNE{constants.def_txt_clr}')
+        print(f'{constants.def_txt_clr}Witaj {constants.player_name}!\
+        \n{constants.special_txt_clr}MENU GŁÓWNE{constants.def_txt_clr}')
         time.sleep(constants.delay)
 
         choices_main_menu = [
@@ -342,6 +343,6 @@ os.system('cls')
 
 translation = str(input(f'{constants.def_txt_clr}Choose language (en, pl, es, fr, it, cn, jp)\
 \n{constants.input_sign}')).lower()
-gb.get_translation(translation)
 
+gb.get_translation(translation)
 main_menu()  # enterance point

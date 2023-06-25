@@ -65,8 +65,7 @@ def dub_play(string_id, voice=None):
     channel.play(current_sound)
     if len(string_id) > 0:
         if len(string_id) <= 4:
-            input(gb.get_translation(constants.translation))
-            print(gb.get_translation(f'{constants.translation}[{string_id}]'))
+            print(gb.gameboook[constants.translation][string_id])
         else:
             print(string_id)
 
