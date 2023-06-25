@@ -3,7 +3,7 @@ from colorama import Fore
 
 ver_num = ''
 
-dev_mode = True  # Toggle for developer mode; enables debug information, error indicators and other information while playing
+dev_mode = False  # Toggle for developer mode; enables debug information, error indicators and other information while playing
 
 # /// settings
 allow_skip_dub = False  # Determines whether dubbing can be skipped.
@@ -55,11 +55,9 @@ error_txt_clr = Fore.LIGHTRED_EX  # color for error messages
 template = "({}) {} - {}" if dev_mode else "({}) {}"  # template for list printing
 
 # /// paths
-assets_audio_pth = 'Assets/Audio/Dunmer'  # Path to Dunmer audio files
+assets_audio_pth = 'Assets/Audio'  # Path to audio files
 assets_audio_effects_pth = 'Assets/Audio/fx'  # Path to sound effects
 assets_audio_music_pth = 'Assets/Audio/music'  # Path to music
-
-assets_audio_pth_adam = 'Assets/Audio/ElevenLabs/Adam'  # Path to Adam's audio files
 
 music_combat = [f'{assets_audio_music_pth}/music_combat_1.mp3',  # List of combat music tracks
                 f'{assets_audio_music_pth}/music_combat_2.mp3']

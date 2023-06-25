@@ -34,13 +34,10 @@ def _xx():  # placeholder
 # - - - - - - - - -
 # - - - - - - - - -
 def par_00():
-    functions.dub_play('00a', 'audiobook_adam_000a.mp3', 'adam')
+    functions.dub_play('00a', 'adam')
 
-    while True:
-        functions.dub_play(f'{constants.special_txt_clr}Wybierz eliksir:\
-            \n1. Zręczności\
-            \n2. Wytrzymałości\
-            \n3. Szczęścia', 'audiobook_adam_elxr_choice.mp3', 'adam')
+    while True:  # elixir choice menu
+        functions.dub_play('elxr_chc', 'adam')
         choice = input(f'{constants.input_sign}')
 
         if choice == '1':
@@ -60,7 +57,7 @@ def par_00():
     functions.clear_terminal()
     print(f"/// eliksir {potion} = {constants.count_potion}/2\
             \n{constants.def_txt_clr}")
-    time.sleep(1.3)
+    time.sleep(1)
 
     rnd_choice = random.choice(constants.music_main)  # randomizing music from list
     pygame.mixer.music.load(rnd_choice)
@@ -68,28 +65,28 @@ def par_00():
     pygame.mixer.music.play(-1)
 
     functions.clear_terminal()
-    functions.dub_play('00b', 'audiobook_adam_000b.mp3', 'adam')
+    functions.dub_play('00b', 'adam')
     path_strings = [f'Ruszaj {constants.input_sign}']
     actions = ['paragraphs._01()']
     functions.pth_selector(path_strings, actions)
 
 
 def _01():
-    functions.dub_play('01', 'audiobook_adam_001.mp3', 'adam')
+    functions.dub_play('01', 'adam')
     path_strings = []
     actions = ['paragraphs._25()']
     functions.pth_selector(path_strings, actions)
 
 
 def _02():
-    functions.dub_play('02', 'audiobook_adam_002.mp3', 'adam')
+    functions.dub_play('02', 'audiobook_adam_polish_02.mp3', 'adam')
     # initiate combat with entity_002
     functions.combat_init(entities.entity_002, True, entities.entity_002.esc_possible, 'paragraphs._372(', '',
                           'paragraphs._380()')
 
 
 def _03():
-    functions.dub_play('03', 'audiobook_adam_003.mp3', 'adam')
+    functions.dub_play('03', 'adam')
     path_strings = ['Spróbuj jeszcze raz (wymagane conajmniej 13 sztuk złota)', 'Wyciągnij z plecaka linę',
                     'Podejdź do mostu', 'Spróbuj przeskoczyć przez rozpadlinę (przynajmniej 18W i 9Z)']
     actions = ['paragraphs._136()', 'paragraphs._13()', 'paragraphs._269()', 'paragraphs._74()', 'paragraphs._110()']
@@ -97,14 +94,14 @@ def _03():
 
 
 def _04():
-    functions.dub_play('04', 'audiobook_adam_004.mp3', 'adam')
+    functions.dub_play('04', 'adam')
     path_strings = ['Chwytasz za miecz i atakujesz', 'Postanawiasz czekać dalej']
     actions = ['paragraphs._318()', 'paragraphs._295()']
     functions.pth_selector(path_strings, actions)
 
 
 def _05():
-    functions.dub_play('05', 'audiobook_adam_005.mp3', 'adam')
+    functions.dub_play('05', 'adam')
     path_strings = ['tak', 'nie']
     actions = ['paragraphs._312()', 'paragraphs._140()']
     functions.pth_selector(path_strings, actions)
@@ -118,35 +115,35 @@ def _06a():
 
 
 def _06b():
-    functions.dub_play('06', 'audiobook_adam_006.mp3', 'adam')
+    functions.dub_play('06', 'adam')
     path_strings = []
     actions = ['paragraphs._115()']
     functions.pth_selector(path_strings, actions)
 
 
 def _07():
-    functions.dub_play('07', 'audiobook_adam_007.mp3', 'adam')
+    functions.dub_play('07', 'adam')
     path_strings = []
     actions = ['paragraphs._219()']
     functions.pth_selector(path_strings, actions)
 
 
 def _08():
-    functions.dub_play('08', 'audiobook_adam_008.mp3', 'adam')
+    functions.dub_play('08', 'adam')
     path_strings = ['Walcz u boku prześladowanego stwora przeciw zgrai jego współplemieńców', 'Ratuj się Ucieczką']
     actions = ['paragraphs._210()', 'paragraphs._98()']
     functions.pth_selector(path_strings, actions)
 
 
 def _09():
-    functions.dub_play('09', 'audiobook_adam_009.mp3', 'adam')
+    functions.dub_play('09', 'adam')
     path_strings = ['Sprzedaj kamień krasnalowi', 'Nie sprzedawaj kamienia']
     actions = ['paragraphs._289()', 'paragraphs._375()']
     functions.pth_selector(path_strings, actions)
 
 
 def _10():
-    functions.dub_play('10', 'audiobook_adam_010.mp3', 'adam')
+    functions.dub_play('10', 'audiobook_adam_polish_10.mp3', 'adam')
     _xx()
 
 
@@ -157,21 +154,21 @@ def _11():
     pygame.mixer.music.set_volume(constants.def_bckg_volume)
     pygame.mixer.music.play(-1)
 
-    functions.dub_play('11', 'dreszcz_p_011.mp3')
+    functions.dub_play('11', 'dreszcz_p_11.mp3')
     path_strings = ['idziesz od razu po wodę', 'dobierasz się do stwora']
     actions = ['paragraphs._45()', 'paragraphs._192()']
     functions.pth_selector(path_strings, actions)
 
 
 def _12():
-    functions.dub_play('12', 'audiobook_adam_012.mp3', 'adam')
+    functions.dub_play('12', 'audiobook_adam_polish_12.mp3', 'adam')
     path_strings = []
     actions = ['paragraphs._288()']
     functions.pth_selector(path_strings, actions)
 
 
 def _13():
-    functions.dub_play('13', 'audiobook_adam_013.mp3', 'adam')
+    functions.dub_play('13', 'audiobook_adam_polish_13.mp3', 'adam')
     functions.stats_change('Wytrzymałość', constants.w_count, -2)
     print('Ale to tylko chwila. Wielkimi susami biegniesz w kierunku potwora')
     path_strings = []
@@ -194,7 +191,7 @@ def _15():
 
 
 def _16():
-    functions.dub_play('16a', 'audiobook_adam_016a.mp3', 'adam')
+    functions.dub_play('16a', 'audiobook_adam_polish_16a.mp3', 'adam')
     functions.eatables()
     print(gb.gamebook['16b'])
     path_strings = []
@@ -209,14 +206,14 @@ def _17():
 
 
 def _18():
-    functions.dub_play('18', 'audiobook_adam_018.mp3', 'adam')
+    functions.dub_play('18', 'audiobook_adam_polish_18.mp3', 'adam')
     path_strings = ['Jeśli tak, pamiętaj że musisz mieć przynajmniej 5 sztuk złota', 'Wycofujesz się']
     actions = ['paragraphs._211()', 'paragraphs._286()']
     functions.pth_selector(path_strings, actions)
 
 
 def _19():
-    functions.dub_play('19', 'audiobook_adam_019.mp3', 'adam')
+    functions.dub_play('19', 'audiobook_adam_polish_19.mp3', 'adam')
     functions.stats_change('Prowiant', constants.eatables_count, 1)
     functions.stats_change('Szczęście', constants.s_count, 2)
     path_strings = []
@@ -225,7 +222,7 @@ def _19():
 
 
 def _20():
-    functions.dub_play('20', 'audiobook_adam_020.mp3', 'adam')
+    functions.dub_play('20', 'audiobook_adam_polish_20.mp3', 'adam')
     path_strings = []
     actions = ['paragraphs._238a()']
     functions.pth_selector(path_strings, actions)
@@ -238,39 +235,39 @@ def _21():
 
 
 def _22():
-    functions.dub_play('22', 'audiobook_adam_022.mp3', 'adam')
+    functions.dub_play('22', 'audiobook_adam_polish_22.mp3', 'adam')
     _xx()
 
 
 def _23():
-    functions.dub_play('23', 'audiobook_adam_023.mp3', 'adam')
+    functions.dub_play('23', 'audiobook_adam_polish_23.mp3', 'adam')
     _xx()
 
 
 def _24():
-    functions.dub_play('24', 'audiobook_adam_024.mp3', 'adam')
+    functions.dub_play('24', 'audiobook_adam_polish_24.mp3', 'adam')
     _xx()
 
 
 def _25():
-    functions.dub_play('25', 'audiobook_adam_025.mp3', 'adam')
+    functions.dub_play('25', 'audiobook_adam_polish_25.mp3', 'adam')
     path_strings = ['Idziesz na zachód', 'Wybierasz drogę prowadzącą na wschód']
     actions = ['paragraphs._200()', 'paragraphs._44()']
     functions.pth_selector(path_strings, actions)
 
 
 def _26():
-    functions.dub_play('26', 'audiobook_adam_026.mp3', 'adam')
+    functions.dub_play('26', 'audiobook_adam_polish_26.mp3', 'adam')
     _xx()
 
 
 def _27():
-    functions.dub_play('27', 'audiobook_adam_027.mp3', 'adam')
+    functions.dub_play('27', 'audiobook_adam_polish_27.mp3', 'adam')
     _xx()
 
 
 def _28():
-    functions.dub_play('28', 'audiobook_adam_028.mp3', 'adam')
+    functions.dub_play('28', 'audiobook_adam_polish_28.mp3', 'adam')
     if constants.w_count >= 18:
         _177()
     else:
@@ -278,7 +275,7 @@ def _28():
 
 
 def _29():
-    functions.dub_play('29', 'audiobook_adam_029.mp3', 'adam')
+    functions.dub_play('29', 'audiobook_adam_polish_29.mp3', 'adam')
     path_strings = []
     actions = ['paragraphs._116a()']
     functions.pth_selector(path_strings, actions)
@@ -347,14 +344,14 @@ def _43():
 
 
 def _44():
-    functions.dub_play('44', 'audiobook_adam_044.mp3', 'adam')
+    functions.dub_play('44', 'audiobook_adam_polish_44.mp3', 'adam')
     path_strings = ['Rezygnujesz', 'Wyważasz drzwi']
     actions = ['paragraphs._75()', 'paragraphs._105()']
     functions.pth_selector(path_strings, actions)
 
 
 def _45():
-    functions.dub_play('45', 'audiobook_adam_045.mp3', 'adam')
+    functions.dub_play('45', 'audiobook_adam_polish_45.mp3', 'adam')
     functions.stats_change('Szczęscie', constants.s_count, 2)
     path_strings = []
     actions = ['paragraphs._251()']
@@ -389,7 +386,7 @@ def _50():
 
 
 def _56():
-    functions.dub_play('56', 'audiobook_adam_56.mp3', 'adam')
+    functions.dub_play('56', 'audiobook_adam_polish_56.mp3', 'adam')
     functions.stats_change('Wytrzymałość', constants.w_count, -1)
     path_strings = []
     actions = ['paragraphs._75()']
@@ -404,14 +401,14 @@ def _59():
 
 
 def _64():
-    functions.dub_play('64', 'audiobook_adam_64.mp3', 'adam')
+    functions.dub_play('64', 'audiobook_adam_polish_64.mp3', 'adam')
     path_strings = ['zachód', 'północ', 'wschód', 'południe']
     actions = ['paragraphs._296()', 'paragraphs._264()', 'paragraphs._284()', 'paragraphs._224()']
     functions.pth_selector(path_strings, actions)
 
 
 def _67():
-    functions.dub_play('67', 'audiobook_adam_67.mp3', 'adam')
+    functions.dub_play('67', 'audiobook_adam_polish_67.mp3', 'adam')
     path_strings = ['Musisz się wycofać.']
     actions = ['paragraphs._50()']
     functions.pth_selector(path_strings, actions)
@@ -508,7 +505,7 @@ def _104():
 
 
 def _105():
-    functions.dub_play('105', 'audiobook_adam_105.mp3', 'adam')
+    functions.dub_play('105', 'audiobook_adam_polish_105.mp3', 'adam')
     functions.stats_change('Wytrzymałość', constants.w_count, -1)
     print('Czy chcesz ponowić próbę?')
     path_strings = ['tak', 'nie']
@@ -576,13 +573,13 @@ def _115():
 
 
 def _116a():
-    functions.dub_play('116a', 'audiobook_adam_116a.mp3', 'adam')
+    functions.dub_play('116a', 'audiobook_adam_polish_116a.mp3', 'adam')
     functions.combat_init(entities.entity_116, entities.entity_116.state, entities.entity_116.esc_possible, '', '',
                           'paragraphs._116b()')
 
 
 def _116b():
-    functions.dub_play('116b', 'audiobook_adam_116b.mp3', 'adam')
+    functions.dub_play('116b', 'audiobook_adam_polish_116b.mp3', 'adam')
     path_strings = ['Rozejrzyj się', 'Opuść pieczarę']
     actions = ['paragraphs._89()', 'paragraphs._120()']
     functions.pth_selector(path_strings, actions)
@@ -773,7 +770,7 @@ def _190():
 
 
 def _192():
-    functions.dub_play('192', 'audiobook_adam_192.mp3', 'adam')
+    functions.dub_play('192', 'audiobook_adam_polish_192.mp3', 'adam')
     path_strings = ['Wybierasz wodę', 'Wybierz przedmiot']
     actions = ['paragraphs._306()', 'paragraphs._220()']
     functions.pth_selector(path_strings, actions)
@@ -796,7 +793,7 @@ def _199():
 
 
 def _200():
-    functions.dub_play('200', 'audiobook_adam_200.mp3', 'adam')
+    functions.dub_play('200', 'audiobook_adam_polish_200.mp3', 'adam')
     path_strings = []
     actions = ['paragraphs._120()', 'paragraphs._301()']
     functions.pth_selector(path_strings, actions, True, entities.room_364)
@@ -820,7 +817,7 @@ def _220():
 
 
 def _224():
-    functions.dub_play('224', 'audiobook_adam_224.mp3', 'adam')
+    functions.dub_play('224', 'audiobook_adam_polish_224.mp3', 'adam')
     path_strings = []
     actions = ['paragraphs._180()', 'paragraphs._301()']
     functions.pth_selector(path_strings, actions, True, entities.room_364)
@@ -994,7 +991,7 @@ def _298():
 
 
 def _301():
-    functions.dub_play('301', 'audiobook_adam_301.mp3', 'adam')
+    functions.dub_play('301', 'audiobook_adam_polish_301.mp3', 'adam')
     path_strings = ['Spróbuj otworzyć drzwi', 'Zawróć']
     actions = ['paragraphs._364()', 'paragraphs._120()']
     functions.pth_selector(path_strings, actions)
@@ -1058,47 +1055,47 @@ def _331():
 
 
 def _332():
-    functions.dub_play('332a', 'audiobook_adam_332a.mp3', 'adam')
+    functions.dub_play('332a', 'audiobook_adam_polish_332a.mp3', 'adam')
     functions.stats_change('Wytrzymałość', constants.w_count, -2)
-    functions.dub_play('332b', 'audiobook_adam_332b.mp3', 'adam')
+    functions.dub_play('332b', 'audiobook_adam_polish_332b.mp3', 'adam')
     functions.combat_init(entities.entity_332, True, entities.entity_332.esc_possible, '', '', 'paragraphs._06a()')
 
 
 def _336():
-    functions.dub_play('336', 'audiobook_adam_336.mp3', 'adam')
+    functions.dub_play('336', 'audiobook_adam_polish_336.mp3', 'adam')
     path_strings = []
     actions = ['paragraphs._06b()', 'paragraphs._21()']
     functions.pth_selector(path_strings, actions, True, entities.room_336)
 
 
 def _344():
-    functions.dub_play('344', 'audiobook_adam_344.mp3', 'adam')
+    functions.dub_play('344', 'audiobook_adam_polish_344.mp3', 'adam')
     functions.combat_init(entities.entity_344, True, entities.entity_344.esc_possible, '', '', "paragraphs._23()")
 
 
 def _345():
-    functions.dub_play('345', 'audiobook_adam_345.mp3', 'adam')
+    functions.dub_play('345', 'audiobook_adam_polish_345.mp3', 'adam')
     path_strings = ['zachód', 'północ']
     actions = ['_218()', '_267()']
     functions.pth_selector(path_strings, actions)
 
 
 def _349():
-    functions.dub_play('349', 'audiobook_adam_349.mp3', 'adam')
+    functions.dub_play('349', 'audiobook_adam_polish_349.mp3', 'adam')
     path_strings = ['tak', 'nie']
     actions = ['_385(entity, state, esc_possible, escape_id, stay_id, to_the_end, p_w_count, e_w_count)', '_48()']
     functions.pth_selector(path_strings, actions)
 
 
 def _351():
-    functions.dub_play('351', 'audiobook_adam_351.mp3', 'adam')
+    functions.dub_play('351', 'audiobook_adam_polish_351.mp3', 'adam')
     path_strings = []
     actions = ['paragraphs._64()']
     functions.pth_selector(path_strings, actions)
 
 
 def _358():
-    functions.dub_play('358', 'audiobook_adam_358.mp3', 'adam')
+    functions.dub_play('358', 'audiobook_adam_polish_358.mp3', 'adam')
     path_strings = []
     actions = ['paragraphs._xx()']
     functions.pth_selector(path_strings, actions)
@@ -1110,21 +1107,21 @@ def _364():
     entities.room_364.room_state = functions.update_bool_variable(entities.room_364.room_state, True)
     functions.debug_message(f'entities.room_364.room_state = {entities.room_364.room_state}')
 
-    functions.dub_play('364', 'audiobook_adam_364.mp3', 'adam')
+    functions.dub_play('364', 'audiobook_adam_polish_364.mp3', 'adam')
     path_strings = ['Próbujesz zabrać ukradkiem pudełko', 'Decydujesz się podjąć walkę']
     actions = ['paragraphs._29()', 'paragraphs._116a()']
     functions.pth_selector(path_strings, actions, '', entities.room_364)
 
 
 def _372():
-    functions.dub_play('372', 'audiobook_adam_372.mp3', 'adam')
+    functions.dub_play('372', 'audiobook_adam_polish_372.mp3', 'adam')
     path_strings = []
     actions = ['paragraphs._xx()']
     functions.pth_selector(path_strings, actions)
 
 
 def _374():
-    functions.dub_play('374', 'audiobook_adam_374.mp3', 'adam')
+    functions.dub_play('374', 'audiobook_adam_polish_374.mp3', 'adam')
     functions.eatables()
     path_strings = []
     actions = ['paragraphs._178()']
@@ -1140,7 +1137,7 @@ def _381():
 
 
 def _385():
-    functions.dub_play('385', 'audiobook_adam_385.mp3', 'adam')
+    functions.dub_play('385', 'audiobook_adam_polish_385.mp3', 'adam')
     path_strings = ['Wybierz drzwi zachodnie', 'Wybierz drzwi wschodnie']
     actions = ['_345()', '_242()']
     functions.pth_selector(path_strings, actions)

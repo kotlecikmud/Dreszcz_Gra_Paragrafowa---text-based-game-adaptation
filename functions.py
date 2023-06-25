@@ -30,17 +30,19 @@ def clear_terminal():
         subprocess.call('cls' if os.name == 'nt' else 'clear', shell=True)
 
 
-def dub_play(string_id, audio_file_id, voice=None):
-    audio_path = None
-    if not voice:  # default 'Dunmer' voice
-        audio_path = constants.assets_audio_pth
-    elif voice.lower() == 'adam':
-        audio_path = constants.assets_audio_pth_adam
+def dub_play(string_id, voice=None):
+    # building file path based on voice, translation and string_id
+    if voice.lower() == 'adam':
+        audio_path = f'{constants.assets_audio_pth}/Adam'
+    elif voice.lower() == 'xxx':
+        audio_path = f'{constants.assets_audio_pth}/xxx'
     elif voice.lower() == 'fx':
         audio_path = constants.assets_audio_effects_pth
 
+    audio_file_id = f'{audio_path}/{constants.translation}/audiobook_{voice.lower()}_{constants.translation}_{string_id}.mp3'
+
     try:
-        current_sound = pygame.mixer.Sound(f'{audio_path}/{audio_file_id}')
+        current_sound = pygame.mixer.Sound(audio_file_id)
 
     except FileNotFoundError:
         error_message('FileNotFoundError', f'Could not find: {audio_file_id}')
@@ -63,8 +65,8 @@ def dub_play(string_id, audio_file_id, voice=None):
     channel.play(current_sound)
     if len(string_id) > 0:
         if len(string_id) <= 4:
-            gameboook = gb.get_translation(constants.translation)
-            print(gameboook[string_id])
+            input(gb.get_translation(constants.translation))
+            print(gb.get_translation(f'{constants.translation}[{string_id}]'))
         else:
             print(string_id)
 
@@ -339,7 +341,8 @@ def stats_change(attribute_name, updated_variable, amount):
     #         new_count = min(constants.s_count + amount, constants.s_init + 1)
     #         constants.s_count = new_count
 
-    print(f'{constants.special_txt_clr}/// {attribute_name} {inter}{amount} >>> {updated_variable + amount}{constants.def_txt_clr}')
+    print(
+        f'{constants.special_txt_clr}/// {attribute_name} {inter}{amount} >>> {updated_variable + amount}{constants.def_txt_clr}')
     time.sleep(constants.delay)
 
     return updated_variable

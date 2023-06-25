@@ -202,7 +202,8 @@ def main_menu():
                             if usr_input == choice_settings:
 
                                 if choice_settings == 'Język':
-                                    translation = str(input(f'{constants.def_txt_clr}Choose language: ')).lower()
+                                    translation = str(input(f'{constants.def_txt_clr}Choose language (en, pl, es, fr, it, cn, jp)\
+                                    \n{constants.input_sign}')).lower()
                                     gb.get_translation(translation)
                                     functions.debug_message(f'wybrałeś: {constants.translation}')
 
@@ -339,7 +340,8 @@ pygame.mixer.music.play(-1)  # loop
 functions.rpar()  # loading player parameters
 os.system('cls')
 
-language = str(input(f'{constants.def_txt_clr}Choose language: ')).lower()
-gb.get_translation(language)
+translation = str(input(f'{constants.def_txt_clr}Choose language (en, pl, es, fr, it, cn, jp)\
+\n{constants.input_sign}')).lower()
+gb.get_translation(translation)
 
 main_menu()  # enterance point
