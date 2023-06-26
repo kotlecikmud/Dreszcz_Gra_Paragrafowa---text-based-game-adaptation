@@ -4,7 +4,7 @@ gameboook = {
     'en':
         {"xxx": "",
 
-         "elxr_a": f"{constants.special_txt_clr}Choose elixir:\
+         "elxr_chc": f"{constants.special_txt_clr}Choose elixir:\
                 \n1. Dexterity\
                 \n2. Endurance\
                 \n3. Luck",
@@ -91,7 +91,7 @@ gameboook = {
     'pl':
         {"xxx": "",
 
-         "elxr_a": f"{constants.special_txt_clr}Wybierz eliksir:\
+         "elxr_chc": f"{constants.special_txt_clr}Wybierz eliksir:\
                 \n1. Zręczności\
                 \n2. Wytrzymałości\
                 \n3. Szczęścia",
@@ -1170,7 +1170,7 @@ gameboook = {
     'fr':
         {"xxx": "",
 
-         "elxr_a": f"{constants.special_txt_clr}Choisissez une potion:\
+         "elxr_chc": f"{constants.special_txt_clr}Choisissez une potion:\
                 \n1. Dextérité\
                 \n2. Endurance\
                 \n3. Chance",
@@ -1204,7 +1204,7 @@ gameboook = {
 
 
 def get_translation(translation):
-    if not translation in gameboook:
+    if not translation in gameboook:  # if not available, set to english
         functions.debug_message('not available, language set to english')
         translation = 'en'
     constants.translation = translation

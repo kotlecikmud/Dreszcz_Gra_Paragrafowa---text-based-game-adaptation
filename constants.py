@@ -3,7 +3,7 @@ from colorama import Fore
 
 ver_num = ''
 
-dev_mode = False  # Toggle for developer mode; enables debug information, error indicators and other information while playing
+dev_mode = True  # Toggle for developer mode; enables debug information, error indicators and other information while playing
 
 # /// settings
 allow_skip_dub = False  # Determines whether dubbing can be skipped.
@@ -64,7 +64,7 @@ music_combat = [f'{assets_audio_music_pth}/music_combat_1.mp3',  # List of comba
 
 music_main = [f'{assets_audio_music_pth}/music_main_1.mp3',  # List of main music tracks
               f'{assets_audio_music_pth}/music_main_2.mp3',
-              f'{assets_audio_music_pth}/dark_strings_15_11_2020.wav']
+              f'{assets_audio_music_pth}/music_main_3.mp3']
 
 # /// sound mixing
 pygame.mixer.init(frequency=44100, size=-16, channels=1,

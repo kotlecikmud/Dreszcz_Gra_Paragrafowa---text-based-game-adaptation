@@ -341,8 +341,5 @@ pygame.mixer.music.play(-1)  # loop
 functions.rpar()  # loading player parameters
 os.system('cls')
 
-translation = str(input(f'{constants.def_txt_clr}Choose language (en, pl, es, fr, it, cn, jp)\
-\n{constants.input_sign}')).lower()
-
-gb.get_translation(translation)
+gb.get_translation('en')
 main_menu()  # enterance point

@@ -43,6 +43,8 @@ def dub_play(string_id, voice=None):
 
     try:
         current_sound = pygame.mixer.Sound(audio_file_id)
+        if constants.dev_mode:
+            debug_message(f'Playing: {audio_file_id}')
 
     except FileNotFoundError:
         error_message('FileNotFoundError', f'Could not find: {audio_file_id}')
@@ -63,15 +65,15 @@ def dub_play(string_id, voice=None):
 
     # play sound on found channel
     channel.play(current_sound)
-    if len(string_id) > 0:
-        if len(string_id) <= 4:
+    try:
+        if len(string_id) > 0:
             print(gb.gameboook[constants.translation][string_id])
-        else:
-            print(string_id)
+    except KeyError as e:
+        error_message(e, f'Could not find: {string_id}')
 
     # wait until audio stops playing
     if constants.allow_skip_dub:
-        input(f'pomiń {constants.input_sign}')
+        input(f'skip {constants.input_sign}')
         pygame.mixer.stop()
 
     elif constants.skip_dub:
