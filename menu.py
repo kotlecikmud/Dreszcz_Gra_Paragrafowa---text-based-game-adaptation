@@ -56,14 +56,14 @@ def main_menu():
         for choice_main_menu, description in choices_main_menu:  # displaying list
             if usr_input == choice_main_menu:
 
-                if choice_main_menu == 'Graj':
+                if choice_main_menu == 'Graj':  # Play
                     functions.clear_terminal()
                     print(f"/ {choice_main_menu}{constants.def_txt_clr}")
                     time.sleep(constants.delay)
                     pygame.mixer.music.fadeout(1800)
                     paragraphs.par_00()
 
-                elif choice_main_menu == 'Zasady Gry':
+                elif choice_main_menu == 'Zasady Gry':  # Rules
                     while True:
                         functions.clear_terminal()
                         print(f"{constants.special_txt_clr}/ {choice_main_menu}{constants.def_txt_clr}")
@@ -101,7 +101,7 @@ def main_menu():
                                         \n\
                                         \nTwój ekwipunek to:')
 
-                                    functions.show_equipment_list()
+                                    functions.show_equipment_list()  # show equipment list
 
                                     print(f'Wędrując po podziemiach będziesz znajdował inne rodzaje broni i przedmioty.\
                                         \nPamiętaj, że - poza mieczem - każda broń może być wykorzystana tylko raz.\
@@ -168,13 +168,13 @@ def main_menu():
 
                                 elif choice_rules == 'wróć':
                                     print('POWODZENIA!')
-                                    time.sleep(0.5)
+                                    time.sleep(constants.delay)
                                     main_menu()
 
                                 input(f'{constants.input_sign}')
 
 
-                elif choice_main_menu == 'Ustawienia':
+                elif choice_main_menu == 'Ustawienia':  # Settings main
                     while True:
                         functions.clear_terminal()
                         print(f"{constants.special_txt_clr}/ {choice_main_menu}{constants.def_txt_clr}")
@@ -202,8 +202,12 @@ def main_menu():
                         for choice_settings, description in choices_settings:
                             if usr_input == choice_settings:
 
-                                if choice_settings == 'Język':
-                                    translation = str(input(f'{constants.def_txt_clr}Choose language (en, pl, es, fr, it, cn, jp)\
+                                if choice_settings == 'Język':  # Language settings
+                                    availableLocales = []
+                                    for key in gb.gameboook:
+                                        availableLocales.append(key)
+
+                                    translation = str(input(f'{constants.def_txt_clr}Choose language {availableLocales}\
                                     \n{constants.input_sign}')).lower()
                                     gb.get_translation(translation)
                                     functions.debug_message(f'wybrałeś: {constants.translation}')
@@ -245,7 +249,7 @@ def main_menu():
                                             constants.e_mult_choice = difficulty_lvl
 
 
-                                elif choice_settings == 'Dźwięk':
+                                elif choice_settings == 'Dźwięk':  # Audio settings
 
                                     functions.clear_terminal()
                                     print(f"{constants.special_txt_clr}// {choice_settings}{constants.def_txt_clr}")
@@ -296,7 +300,7 @@ def main_menu():
                                                 main_menu()
 
 
-                                elif choice_settings == 'Imię postaci':
+                                elif choice_settings == 'Imię postaci':  # Name setting
                                     time.sleep(constants.delay)
 
                                     name = input(
@@ -306,7 +310,7 @@ def main_menu():
                                     if name == 'los':
                                         functions.name_randomizer()
 
-                                elif choice_settings == 'Losuj nowe atrybuty postaci':
+                                elif choice_settings == 'Losuj nowe atrybuty postaci':  # Randomize atributes
                                     time.sleep(constants.delay)
                                     print(f"Losowanie początkowych statystyk bohatera")
                                     functions.loading(2)
@@ -328,7 +332,7 @@ def main_menu():
 
                 elif choice_main_menu == 'eval()':  # only for dev purposes; evaluating functions in paragraphs.py
                     time.sleep(constants.delay)
-                    paragraphs._xx()
+                    paragraphs._xx()  # calling placeholder function
 
 
 # loading background music
@@ -341,5 +345,9 @@ pygame.mixer.music.play(-1)  # loop
 functions.rpar()  # loading player parameters
 os.system('cls')
 
-gb.get_translation('en')
+if constants.dev_mode:
+    gb.get_translation('en')
+else:
+    gb.get_translation('pl')
+
 main_menu()  # enterance point

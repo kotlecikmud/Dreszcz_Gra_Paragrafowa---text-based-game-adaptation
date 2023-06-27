@@ -86,7 +86,118 @@ gameboook = {
                 \nIn a moment, a horde of goblins appears at the door.",
 
          "09": "You prepare to strike the DWARF with a wooden pole. He notices it.\
-                \n'Oh, what a beautiful pole,' he says, 'Sell it to me for 20 gold pieces.'"
+                \n'Oh, what a beautiful pole,' he says, 'Sell it to me for 20 gold pieces.'",
+
+         "10": "DWARVES invite you to sit at the table. They smile.\
+                \n'Finally, a cultured creature,' they say. 'Everyone just comes in here, snatches heads\
+                \nof lettuce, and runs off. But we don't blame them. At least someone will make use of\
+                \nour little vegetable, hehe.' You ponder for a moment about that 'hehe,' and already\
+                \nthe DWARVES start spinning tales. Few of them have ventured\
+                \ninto the deeper regions of the underground. Those who returned say\
+                \nthat the scariest thing one can encounter is fire. A fat Dragon also wanders around\
+                \nin the labyrinth. Apparently, it is very dangerous, although some say\
+                \nit can be bribed.\
+                \n\
+                \nYou listen to these stories, but something still troubles you.\
+                \n /// If you followed the path through the center of the chamber /../../../",
+
+         "11": "The passage stands wide open. There are no doors to this chamber.\
+                \nSo you enter boldly.\
+                \n'Hello' - one word and you freeze.\
+                \n'Hello, Brave One, hehe' - in the corner of the chamber sits a small, wrinkled creature.\
+                \n'Are you thirsty? Take some water. Good, cool water. Finger-licking good'.\
+                \nIn the middle of the chamber stands a stone fountain. Water surrounds the figure of some extraordinary being.\
+                \nA small stream of water flows from its snout. '...There are real treasures. Do you want to taste the water?\
+                \nIt's good, cool water.' You stand frozen. That little funny creature killed your wits.\
+                \nYou've completely lost your composure. Well, make up your mind:",
+
+         "12": "You extract the enchanted emerald. Pain tears through your back, your leather jacket cracks.\
+                \nWide, bluish-gray wings sprout from your back. You ascend. You land on a dreamlike edge of a precipice.\
+                \nThe spell is broken.",
+
+         "13": "You don't have to look around. I'll tell you everything right away. In this chamber, a WEREWOLF lurks.\
+                \nIt knows you're here. You take a few steps into the darkness and notice a glowing point beyond a rocky gap.\
+                \nStealthily, you reach for your sword. You take further steps. Now there are two points. Clatter.\
+                \nIt jumps out from behind the rock. In the streak of light, which falls through the partially open door to the cave,\
+                \nyou only see white fangs and green eyes. Swiftly, you grip your sword with both hands.\
+                \nYou swing... and freeze in place. The green eyes paralyze your body.",
+
+         "14": "You can exit through the northern door - see 197, or the eastern door - see 39.",
+
+         "15": "If you give up swimming across the lake - see 241. However, if you decide to attempt swimming across the lake,\
+                \nmake a note of this paragraph number and see 113.",
+
+         "16a": "You step out into the corridor. After a while, it turns south.\
+                \nAt the same spot, you can sit down and eat your Provisions.",
+
+         "16b": "You continue onwards. You walk south until the tunnel turns west again.\
+                \nTwenty steps ahead, you see the entrance to a chamber.",
+
+         "17": "If you want to see what's behind them - see 265, if you prefer to retreat - see 50.",
+
+         "18": "You enter a small cave attached to the room. Behind you, three EVIL creatures.\
+                \nThe old man stayed in the room. Through the rocky breach, you see a gremlin chained to the rock.\
+                \nThe poor thing is barely breathing. The EVIL one takes you by the arm and leads you\
+                \nten steps away from the gremlin. He hands you six arrows. The EVIL one also\
+                \nhas six. He points his finger towards the chained gremlin. You should aim at him!\
+                \nDo you want to play?",
+
+         "19": "The DWARVES bid you farewell warmly and give you two lettuce heads\
+                \nfor your journey. They escort you to the eastern door.",
+
+         "20": "After a long march, you arrive at a large cave.\
+                \nNo, it's more like an endless plain. Probably the famous Mad Fields.\
+                \nYou hear some noise. You run west with all your might.\
+                \nHowever, the monsters catch up with you.",
+
+         "21": "If you want to see what's behind the doors - see 332, if not - turn back and see 212.",
+
+         "22": "This might be the end of your journey. You've never seen such a lovely chamber before.\
+                \nIt's bright everywhere, and a greenish mist floats in the air. The floor is even smoother than over the abyss.\
+                \nThere's a little person sitting on the floor. Ah, it's a real DWARF playing with a toy dragon,\
+                \nwound up with moving legs and a red tongue that sticks out every now and then.\
+                \nIf you have a tin butterfly, you can rest and play with the DWARF - see 321.\
+                \nIf you have an emerald, you can show it to the DWARF - see 187. But only if\
+                \nyou have a wooden stick, you can try to scare or even attack the DWARF - see 9.\
+                \nIf you have more than one of the mentioned items, you must choose only one possibility.",
+
+         "23": "The door to the treasure chamber stands before you... open? Oh no! It's closed.\
+                \nYou see two locks. If you have at least two numbered keys,\
+                \nyou can open the door with them - see 185. If you don't have at least two keys,\
+                \nyour Adventure ends here. You were so close!",
+
+         "24": "Roll the die once. If you roll 1, 2, 3 - your weapon\
+                \nproves to be effective in fighting the BUGS - see 58.\
+                \nIf you roll 4, 5, 6, it's of no use - see 168.",
+
+         "25": "An old man is sitting on a rock. He advises you to go west,\
+                \nand then turn right at the next few intersections.",
+
+         "26": "For each accurate hit on the fatso, you receive 5 gold pieces. See 171.",
+
+         "27": "The corridor leads straight north. Along the way, you can eat Provisions.\
+                \nIt starts to widen, expand until you reach an endless plain. It's the Mad Fields.\
+                \nIt's better not to venture there. But... do you hear that rumbling? It must be the monsters.\
+                \nSee 238. If you defeat them or retreat during the battle - see 316.\
+                \nRemember this number, as you might lose your way.",
+
+         "28": "Lift the large stone lying against the wall.",
+
+         "29": "You stumble upon a pebble. The sword clangs against the rock. {entities.entity_116.name} raises its head.\
+                \nIt has spotted you. It rushes into a fight.",
+
+         "30": "SSS. If you have an S - see 159. If you don't have an S - see 342.",
+
+         "31": "Shine the lantern down. Sweep away the remains with your sword. And look - you've found 5 gold pieces!",
+
+         "32": f"Exhausted, you sit down under a rock. You can eat something from the Provisions.\
+                \nHardly finishing your meal, WEREWOLF enters the cave, significantly weaker\
+                \nthan the WOLFLORD, but there are three of them. Treat them as a single creature and fight.\
+                \n{entities.entity_032.name}\
+                \nIf you emerge victorious - see 275.",
+
+         "33": "x"
+
          },
     'pl':
         {"xxx": "",
@@ -1165,41 +1276,144 @@ gameboook = {
                 \nNa jej dnie leżą jakieś papiery. Nie, to złożony na 16 stron, ilustrowany druk. ostrożnie przewracasz kartki. Znajdujesz w nim dokładny opis wędrówki po podziemnym labiryncie. Zatrzymaj go, bo to papier niezwykle wartościowv"
          },
     'es':
-        {"xxx": ""},
+        {"xxx": "",
+
+         "elxr_chc": f"{constants.special_txt_clr}Elige una poción:\
+            \n1. Destreza\
+            \n2. Resistencia\
+            \n3. Suerte",
+
+         "00a": "\rMientras caminas por los subterráneos, encontrarás diferentes tipos de armas y objetos.\
+            \nRecuerda que, excepto la espada, cada arma solo se puede usar una vez.\
+            \nDe igual manera, los objetos que encuentres son de un solo uso.\
+            \nPuedes llevar una botella de elixir contigo.",
+
+         "00b": "¡Hey, valiente!\
+            \n\
+            \nDicen que en tus venas fluye agua helada en lugar de sangre,\
+            \ny que tus músculos están hechos del acero más noble.\
+            \nSi es así, mira hacia el sol poniente.\
+            \nAllá, en las fronteras del reino de Almanhagor, comienza el subterráneo inexplorado.\
+            \nSolo tú puedes descubrir su Gran Secreto. ¡Adelante!",
+
+         "01": "La entrada al subterráneo es amplia, invadida por hierba y arbustos exuberantes.\
+            \nAjustas tu ropa y tu equipo.\
+            \n¡Enciende tu linterna! Entras al pasillo. Es alto y no necesitas agacharte.\
+            \nSe dirige directamente hacia el norte. Pronto llegas a una intersección.\
+            \nTiene forma de la letra T. Los caminos conducen al oeste, este y sur (de donde vienes)."
+         },
 
     'fr':
         {"xxx": "",
 
          "elxr_chc": f"{constants.special_txt_clr}Choisissez une potion:\
-                \n1. Dextérité\
-                \n2. Endurance\
-                \n3. Chance",
+            \n1. Dextérité\
+            \n2. Endurance\
+            \n3. Chance",
 
          "00a": "\rEn vous promenant dans les souterrains, vous trouverez différents types d'armes et d'objets.\
-                \nSouvenez-vous que - à l'exception de l'épée - chaque arme ne peut être utilisée qu'une seule fois.\
-                \nDe même, les objets trouvés sont à usage unique.\
-                \nVous pouvez emporter une bouteille d'élixir avec vous.",
+            \nSouvenez-vous que - à l'exception de l'épée - chaque arme ne peut être utilisée qu'une seule fois.\
+            \nDe même, les objets trouvés sont à usage unique.\
+            \nVous pouvez emporter une bouteille d'élixir avec vous.",
 
          "00b": "Hé, Brave !\
-                \n\
-                \nOn dit de vous que de l'eau glacée coule dans vos veines au lieu de sang,\
-                \net que vos muscles sont faits de l'acier le plus noble ?\
-                \nSi c'est le cas, regardez vers le soleil couchant.\
-                \nLà-bas, aux frontières du royaume d'Almanhagor, commence le souterrain inexploré.\
-                \nVous seul pouvez dévoiler son Grand Secret. Avancez !",
+            \n\
+            \nOn dit de vous que de l'eau glacée coule dans vos veines au lieu de sang,\
+            \net que vos muscles sont faits de l'acier le plus noble ?\
+            \nSi c'est le cas, regardez vers le soleil couchant.\
+            \nLà-bas, aux frontières du royaume d'Almanhagor, commence le souterrain inexploré.\
+            \nVous seul pouvez dévoiler son Grand Secret. Avancez !",
 
          "01": "L'entrée du souterrain est large, envahie par l'herbe et les buissons luxuriants.\
-                \nVous ajustez vos vêtements et votre équipement.\
-                \nAllumez votre lanterne ! Vous entrez dans le corridor. Il est haut, et vous n'avez pas besoin de vous baisser.\
-                \nIl mène droit vers le nord. Bientôt, vous arrivez à un carrefour.\
-                \nIl a la forme de la lettre T. Les branches mènent à l'ouest, à l'est et au sud (d'où vous venez)."
+            \nVous ajustez vos vêtements et votre équipement.\
+            \nAllumez votre lanterne ! Vous entrez dans le corridor. Il est haut, et vous n'avez pas besoin de vous baisser.\
+            \nIl mène droit vers le nord. Bientôt, vous arrivez à un carrefour.\
+            \nIl a la forme de la lettre T. Les branches mènent à l'ouest, à l'est et au sud (d'où vous venez)."
          },
+
     'it':
-        {"xxx": ""},
+        {"xxx": "",
+
+         "elxr_chc": f"{constants.special_txt_clr}Scegli un'elisir:\
+            \n1. Destrezza\
+            \n2. Resistenza\
+            \n3. Fortuna",
+
+         "00a": f"\r{constants.def_txt_clr}Mentre esplori i sotterranei, troverai diversi tipi di armi e oggetti.\
+            \nRicorda che, a parte la spada, ogni arma può essere utilizzata solo una volta.\
+            \nAllo stesso modo, gli oggetti trovati sono ad uso singolo.\
+            \nPuoi portare con te una sola pozione dell'elisir.",
+
+         "00b": "Ehi, coraggioso!\
+            \n\
+            \nDicono che nelle tue vene scorra acqua gelida invece di sangue,\
+            \ne che i tuoi muscoli siano fatti del più nobile acciaio.\
+            \nSe è così, guarda verso il tramonto.\
+            \nLì, ai confini del regno di Almanhagor, iniziano i misteriosi Sotterranei.\
+            \nSolo tu puoi svelarne il Grande Segreto. Avanti!",
+
+         "01": "L'ingresso nei sotterranei è ampio, ricoperto d'erba e fitte siepi.\
+            \nSistemati l'abbigliamento e l'equipaggiamento.\
+            \nAccendi la lanterna! Entri nel corridoio. È alto, non devi chinarti.\
+            \nProsegue dritto verso nord. Presto raggiungi un incrocio.\
+            \nHa la forma della lettera T. Le diramazioni portano a ovest, est e sud (da dove sei venuto)."
+         },
+
     'cn':
-        {"xxx": ""},
+        {"xxx": "",
+
+         "elxr_chc": f"{constants.special_txt_clr}选择一种圣水：\
+            \n1. 敏捷\
+            \n2. 抗性\
+            \nn3. 幸运",
+
+         "00a": f"\r{constants.def_txt_clr}当你探索地下室时，你会找到不同类型的武器和物品。\
+            \n请记住，除了剑之外，每种武器只能使用一次。\
+            \n同样，找到的物品只能使用一次。\
+            \n你只能携带一瓶圣水。",
+
+         "00b": "嘿，勇敢的人！\
+            \n\
+            \n人们说你的血液中流淌的是冰冷的水而不是鲜血，\
+            \n你的肌肉是由最高贵的钢铁构成的。\
+            \n如果是这样的话，看向夕阳。\
+            \n在阿尔曼哈戈王国的边界上，神秘的地下室开始了。\
+            \n只有你能揭示它的伟大秘密。前进吧！",
+
+         "01": "地下室的入口宽敞，覆盖着草地和茂密的树篱。\
+            \n整理好你的服装和装备。\
+            \n点亮灯笼！你走进了走廊。它很高，你不需要低头。\
+            \n它笔直地向北延伸。很快你就会到达一个十字路口。\
+            \n它的形状像字母T。分支向西、东和南（你来的方向）。"
+         },
+
     'jp':
-        {"xxx": ""},
+        {"xxx": "",
+         "elxr_chc": f"{constants.special_txt_clr}エリクサーを選んでください：\
+            \n1. 器用さ\
+            \n2. 耐久力\
+            \n3. 幸運",
+
+         "00a": f"\r{constants.def_txt_clr}ダンジョンを探索すると、さまざまな種類の武器やアイテムを見つけることができます。\
+            \nただし、剣以外の武器は一度しか使用できません。\
+            \n同様に、見つけたアイテムは一度だけ使用できます。\
+            \nエリクサーのボトルを1つだけ持っていくことができます。",
+
+         "00b": "おい、勇者よ！\
+            \n\
+            \nあなたについて言われていることは、あなたの血液ではなく氷のような水が流れ、\
+            \nあなたの筋肉が最高の鋼からできているということですか？\
+            \nもしそうなら、西の空を見てください。\
+            \nアルマンハゴール王国の境界には未知のダンジョンが広がっています。\
+            \nあなたしかその偉大な秘密を解き明かすことはできません。さあ、行動しましょう！",
+
+         "01": "ダンジョンへの入り口は広く、草と茂みで覆われています。\
+            \n服装と装備を整えます。\
+            \nランタンを点灯させます！廊下に入ります。高い天井なので、かがむ必要はありません。\
+            \n廊下は北にまっすぐ伸びています。やがて十字路に到着します。\
+            \nそれはT字型の形状をしており、西、東、南（来た道）に分かれています。"
+         },
+
 }
 
 
