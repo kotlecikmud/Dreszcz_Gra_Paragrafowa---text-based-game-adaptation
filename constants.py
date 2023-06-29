@@ -3,7 +3,7 @@ from colorama import Fore, Style
 
 ver_num = ''
 
-dev_mode = True  # Toggle for developer mode; enables many debug information, error indicators and other exlusive machanics while playing
+dev_mode = False  # Toggle for developer mode; enables many debug information, error indicators and other exlusive machanics while playing
 # /// settings
 allow_skip_dub = False  # Determines whether dubbing can be skipped by hitting enter key.
 
@@ -58,7 +58,7 @@ combat_txt_clr = Fore.LIGHTCYAN_EX  # color for combat text
 debug_txt_clr = Fore.LIGHTBLACK_EX  # color for debug messages
 error_txt_clr = Fore.LIGHTRED_EX  # color for error messages
 
-template = "({}) {} - {}" if dev_mode else "({}) {}"  # template for list printing
+template = "({}) {} - {}" if dev_mode else "({}) {}"  # template for list printing (if dev_mode: explainer lines)
 
 # /// paths
 assets_audio_pth = 'Assets/Audio'  # Path to audio files

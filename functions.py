@@ -35,29 +35,32 @@ def clear_terminal():
 
 
 def get_music(category=None, fadeout=None):
-    if category:
-        rnd_choice = None
-        if fadeout:
-            pygame.mixer.music.fadeout(fadeout)
+    if not constants.dev_mode:
+        if category:
+            rnd_choice = None
+            if fadeout:
+                pygame.mixer.music.fadeout(fadeout)
 
-        if category == 'main':
-            rnd_choice = random.choice(cnst.music_main)  # losowanie muzyki z listy
+            if category == 'main':
+                rnd_choice = random.choice(cnst.music_main)  # losowanie muzyki z listy
 
-        elif category == 'combat':
-            rnd_choice = random.choice(cnst.music_combat)
+            elif category == 'combat':
+                rnd_choice = random.choice(cnst.music_combat)
 
+            else:
+                # rnd_choice = random.choice(cnst.music_other)
+                pass
+
+            if constants.dev_mode:
+                debug_message(f'Playing {category}: {rnd_choice}')
+            pygame.mixer.music.load(rnd_choice)
+            pygame.mixer.music.set_volume(cnst.def_bckg_volume)
+            pygame.mixer.music.play(-1)  # loop
         else:
-            # rnd_choice = random.choice(cnst.music_other)
-            pass
-
-        if constants.dev_mode:
-            debug_message(f'Playing {category}: {rnd_choice}')
-        pygame.mixer.music.load(rnd_choice)
-        pygame.mixer.music.set_volume(cnst.def_bckg_volume)
-        pygame.mixer.music.play(-1)  # loop
+            if constants.dev_mode:
+                debug_message('Playing: None of music was selected')
     else:
-        if constants.dev_mode:
-            debug_message('Playing: None of music was selected')
+        debug_message('if dev_mode; get_music() is disabled')
 
 
 def dub_play(string_id, voice=None):
@@ -99,9 +102,9 @@ def dub_play(string_id, voice=None):
     try:
         if len(string_id) > 0:
             print(gb.gameboook[cnst.translation][string_id])
-    except KeyError as e:
+    except KeyError:
         channel.play(pygame.mixer.Sound(f'{cnst.assets_audio_effects_pth}/click_snd.mp3'))
-        error_message(e, f'Could not find string with ID: {string_id}')
+        error_message('KeyError', f'Could not find string: {string_id}')
 
     # wait until audio stops playing
     if cnst.allow_skip_dub:
@@ -206,10 +209,9 @@ def pth_selector(path_strings=[], actions=[], visit_check=False, room_id=0):
 
     else:
         if room_id.room_state:  # if open
-
-            dub_play(
-                f'Drzwi {cnst.special_txt_clr}{room_id.room_num}{cnst.def_txt_clr} są {cnst.special_txt_clr}otwarte{cnst.def_txt_clr}.',
-                'infobook_adam_door_open.mp3', 'adam')
+            print(
+                f"{gb.gameboook[cnst.translation]['door']}Drzwi {cnst.special_txt_clr}{room_id.room_num}{cnst.def_txt_clr} są {cnst.special_txt_clr}otwarte{cnst.def_txt_clr}.")
+            dub_play('opened', 'adam')
 
             if not room_id.visit_count - 1 >= room_id.max_visit_count:  # Player is visiting the room more times than the allowed number.
                 if room_id.visit_count == 1:  # Player first time in room
@@ -223,10 +225,10 @@ def pth_selector(path_strings=[], actions=[], visit_check=False, room_id=0):
             else:
                 print('Nie masz tu czego szukać')
 
-        else:  # if close
-            dub_play(
-                f'Drzwi {cnst.special_txt_clr}{room_id.room_num}{cnst.def_txt_clr} są {cnst.special_txt_clr}zamknięte{cnst.def_txt_clr}.',
-                'infobook_adam_door_closed.mp3', 'adam')
+        else:  # if closed
+            print(
+                f"Drzwi {cnst.special_txt_clr}{room_id.room_num}{cnst.def_txt_clr} są {cnst.special_txt_clr}zamknięte{cnst.def_txt_clr}.")
+            dub_play('closed', 'adam')
             debug_message(f'eval: {actions[1]}')
             eval(actions[1])
 
@@ -367,7 +369,7 @@ def stats_change(attribute_name, updated_variable, amount):
     #         cnst.s_count = new_count
 
     print(
-        f'{cnst.special_txt_clr}/// {attribute_name} {inter}{amount} >>> {updated_variable + amount}{cnst.def_txt_clr}')
+        f'{cnst.special_txt_clr}/// {attribute_name} {inter}{amount} {constants.input_sign} {updated_variable + amount}{cnst.def_txt_clr}')
     time.sleep(cnst.delay)
 
     return updated_variable
@@ -391,8 +393,8 @@ def combat_init(entity, state, esc_possible, escape_id, stay_id, win_path_id):
     show_player_stats()
     show_entity_stats(entity)
 
-    input(f'\
-    \n{cnst.combat_txt_clr}Rozpocznij walkę! {cnst.input_sign}')
+    input(f"\
+    \n{cnst.combat_txt_clr}{gb.gameboook[cnst.translation]['combat_init']} {cnst.input_sign}")
     combat_main(entity, state, esc_possible, escape_id, stay_id, to_the_end, p_w_count, e_w_count, win_path)
 
 
@@ -404,10 +406,10 @@ def combat_main(entity, state, esc_possible, escape_id, stay_id, to_the_end, p_w
         state = False
 
         # obj_class.Entity.die(pygame.mixer.Sound(f'{cnst.assets_audio_pth}/placeholder.mp3')) # broken line of code; to be investigated
-
-        dub_play(f'\
-        \n{cnst.combat_txt_clr}Pokonałeś {Fore.LIGHTRED_EX}{entity.name}{cnst.combat_txt_clr}!\
-        \n', 'audiobook_adam_combat_true.mp3', 'adam')
+        print(f"\
+        \n{cnst.combat_txt_clr}{gb.gameboook[cnst.translation]['combat_win_info']} {Fore.LIGHTRED_EX}{entity.name}{cnst.combat_txt_clr}!\
+        \n")
+        dub_play('combat_true.mp3', 'adam')
 
         time.sleep(cnst.delay)
         show_player_stats()
@@ -421,12 +423,9 @@ def combat_main(entity, state, esc_possible, escape_id, stay_id, to_the_end, p_w
             stay_opt = "{0}{1}".format(stay_id, (
                 "entity, state, esc_possible, escape_id, stay_id, to_the_end, p_w_count, e_w_count, win_path)"))
 
-            print(
-                f"{cnst.def_txt_clr}Uciekasz czy zostajesz i walczczysz dalej? {cnst.special_txt_clr}/Wytrzymałość - 2/{cnst.def_txt_clr}:\
-                  \nuciekasz        = <enter>\
-                  \nwalczysz dalej  = wpisz cokolwiek")
+            print(gb.gameboook[cnst.translation]['esc_choice'])
 
-            odp = input(f"tak/nie {cnst.input_sign} \
+            odp = input(f"Y/N {cnst.input_sign} \
             \n")
             if len(odp) == 0:
                 print(
@@ -441,9 +440,9 @@ def combat_main(entity, state, esc_possible, escape_id, stay_id, to_the_end, p_w
             eval(win_path)
 
     elif p_w_count <= 0:  # if player dead
-        print()
-        dub_play(f'Zostałeś zabity przez {Fore.LIGHTRED_EX}{entity.name}{cnst.combat_txt_clr}!\
-        \n', 'combat_die.wav')
+        dub_play(f"\
+        \n{gb.gameboook[cnst.translation]['combat_dead_info']} {Fore.LIGHTRED_EX}{entity.name}{cnst.combat_txt_clr}!\
+        \n", 'combat_die.wav')
         kill()
 
     else:  # if both player and enemy are alive
@@ -478,7 +477,7 @@ def combat_round(entity, state, esc_possible, escape_id, stay_id, to_the_end, p_
                 cnst.w_count += cnst.e_hit_val_
                 print(f"{Fore.LIGHTRED_EX}{entity.name}{cnst.combat_txt_clr} zadał cios!\
                 \n{cnst.special_txt_clr}/// Wytrzymałość {Fore.LIGHTYELLOW_EX}{cnst.player_name}{cnst.special_txt_clr}: {cnst.w_count}/{cnst.w_init}")
-                dub_play('', 'audiobook_adam_round_false.mp3', 'adam')
+                dub_play('round_false.mp3', 'adam')
 
                 cnst.w_count = max(cnst.w_count, 0)
 
@@ -488,13 +487,13 @@ def combat_round(entity, state, esc_possible, escape_id, stay_id, to_the_end, p_
                 entity.entity_w_count += cnst.p_hit_val_
                 print(f"{Fore.LIGHTYELLOW_EX}{cnst.player_name}{cnst.combat_txt_clr} zadał cios!\
                 \n{cnst.special_txt_clr}/// Wytrzymałość {Fore.LIGHTRED_EX}{entity.name}{cnst.special_txt_clr}: {entity.entity_w_count}/{entity.entity_w_init}")
-                dub_play('', 'audiobook_adam_round_true.mp3', 'adam')
+                dub_play('round_true.mp3', 'adam')
 
                 entity.entity_w_count = max(entity.entity_w_count, 0)
 
         else:  # if remis
             print(f'{cnst.special_txt_clr}Remis!')
-            dub_play('', 'audiobook_adam_round_none.mp3', 'adam')
+            dub_play('round_none.mp3', 'adam')
 
         if cnst.allow_skip_dub:  # If the option to skip the dubbing is enabled
             time.sleep(2 * cnst.delay)
