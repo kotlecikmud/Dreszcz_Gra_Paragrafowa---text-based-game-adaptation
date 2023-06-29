@@ -140,6 +140,8 @@ entity_344_w_init = entity_344_w_count = entity_344.entity_w_count
 # /// declare rooms
 # - - - - - - - - -
 # - - - - - - - - -
+room_0 = obj_class.Room('0')
+# - - - - - - - - -
 room_268 = obj_class.Room('268')
 # - - - - - - - - -
 room_310 = obj_class.Room('310')

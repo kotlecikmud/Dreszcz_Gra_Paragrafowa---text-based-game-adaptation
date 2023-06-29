@@ -1,6 +1,10 @@
 import random, time, pygame, os, subprocess
+
+import constants
 import gamebook as gb
 import constants as cnst
+# paragraphs needs to be imported:
+import paragraphs as prg
 from colorama import Fore
 
 
@@ -30,8 +34,35 @@ def clear_terminal():
         subprocess.call('cls' if os.name == 'nt' else 'clear', shell=True)
 
 
+def get_music(category=None, fadeout=None):
+    if category:
+        rnd_choice = None
+        if fadeout:
+            pygame.mixer.music.fadeout(fadeout)
+
+        if category == 'main':
+            rnd_choice = random.choice(cnst.music_main)  # losowanie muzyki z listy
+
+        elif category == 'combat':
+            rnd_choice = random.choice(cnst.music_combat)
+
+        else:
+            # rnd_choice = random.choice(cnst.music_other)
+            pass
+
+        if constants.dev_mode:
+            debug_message(f'Playing {category}: {rnd_choice}')
+        pygame.mixer.music.load(rnd_choice)
+        pygame.mixer.music.set_volume(cnst.def_bckg_volume)
+        pygame.mixer.music.play(-1)  # loop
+    else:
+        if constants.dev_mode:
+            debug_message('Playing: None of music was selected')
+
+
 def dub_play(string_id, voice=None):
     # building file path based on voice, translation and string_id
+    audio_path = None
     if voice.lower() == 'adam':
         audio_path = f'{cnst.assets_audio_pth}/Adam'
     elif voice.lower() == 'xxx':
@@ -69,7 +100,8 @@ def dub_play(string_id, voice=None):
         if len(string_id) > 0:
             print(gb.gameboook[cnst.translation][string_id])
     except KeyError as e:
-        error_message(e, f'Could not find: {string_id}')
+        channel.play(pygame.mixer.Sound(f'{cnst.assets_audio_effects_pth}/click_snd.mp3'))
+        error_message(e, f'Could not find string with ID: {string_id}')
 
     # wait until audio stops playing
     if cnst.allow_skip_dub:
@@ -77,7 +109,7 @@ def dub_play(string_id, voice=None):
         pygame.mixer.stop()
 
     elif cnst.skip_dub:
-        channel.play(pygame.mixer.Sound(f'{cnst.assets_audio_effects_pth}/click_snd.mp3'))
+
         time.sleep(1)
     else:
         while channel.get_busy():
@@ -143,7 +175,7 @@ def pth_selector(path_strings=[], actions=[], visit_check=False, room_id=0):
         debug_message(f'added visit: visit count of room number {room_id.room_num} = {room_id.visit_count}')
 
     if not visit_check:
-        debug_message(f'actions: {actions}')
+        debug_message(f'evaluating action: {actions}')
 
         if len(actions) != 1:  # if there is more than one path, display choice menu
 
@@ -157,15 +189,7 @@ def pth_selector(path_strings=[], actions=[], visit_check=False, room_id=0):
                 try:
                     odp = int(odp)
 
-                    if odp == 0:
-                        print(f'/!/ {cnst.special_txt_clr}Wybór nie może być równy zeru.{cnst.def_txt_clr}')
-                    elif odp < 0:
-                        print(f'/!/ {cnst.special_txt_clr}Wybór nie może być ujemny.{cnst.def_txt_clr}')
-                    elif odp > len(path_strings):
-                        print(f'/!/ {cnst.special_txt_clr}Nie ma wyboru o numerze: {odp}{cnst.def_txt_clr}')
-                    elif odp == '':
-                        print(f'/!/ {cnst.special_txt_clr}Nie wpisano numeru: {odp}{cnst.def_txt_clr}')
-                    else:
+                    if 0 < odp <= len(path_strings):
                         break
 
                 except ValueError:
@@ -355,11 +379,9 @@ def stats_change(attribute_name, updated_variable, amount):
 def combat_init(entity, state, esc_possible, escape_id, stay_id, win_path_id):
     pygame.mixer.music.fadeout(1500)
 
-    rnd_choice = random.choice(cnst.music_combat)  # randomize music from list
-    pygame.mixer.music.load(rnd_choice)
-    pygame.mixer.music.set_volume(cnst.def_bckg_volume)
-    pygame.mixer.music.play(-1)
+    get_music('combat')  # loading background music
 
+    # /// setting up the combat
     cnst.round_count = 0
     win_path = win_path_id
     p_w_count = cnst.w_count
@@ -377,14 +399,11 @@ def combat_init(entity, state, esc_possible, escape_id, stay_id, win_path_id):
 def combat_main(entity, state, esc_possible, escape_id, stay_id, to_the_end, p_w_count, e_w_count, win_path):
     if e_w_count <= 0:  # if enemy dead
         pygame.mixer.music.fadeout(1500)
-        rnd_choice = random.choice(cnst.music_main)  # randomize music from list
-        pygame.mixer.music.load(rnd_choice)
-        pygame.mixer.music.set_volume(cnst.def_bckg_volume)
-        pygame.mixer.music.play(-1)
+        get_music('main')  # loading background music
 
         state = False
 
-        # obj_class.Entity.die(pygame.mixer.Sound(f'{cnst.assets_audio_pth}/placeholder.mp3'))
+        # obj_class.Entity.die(pygame.mixer.Sound(f'{cnst.assets_audio_pth}/placeholder.mp3')) # broken line of code; to be investigated
 
         dub_play(f'\
         \n{cnst.combat_txt_clr}Pokonałeś {Fore.LIGHTRED_EX}{entity.name}{cnst.combat_txt_clr}!\
