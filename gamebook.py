@@ -1,15 +1,17 @@
-import constants, entities, functions
+import entities as ent
+import functions as fun
+import constants as cnst
 
 gameboook = {
     'en':
         {"xxx": "",
 
-         "elxr_chc": f"{constants.special_txt_clr}Choose elixir:\
+         "elxr_chc": f"{cnst.special_txt_clr}Choose elixir:\
                 \n1. Dexterity\
                 \n2. Endurance\
                 \n3. Luck",
 
-         "00a": f"\r{constants.def_txt_clr}While wandering through the underground, you will find different types of weapons and items.\
+         "00a": f"\r{cnst.def_txt_clr}While wandering through the underground, you will find different types of weapons and items.\
                 \nRemember that - except for the sword - each weapon can be used only once.\
                 \nSimilarly, the found items are for single use.\
                 \nYou can take one bottle of elixir with you.",
@@ -183,7 +185,7 @@ gameboook = {
 
          "28": "Lift the large stone lying against the wall.",
 
-         "29": "You stumble upon a pebble. The sword clangs against the rock. {entities.entity_116.name} raises its head.\
+         "29": f"You stumble upon a pebble. The sword clangs against the rock. {ent.entity_116.name} raises its head.\
                 \nIt has spotted you. It rushes into a fight.",
 
          "30": "SSS. If you have an S - see 159. If you don't have an S - see 342.",
@@ -193,7 +195,7 @@ gameboook = {
          "32": f"Exhausted, you sit down under a rock. You can eat something from the Provisions.\
                 \nHardly finishing your meal, WEREWOLF enters the cave, significantly weaker\
                 \nthan the WOLFLORD, but there are three of them. Treat them as a single creature and fight.\
-                \n{entities.entity_032.name}\
+                \n{ent.entity_032.name}\
                 \nIf you emerge victorious - see 275.",
 
          "33": "x"
@@ -202,12 +204,12 @@ gameboook = {
     'pl':
         {"xxx": "",
 
-         "elxr_chc": f"{constants.special_txt_clr}Wybierz eliksir:\
+         "elxr_chc": f"{cnst.special_txt_clr}Wybierz eliksir:\
                 \n1. Zręczności\
                 \n2. Wytrzymałości\
                 \n3. Szczęścia",
 
-         "00a": f"\r{constants.def_txt_clr}Wędrując po podziemiach będziesz znajdował inne rodzaje broni i przedmioty.\
+         "00a": f"\r{cnst.def_txt_clr}Wędrując po podziemiach będziesz znajdował inne rodzaje broni i przedmioty.\
                 \nPamiętaj, że - poza mieczem - każda broń może być wykorzystana tylko raz.\
                 \nPodobnie, znajdowane przedmioty są jednorazowego użytku.\
                 \nMożesz zabrać ze sobą jedną butelkę eliksiru.",
@@ -381,7 +383,7 @@ gameboook = {
 
          "28": "Podnieś wielki kamień leżący przy ścianie.",
 
-         "29": f"Potykasz się na kamyku. Miecz brzęknął o skałę. {entities.entity_116.name} podnosi głowę.\
+         "29": f"Potykasz się na kamyku. Miecz brzęknął o skałę. {ent.entity_116.name} podnosi głowę.\
                 \nZauważył cię. Rzuca się do walki.",
 
          "30": "SSS. Jeśli masz S - patrz 159. JeŚli nie masz S - patrz 342.",
@@ -391,7 +393,7 @@ gameboook = {
          "32": f"Wyczerpany siadasz pod skałą. Możesz zjeść coś z Prowiantu.\
                 \nLedwie skończyłeś posiłek, gdy do pieczary wpadają WILKOLUDY, znacznie\
                 \nsłabsze od WILKOŁAKA, ale za to są trzy. Traktujesz je jako jednego potwra i walczysz.\
-                \n{entities.entity_032.name}\
+                \n{ent.entity_032.name}\
                 \nJeśli zwyciężyłeś - patrz 275.",
 
          "33": "Jeszcze trochę i będziesz na skrzyżowaniu.\
@@ -629,7 +631,7 @@ gameboook = {
          "115": "Wybierz żeczy:",
 
          "116a": f"Odbiegasz w kąt pieczary. Kamienie pryskają spod stóp.\
-                \n{entities.entity_116.name} przygląda się uważnie i naciera. Musisz walczyć.",
+                \n{ent.entity_116.name} przygląda się uważnie i naciera. Musisz walczyć.",
 
          "116b": "\nMożesz rozejrzeć się po pokoju.",
 
@@ -638,7 +640,7 @@ gameboook = {
          "118": "",
 
          "119":
-             f"Co ta bestia tak zasłaniała? Dotykasz ściany w miejscu, o które opierał swe plecy włochaty {entities.entity_317.name}.\
+             f"Co ta bestia tak zasłaniała? Dotykasz ściany w miejscu, o które opierał swe plecy włochaty {ent.entity_317.name}.\
                 \nNagle cześć ściany uchyla się. To jest schowek! A w nim długa, ognioodporna lina z hakiem, pusta omszała flasza i skalp WILKOŁAKA.\
                 \nMożesz wziąć najwyżej dwie z tych rzeczy.",
 
@@ -779,7 +781,7 @@ gameboook = {
 
          "179": "",
 
-         "180": f"Ponownie przeszukujesz pokój. W torbie {entities.entity_116.name},\
+         "180": f"Ponownie przeszukujesz pokój. W torbie {ent.entity_116.name},\
                 \nktórej nie zdążyłeś przejrzeć, znajdujesz klucz. Jest na nim wygrawerowana liczba 45.\
                 \nMożesz go wziąść ze sobą.",
 
@@ -1094,7 +1096,7 @@ gameboook = {
                 \nWojennych Kwiatów? Tańczących elfów? Melancholijnej muzyki? To są, bracie\
                 \npodziemia - królestwo zła. I dlatego ...///...",
 
-         "317b": f"{entities.entity_317.name} leży u twych stóp. Ciągle jeszcze się brzydzisz?",
+         "317b": f"{ent.entity_317.name} leży u twych stóp. Ciągle jeszcze się brzydzisz?",
 
          "318": "",
 
@@ -1132,11 +1134,11 @@ gameboook = {
                 \nna całą szerokość. To był szalony wysiłek.",
 
          "332b": f"Podnosisz latarnię na wysokość\
-                \noczu i... serce podchodzi ci do gardła. Schowany za ścianą stoi {entities.entity_332.name}. Ciało ma\
+                \noczu i... serce podchodzi ci do gardła. Schowany za ścianą stoi {ent.entity_332.name}. Ciało ma\
                 \nwygięte w pałąk. Wysoko za głową oburącz trzyma miecz. Wypina do przodu\
                 \nowłosiony brzuch. Szalone oczy nabiegły mu krwią. Szczerzy zaciśnięte zęby.\
                 \nJeszcze chwila i ogromny miecz przetnie powietrze. Sięgasz po swój miecz. W\
-                \nokamgnieniu {entities.entity_332.name} wyprowadza cios. Udaje ci się odskoczyć. To będzie walka na\
+                \nokamgnieniu {ent.entity_332.name} wyprowadza cios. Udaje ci się odskoczyć. To będzie walka na\
                 \nśmierć i życie.",
 
          "333": "",
@@ -1222,7 +1224,7 @@ gameboook = {
          "364": f"Popychasz drzwi, uchylają się. Otwiera się ciemna czeluść.\
                 \nWchodzisz oświetlając drogę latarnią. Pod stopami czujesz kamyki.\
                 \nZ przeciwległego końca pokoju dochodzi ciebie ciche chrapanie.\
-                \nNa podłodze śpi {entities.entity_116.name}. Obok niego leży jakieś pudełko.",
+                \nNa podłodze śpi {ent.entity_116.name}. Obok niego leży jakieś pudełko.",
 
          "365": "",
 
@@ -1278,7 +1280,7 @@ gameboook = {
     'es':
         {"xxx": "",
 
-         "elxr_chc": f"{constants.special_txt_clr}Elige una poción:\
+         "elxr_chc": f"{cnst.special_txt_clr}Elige una poción:\
             \n1. Destreza\
             \n2. Resistencia\
             \n3. Suerte",
@@ -1306,7 +1308,7 @@ gameboook = {
     'fr':
         {"xxx": "",
 
-         "elxr_chc": f"{constants.special_txt_clr}Choisissez une potion:\
+         "elxr_chc": f"{cnst.special_txt_clr}Choisissez une potion:\
             \n1. Dextérité\
             \n2. Endurance\
             \n3. Chance",
@@ -1334,12 +1336,12 @@ gameboook = {
     'it':
         {"xxx": "",
 
-         "elxr_chc": f"{constants.special_txt_clr}Scegli un'elisir:\
+         "elxr_chc": f"{cnst.special_txt_clr}Scegli un'elisir:\
             \n1. Destrezza\
             \n2. Resistenza\
             \n3. Fortuna",
 
-         "00a": f"\r{constants.def_txt_clr}Mentre esplori i sotterranei, troverai diversi tipi di armi e oggetti.\
+         "00a": f"\r{cnst.def_txt_clr}Mentre esplori i sotterranei, troverai diversi tipi di armi e oggetti.\
             \nRicorda che, a parte la spada, ogni arma può essere utilizzata solo una volta.\
             \nAllo stesso modo, gli oggetti trovati sono ad uso singolo.\
             \nPuoi portare con te una sola pozione dell'elisir.",
@@ -1362,12 +1364,12 @@ gameboook = {
     'cn':
         {"xxx": "",
 
-         "elxr_chc": f"{constants.special_txt_clr}选择一种圣水：\
+         "elxr_chc": f"{cnst.special_txt_clr}选择一种圣水：\
             \n1. 敏捷\
             \n2. 抗性\
             \nn3. 幸运",
 
-         "00a": f"\r{constants.def_txt_clr}当你探索地下室时，你会找到不同类型的武器和物品。\
+         "00a": f"\r{cnst.def_txt_clr}当你探索地下室时，你会找到不同类型的武器和物品。\
             \n请记住，除了剑之外，每种武器只能使用一次。\
             \n同样，找到的物品只能使用一次。\
             \n你只能携带一瓶圣水。",
@@ -1389,12 +1391,12 @@ gameboook = {
 
     'jp':
         {"xxx": "",
-         "elxr_chc": f"{constants.special_txt_clr}エリクサーを選んでください：\
+         "elxr_chc": f"{cnst.special_txt_clr}エリクサーを選んでください：\
             \n1. 器用さ\
             \n2. 耐久力\
             \n3. 幸運",
 
-         "00a": f"\r{constants.def_txt_clr}ダンジョンを探索すると、さまざまな種類の武器やアイテムを見つけることができます。\
+         "00a": f"\r{cnst.def_txt_clr}ダンジョンを探索すると、さまざまな種類の武器やアイテムを見つけることができます。\
             \nただし、剣以外の武器は一度しか使用できません。\
             \n同様に、見つけたアイテムは一度だけ使用できます。\
             \nエリクサーのボトルを1つだけ持っていくことができます。",
@@ -1419,7 +1421,7 @@ gameboook = {
 
 def get_translation(translation):
     if not translation in gameboook:  # if not available, set to english
-        functions.debug_message('not available, language set to english')
+        fun.debug_message('not available, language set to english')
         translation = 'en'
-    constants.translation = translation
-    return gameboook[translation], constants.translation
+    cnst.translation = translation
+    return gameboook[translation], cnst.translation

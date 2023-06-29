@@ -1,3 +1,3 @@
 call git add .
-call git commit -m 'localization_coding'
+call git commit -m ''
 call git push origin master

@@ -1,7 +1,6 @@
 # / OBJECTS
 import pygame
-
-import constants
+import constants as cnst
 
 
 # // entity builder
@@ -33,7 +32,7 @@ class Entity:
             return
 
         # play sound on found channel
-        channel.play(f'{constants.assets_audio_effects_pth}/{self.name}_kill_sound.mp3')
+        channel.play(f'{cnst.assets_audio_effects_pth}/{self.name}_kill_sound.mp3')
         self.state = False
 
 
