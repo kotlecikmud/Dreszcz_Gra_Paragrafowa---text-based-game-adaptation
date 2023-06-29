@@ -224,13 +224,13 @@ gameboook = {
 
             "combat_win_info": "Pokonałeś",
 
-            "door": "door",
+            "door": "drzwi",
 
-            "are": "are",
+            "are": "są",
 
-            "opened": "opened",
+            "opened": "otwarte",
 
-            "closed": "closed",
+            "closed": "zamknięte",
 
             "elxr_chc": f"{cnst.special_txt_clr}Wybierz eliksir:\
                 \n1. Zręczności\

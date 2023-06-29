@@ -48,7 +48,7 @@ def get_music(category=None, fadeout=None):
                 rnd_choice = random.choice(cnst.music_combat)
 
             else:
-                # rnd_choice = random.choice(cnst.music_other)
+                # rnd_choice = random.choice(cnst.music_other) # unused for now
                 pass
 
             if constants.dev_mode:
@@ -60,7 +60,8 @@ def get_music(category=None, fadeout=None):
             if constants.dev_mode:
                 debug_message('Playing: None of music was selected')
     else:
-        debug_message('if dev_mode; get_music() is disabled')
+        if constants.dev_mode:
+            debug_message('if dev_mode; get_music() is disabled')
 
 
 def dub_play(string_id, voice=None):
@@ -210,7 +211,7 @@ def pth_selector(path_strings=[], actions=[], visit_check=False, room_id=0):
     else:
         if room_id.room_state:  # if open
             print(
-                f"{gb.gameboook[cnst.translation]['door']}Drzwi {cnst.special_txt_clr}{room_id.room_num}{cnst.def_txt_clr} są {cnst.special_txt_clr}otwarte{cnst.def_txt_clr}.")
+                f"{gb.gameboook[cnst.translation]['door']} {cnst.special_txt_clr}{room_id.room_num}{cnst.def_txt_clr} {gb.gameboook[cnst.translation]['are']} {cnst.special_txt_clr}{gb.gameboook[cnst.translation]['opened']}{cnst.def_txt_clr}.")
             dub_play('opened', 'adam')
 
             if not room_id.visit_count - 1 >= room_id.max_visit_count:  # Player is visiting the room more times than the allowed number.
@@ -227,7 +228,7 @@ def pth_selector(path_strings=[], actions=[], visit_check=False, room_id=0):
 
         else:  # if closed
             print(
-                f"Drzwi {cnst.special_txt_clr}{room_id.room_num}{cnst.def_txt_clr} są {cnst.special_txt_clr}zamknięte{cnst.def_txt_clr}.")
+                f"{gb.gameboook[cnst.translation]['door']} {cnst.special_txt_clr}{room_id.room_num}{cnst.def_txt_clr} {gb.gameboook[cnst.translation]['are']} {cnst.special_txt_clr}{gb.gameboook[cnst.translation]['closed']}{cnst.def_txt_clr}.")
             dub_play('closed', 'adam')
             debug_message(f'eval: {actions[1]}')
             eval(actions[1])
