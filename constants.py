@@ -3,18 +3,18 @@ from colorama import Fore, Style
 
 ver_num = ''
 
-dev_mode = False  # Toggle for developer mode; enables many debug information, error indicators and other exlusive machanics while playing
 # /// settings
-allow_skip_dub = False  # Determines whether dubbing can be skipped by hitting enter key.
+dev_mode = False  # Toggle for developer mode; enables many debug information, error indicators and other exlusive machanics while playing
 
 if dev_mode:
     print(
-        f'{Fore.LIGHTBLUE_EX}constants.dev_mode = {Fore.YELLOW}True{Fore.LIGHTBLUE_EX}; to disable go to constants.py and change boolean to {Fore.YELLOW}False{Style.RESET_ALL}')
+        f"{Fore.LIGHTBLUE_EX}Code is running in developer mode. Disable by going to constants.py and changing 'dev_mode' boolean to {Fore.YELLOW}False{Style.RESET_ALL}")
     skip_dub = True  # Determines whether dubbing has been skipped.
-    automatic_battle = True  # Determines whether battles are automatic.
 else:
     skip_dub = False
-    automatic_battle = False
+
+automatic_battle = True  # Determines whether battles are automatic.
+allow_skip_dub = False  # Determines whether dubbing can be skipped by hitting enter key
 
 # /// initiators
 translation = None
@@ -58,7 +58,9 @@ combat_txt_clr = Fore.LIGHTCYAN_EX  # color for combat text
 debug_txt_clr = Fore.LIGHTBLACK_EX  # color for debug messages
 error_txt_clr = Fore.LIGHTRED_EX  # color for error messages
 
-template = "({}) {} - {}" if dev_mode else "({}) {}"  # template for list printing (if dev_mode: explainer lines)
+# template for list printing (if dev_mode: explainer lines)
+template = "({}) {}"
+# template = "({}) {} - {}" if dev_mode else "({}) {}"
 
 # /// paths
 assets_audio_pth = 'Assets/Audio'  # Path to audio files

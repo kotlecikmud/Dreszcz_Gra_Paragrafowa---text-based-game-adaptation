@@ -35,7 +35,7 @@ def _00():
 
     while True:  # elixir choice menu
         func.dub_play('elxr_chc', 'adam')
-        choice = input(f'{cnst.input_sign}')
+        choice = input(f'{cnst.input_sign}{cnst.def_txt_clr}')
 
         if choice == '1':
             potion = 'zręczności'
@@ -50,10 +50,8 @@ def _00():
             func.clear_terminal()
             print(f"{cnst.special_txt_clr}Niepoprawny wybór.")
 
-    func.loading(1)
+    func.loading(10)
     func.clear_terminal()
-    print(f"/// eliksir {potion} = {cnst.count_potion}/2\
-            \n{cnst.def_txt_clr}")
     time.sleep(1)
 
     func.get_music('main')  # loading background music
@@ -75,7 +73,7 @@ def _01():
 def _02():
     func.dub_play('02', 'adam')
     # initiate combat with entity_002
-    func.combat_init(ent.entity_002, True, ent.entity_002.esc_possible, 'prg._372(', '',
+    func.combat_init(ent.entity_002, ent.entity_002.state, ent.entity_002.esc_possible, 'prg._372(', '',
                      'prg._380()')
 
 
@@ -771,17 +769,17 @@ def _192():
 
 
 def _197():
-    print(gb.gameboook['197'])
+    print(gb.gameboook[cnst.translation]['197'])
     _xx()
 
 
 def _198():
-    print(gb.gameboook['198'])
+    print(gb.gameboook[cnst.translation]['198'])
     _xx()
 
 
 def _199():
-    print(gb.gameboook['199'])
+    print(gb.gameboook[cnst.translation]['199'])
     _xx()
 
 
@@ -793,7 +791,7 @@ def _200():
 
 
 def _210():
-    print(gb.gameboook['210'])
+    print(gb.gameboook[cnst.translation]['210'])
     _xx()
 
 
@@ -805,7 +803,7 @@ def _212():
 
 
 def _220():
-    print(gb.gameboook['220'])
+    print(gb.gameboook[cnst.translation]['220'])
     _xx()
 
 

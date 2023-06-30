@@ -21,7 +21,8 @@ from colorama import Fore, Style
 # check if the assets audio path exists, and if not, display an error message and exit the program
 if not os.path.exists(cnst.assets_audio_pth):
     if constants.dev_mode:
-        func.error_message('AssetsNotFound', "The specified path for the audio assets is either non-existent or inaccessible. Check if /Assets exists.")
+        func.error_message('AssetsNotFound',
+                           "The specified path for the audio assets is either non-existent or inaccessible. Check if /Assets exists.")
     exit()
 
 
@@ -152,7 +153,7 @@ def main_menu():
                         choices_settings = [
                             (gb.infoboook[cnst.translation]['Mmenu3_sub1'], ''),
                             (gb.infoboook[cnst.translation]['Mmenu3_sub2'], ''),
-                            # (gb.infoboook[cnst.translation]['Mmenu3_sub3'], ''),  # currently broken, planning to solve issue with this later
+                            # (gb.infoboook[cnst.translation]['Mmenu3_sub3'], ''),  # currently unfinished
                             (gb.infoboook[cnst.translation]['Mmenu3_sub4'], ''),
                             (gb.infoboook[cnst.translation]['Mmenu3_sub5'], ''),
                             (gb.infoboook[cnst.translation]['return'], '')
@@ -171,25 +172,29 @@ def main_menu():
                         for choice_settings, description in choices_settings:
                             if usr_input == choice_settings:
 
-                                if choice_settings == gb.infoboook[cnst.translation]['Mmenu3_sub1']:  # Language settings
+                                if choice_settings == gb.infoboook[cnst.translation][
+                                    'Mmenu3_sub1']:  # Language settings
                                     availableLocales = []
                                     for key in gb.gameboook:
                                         availableLocales.append(key)
 
-                                    translation = str(input(f'{cnst.def_txt_clr}Choose language {availableLocales}\
-                                    \n{cnst.input_sign}')).lower()
-                                    gb.get_translation(translation)
-                                    func.debug_message(f'wybrałeś: {cnst.translation}')
+                                    translation = str(input(
+                                        f"{cnst.def_txt_clr}{gb.infoboook[cnst.translation]['Mmenu3_sub1_1']} {availableLocales}\
+                                    \n{cnst.input_sign}")).lower()
+                                    gb.get_translation(translation)  # update localization dictionaries
+                                    func.debug_message(
+                                        f"{gb.infoboook[cnst.translation]['Mmenu3_sub1_2']}: {cnst.translation}")
 
-                                if choice_settings == gb.infoboook[cnst.translation]['Mmenu3_sub2']:
+                                if choice_settings == gb.infoboook[cnst.translation][
+                                    'Mmenu3_sub2']:  # Difficulty level settings
                                     func.clear_terminal()
                                     print(f"{cnst.special_txt_clr}// {choice_settings}{cnst.def_txt_clr}")
                                     time.sleep(cnst.delay)
 
                                     choices_difficulty_lvl = [
-                                        (gb.infoboook[cnst.translation]['Mmenu3_sub1_1'], ''),
-                                        (gb.infoboook[cnst.translation]['Mmenu3_sub1_2'], ''),
-                                        (gb.infoboook[cnst.translation]['Mmenu3_sub1_3'], '')
+                                        (gb.infoboook[cnst.translation]['Mmenu3_sub1_3'], ''),
+                                        (gb.infoboook[cnst.translation]['Mmenu3_sub1_4'], ''),
+                                        (gb.infoboook[cnst.translation]['Mmenu3_sub1_5'], '')
                                     ]
 
                                     for i, (choice_difficulty_lvl, description) in enumerate(choices_difficulty_lvl, 1):
@@ -209,80 +214,85 @@ def main_menu():
                                             if choice_difficulty_lvl == gb.infoboook[cnst.translation]['Mmenu3_sub1_1']:
                                                 difficulty_lvl = cnst.d_lvl_e
 
-                                            elif choice_difficulty_lvl == gb.infoboook[cnst.translation]['Mmenu3_sub1_2']:
+                                            elif choice_difficulty_lvl == gb.infoboook[cnst.translation][
+                                                'Mmenu3_sub1_2']:
                                                 difficulty_lvl = cnst.d_lvl_m
 
-                                            elif choice_difficulty_lvl == gb.infoboook[cnst.translation]['Mmenu3_sub1_3']:
+                                            elif choice_difficulty_lvl == gb.infoboook[cnst.translation][
+                                                'Mmenu3_sub1_3']:
                                                 difficulty_lvl = cnst.d_lvl_h
 
                                             cnst.e_mult_choice = difficulty_lvl
 
 
-                                # elif choice_settings == gb.infoboook[cnst.translation]['Mmenu3_sub3']:  # Audio settings
-                                #
-                                #     func.clear_terminal()
-                                #     print(f"{cnst.special_txt_clr}// {choice_settings}{cnst.def_txt_clr}")
-                                #     time.sleep(cnst.delay)
-                                #
-                                #     choices_sound_settings = [
-                                #         ('Dialogi', 'Adjusts the volume of dialogues.'),
-                                #         ('Efekty', 'Adjusts the volume of sound effects.'),
-                                #         ('Muzyka', 'Adjusts the volume of background music.'),
-                                #         ('wróć', 'Return to the main menu.')
-                                #     ]
-                                #
-                                #     for i, (choice_sound_settings, description) in enumerate(choices_sound_settings, 1):
-                                #         print(cnst.template.format(i, choice_sound_settings, description))
-                                #
-                                #     usr_input = input(f'{cnst.special_txt_clr} ').strip()
-                                #
-                                #     if usr_input.isdigit():
-                                #         index = int(usr_input) - 1
-                                #         if 0 <= index < len(choices_sound_settings):
-                                #             usr_input = choices_sound_settings[index][0]
-                                #
-                                #     for choice_sound_settings, description in choices_sound_settings:
-                                #
-                                #         if usr_input == choice_sound_settings:
-                                #
-                                #             while True:
-                                #
-                                #                 try:
-                                #                     new_volume = int(input('Podaj nowy poziom głośności (1-10): '))
-                                #                     if 0 <= new_volume <= 10:
-                                #                         break
-                                #
-                                #                 except ValueError:
-                                #                     print("Podano nieprawidłową wartość. Wprowadź liczbę (1-10).")
-                                #
-                                #             if choice_sound_settings == 'Dialogi':
-                                #                 cnst.def_action_volume = new_volume
-                                #
-                                #             elif choice_sound_settings == 'Efekty':
-                                #                 cnst.def_sfx_volume = new_volume
-                                #
-                                #             elif choice_sound_settings == 'Muzyka':
-                                #                 cnst.def_bckg_volume = new_volume
-                                #                 pygame.mixer.music.set_volume(new_volume)
-                                #
-                                #             elif choice_sound_settings == 'wróć':
-                                #                 main_menu()
+                                elif choice_settings == gb.infoboook[cnst.translation]['Mmenu3_sub3']:  # Audio settings
 
+                                    func.clear_terminal()
+                                    print(f"{cnst.special_txt_clr}// {choice_settings}{cnst.def_txt_clr}")
+                                    time.sleep(cnst.delay)
+
+                                    choices_sound_settings = [
+                                        (gb.infoboook[cnst.translation]['Mmenu3_sub3_1'], ''),
+                                        (gb.infoboook[cnst.translation]['Mmenu3_sub3_2'], ''),
+                                        (gb.infoboook[cnst.translation]['Mmenu3_sub3_3'], ''),
+                                        (gb.infoboook[cnst.translation]['return'], '')
+                                    ]
+
+                                    for i, (choice_sound_settings, description) in enumerate(choices_sound_settings, 1):
+                                        print(cnst.template.format(i, choice_sound_settings, description))
+
+                                    usr_input = input(f'{cnst.special_txt_clr} ').strip()
+
+                                    if usr_input.isdigit():
+                                        index = int(usr_input) - 1
+                                        if 0 <= index < len(choices_sound_settings):
+                                            usr_input = choices_sound_settings[index][0]
+
+                                    for choice_sound_settings, description in choices_sound_settings:
+
+                                        if usr_input == choice_sound_settings:
+
+                                            while True:
+
+                                                try:
+                                                    new_volume = int(input('Podaj nowy poziom głośności (1-10): '))
+                                                    if 0 <= new_volume <= 10:
+                                                        break
+
+                                                except ValueError:
+                                                    print("Podano nieprawidłową wartość. Wprowadź liczbę (1-10).")
+
+                                            if choice_sound_settings == gb.infoboook[cnst.translation]['Mmenu3_sub3_1']:
+                                                cnst.def_action_volume = new_volume
+
+                                            elif choice_sound_settings == gb.infoboook[cnst.translation][
+                                                'Mmenu3_sub3_2']:
+                                                cnst.def_sfx_volume = new_volume
+
+                                            elif choice_sound_settings == gb.infoboook[cnst.translation][
+                                                'Mmenu3_sub3_3']:
+                                                cnst.def_bckg_volume = new_volume
+                                                pygame.mixer.music.set_volume(new_volume)
+
+                                            elif choice_sound_settings == gb.infoboook[cnst.translation]['return']:
+                                                main_menu()
 
                                 elif choice_settings == gb.infoboook[cnst.translation]['Mmenu3_sub4']:  # Name setting
                                     time.sleep(cnst.delay)
 
                                     name = input(
-                                        f"Wybierz imię bohatera (wpisz 'los' aby wylosować imię){cnst.input_sign}")
+                                        f"{gb.infoboook[cnst.translation]['Mmenu3_sub4_1']}{cnst.input_sign}")
                                     cnst.player_name = f"{Fore.LIGHTYELLOW_EX}{name}{cnst.def_txt_clr}"
 
-                                    if name == 'los':
+                                    if name == '':
                                         func.name_randomizer()
 
-                                elif choice_settings == gb.infoboook[cnst.translation]['Mmenu3_sub5']:  # Randomize atributes
+                                elif choice_settings == gb.infoboook[cnst.translation][
+                                    'Mmenu3_sub5']:  # Randomize atributes
                                     time.sleep(cnst.delay)
-                                    print(f"Losowanie początkowych statystyk bohatera")
-                                    func.loading(2)
+                                    print(gb.infoboook[cnst.translation][
+                                              'Mmenu3_sub5_1'])
+                                    func.loading(20)
                                     func.rpar()
                                     func.show_player_stats()
                                     input(f'\r{cnst.input_sign}')
@@ -292,12 +302,12 @@ def main_menu():
 
                 # Exit game
                 elif choice_main_menu == gb.infoboook[cnst.translation]['Mmenu4']:
-                    choice2 = input("Czy na pewno? [T/N]: ")
-                    if choice2.upper() == "T":
+                    choice2 = input(f"{gb.infoboook[cnst.translation]['Mmenu4_sub1_1']} [Y/N]:")
+                    if choice2.upper() == "Y":
                         func.clear_terminal()
                         time.sleep(cnst.delay)
                         pygame.mixer.music.fadeout(2200)
-                        func.loading(2.2)
+                        func.loading(10)
                         exit()
 
                 elif choice_main_menu == 'eval()':  # only for dev purposes; evaluating functions in paragraphs.py
@@ -311,8 +321,7 @@ func.rpar()  # loading player parameters
 os.system('cls')
 
 if cnst.dev_mode:
-    gb.get_translation('en')  # default to english
+    gb.get_translation('pl')  # default language for dev_mode
 else:
-    gb.get_translation('pl')  # default to polish
-
-main_menu()  # enterance point
+    gb.get_translation('en')  # default language for normal game
+main_menu()  # entry point

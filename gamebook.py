@@ -1333,7 +1333,6 @@ gameboook = {
             \nSe dirige directamente hacia el norte. Pronto llegas a una intersección.\
             \nTiene forma de la letra T. Los caminos conducen al oeste, este y sur (de donde vienes)."
         },
-
     'fr':
         {
             "xxx": "",
@@ -1362,7 +1361,6 @@ gameboook = {
             \nIl mène droit vers le nord. Bientôt, vous arrivez à un carrefour.\
             \nIl a la forme de la lettre T. Les branches mènent à l'ouest, à l'est et au sud (d'où vous venez)."
         },
-
     'it':
         {
             "xxx": "",
@@ -1391,7 +1389,6 @@ gameboook = {
             \nProsegue dritto verso nord. Presto raggiungi un incrocio.\
             \nHa la forma della lettera T. Le diramazioni portano a ovest, est e sud (da dove sei venuto)."
         },
-
     'cn':
         {
             "xxx": "",
@@ -1420,7 +1417,6 @@ gameboook = {
             \n它笔直地向北延伸。很快你就会到达一个十字路口。\
             \n它的形状像字母T。分支向西、东和南（你来的方向）。"
         },
-
     'jp':
         {
             "xxx": "",
@@ -1449,12 +1445,13 @@ gameboook = {
             \n廊下は北にまっすぐ伸びています。やがて十字路に到着します。\
             \nそれはT字型の形状をしており、西、東、南（来た道）に分かれています。"
         }
-
 }
 
 infoboook = {
     'en':
         {
+            "return": "back",
+
             "Mmenu_headline": "MAIN MENU",
 
             "Mmenu0": "Hello",
@@ -1465,9 +1462,33 @@ infoboook = {
 
             "Mmenu3": "Settings",
 
+            "Mmenu3_sub1": "Language",
+
+            "Mmenu3_sub1_1": "Choose language",
+
+            "Mmenu3_sub1_2": "You chose",
+
+            "Mmenu3_sub1_3": "easy",
+
+            "Mmenu3_sub1_4": "medium",
+
+            "Mmenu3_sub1_5": "hard",
+
+            "Mmenu3_sub2": "Difficulty level",
+
+            "Mmenu3_sub3": "Sound",
+
+            "Mmenu3_sub4": "Character name",
+
+            "Mmenu3_sub4_1": "Choose a character name (or press enter to generate a random name)",
+
+            "Mmenu3_sub5": "Randomize character attributes",
+
+            "Mmenu3_sub5_1": "Generating initial character statistics through randomization",
+
             "Mmenu4": "Exit the game",
 
-            "return": "back",
+            "Menu4_sub1_1": "Are you sure?",
 
             "Mmenu1_sub1": "Equipment and attributes",
 
@@ -1484,85 +1505,71 @@ infoboook = {
             "Mmenu1_sub7": "Purpose of the expedition",
 
             "Mmenu1_sub1_1a": "You are a daredevil.\
-                            \n\
-                            \nYour equipment consists of:",
+            \n\
+            \nYour equipment consists of:",
 
             "Mmenu1_sub1_1b": f"While wandering through the dungeons, you will find different types of weapons and items.\
-                            \nRemember that - except for the sword - each weapon can only be used once.\
-                            \nSimilarly, the found items are single-use.\
-                            \nYou can take one bottle of elixir with you.\
-                            \nYou can choose among the elixirs: {cnst.special_txt_clr}AGILITY{cnst.def_txt_clr}, {cnst.special_txt_clr}ENDURANCE{cnst.def_txt_clr}, and {cnst.special_txt_clr}LUCK{cnst.def_txt_clr}.\
-                            \nYou can drink it at any time, but only twice during the adventure.\
-                            \n{cnst.def_txt_clr}Your attributes are: AGILITY, ENDURANCE, and LUCK.\
-                            \nBefore descending into the dungeons, the initial levels of these attributes are randomly determined.\
-                            \nTheir level will constantly change during your journey,\
-                            \nbut it cannot exceed the initial level.",
+            \nRemember that - except for the sword - each weapon can only be used once.\
+            \nSimilarly, the found items are single-use.\
+            \nYou can take one bottle of elixir with you.\
+            \nYou can choose among the elixirs: {cnst.special_txt_clr}AGILITY{cnst.def_txt_clr}, {cnst.special_txt_clr}ENDURANCE{cnst.def_txt_clr}, and {cnst.special_txt_clr}LUCK{cnst.def_txt_clr}.\
+            \nYou can drink it at any time, but only twice during the adventure.\
+            \n{cnst.def_txt_clr}Your attributes are: AGILITY, ENDURANCE, and LUCK.\
+            \nBefore descending into the dungeons, the initial levels of these attributes are randomly determined.\
+            \nTheir level will constantly change during your journey,\
+            \nbut it cannot exceed the initial level.",
 
             "Mmenu1_sub1_2": "You will be fighting monsters. Their attributes (AGILITY and ENDURANCE) are unique to each enemy.\
-                            \nIn the current version of the game, battles are performed automatically. There is no possibility of interaction until the end of the fight,\
-                            \nunless the text allows for the option of escape.",
+            \nIn the current version of the game, battles are performed automatically. There is no possibility of interaction until the end of the fight,\
+            \nunless the text allows for the option of escape.",
 
             "Mmenu1_sub1_3": "When in danger, you can save yourself by Escaping, if the text allows it.\
-                            \nIf you escape, the monster inflicts a wound: subtract 2 from your STAMINA.\
-                            \nDuring Escape (before or during combat), you can use SSS as described below.",
+            \nIf you escape, the monster inflicts a wound: subtract 2 from your STAMINA.\
+            \nDuring Escape (before or during combat), you can use SSS as described below.",
 
             "Mmenu1_sub1_4": "While traveling, you check if luck is on your side. You do it as follows:\
-                            \nRoll 2D. If the result is equal to or less than your current LUCK level, you have LUCK.\
-                            \nIf the result is greater, you don't have LUCK.\
-                            \nThis procedure is called Checking Your Luck (CYL).\
-                            \nAfter each CYL - regardless of the result - subtract 1 from your current LUCK level.\
-                            \nCYL must be done when the text predicts it, and can also be done during combat.\
-                            \nDuring combat, CYL is done at the appropriate moment in the round (see above), and its result only applies to that round.\
-                            \nHere's how CYL affects the course of combat:\
-                            \n\
-                            \n1. When you have wounded the monster\
-                            \n- if you have LUCK, subtract an additional 2 from the monster's STAMINA (total -4).\
-                            \n- if you don't have LUCK, subtract a total of 1.\
-                            \n2. When the monster has wounded you\
-                            \n- if you have LUCK, subtract a total of 1 from your STAMINA.\
-                            \n- if you don't have LUCK, subtract a total of 3.",
+            \nRoll 2D. If the result is equal to or less than your current LUCK level, you have LUCK.\
+            \nIf the result is greater, you don't have LUCK.\
+            \nThis procedure is called Checking Your Luck (CYL).\
+            \nAfter each CYL - regardless of the result - subtract 1 from your current LUCK level.\
+            \nCYL must be done when the text predicts it, and can also be done during combat.\
+            \nDuring combat, CYL is done at the appropriate moment in the round (see above), and its result only applies to that round.\
+            \nHere's how CYL affects the course of combat:\
+            \n\
+            \n1. When you have wounded the monster\
+            \n- if you have LUCK, subtract an additional 2 from the monster's STAMINA (total -4).\
+            \n- if you don't have LUCK, subtract a total of 1.\
+            \n2. When the monster has wounded you\
+            \n- if you have LUCK, subtract a total of 1 from your STAMINA.\
+            \n- if you don't have LUCK, subtract a total of 3.",
 
             "Mmenu1_sub1_5": f"While traveling, through adventures and combat, your characteristics change.\
-                            \n1. SKILL - changes very little\
-                            \n- enchanted weapon increases SKILL\
-                            \n- ELIXIR OF SKILL restores the initial level\
-                            \n2. STAMINA - constantly changing\
-                            \n- each meal (you have {cnst.eatables_count} of them at the start) adds {cnst.eatable_W_load} points\
-                            \n- ELIXIR OF STAMINA restores the initial level\
-                            \n3. LUCK\
-                            \n- successful adventures add points\
-                            \n- ELIXIR OF LUCK restores the initial level and even raises it by 1.\
-                            \nExcept for that case, SKILL, STAMINA, and LUCK cannot exceed the initial level.",
+            \n1. SKILL - changes very little\
+            \n- enchanted weapon increases SKILL\
+            \n- ELIXIR OF SKILL restores the initial level\
+            \n2. STAMINA - constantly changing\
+            \n- each meal (you have {cnst.eatables_count} of them at the start) adds {cnst.eatable_W_load} points\
+            \n- ELIXIR OF STAMINA restores the initial level\
+            \n3. LUCK\
+            \n- successful adventures add points\
+            \n- ELIXIR OF LUCK restores the initial level and even raises it by 1.\
+            \nExcept for that case, SKILL, STAMINA, and LUCK cannot exceed the initial level.",
 
             "Mmenu1_sub1_6": f"In your backpack, you have Provisions, which are enough for {cnst.eatables_count} meals. You can only eat a meal when the text allows it.\
-                            \nYou can eat only one meal at a time. After consuming a meal, you gain {cnst.eatable_W_load} to your STAMINA.",
+            \nYou can eat only one meal at a time. After consuming a meal, you gain {cnst.eatable_W_load} to your STAMINA.",
 
             "Mmenu1_sub1_7": "Your goal is to reach the treasure chamber. You will wander through a maze of corridors.\
-                            \nYou will visit many chambers inhabited by different creatures. You will encounter various surprises.\
-                            \nYou will probably fall into some traps.\
-                            \nFinding the right path and defeating the monsters will not be easy.\
-                            \nYou will probably have to undertake several expeditions before you reach your destination.\
-                            \nDraw a map of the dungeons each time. It will greatly help you.",
-
-            "Mmenu3_sub1": "Language",
-
-            "Mmenu3_sub2": "Difficulty level",
-
-            "Mmenu3_sub3": "Sound",
-
-            "Mmenu3_sub4": "Character name",
-
-            "Mmenu3_sub5": "Randomize character attributes",
-
-            "Mmenu3_sub1_1": "easy",
-
-            "Mmenu3_sub1_2": "medium",
-
-            "Mmenu3_sub1_3": "hard",
+            \nYou will visit many chambers inhabited by different creatures. You will encounter various surprises.\
+            \nYou will probably fall into some traps.\
+            \nFinding the right path and defeating the monsters will not be easy.\
+            \nYou will probably have to undertake several expeditions before you reach your destination.\
+            \nDraw a map of the dungeons each time. It will greatly help you.",
 
         },
     'pl':
         {
+            "return": "wróć",
+
             "Mmenu_headline": "MENU GŁÓWNE",
 
             "Mmenu0": "Witaj",
@@ -1573,9 +1580,39 @@ infoboook = {
 
             "Mmenu3": "Ustawienia",
 
+            "Mmenu3_sub1": "Język",
+
+            "Mmenu3_sub1_1": "Wybierz język",
+
+            "Mmenu3_sub1_2": "Wybrałeś",
+
+            "Mmenu3_sub1_3": "łatwy",
+
+            "Mmenu3_sub1_4": "średni",
+
+            "Mmenu3_sub1_5": "trudny",
+
+            "Mmenu3_sub2": "Poziom trudności",
+
+            "Mmenu3_sub3": "Dźwięk",
+
+            "Mmenu3_sub3_1": "Dialogi",
+
+            "Mmenu3_sub3_2": "Efekty",
+
+            "Mmenu3_sub3_3": "Muzyka",
+
+            "Mmenu3_sub4": "Imię postaci",
+
+            "Mmenu3_sub4_1": "Wybierz imię bohatera (lub wciśnij enter aby wylosować imię)",
+
+            "Mmenu3_sub5": "Losuj nowe atrybuty postaci",
+
+            "Mmenu3_sub5_1": "Losowanie początkowych statystyk bohatera",
+
             "Mmenu4": "Wyjdź z gry",
 
-            "return": "wróć",
+            "Menu4_sub1_1": "Czy na pewno?",
 
             "Mmenu1_sub1": "Wyposażenie i cechy",
 
@@ -1592,87 +1629,73 @@ infoboook = {
             "Mmenu1_sub7": "Cel wyprawy",
 
             "Mmenu1_sub1_1a": "Jesteś Śmiałkiem.\
-                            \n\
-                            \nTwój ekwipunek to:",
+            \n\
+            \nTwój ekwipunek to:",
+
             "Mmenu1_sub1_1b": f"Wędrując po podziemiach będziesz znajdował inne rodzaje broni i przedmioty.\
-                            \nPamiętaj, że - poza mieczem - każda broń może być wykorzystana tylko raz.\
-                            \nPodobnie, znajdowane przedmioty są jednorazowego użytku.\
-                            \nMożesz zabrać ze sobą jedną butelkę eliksiru.\
-                            \nWybierasz spośród eliksirów: {cnst.special_txt_clr}ZRĘCZNOŚCI{cnst.def_txt_clr}, {cnst.special_txt_clr}WYTRZYMAŁOŚCI{cnst.def_txt_clr} i {cnst.special_txt_clr}SZCZĘŚCIA{cnst.def_txt_clr}.\
-                            \nMożna wypić go w dowolnym momencie, ale tylko dwukrotnie podczas przygody.\
-                            \n{cnst.def_txt_clr}Twoje cechy to: ZRĘCZNOŚĆ, WYTRZYMAŁOŚĆ i SZCZĘŚCIE.\
-                            \nPrzed zejściem do podziemi losowane są początkowe poziomy tych cech.\
-                            \nIch poziom będzie się nieustannie zmieniał podczas wędrówki,\
-                            \nale nie może przekroczyć poziomu początkowego.",
+            \nPamiętaj, że - poza mieczem - każda broń może być wykorzystana tylko raz.\
+            \nPodobnie, znajdowane przedmioty są jednorazowego użytku.\
+            \nMożesz zabrać ze sobą jedną butelkę eliksiru.\
+            \nWybierasz spośród eliksirów: {cnst.special_txt_clr}ZRĘCZNOŚCI{cnst.def_txt_clr}, {cnst.special_txt_clr}WYTRZYMAŁOŚCI{cnst.def_txt_clr} i {cnst.special_txt_clr}SZCZĘŚCIA{cnst.def_txt_clr}.\
+            \nMożna wypić go w dowolnym momencie, ale tylko dwukrotnie podczas przygody.\
+            \n{cnst.def_txt_clr}Twoje cechy to: ZRĘCZNOŚĆ, WYTRZYMAŁOŚĆ i SZCZĘŚCIE.\
+            \nPrzed zejściem do podziemi losowane są początkowe poziomy tych cech.\
+            \nIch poziom będzie się nieustannie zmieniał podczas wędrówki,\
+            \nale nie może przekroczyć poziomu początkowego.",
 
             "Mmenu1_sub1_2": f"Będziesz walczył z potworami. Ich cechy (ZRĘCZNOŚĆ i WYTRZYMAŁOŚĆ) są indywidualne dla każdego wroga.\
-                            \nW bieżącej wersji gry walki są wykonywane automatycznie. Do końca walki nie ma możliwości interackji,\
-                            \nchyba że tekst przewiduje możliwość ucieczki.",
+            \nW bieżącej wersji gry walki są wykonywane automatycznie. Do końca walki nie ma możliwości interackji,\
+            \nchyba że tekst przewiduje możliwość ucieczki.",
 
             "Mmenu1_sub1_3": "Będąc w niebezpieczeństwie możesz ratować się Ucieczką, o ile tekst to przewiduje.\
-                            \nJeśli uciekasz, potwór zadaje ci ranę: odejmij 2 od swojej WYTRZYMAŁOŚCI.\
-                            \nPodczas Ucieczki (przed walką lub w jej trakcie) możesz zastosować SSS w opisany niżej sposób.",
+            \nJeśli uciekasz, potwór zadaje ci ranę: odejmij 2 od swojej WYTRZYMAŁOŚCI.\
+            \nPodczas Ucieczki (przed walką lub w jej trakcie) możesz zastosować SSS w opisany niżej sposób.",
 
             "Mmenu1_sub1_4": "Podczas wędrówki sprawdzasz, czy szczęście ci sprzyja. Robisz to w następujący sposób:\
-                            \nRzucasz 2K. Jeśli wynik jest równy lub mniejszy od aktualnego poziomu SZCZĘŚCIA, to masz SZCZĘŚCIE.\
-                            \nJeśli wynik jest większy, nie masz SZCZĘŚCIA.\
-                            \nTa procedura nazywa się Sprawdzanie Swojego Szczęścia (SSS).\
-                            \nPo każdym SSS - niezależnie od wyniku - należy odjąć 1 od aktualnego poziomu SZCZĘŚCIA.\
-                            \nSSS trzeba zrobić, gdy przewiduje to tekst, a także można zrobić podczas walki.\
-                            \nPodczas walki SSS robi się w odpowiednim momencie rundy (patrz wyżej), a jego wynik stosuje się tylko do tej rundy.\
-                            \nOto jakie znaczenie dla przebiegu walki ma SSS:\
-                            \n\
-                            \n1. Gdy zadałeś ranę potworowi\
-                            \n- jeśli masz SZCZĘŚCIE, to odejmujesz dodatkowo 2 od WYTRZYMAŁOŚCI potwora (łącznie -4).\
-                            \n- jeśli nie masz SZCZĘŚCIA, to odejmujesz łącznie 1.\
-                            \n2. Gdy potwór zadał ci ranę\
-                            \n- jeśli masz SZCZĘŚCIE, to odejmujesz łącznie 1 od swojej WYTRZYMAŁOŚCI\
-                            \n- jeśli nie masz SZCZĘŚCIA, to odejmujesz łącznie 3.",
+            \nRzucasz 2K. Jeśli wynik jest równy lub mniejszy od aktualnego poziomu SZCZĘŚCIA, to masz SZCZĘŚCIE.\
+            \nJeśli wynik jest większy, nie masz SZCZĘŚCIA.\
+            \nTa procedura nazywa się Sprawdzanie Swojego Szczęścia (SSS).\
+            \nPo każdym SSS - niezależnie od wyniku - należy odjąć 1 od aktualnego poziomu SZCZĘŚCIA.\
+            \nSSS trzeba zrobić, gdy przewiduje to tekst, a także można zrobić podczas walki.\
+            \nPodczas walki SSS robi się w odpowiednim momencie rundy (patrz wyżej), a jego wynik stosuje się tylko do tej rundy.\
+            \nOto jakie znaczenie dla przebiegu walki ma SSS:\
+            \n\
+            \n1. Gdy zadałeś ranę potworowi\
+            \n- jeśli masz SZCZĘŚCIE, to odejmujesz dodatkowo 2 od WYTRZYMAŁOŚCI potwora (łącznie -4).\
+            \n- jeśli nie masz SZCZĘŚCIA, to odejmujesz łącznie 1.\
+            \n2. Gdy potwór zadał ci ranę\
+            \n- jeśli masz SZCZĘŚCIE, to odejmujesz łącznie 1 od swojej WYTRZYMAŁOŚCI\
+            \n- jeśli nie masz SZCZĘŚCIA, to odejmujesz łącznie 3.",
 
             "Mmenu1_sub1_5": f"Podczas wędrówki, dzięki przygodom i walce, zmienia się poziom twoich cech.\
-                            \n1. ZRĘCZNOŚĆ - niewiele się zmienia\
-                            \n- zaczarowana broń podwyższa ZRĘCZNOŚĆ\
-                            \n- eliksir ZRĘCZNOŚCI przywraca poziom początkowy\
-                            \n2. WYTRZYMAŁOŚĆ - nieustannie się zmienia\
-                            \n- każdy posiłek (masz ich na starcie {cnst.eatables_count}) dodaje {cnst.eatable_W_load} punkty\
-                            \n- eliksir WYTRZYMAŁOŚCI przywraca poziom początkowy\
-                            \n3. SZCZĘŚCIE\
-                            \n- udane przygody dodają punkty\
-                            \n- eliksir SZCZĘŚCIA przywraca poziom początkowy, a nawet podnosi go o 1.\
-                            \nPoza tym przypadkiem, ZRĘCZNOŚĆ, WYTRZYMAŁOŚĆ i SZCZĘŚCIE nie mogą przekroczyć poziomu początkowego.",
+            \n1. ZRĘCZNOŚĆ - niewiele się zmienia\
+            \n- zaczarowana broń podwyższa ZRĘCZNOŚĆ\
+            \n- eliksir ZRĘCZNOŚCI przywraca poziom początkowy\
+            \n2. WYTRZYMAŁOŚĆ - nieustannie się zmienia\
+            \n- każdy posiłek (masz ich na starcie {cnst.eatables_count}) dodaje {cnst.eatable_W_load} punkty\
+            \n- eliksir WYTRZYMAŁOŚCI przywraca poziom początkowy\
+            \n3. SZCZĘŚCIE\
+            \n- udane przygody dodają punkty\
+            \n- eliksir SZCZĘŚCIA przywraca poziom początkowy, a nawet podnosi go o 1.\
+            \nPoza tym przypadkiem, ZRĘCZNOŚĆ, WYTRZYMAŁOŚĆ i SZCZĘŚCIE nie mogą przekroczyć poziomu początkowego.",
 
             "Mmenu1_sub1_6": f"W plecaku masz Prowiant, który wystarcza na {cnst.eatables_count} posiłków. Posiłek można zjeść TYLKO wówczas, gdy przewiduje to tekst.\
-                            \nZa jednym razem można zjeść tylko jeden posiłek. Spożywszy posiłek, dostajesz {cnst.eatable_W_load} do swojej WYTRZYMAŁOŚCI.",
+            \nZa jednym razem można zjeść tylko jeden posiłek. Spożywszy posiłek, dostajesz {cnst.eatable_W_load} do swojej WYTRZYMAŁOŚCI.",
 
             "Mmenu1_sub1_7": "Twoim celem jest dotarcie do skarbca. Będziesz wędrował przez labirynt korytarzy.\
-                            \nOdwiedzisz wiele komnat, w których żyją różne istoty. Spotkają cię rozmaite niespodzianki.\
-                            \nZapewne wpadniesz w jakieś pułapki.\
-                            \nZnalezienie właściwej drogi i pokonanie potworów nie będzie łatwe.\
-                            \nZapewne będziesz musiał podjąć kilka wypraw, zanim uda ci się dotrzeć do celu.\
-                            \nZa każdym razem rysuj mapę podziemi. Bardzo ci pomoże.",
+            \nOdwiedzisz wiele komnat, w których żyją różne istoty. Spotkają cię rozmaite niespodzianki.\
+            \nZapewne wpadniesz w jakieś pułapki.\
+            \nZnalezienie właściwej drogi i pokonanie potworów nie będzie łatwe.\
+            \nZapewne będziesz musiał podjąć kilka wypraw, zanim uda ci się dotrzeć do celu.\
+            \nZa każdym razem rysuj mapę podziemi. Bardzo ci pomoże.",
 
-            "Mmenu3_sub1": "Język",
-
-            "Mmenu3_sub2": "Poziom trudności",
-
-            "Mmenu3_sub3": "Dźwięk",
-
-            "Mmenu3_sub4": "Imię postaci",
-
-            "Mmenu3_sub5": "Losuj nowe atrybuty postaci",
-
-            "Mmenu3_sub1_1": "łatwy",
-
-            "Mmenu3_sub1_2": "średni",
-
-            "Mmenu3_sub1_3": "trudny",
         }
 }
 
 
 def get_translation(translation):
     if not translation in gameboook:  # if not available, set to english
-        fun.debug_message('not available, language set to english')
+        fun.debug_message('not available, language defaulted to english')
         translation = 'en'
     cnst.translation = translation
     return gameboook[translation], infoboook[translation], cnst.translation

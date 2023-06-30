@@ -6,7 +6,7 @@ import constants as cnst
 # - - - - - - - - -
 # /// 002:
 # /// GARAZAN
-entity_002 = obj_class.Entity(f'{cnst.entity_txt_clr}GARAZANf{cnst.def_txt_clr}', 10, 10, 10, 10, True, True)
+entity_002 = obj_class.Entity(f'{cnst.entity_txt_clr}GARAZAN{cnst.def_txt_clr}', 10, 10, 10, 10, True, True)
 entity_002_z_init = entity_002_z_count = entity_002.entity_z_count
 entity_002_w_init = entity_002_w_count = entity_002.entity_w_count
 # - - - - - - - - -
@@ -134,13 +134,14 @@ entity_344 = obj_class.Entity(f'{cnst.entity_txt_clr}STRAŻNIK TAJEMNICY{cnst.de
 entity_344_z_init = entity_344_z_count = entity_344.entity_z_count
 entity_344_w_init = entity_344_w_count = entity_344.entity_w_count
 # - - - - - - - - -
+# - - - - - - - - -
+# - - - - - - - - -
 
 
 # self, room_id, room_state, visit_in_turn)
 # /// declare rooms
 # - - - - - - - - -
 # - - - - - - - - -
-room_0 = obj_class.Room('0')
 # - - - - - - - - -
 room_268 = obj_class.Room('268')
 # - - - - - - - - -
@@ -152,4 +153,4 @@ room_336 = obj_class.Room('336')
 # - - - - - - - - -
 room_364 = obj_class.Room('364', False, 2)
 # - - - - - - - - -
-room_xxx = obj_class.Room('xxx')
+room_xxx = obj_class.Room('xxx')  # placeholder room

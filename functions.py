@@ -249,7 +249,7 @@ def win():
 
 def check_for_luck():
     print(f'{cnst.special_txt_clr}Sprawdzam czy masz szczęście:')
-    loading(2)
+    loading(20)
     cfl_val = random.randint(2, 12)
 
     if cfl_val <= cnst.s_count:
@@ -410,7 +410,7 @@ def combat_main(entity, state, esc_possible, escape_id, stay_id, to_the_end, p_w
         print(f"\
         \n{cnst.combat_txt_clr}{gb.gameboook[cnst.translation]['combat_win_info']} {Fore.LIGHTRED_EX}{entity.name}{cnst.combat_txt_clr}!\
         \n")
-        dub_play('combat_true.mp3', 'adam')
+        dub_play('xxx', 'adam')
 
         time.sleep(cnst.delay)
         show_player_stats()
@@ -467,7 +467,7 @@ def combat_round(entity, state, esc_possible, escape_id, stay_id, to_the_end, p_
         b = input(f"Podaj wartość 'b' rzucając dwiema kośćmi{cnst.input_sign}")
 
     if state:
-        loading(1)
+        loading(10)
         if a > b:  # if enemy won
 
             if cnst.w_count > 0:
@@ -478,7 +478,7 @@ def combat_round(entity, state, esc_possible, escape_id, stay_id, to_the_end, p_
                 cnst.w_count += cnst.e_hit_val_
                 print(f"{Fore.LIGHTRED_EX}{entity.name}{cnst.combat_txt_clr} zadał cios!\
                 \n{cnst.special_txt_clr}/// Wytrzymałość {Fore.LIGHTYELLOW_EX}{cnst.player_name}{cnst.special_txt_clr}: {cnst.w_count}/{cnst.w_init}")
-                dub_play('round_false.mp3', 'adam')
+                dub_play('round_false', 'adam')
 
                 cnst.w_count = max(cnst.w_count, 0)
 
@@ -488,13 +488,13 @@ def combat_round(entity, state, esc_possible, escape_id, stay_id, to_the_end, p_
                 entity.entity_w_count += cnst.p_hit_val_
                 print(f"{Fore.LIGHTYELLOW_EX}{cnst.player_name}{cnst.combat_txt_clr} zadał cios!\
                 \n{cnst.special_txt_clr}/// Wytrzymałość {Fore.LIGHTRED_EX}{entity.name}{cnst.special_txt_clr}: {entity.entity_w_count}/{entity.entity_w_init}")
-                dub_play('round_true.mp3', 'adam')
+                dub_play('round_true', 'adam')
 
                 entity.entity_w_count = max(entity.entity_w_count, 0)
 
         else:  # if remis
             print(f'{cnst.special_txt_clr}Remis!')
-            dub_play('round_none.mp3', 'adam')
+            dub_play('round_none', 'adam')
 
         if cnst.allow_skip_dub:  # If the option to skip the dubbing is enabled
             time.sleep(2 * cnst.delay)
