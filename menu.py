@@ -302,7 +302,7 @@ def main_menu():
 
                 # Exit game
                 elif choice_main_menu == gb.infoboook[cnst.translation]['Mmenu4']:
-                    choice2 = input(f"{gb.infoboook[cnst.translation]['Mmenu4_sub1_1']} [Y/N]:")
+                    choice2 = input(f"{gb.infoboook[cnst.translation]['Mmenu4_sub1_1']} [Y/N]:").lower()
                     if choice2.upper() == "Y":
                         func.clear_terminal()
                         time.sleep(cnst.delay)

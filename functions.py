@@ -35,7 +35,7 @@ def clear_terminal():
 
 
 def get_music(category=None, fadeout=None):
-    if not constants.dev_mode:
+    if constants.get_music_enable:
         if category:
             rnd_choice = None
             if fadeout:

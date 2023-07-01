@@ -10,8 +10,10 @@ if dev_mode:
     print(
         f"{Fore.LIGHTBLUE_EX}Code is running in developer mode. Disable by going to constants.py and changing 'dev_mode' boolean to {Fore.YELLOW}False{Style.RESET_ALL}")
     skip_dub = True  # Determines whether dubbing has been skipped.
+    get_music_enable = False
 else:
     skip_dub = False
+    get_music_enable = True
 
 automatic_battle = True  # Determines whether battles are automatic.
 allow_skip_dub = False  # Determines whether dubbing can be skipped by hitting enter key

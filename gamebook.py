@@ -1,3 +1,4 @@
+import time
 import entities as ent
 import functions as fun
 import constants as cnst
@@ -207,7 +208,515 @@ gameboook = {
                 \n{ent.entity_032.name}\
                 \nIf you emerge victorious - see 275.",
 
-            "33": "x"
+            "33": "Just a little more and you will be at the intersection.\
+                \nYou're heading: north - see 293, east - see 188, south - see 247",
+
+            "34": "You reveal your discovery: a door in the northern wall. It doesn't impress them.\
+                \nYou say you want to see what's behind it. They don't protest.. You get up from the table and along the wall\
+                \nyou reach the secret door. One of the DWARVES turns the hidden knob in the ground.\
+                \nThe door opens. You enter - see 128",
+
+            "35": "You pay according to the tariff (10 gold pieces). He bends over the chasm. He offers you his tail.\
+                \nYou enter. It will probably transport you to the other side of the gorge soon. But... The dragon has its moods. They often change.\
+                \nRight now, you grab its tail while hanging over the red abyss. SSS. If you have an S, you cross to the other side - see 186.\
+                \nIf you don't have an S, the dragon throws you back onto the rocky ledge - see 158",
+
+            "36": "SSS. If you have an S - see 152. If you don't have an S - see 176",
+
+            "37":
+                "Which shield do you choose: metal, ornate, or leather? Write your choice on the inventory list - see 324.",
+
+            "38": "The corridor leads north at first, then gently curves east.\
+                \nIt widens a bit and ends with stairs going down. You stand in front of the doors adorned with exquisite decorations.\
+                \nHave you been beyond these doors before? If yes - see 167, if no - see 328.",
+
+            "39": "You reach the intersection. Its branches lead to:",
+
+            "40":
+                "Will you rely only on the cards? - see 334, or will you use your LUCK? - see 62",
+
+            "41": "You managed to take only a few steps when the corridor is completely blocked by a mass of stones and sand.\
+                \nTry stomping your foot. Old gremlins say it's a way to deal with such blockages. SSS. If you have an S - the top of the rocks\
+                \nfalls into the abyss, and you can continue - see 348. If you don't have an S - you have to go back - see 221.",
+
+            "42": "They call him the BARBARIAN. Is it right? Who knows? When he sits on a bench with his legs stretched out and arms folded\
+                \nacross his chest, he doesn't look threatening. He snores quietly. You hit the wall with your sword. What's the matter? He wakes up.\
+                \nNow you enter the chamber and point to the door on the opposite, western side. Open those doors quickly - you show him with the tip of your sword.\
+                \nOpen them yourself - he chuckles - The key is in the lock: Indeed. You approach the door, fearing an ambush,\
+                \nyou don't touch the key with your hand, but you insert the tip of your sword into the keyhole and try to turn it. Nothing happens.\
+                \nNothing at all... - the BARBARIAN growls - Do you know the spell? If you don't know, it's better to leave!\
+                \nWell, do you remember the spell from the old gremlin book? Wait, maybe you didn't even see that book.\
+                \nEither way, if you don't know the spell, it's the end for you, buddy. Try again, from the very beginning.\
+                \nIf you think you remember the spell, repeat it. Now turn to paragraph 122. If you remembered correctly - see 376.\
+                \nIf you made even the slightest mistake, your adventure ends. Continuing it in such a situation is not worthy of a true Adventurer.",
+
+            "43": "You have to go back the way you came until you reach the other end of the chasm. Along the way, you don't fight anyone,\
+                \nyou don't buy anything, you don't take anything. You have to try a different way. The options are listed in paragraph 186.",
+
+            "44": "You go east. You see solid doors ahead.\
+                \nYou try to open them. They don't give way...",
+
+            "45": "You head towards the fountain. You collect water. It's enchanted.\
+                \nYou put the container in your backpack. You notice that the fountain is already empty.",
+
+            "46":
+                "You look for a way out of the northern edge of the cave. You see a small opening. You move towards it and squeeze through with difficulty. See 53",
+
+            "47": "You have only taken a few steps and the corridor turns right, and shortly after, it ends. You can sit down and calmly eat your Provisions.\
+                \nThen return to the intersection and go north - see 191",
+
+            "48": "You open your backpack and reach for the vial to transfer the treasure. At that moment, the gold scatters in all directions,\
+                \nand the vials transform into two powerful, winged DEMONS, which rise and sit on the sunny ledge. You can attack them - see 169,\
+                \nor start collecting the scattered gold - see 33.",
+
+            "49": "You can take this book with you (write it on the inventory list) or leave it. See 286.",
+
+            "50": "You approach the intersection.\
+                \nYou can go:",
+
+            "51":
+                "You can exit through the south door - see 134, or through the north door - see 33. Leave both doors open.",
+
+            "52": "A stream of biting gas shoots out of the hole in the wall. If you have a pot helmet, nothing happens to you.\
+                \nAlthough the helmet gets destroyed. If you don't have such a helmet - see 315 first, and then 274 (record this number).",
+
+            "53": "You land in a spacious corridor. It leads north, and after a while, it sharply turns east.\
+                \nYou take several steps and stand in front of heavy doors. - Have you been here before? If yes - see 322, if no - see 299",
+
+            "54": "You throw the dagger. You hit the target accurately. The GUARD loses 2 W, but still stands like a pillar. See 107.",
+
+            "55": "You give the gold, take the shovel, the jar, or both - see 196.",
+
+            "56": "You try to force the doors open again. Once again, without success.",
+
+            "57": "After landing, the rascal demands all your gold. You can say that you will give only what he asked for - see 335,\
+                \nor that - in that case - you won't give anything - see 91",
+
+            "58": "You use your secret weapon. You completely paralyze the WORMS. If you want to dive into their bodies and\
+                \nsearch the pool again - see 142, if not - see 320.",
+
+            "59": "You enter, but you don't find anything here. Do you know any other way out of this room than the one you just entered through?",
+
+            "60": "The DWARF offers 20 pieces of gold. Do you accept? Yes - see 262, no - see 338.",
+
+            "61": "You walk along the corridor. Along the way, you can eat Provisions. After some time, there is a fork to the north, but you stubbornly continue west. A few steps past that fork, you see a door. You open it - see 42.",
+
+            "62": "SSS. If you have S - see 201. If you don't have S - see 145.",
+
+            "63": "The sword is not an effective weapon against WEREWOLVES. If you have any of the following items, you can use them in combat:\
+                \nbone from the skeleton of an ancient monster - see 157,\
+                \ngoblins' hammer - see 346,\
+                \nmetaphorical shield - see 216,\
+                \nnet - see 377,\
+                \nbunch of keys - see 181.\
+                \nIf you don't have any of these items, your only option is to Escape - see 275.",
+
+            "64": "You approach the intersection. You can go in any of the four directions. Choose a direction:",
+
+            "65": "Are you done with this place? If yes - see 195, if no - see 283.",
+
+            "66": "You roll two dice. It shows you how many pieces of gold you win. Do you want to continue playing? - see 229. Don't want to? - see 19.",
+
+            "67": "You have to retreat - see 50.",
+
+            "68": "You leave the armory. The only door leads north. You follow the corridor until the next intersection. Along the way, you can sit down and eat Provisions. See 212.",
+
+            "69a": "You asked for it. Two gruesome specters sit against the wall of the room.\
+                \nSuch a meeting can only end in a fight, first with one, and then with the other monster.",
+
+            "69b": "You've barely defeated the first specter and you're already going after the second one.",
+
+            "69c": "You can search the room.",
+
+            "70": "",
+
+            "71": "",
+
+            "72": "",
+
+            "73": "",
+
+            "74": "",
+
+            "75": "You retreat. You return towards the intersection. You pass an old man.",
+
+            "76": "",
+
+            "77": "",
+
+            "78": "",
+
+            "79": "",
+
+            "80": "",
+
+            "81": "",
+
+            "82": "",
+
+            "83": "",
+
+            "84": "",
+
+            "85": "",
+
+            "86": "",
+
+            "87": "",
+
+            "88": "",
+
+            "89a": "Using the tip of your sword, you pry open the lid of the box. Inside, there are 3 pieces of gold.\
+            \nYou can take them.",
+
+            "89b": "You look around the corners. Suddenly, you hear some noise.\
+            \nYou quickly gather your belongings and rush out, leaving the door open.",
+
+            "90": "",
+
+            "91": "",
+
+            "92": "",
+
+            "93": "",
+
+            "94": "",
+
+            "95": "",
+
+            "96": "",
+
+            "97": "",
+
+            "98": "",
+
+            "99": "",
+
+            "100": "",
+
+            "101": "",
+
+            "102": "You reach the intersection. The corridors diverge in all directions.\
+            \nChoose a direction:",
+
+            "103": "You turn back. You pass the intersection. You go west. After some time, you see\
+            \nanother intersection ahead of you.",
+
+            "104": "You give the butterfly, take the gold and the pacifier.",
+
+            "105": "You try to force the door. You gather momentum and hit it with all your strength.\
+            \nThe door doesn't budge.",
+
+            "106": "Just behind the door, you see wooden, chipped stairs leading downwards.\
+            \nIn the central part of the cave, there is a square recess, like a pool,\
+            \nbut empty. The stairs lead precisely to the bottom of the pool. The floor is covered in fine sand.\
+            \nSand everywhere, no equipment, stones, or creatures... Hey,\
+            \nwhat's that bent stick sticking out in the corner of the pool? Probably a root. You can't resist\
+            \nthe temptation: you give it a solid kick. What happens next\
+            \nexceeds imagination. If you survive and tell someone about your\
+            \nadventure, they will surely not believe you. The pool now resembles a pot\
+            \nwhere someone is stirring thick noodles. You are a small speck tossed in all directions.\
+            \nThose are the WORMS, the most disgusting creatures of the underground world. They want to grind you\
+            \nto dust. They wriggle their slippery bodies. They throw you to the surface,\
+            \nthen push you to the bottom again. You can defend yourself with a sword. You can also\
+            \nuse another weapon, namely... Well, that's the question: some say that an acidic liquid is an effective weapon\
+            \nagainst WORMS, others say it's omnivorous (eternally hungry crustaceans).",
+
+            "107": "",
+
+            "108": "",
+
+            "109": "",
+
+            "110": "",
+
+            "111": "",
+
+            "112": "",
+
+            "113": "",
+
+            "114": "",
+
+            "115": "Choose items:",
+
+            "116a": f"You deviate into a corner of the cave. Stones crackle under your feet.\
+            \n{ent.entity_116.name} looks at you attentively and growls. You must fight.",
+
+            "116b": "\nYou can search the room.",
+
+            "117": "",
+
+            "118": "",
+
+            "119":
+            f"What was this beast blocking so much? You touch the wall where the hairy {ent.entity_317.name} leaned.\
+            \nSuddenly, a part of the wall moves. It's a hiding place! Inside, there's a long, fire-resistant rope with a hook, an empty, moldy flask, and a WEREWOLF scalp.\
+            \nYou can take up to two of these items.",
+
+            "120": "You go west. The corridor gently turns right and now leads north.\
+            \nYou see an intersection ahead of you.",
+
+            "121": "",
+
+            "122": "",
+
+            "123": "The corridor runs west and turns south.\
+            \nYou see an intersection ahead of you.",
+
+            "124": "",
+
+            "125": "",
+
+            "126": "",
+
+            "127": "",
+
+            "128": "",
+
+            "129": "",
+
+            "130": "The corridor is now almost five steps wide.\
+            \nYou walk comfortably. You straighten your bones.\
+            \nYou've only walked a hundred steps, and here's another intersection.",
+
+            "131": "",
+
+            "132": "Did you go for water?",
+
+            "133": "",
+
+            "134": "",
+
+            "135": "",
+
+            "136": "The dragon politely invites you to its tail, which is swinging a bit\
+            \nover the abyss, but soon you land on the other side.",
+
+            "137": "",
+
+            "138": "",
+
+            "139": "",
+
+            "140": "",
+
+            "141": "",
+
+            "142": "",
+
+            "143": "",
+
+            "144": "",
+
+            "145": "",
+
+            "146": "The corridor runs south and turns east.\
+            \nYou see an intersection ahead of you.",
+
+            "147": "",
+
+            "148": "",
+
+            "149": "",
+
+            "150": "",
+
+            "151": "",
+
+            "152": "",
+
+            "153": "A rat is a good sign. Your sword is enchanted. In every fight you engage in from now on,\
+            \nyou can add 1 to your attack strength.",
+
+            "154": "",
+
+            "155": "",
+
+            "156": "",
+
+            "157": "",
+
+            "158": "Had enough?",
+
+            "159": "",
+
+            "160": "You cautiously take steps. Your legs brush against the leaves of a large lettuce.\
+            \nAs you pass through the center of the room, you notice a stream of light falling from above.\
+            \nYou don't reveal your discovery. You reach the table.",
+
+            "161": "",
+
+            "162": "",
+
+            "163": "",
+
+            "164": "",
+
+            "165": "",
+
+            "166": "",
+
+            "167": "",
+
+            "168": "",
+
+            "169": "",
+
+            "170": "You reach an intersection. It has the shape of the letter T.\
+            \nYou can go:",
+
+            "171": "",
+
+            "172": "",
+
+            "173": "",
+
+            "174": "",
+
+            "175": "",
+
+            "176": "You approach an intersection.\
+            \nYou can go:",
+
+            "177": "Under the stone, there was a fiery ball. You can take it.\
+            \nYou exit.",
+
+            "178": "It's increasingly difficult to pull your feet out of the muddy muck. The air becomes\
+            \nmore and more humid. The corridor gradually widens until you finally reach the edge\
+            \nof an underground lake. The shores are overgrown with vegetation with thick, wide\
+            \nleaves. The ceiling is high above. In a few places, thin streams of light seep through.\
+            \nYou look around carefully. Is this a dead end?\
+            \nYou don't see any other exit than the one you came from.",
+
+            "179": "",
+
+            "180": f"You search the room again. In the {ent.entity_116.name} bag, which you didn't have time to look through, you find a key. The number 45 is engraved on it. You can take it with you.",
+
+            "181": "You throw a bunch of keys at the monster that you found in one of the visited chambers. The throw is accurate but harmless. The WEREWOLF catches the bunch and escapes. You start chasing after it. The WEREWOLF falls into a narrow but deep crevice in the corner of the cave. It falls to the bottom and dies. You shine your lantern. You see the massive body of the monster in the depths, and next to it, the keys gleam.",
+
+            "182": "Do you want to search for any secret passages?",
+
+            "183": "",
+
+            "184": "You wipe your bloody sword on the skins lying beneath your feet. You sharpen it",
+
+            "185": "You enter a narrow corridor. It leads to a large room.",
+
+            "186": "You managed to reach the other side. You have three exits: one leads west (A), and two lead north, one of which is located more to the west (B) than the other (C). Which one do you choose?",
+
+            "187": "",
+
+            "188": "",
+
+            "189": "",
+
+            "190": "You can choose any sword.",
+
+            "191": "",
+
+            "192": "'Maybe it's time to squeeze something out of this clown?' you think. You reach for your sword. Oh, why a sword? Just a punch will do. You approach the creature and prepare to strike. The creature disappears. Moreover, with a bang, the grate in the passage through which you entered this room falls. You look around. You don't see any other exit. You approach the fountain. Indeed, at the bottom, you see various mysterious objects: a monster's bone, a jar with omnivores (perpetually hungry crustaceans), a tin butterfly, a spear, and a shiny key. So, do you want water or one of these things? Remember, you can only take one thing.",
+
+            "193": "",
+
+            "194": "",
+
+            "195": "",
+
+            "196": "",
+
+            "197": "",
+
+            "198": "",
+
+            "199": "",
+
+            "200": "After some time, you spot a door in the southern wall.",
+
+            "201": "",
+
+            "202": "",
+
+            "203": "",
+
+            "204": "",
+
+            "205": "",
+
+            "206": "",
+
+            "207": "",
+
+            "208": "",
+
+            "209": "",
+
+            "210": "",
+
+            "211": "",
+
+            "212": "You reach a spacious square, and the paths diverge in four directions. Which one do you choose?",
+
+            "213": "",
+
+            "214": "",
+
+            "215": "",
+
+            "216": "",
+
+            "217": "",
+
+            "218": "",
+
+            "219": "",
+
+            "220": "If you chose the monster's bone, the jar with omnivores, the tin butterfly, or the spear - see 109. If the key, see 366.",
+
+            "221": "You reach a crossroad where you can go: north - see 339, east - see 41, south - see 173.",
+
+            "222": "",
+
+            "223": "",
+
+            "224": "After a few steps, the corridor turns east. You continue walking. In the southern wall of the corridor, you see a door.",
+
+            "225": "",
+
+            "226": "The battle continues. After the second round, you can Escape again. Are you sure you want to continue fighting?",
+
+            "227": "",
+
+            "228": "The corridor runs north and turns east. Ahead, you see a crossroad.",
+
+            "229": "",
+
+            "230": "",
+
+            "231": "",
+
+            "232": "",
+
+            "233": "",
+
+            "234": "You finish the fight with the DEMON. Do you want to look inside the stone box on the altar?",
+            
+            "349": "Gently, you slide your foot into a narrow gap. With your hips, you push the door open.\
+                \nThey swing aside. This is the method! You catch a faint scent of dried herbs.\
+                \nOn the left wall, there are two smooth columns.\
+                \nBetween them, at eye level, there is a granite shelf stretched out.\
+                \nTwo lamps are standing there, with a stone box in the middle.\
+                \n\
+                \nThe floor is covered with hairy animal and monster skins.\
+                \nThis must be an underground chapel! Against the wall, opposite the altar, you see a low table carved into the rock.\
+                \nThere's something on it. You raise the lantern higher. Oh, King Almanhagor, they are two vases full of gold.\
+                \nEach has the same exquisite shape. On one side, it's adorned with the head of a creature,\
+                \non the other side, two shimmering wings are attached. Do you want to take the gold?",
+
+            "364": f"You push the door, it gives way. A dark abyss opens up.\
+                \nYou enter, illuminating the path with a lantern. You feel pebbles beneath your feet.\
+                \nFrom the opposite end of the room, you hear a faint snoring.\
+                \n{ent.entity_116.name} is sleeping on the floor. There is a box lying next to him."
 
         },
     'pl':
@@ -1310,141 +1819,85 @@ gameboook = {
             "xxx": "",
 
             "elxr_chc": f"{cnst.special_txt_clr}Elige una poción:\
-            \n1. Destreza\
-            \n2. Resistencia\
-            \n3. Suerte",
+                \n1. Destreza\
+                \n2. Resistencia\
+                \n3. Suerte",
 
             "00a": "\rMientras caminas por los subterráneos, encontrarás diferentes tipos de armas y objetos.\
-            \nRecuerda que, excepto la espada, cada arma solo se puede usar una vez.\
-            \nDe igual manera, los objetos que encuentres son de un solo uso.\
-            \nPuedes llevar una botella de elixir contigo.",
+                \nRecuerda que, excepto la espada, cada arma solo se puede usar una vez.\
+                \nDe igual manera, los objetos que encuentres son de un solo uso.\
+                \nPuedes llevar una botella de elixir contigo.",
 
             "00b": "¡Hey, valiente!\
-            \n\
-            \nDicen que en tus venas fluye agua helada en lugar de sangre,\
-            \ny que tus músculos están hechos del acero más noble.\
-            \nSi es así, mira hacia el sol poniente.\
-            \nAllá, en las fronteras del reino de Almanhagor, comienza el subterráneo inexplorado.\
-            \nSolo tú puedes descubrir su Gran Secreto. ¡Adelante!",
+                \n\
+                \nDicen que en tus venas fluye agua helada en lugar de sangre,\
+                \ny que tus músculos están hechos del acero más noble.\
+                \nSi es así, mira hacia el sol poniente.\
+                \nAllá, en las fronteras del reino de Almanhagor, comienza el subterráneo inexplorado.\
+                \nSolo tú puedes descubrir su Gran Secreto. ¡Adelante!",
 
             "01": "La entrada al subterráneo es amplia, invadida por hierba y arbustos exuberantes.\
-            \nAjustas tu ropa y tu equipo.\
-            \n¡Enciende tu linterna! Entras al pasillo. Es alto y no necesitas agacharte.\
-            \nSe dirige directamente hacia el norte. Pronto llegas a una intersección.\
-            \nTiene forma de la letra T. Los caminos conducen al oeste, este y sur (de donde vienes)."
+                \nAjustas tu ropa y tu equipo.\
+                \n¡Enciende tu linterna! Entras al pasillo. Es alto y no necesitas agacharte.\
+                \nSe dirige directamente hacia el norte. Pronto llegas a una intersección.\
+                \nTiene forma de la letra T. Los caminos conducen al oeste, este y sur (de donde vienes)."
         },
     'fr':
         {
             "xxx": "",
 
             "elxr_chc": f"{cnst.special_txt_clr}Choisissez une potion:\
-            \n1. Dextérité\
-            \n2. Endurance\
-            \n3. Chance",
+                \n1. Dextérité\
+                \n2. Endurance\
+                \n3. Chance",
 
             "00a": "\rEn vous promenant dans les souterrains, vous trouverez différents types d'armes et d'objets.\
-            \nSouvenez-vous que - à l'exception de l'épée - chaque arme ne peut être utilisée qu'une seule fois.\
-            \nDe même, les objets trouvés sont à usage unique.\
-            \nVous pouvez emporter une bouteille d'élixir avec vous.",
+                \nSouvenez-vous que - à l'exception de l'épée - chaque arme ne peut être utilisée qu'une seule fois.\
+                \nDe même, les objets trouvés sont à usage unique.\
+                \nVous pouvez emporter une bouteille d'élixir avec vous.",
 
             "00b": "Hé, Brave !\
-            \n\
-            \nOn dit de vous que de l'eau glacée coule dans vos veines au lieu de sang,\
-            \net que vos muscles sont faits de l'acier le plus noble ?\
-            \nSi c'est le cas, regardez vers le soleil couchant.\
-            \nLà-bas, aux frontières du royaume d'Almanhagor, commence le souterrain inexploré.\
-            \nVous seul pouvez dévoiler son Grand Secret. Avancez !",
+                \n\
+                \nOn dit de vous que de l'eau glacée coule dans vos veines au lieu de sang,\
+                \net que vos muscles sont faits de l'acier le plus noble ?\
+                \nSi c'est le cas, regardez vers le soleil couchant.\
+                \nLà-bas, aux frontières du royaume d'Almanhagor, commence le souterrain inexploré.\
+                \nVous seul pouvez dévoiler son Grand Secret. Avancez !",
 
             "01": "L'entrée du souterrain est large, envahie par l'herbe et les buissons luxuriants.\
-            \nVous ajustez vos vêtements et votre équipement.\
-            \nAllumez votre lanterne ! Vous entrez dans le corridor. Il est haut, et vous n'avez pas besoin de vous baisser.\
-            \nIl mène droit vers le nord. Bientôt, vous arrivez à un carrefour.\
-            \nIl a la forme de la lettre T. Les branches mènent à l'ouest, à l'est et au sud (d'où vous venez)."
+                \nVous ajustez vos vêtements et votre équipement.\
+                \nAllumez votre lanterne ! Vous entrez dans le corridor. Il est haut, et vous n'avez pas besoin de vous baisser.\
+                \nIl mène droit vers le nord. Bientôt, vous arrivez à un carrefour.\
+                \nIl a la forme de la lettre T. Les branches mènent à l'ouest, à l'est et au sud (d'où vous venez)."
         },
     'it':
         {
             "xxx": "",
 
             "elxr_chc": f"{cnst.special_txt_clr}Scegli un'elisir:\
-            \n1. Destrezza\
-            \n2. Resistenza\
-            \n3. Fortuna",
+                \n1. Destrezza\
+                \n2. Resistenza\
+                \n3. Fortuna",
 
             "00a": f"\r{cnst.def_txt_clr}Mentre esplori i sotterranei, troverai diversi tipi di armi e oggetti.\
-            \nRicorda che, a parte la spada, ogni arma può essere utilizzata solo una volta.\
-            \nAllo stesso modo, gli oggetti trovati sono ad uso singolo.\
-            \nPuoi portare con te una sola pozione dell'elisir.",
+                \nRicorda che, a parte la spada, ogni arma può essere utilizzata solo una volta.\
+                \nAllo stesso modo, gli oggetti trovati sono ad uso singolo.\
+                \nPuoi portare con te una sola pozione dell'elisir.",
 
             "00b": "Ehi, coraggioso!\
-            \n\
-            \nDicono che nelle tue vene scorra acqua gelida invece di sangue,\
-            \ne che i tuoi muscoli siano fatti del più nobile acciaio.\
-            \nSe è così, guarda verso il tramonto.\
-            \nLì, ai confini del regno di Almanhagor, iniziano i misteriosi Sotterranei.\
-            \nSolo tu puoi svelarne il Grande Segreto. Avanti!",
+                \n\
+                \nDicono che nelle tue vene scorra acqua gelida invece di sangue,\
+                \ne che i tuoi muscoli siano fatti del più nobile acciaio.\
+                \nSe è così, guarda verso il tramonto.\
+                \nLì, ai confini del regno di Almanhagor, iniziano i misteriosi Sotterranei.\
+                \nSolo tu puoi svelarne il Grande Segreto. Avanti!",
 
             "01": "L'ingresso nei sotterranei è ampio, ricoperto d'erba e fitte siepi.\
-            \nSistemati l'abbigliamento e l'equipaggiamento.\
-            \nAccendi la lanterna! Entri nel corridoio. È alto, non devi chinarti.\
-            \nProsegue dritto verso nord. Presto raggiungi un incrocio.\
-            \nHa la forma della lettera T. Le diramazioni portano a ovest, est e sud (da dove sei venuto)."
+                \nSistemati l'abbigliamento e l'equipaggiamento.\
+                \nAccendi la lanterna! Entri nel corridoio. È alto, non devi chinarti.\
+                \nProsegue dritto verso nord. Presto raggiungi un incrocio.\
+                \nHa la forma della lettera T. Le diramazioni portano a ovest, est e sud (da dove sei venuto)."
         },
-    'cn':
-        {
-            "xxx": "",
-
-            "elxr_chc": f"{cnst.special_txt_clr}选择一种圣水：\
-            \n1. 敏捷\
-            \n2. 抗性\
-            \nn3. 幸运",
-
-            "00a": f"\r{cnst.def_txt_clr}当你探索地下室时，你会找到不同类型的武器和物品。\
-            \n请记住，除了剑之外，每种武器只能使用一次。\
-            \n同样，找到的物品只能使用一次。\
-            \n你只能携带一瓶圣水。",
-
-            "00b": "嘿，勇敢的人！\
-            \n\
-            \n人们说你的血液中流淌的是冰冷的水而不是鲜血，\
-            \n你的肌肉是由最高贵的钢铁构成的。\
-            \n如果是这样的话，看向夕阳。\
-            \n在阿尔曼哈戈王国的边界上，神秘的地下室开始了。\
-            \n只有你能揭示它的伟大秘密。前进吧！",
-
-            "01": "地下室的入口宽敞，覆盖着草地和茂密的树篱。\
-            \n整理好你的服装和装备。\
-            \n点亮灯笼！你走进了走廊。它很高，你不需要低头。\
-            \n它笔直地向北延伸。很快你就会到达一个十字路口。\
-            \n它的形状像字母T。分支向西、东和南（你来的方向）。"
-        },
-    'jp':
-        {
-            "xxx": "",
-
-            "elxr_chc": f"{cnst.special_txt_clr}エリクサーを選んでください：\
-            \n1. 器用さ\
-            \n2. 耐久力\
-            \n3. 幸運",
-
-            "00a": f"\r{cnst.def_txt_clr}ダンジョンを探索すると、さまざまな種類の武器やアイテムを見つけることができます。\
-            \nただし、剣以外の武器は一度しか使用できません。\
-            \n同様に、見つけたアイテムは一度だけ使用できます。\
-            \nエリクサーのボトルを1つだけ持っていくことができます。",
-
-            "00b": "おい、勇者よ！\
-            \n\
-            \nあなたについて言われていることは、あなたの血液ではなく氷のような水が流れ、\
-            \nあなたの筋肉が最高の鋼からできているということですか？\
-            \nもしそうなら、西の空を見てください。\
-            \nアルマンハゴール王国の境界には未知のダンジョンが広がっています。\
-            \nあなたしかその偉大な秘密を解き明かすことはできません。さあ、行動しましょう！",
-
-            "01": "ダンジョンへの入り口は広く、草と茂みで覆われています。\
-            \n服装と装備を整えます。\
-            \nランタンを点灯させます！廊下に入ります。高い天井なので、かがむ必要はありません。\
-            \n廊下は北にまっすぐ伸びています。やがて十字路に到着します。\
-            \nそれはT字型の形状をしており、西、東、南（来た道）に分かれています。"
-        }
 }
 
 infoboook = {
@@ -1488,7 +1941,7 @@ infoboook = {
 
             "Mmenu4": "Exit the game",
 
-            "Menu4_sub1_1": "Are you sure?",
+            "Mmenu4_sub1_1": "Are you sure?",
 
             "Mmenu1_sub1": "Equipment and attributes",
 
@@ -1505,66 +1958,65 @@ infoboook = {
             "Mmenu1_sub7": "Purpose of the expedition",
 
             "Mmenu1_sub1_1a": "You are a daredevil.\
-            \n\
-            \nYour equipment consists of:",
+                \n\
+                \nYour equipment consists of:",
 
             "Mmenu1_sub1_1b": f"While wandering through the dungeons, you will find different types of weapons and items.\
-            \nRemember that - except for the sword - each weapon can only be used once.\
-            \nSimilarly, the found items are single-use.\
-            \nYou can take one bottle of elixir with you.\
-            \nYou can choose among the elixirs: {cnst.special_txt_clr}AGILITY{cnst.def_txt_clr}, {cnst.special_txt_clr}ENDURANCE{cnst.def_txt_clr}, and {cnst.special_txt_clr}LUCK{cnst.def_txt_clr}.\
-            \nYou can drink it at any time, but only twice during the adventure.\
-            \n{cnst.def_txt_clr}Your attributes are: AGILITY, ENDURANCE, and LUCK.\
-            \nBefore descending into the dungeons, the initial levels of these attributes are randomly determined.\
-            \nTheir level will constantly change during your journey,\
-            \nbut it cannot exceed the initial level.",
+                \nRemember that - except for the sword - each weapon can only be used once.\
+                \nSimilarly, the found items are single-use.\
+                \nYou can take one bottle of elixir with you.\
+                \nYou can choose among the elixirs: {cnst.special_txt_clr}AGILITY{cnst.def_txt_clr}, {cnst.special_txt_clr}ENDURANCE{cnst.def_txt_clr}, and {cnst.special_txt_clr}LUCK{cnst.def_txt_clr}.\
+                \nYou can drink it at any time, but only twice during the adventure.\
+                \n{cnst.def_txt_clr}Your attributes are: AGILITY, ENDURANCE, and LUCK.\
+                \nBefore descending into the dungeons, the initial levels of these attributes are randomly determined.\
+                \nTheir level will constantly change during your journey,\
+                \nbut it cannot exceed the initial level.",
 
             "Mmenu1_sub1_2": "You will be fighting monsters. Their attributes (AGILITY and ENDURANCE) are unique to each enemy.\
-            \nIn the current version of the game, battles are performed automatically. There is no possibility of interaction until the end of the fight,\
-            \nunless the text allows for the option of escape.",
+                \nIn the current version of the game, battles are performed automatically. There is no possibility of interaction until the end of the fight,\
+                \nunless the text allows for the option of escape.",
 
             "Mmenu1_sub1_3": "When in danger, you can save yourself by Escaping, if the text allows it.\
-            \nIf you escape, the monster inflicts a wound: subtract 2 from your STAMINA.\
-            \nDuring Escape (before or during combat), you can use SSS as described below.",
+                \nIf you escape, the monster inflicts a wound: subtract 2 from your STAMINA.\
+                \nDuring Escape (before or during combat), you can use SSS as described below.",
 
             "Mmenu1_sub1_4": "While traveling, you check if luck is on your side. You do it as follows:\
-            \nRoll 2D. If the result is equal to or less than your current LUCK level, you have LUCK.\
-            \nIf the result is greater, you don't have LUCK.\
-            \nThis procedure is called Checking Your Luck (CYL).\
-            \nAfter each CYL - regardless of the result - subtract 1 from your current LUCK level.\
-            \nCYL must be done when the text predicts it, and can also be done during combat.\
-            \nDuring combat, CYL is done at the appropriate moment in the round (see above), and its result only applies to that round.\
-            \nHere's how CYL affects the course of combat:\
-            \n\
-            \n1. When you have wounded the monster\
-            \n- if you have LUCK, subtract an additional 2 from the monster's STAMINA (total -4).\
-            \n- if you don't have LUCK, subtract a total of 1.\
-            \n2. When the monster has wounded you\
-            \n- if you have LUCK, subtract a total of 1 from your STAMINA.\
-            \n- if you don't have LUCK, subtract a total of 3.",
+                \nRoll 2D. If the result is equal to or less than your current LUCK level, you have LUCK.\
+                \nIf the result is greater, you don't have LUCK.\
+                \nThis procedure is called Checking Your Luck (CYL).\
+                \nAfter each CYL - regardless of the result - subtract 1 from your current LUCK level.\
+                \nCYL must be done when the text predicts it, and can also be done during combat.\
+                \nDuring combat, CYL is done at the appropriate moment in the round (see above), and its result only applies to that round.\
+                \nHere's how CYL affects the course of combat:\
+                \n\
+                \n1. When you have wounded the monster\
+                \n- if you have LUCK, subtract an additional 2 from the monster's STAMINA (total -4).\
+                \n- if you don't have LUCK, subtract a total of 1.\
+                \n2. When the monster has wounded you\
+                \n- if you have LUCK, subtract a total of 1 from your STAMINA.\
+                \n- if you don't have LUCK, subtract a total of 3.",
 
             "Mmenu1_sub1_5": f"While traveling, through adventures and combat, your characteristics change.\
-            \n1. SKILL - changes very little\
-            \n- enchanted weapon increases SKILL\
-            \n- ELIXIR OF SKILL restores the initial level\
-            \n2. STAMINA - constantly changing\
-            \n- each meal (you have {cnst.eatables_count} of them at the start) adds {cnst.eatable_W_load} points\
-            \n- ELIXIR OF STAMINA restores the initial level\
-            \n3. LUCK\
-            \n- successful adventures add points\
-            \n- ELIXIR OF LUCK restores the initial level and even raises it by 1.\
-            \nExcept for that case, SKILL, STAMINA, and LUCK cannot exceed the initial level.",
+                \n1. SKILL - changes very little\
+                \n- enchanted weapon increases SKILL\
+                \n- ELIXIR OF SKILL restores the initial level\
+                \n2. STAMINA - constantly changing\
+                \n- each meal (you have {cnst.eatables_count} of them at the start) adds {cnst.eatable_W_load} points\
+                \n- ELIXIR OF STAMINA restores the initial level\
+                \n3. LUCK\
+                \n- successful adventures add points\
+                \n- ELIXIR OF LUCK restores the initial level and even raises it by 1.\
+                \nExcept for that case, SKILL, STAMINA, and LUCK cannot exceed the initial level.",
 
             "Mmenu1_sub1_6": f"In your backpack, you have Provisions, which are enough for {cnst.eatables_count} meals. You can only eat a meal when the text allows it.\
-            \nYou can eat only one meal at a time. After consuming a meal, you gain {cnst.eatable_W_load} to your STAMINA.",
+                \nYou can eat only one meal at a time. After consuming a meal, you gain {cnst.eatable_W_load} to your STAMINA.",
 
             "Mmenu1_sub1_7": "Your goal is to reach the treasure chamber. You will wander through a maze of corridors.\
-            \nYou will visit many chambers inhabited by different creatures. You will encounter various surprises.\
-            \nYou will probably fall into some traps.\
-            \nFinding the right path and defeating the monsters will not be easy.\
-            \nYou will probably have to undertake several expeditions before you reach your destination.\
-            \nDraw a map of the dungeons each time. It will greatly help you.",
-
+                \nYou will visit many chambers inhabited by different creatures. You will encounter various surprises.\
+                \nYou will probably fall into some traps.\
+                \nFinding the right path and defeating the monsters will not be easy.\
+                \nYou will probably have to undertake several expeditions before you reach your destination.\
+                \nDraw a map of the dungeons each time. It will greatly help you.",
         },
     'pl':
         {
@@ -1612,7 +2064,7 @@ infoboook = {
 
             "Mmenu4": "Wyjdź z gry",
 
-            "Menu4_sub1_1": "Czy na pewno?",
+            "Mmenu4_sub1_1": "Czy na pewno?",
 
             "Mmenu1_sub1": "Wyposażenie i cechy",
 
@@ -1629,67 +2081,438 @@ infoboook = {
             "Mmenu1_sub7": "Cel wyprawy",
 
             "Mmenu1_sub1_1a": "Jesteś Śmiałkiem.\
-            \n\
-            \nTwój ekwipunek to:",
+                \n\
+                \nTwój ekwipunek to:",
 
             "Mmenu1_sub1_1b": f"Wędrując po podziemiach będziesz znajdował inne rodzaje broni i przedmioty.\
-            \nPamiętaj, że - poza mieczem - każda broń może być wykorzystana tylko raz.\
-            \nPodobnie, znajdowane przedmioty są jednorazowego użytku.\
-            \nMożesz zabrać ze sobą jedną butelkę eliksiru.\
-            \nWybierasz spośród eliksirów: {cnst.special_txt_clr}ZRĘCZNOŚCI{cnst.def_txt_clr}, {cnst.special_txt_clr}WYTRZYMAŁOŚCI{cnst.def_txt_clr} i {cnst.special_txt_clr}SZCZĘŚCIA{cnst.def_txt_clr}.\
-            \nMożna wypić go w dowolnym momencie, ale tylko dwukrotnie podczas przygody.\
-            \n{cnst.def_txt_clr}Twoje cechy to: ZRĘCZNOŚĆ, WYTRZYMAŁOŚĆ i SZCZĘŚCIE.\
-            \nPrzed zejściem do podziemi losowane są początkowe poziomy tych cech.\
-            \nIch poziom będzie się nieustannie zmieniał podczas wędrówki,\
-            \nale nie może przekroczyć poziomu początkowego.",
+                \nPamiętaj, że - poza mieczem - każda broń może być wykorzystana tylko raz.\
+                \nPodobnie, znajdowane przedmioty są jednorazowego użytku.\
+                \nMożesz zabrać ze sobą jedną butelkę eliksiru.\
+                \nWybierasz spośród eliksirów: {cnst.special_txt_clr}ZRĘCZNOŚCI{cnst.def_txt_clr}, {cnst.special_txt_clr}WYTRZYMAŁOŚCI{cnst.def_txt_clr} i {cnst.special_txt_clr}SZCZĘŚCIA{cnst.def_txt_clr}.\
+                \nMożna wypić go w dowolnym momencie, ale tylko dwukrotnie podczas przygody.\
+                \n{cnst.def_txt_clr}Twoje cechy to: ZRĘCZNOŚĆ, WYTRZYMAŁOŚĆ i SZCZĘŚCIE.\
+                \nPrzed zejściem do podziemi losowane są początkowe poziomy tych cech.\
+                \nIch poziom będzie się nieustannie zmieniał podczas wędrówki,\
+                \nale nie może przekroczyć poziomu początkowego.",
 
             "Mmenu1_sub1_2": f"Będziesz walczył z potworami. Ich cechy (ZRĘCZNOŚĆ i WYTRZYMAŁOŚĆ) są indywidualne dla każdego wroga.\
-            \nW bieżącej wersji gry walki są wykonywane automatycznie. Do końca walki nie ma możliwości interackji,\
-            \nchyba że tekst przewiduje możliwość ucieczki.",
+                \nW bieżącej wersji gry walki są wykonywane automatycznie. Do końca walki nie ma możliwości interackji,\
+                \nchyba że tekst przewiduje możliwość ucieczki.",
 
             "Mmenu1_sub1_3": "Będąc w niebezpieczeństwie możesz ratować się Ucieczką, o ile tekst to przewiduje.\
-            \nJeśli uciekasz, potwór zadaje ci ranę: odejmij 2 od swojej WYTRZYMAŁOŚCI.\
-            \nPodczas Ucieczki (przed walką lub w jej trakcie) możesz zastosować SSS w opisany niżej sposób.",
+                \nJeśli uciekasz, potwór zadaje ci ranę: odejmij 2 od swojej WYTRZYMAŁOŚCI.\
+                \nPodczas Ucieczki (przed walką lub w jej trakcie) możesz zastosować SSS w opisany niżej sposób.",
 
             "Mmenu1_sub1_4": "Podczas wędrówki sprawdzasz, czy szczęście ci sprzyja. Robisz to w następujący sposób:\
-            \nRzucasz 2K. Jeśli wynik jest równy lub mniejszy od aktualnego poziomu SZCZĘŚCIA, to masz SZCZĘŚCIE.\
-            \nJeśli wynik jest większy, nie masz SZCZĘŚCIA.\
-            \nTa procedura nazywa się Sprawdzanie Swojego Szczęścia (SSS).\
-            \nPo każdym SSS - niezależnie od wyniku - należy odjąć 1 od aktualnego poziomu SZCZĘŚCIA.\
-            \nSSS trzeba zrobić, gdy przewiduje to tekst, a także można zrobić podczas walki.\
-            \nPodczas walki SSS robi się w odpowiednim momencie rundy (patrz wyżej), a jego wynik stosuje się tylko do tej rundy.\
-            \nOto jakie znaczenie dla przebiegu walki ma SSS:\
-            \n\
-            \n1. Gdy zadałeś ranę potworowi\
-            \n- jeśli masz SZCZĘŚCIE, to odejmujesz dodatkowo 2 od WYTRZYMAŁOŚCI potwora (łącznie -4).\
-            \n- jeśli nie masz SZCZĘŚCIA, to odejmujesz łącznie 1.\
-            \n2. Gdy potwór zadał ci ranę\
-            \n- jeśli masz SZCZĘŚCIE, to odejmujesz łącznie 1 od swojej WYTRZYMAŁOŚCI\
-            \n- jeśli nie masz SZCZĘŚCIA, to odejmujesz łącznie 3.",
+                \nRzucasz 2K. Jeśli wynik jest równy lub mniejszy od aktualnego poziomu SZCZĘŚCIA, to masz SZCZĘŚCIE.\
+                \nJeśli wynik jest większy, nie masz SZCZĘŚCIA.\
+                \nTa procedura nazywa się Sprawdzanie Swojego Szczęścia (SSS).\
+                \nPo każdym SSS - niezależnie od wyniku - należy odjąć 1 od aktualnego poziomu SZCZĘŚCIA.\
+                \nSSS trzeba zrobić, gdy przewiduje to tekst, a także można zrobić podczas walki.\
+                \nPodczas walki SSS robi się w odpowiednim momencie rundy (patrz wyżej), a jego wynik stosuje się tylko do tej rundy.\
+                \nOto jakie znaczenie dla przebiegu walki ma SSS:\
+                \n\
+                \n1. Gdy zadałeś ranę potworowi\
+                \n- jeśli masz SZCZĘŚCIE, to odejmujesz dodatkowo 2 od WYTRZYMAŁOŚCI potwora (łącznie -4).\
+                \n- jeśli nie masz SZCZĘŚCIA, to odejmujesz łącznie 1.\
+                \n2. Gdy potwór zadał ci ranę\
+                \n- jeśli masz SZCZĘŚCIE, to odejmujesz łącznie 1 od swojej WYTRZYMAŁOŚCI\
+                \n- jeśli nie masz SZCZĘŚCIA, to odejmujesz łącznie 3.",
 
             "Mmenu1_sub1_5": f"Podczas wędrówki, dzięki przygodom i walce, zmienia się poziom twoich cech.\
-            \n1. ZRĘCZNOŚĆ - niewiele się zmienia\
-            \n- zaczarowana broń podwyższa ZRĘCZNOŚĆ\
-            \n- eliksir ZRĘCZNOŚCI przywraca poziom początkowy\
-            \n2. WYTRZYMAŁOŚĆ - nieustannie się zmienia\
-            \n- każdy posiłek (masz ich na starcie {cnst.eatables_count}) dodaje {cnst.eatable_W_load} punkty\
-            \n- eliksir WYTRZYMAŁOŚCI przywraca poziom początkowy\
-            \n3. SZCZĘŚCIE\
-            \n- udane przygody dodają punkty\
-            \n- eliksir SZCZĘŚCIA przywraca poziom początkowy, a nawet podnosi go o 1.\
-            \nPoza tym przypadkiem, ZRĘCZNOŚĆ, WYTRZYMAŁOŚĆ i SZCZĘŚCIE nie mogą przekroczyć poziomu początkowego.",
+                \n1. ZRĘCZNOŚĆ - niewiele się zmienia\
+                \n- zaczarowana broń podwyższa ZRĘCZNOŚĆ\
+                \n- eliksir ZRĘCZNOŚCI przywraca poziom początkowy\
+                \n2. WYTRZYMAŁOŚĆ - nieustannie się zmienia\
+                \n- każdy posiłek (masz ich na starcie {cnst.eatables_count}) dodaje {cnst.eatable_W_load} punkty\
+                \n- eliksir WYTRZYMAŁOŚCI przywraca poziom początkowy\
+                \n3. SZCZĘŚCIE\
+                \n- udane przygody dodają punkty\
+                \n- eliksir SZCZĘŚCIA przywraca poziom początkowy, a nawet podnosi go o 1.\
+                \nPoza tym przypadkiem, ZRĘCZNOŚĆ, WYTRZYMAŁOŚĆ i SZCZĘŚCIE nie mogą przekroczyć poziomu początkowego.",
 
             "Mmenu1_sub1_6": f"W plecaku masz Prowiant, który wystarcza na {cnst.eatables_count} posiłków. Posiłek można zjeść TYLKO wówczas, gdy przewiduje to tekst.\
-            \nZa jednym razem można zjeść tylko jeden posiłek. Spożywszy posiłek, dostajesz {cnst.eatable_W_load} do swojej WYTRZYMAŁOŚCI.",
+                \nZa jednym razem można zjeść tylko jeden posiłek. Spożywszy posiłek, dostajesz {cnst.eatable_W_load} do swojej WYTRZYMAŁOŚCI.",
 
             "Mmenu1_sub1_7": "Twoim celem jest dotarcie do skarbca. Będziesz wędrował przez labirynt korytarzy.\
-            \nOdwiedzisz wiele komnat, w których żyją różne istoty. Spotkają cię rozmaite niespodzianki.\
-            \nZapewne wpadniesz w jakieś pułapki.\
-            \nZnalezienie właściwej drogi i pokonanie potworów nie będzie łatwe.\
-            \nZapewne będziesz musiał podjąć kilka wypraw, zanim uda ci się dotrzeć do celu.\
-            \nZa każdym razem rysuj mapę podziemi. Bardzo ci pomoże.",
+                \nOdwiedzisz wiele komnat, w których żyją różne istoty. Spotkają cię rozmaite niespodzianki.\
+                \nZapewne wpadniesz w jakieś pułapki.\
+                \nZnalezienie właściwej drogi i pokonanie potworów nie będzie łatwe.\
+                \nZapewne będziesz musiał podjąć kilka wypraw, zanim uda ci się dotrzeć do celu.\
+                \nZa każdym razem rysuj mapę podziemi. Bardzo ci pomoże.",
+        },
+    'es':
+        {
+            "return": "volver",
 
-        }
+            "Mmenu_headline": "MENÚ PRINCIPAL",
+
+            "Mmenu0": "Bienvenido",
+
+            "Mmenu1": "Jugar",
+
+            "Mmenu2": "Reglas del Juego",
+
+            "Mmenu3": "Configuración",
+
+            "Mmenu3_sub1": "Idioma",
+
+            "Mmenu3_sub1_1": "Seleccionar idioma",
+
+            "Mmenu3_sub1_2": "Has seleccionado",
+
+            "Mmenu3_sub1_3": "fácil",
+
+            "Mmenu3_sub1_4": "medio",
+
+            "Mmenu3_sub1_5": "difícil",
+
+            "Mmenu3_sub2": "Nivel de dificultad",
+
+            "Mmenu3_sub3": "Sonido",
+
+            "Mmenu3_sub3_1": "Diálogos",
+
+            "Mmenu3_sub3_2": "Efectos",
+
+            "Mmenu3_sub3_3": "Música",
+
+            "Mmenu3_sub4": "Nombre del personaje",
+
+            "Mmenu3_sub4_1": "Selecciona un nombre para el héroe (o presiona enter para generar uno al azar)",
+
+            "Mmenu3_sub5": "Generar nuevos atributos para el personaje",
+
+            "Mmenu3_sub5_1": "Generando estadísticas iniciales del héroe",
+
+            "Mmenu4": "Salir del juego",
+
+            "Mmenu4_sub1_1": "¿Estás seguro?",
+
+            "Mmenu1_sub1": "Equipamiento y habilidades",
+
+            "Mmenu1_sub2": "Combate",
+
+            "Mmenu1_sub3": "Huida",
+
+            "Mmenu1_sub4": "Suerte",
+
+            "Mmenu1_sub5": "Mejora de habilidades",
+
+            "Mmenu1_sub6": "Provisiones",
+
+            "Mmenu1_sub7": "Objetivo de la expedición",
+
+            "Mmenu1_sub1_1a": "Eres un Valiente.\
+                \n\
+                \nTu equipamiento incluye:",
+
+            "Mmenu1_sub1_1b": f"A medida que explores las mazmorras, encontrarás diferentes tipos de armas y objetos.\
+                \nRecuerda que, excepto por la espada, cada arma solo se puede usar una vez.\
+                \nDel mismo modo, los objetos encontrados son de un solo uso.\
+                \nPuedes llevar contigo una botella de elixir.\
+                \nPuedes elegir entre los elixires de {cnst.special_txt_clr}DESTREZA{cnst.def_txt_clr}, {cnst.special_txt_clr}RESISTENCIA{cnst.def_txt_clr} y {cnst.special_txt_clr}SUERTE{cnst.def_txt_clr}.\
+                \nPuedes beberlo en cualquier momento, pero solo dos veces durante la aventura.\
+                \n{cnst.def_txt_clr}Tus habilidades son: DESTREZA, RESISTENCIA y SUERTE.\
+                \nAntes de descender a las mazmorras, se generan niveles iniciales aleatorios para estas habilidades.\
+                \nSus niveles cambiarán constantemente durante tu viaje,\
+                \npero no pueden superar el nivel inicial.",
+
+            "Mmenu1_sub1_2": f"Te enfrentarás a monstruos. Sus habilidades (DESTREZA y RESISTENCIA) son individuales para cada enemigo.\
+                \nEn la versión actual del juego, los combates se resuelven automáticamente. No hay posibilidad de interacción,\
+                \na menos que el texto permita la opción de huir.",
+
+            "Mmenu1_sub1_3": "Cuando te encuentres en peligro, puedes intentar huir si el texto lo permite.\
+                \nSi escapas, el monstruo te infligirá una herida: resta 2 puntos de tu RESISTENCIA.\
+                \nDurante la huida (antes o durante el combate), puedes utilizar la Prueba de Suerte de la siguiente manera.",
+
+            "Mmenu1_sub1_4": "Durante tu viaje, verificarás si tienes suerte. Lo haces de la siguiente manera:\
+                \nLanzas 2D. Si el resultado es igual o menor que tu nivel actual de SUERTE, entonces tienes suerte.\
+                \nSi el resultado es mayor, no tienes suerte.\
+                \nEste procedimiento se llama Prueba de Suerte Personal (PSP).\
+                \nDespués de cada PSP, independientemente del resultado, debes restar 1 punto de tu nivel actual de SUERTE.\
+                \nDebes realizar la PSP cuando el texto lo indique, y también puedes hacerlo durante el combate.\
+                \nDurante el combate, la PSP se realiza en el momento adecuado de la ronda (ver arriba), y su resultado solo se aplica a esa ronda.\
+                \nEsto es lo que significa la PSP para el desarrollo del combate:\
+                \n\
+                \n1. Cuando infliges una herida al monstruo\
+                \n- si tienes SUERTE, resta adicionalmente 2 puntos de RESISTENCIA al monstruo (un total de -4).\
+                \n- si no tienes SUERTE, resta un total de 1 punto.\
+                \n2. Cuando el monstruo te inflige una herida\
+                \n- si tienes SUERTE, resta un total de 1 punto de tu RESISTENCIA\
+                \n- si no tienes SUERTE, resta un total de 3 puntos.",
+
+            "Mmenu1_sub1_5": f"Durante tu viaje, a través de aventuras y combates, tus habilidades cambiarán de nivel.\
+                \n1. DESTREZA: cambia poco\
+                \n- las armas encantadas aumentan tu DESTREZA\
+                \n- el elixir de DESTREZA restablece tu nivel inicial\
+                \n2. RESISTENCIA: cambia constantemente\
+                \n- cada comida (tienes {cnst.eatables_count} al comienzo) agrega {cnst.eatable_W_load} puntos\
+                \n- el elixir de RESISTENCIA restablece tu nivel inicial\
+                \n3. SUERTE\
+                \n- las aventuras exitosas suman puntos\
+                \n- el elixir de SUERTE restablece tu nivel inicial e incluso lo incrementa en 1.\
+                \nExcepto en el caso mencionado, DESTREZA, RESISTENCIA y SUERTE no pueden superar el nivel inicial.",
+
+            "Mmenu1_sub1_6": f"Tienes provisiones en tu mochila, suficientes para {cnst.eatables_count} comidas. Solo puedes comer una comida\
+                \nen los momentos indicados por el texto.\
+                \nSolo puedes comer una comida a la vez. Después de comer, se suman {cnst.eatable_W_load} puntos a tu RESISTENCIA.",
+
+            "Mmenu1_sub1_7": "Tu objetivo es llegar a la cámara del tesoro. Viajarás a través de un laberinto de pasillos.\
+                \nVisitarás muchas habitaciones donde habitan diferentes criaturas. Encontrarás diversas sorpresas.\
+                \nProbablemente caerás en algunas trampas.\
+                \nEncontrar el camino correcto y derrotar a los monstruos no será fácil.\
+                \nProbablemente tendrás que emprender varias expediciones antes de llegar a tu destino.\
+                \nDibuja un mapa de las mazmorras cada vez. Te será de gran ayuda.",
+
+        },
+    'fr':
+        {
+            "return": "retour",
+
+            "Mmenu_headline": "MENU PRINCIPAL",
+
+            "Mmenu0": "Bonjour",
+
+            "Mmenu1": "Jouer",
+
+            "Mmenu2": "Règles du jeu",
+
+            "Mmenu3": "Paramètres",
+
+            "Mmenu3_sub1": "Langue",
+
+            "Mmenu3_sub1_1": "Choisissez une langue",
+
+            "Mmenu3_sub1_2": "Vous avez sélectionné",
+
+            "Mmenu3_sub1_3": "facile",
+
+            "Mmenu3_sub1_4": "moyen",
+
+            "Mmenu3_sub1_5": "difficile",
+
+            "Mmenu3_sub2": "Niveau de difficulté",
+
+            "Mmenu3_sub3": "Son",
+
+            "Mmenu3_sub3_1": "Dialogues",
+
+            "Mmenu3_sub3_2": "Effets",
+
+            "Mmenu3_sub3_3": "Musique",
+
+            "Mmenu3_sub4": "Nom du personnage",
+
+            "Mmenu3_sub4_1": "Choisissez le nom du héros (ou appuyez sur Entrée pour générer un nom aléatoire)",
+
+            "Mmenu3_sub5": "Générer de nouvelles caractéristiques pour le personnage",
+
+            "Mmenu3_sub5_1": "Génération des statistiques initiales du héros",
+
+            "Mmenu4": "Quitter le jeu",
+
+            "Mmenu4_sub1_1": "Êtes-vous sûre ?",
+
+            "Mmenu1_sub1": "Équipement et caractéristiques",
+
+            "Mmenu1_sub2": "Combat",
+
+            "Mmenu1_sub3": "Fuite",
+
+            "Mmenu1_sub4": "Chance",
+
+            "Mmenu1_sub5": "Amélioration des caractéristiques",
+
+            "Mmenu1_sub6": "Ravitaillement",
+
+            "Mmenu1_sub7": "Objectif de l'expédition",
+
+            "Mmenu1_sub1_1a": "Vous êtes un Intrépide.\
+                \n\
+                \nVotre équipement comprend :",
+
+            "Mmenu1_sub1_1b": f"Lors de votre exploration des souterrains, vous trouverez différents types d'armes et d'objets.\
+                \nVeuillez noter que, à l'exception de l'épée, chaque arme ne peut être utilisée qu'une seule fois.\
+                \nDe même, les objets trouvés sont à usage unique.\
+                \nVous pouvez emporter une seule fiole d'élixir avec vous.\
+                \nVous pouvez choisir parmi les élixirs suivants : {cnst.special_txt_clr}AGILITÉ{cnst.def_txt_clr}, {cnst.special_txt_clr}ENDURANCE{cnst.def_txt_clr} et {cnst.special_txt_clr}CHANCE{cnst.def_txt_clr}.\
+                \nVous pouvez le boire à tout moment, mais seulement deux fois au cours de l'aventure.\
+                \n{cnst.def_txt_clr}Vos caractéristiques sont : AGILITÉ, ENDURANCE et CHANCE.\
+                \nLes niveaux initiaux de ces caractéristiques sont générés aléatoirement avant d'entrer dans les souterrains,\
+                \net ils peuvent évoluer tout au long de votre périple, mais ne peuvent pas dépasser le niveau initial.",
+
+            "Mmenu1_sub1_2": f"Vous affronterez des monstres. Leurs caractéristiques (AGILITÉ et ENDURANCE) sont spécifiques à chaque ennemi.\
+                \nDans la version actuelle du jeu, les combats sont automatisés. Il n'est pas possible d'interagir pendant le combat,\
+                \nà moins que le texte ne vous donne la possibilité de fuir.",
+
+            "Mmenu1_sub1_3": "En cas de danger, vous pouvez tenter de vous échapper si le texte le permet.\
+                \nSi vous parvenez à vous échapper, le monstre vous infligera une blessure : retirez 2 points de votre ENDURANCE.\
+                \nLors de la fuite (avant ou pendant le combat), vous pouvez utiliser la procédure SSS décrite ci-dessous.",
+
+            "Mmenu1_sub1_4": "Lors de votre exploration, vous pouvez tester votre chance. Voici comment procéder :\
+                \nLancez 2D. Si le résultat est inférieur ou égal à votre niveau actuel de CHANCE, vous avez de la chance.\
+                \nSi le résultat est supérieur, vous n'avez pas de chance.\
+                \nCette procédure est appelée Vérification de Votre Chance (VVC).\
+                \nAprès chaque VVC, quel que soit le résultat, vous devez réduire de 1 votre niveau actuel de CHANCE.\
+                \nLa VVC doit être effectuée lorsque le texte le prévoit, et peut également être effectuée pendant le combat.\
+                \nPendant le combat, la VVC est effectuée à un moment précis du tour (voir ci-dessus), et le résultat n'est applicable qu'à ce tour.\
+                \nVoici comment la VVC affecte le déroulement du combat :\
+                \n\
+                \n1. Si vous avez infligé une blessure au monstre\
+                \n- si vous avez de la CHANCE, retirez 2 points supplémentaires de l'ENDURANCE du monstre (pour un total de -4).\
+                \n- si vous n'avez pas de CHANCE, retirez un total de 1 point.\
+                \n2. Si le monstre vous a infligé une blessure\
+                \n- si vous avez de la CHANCE, retirez un total de 1 point de votre ENDURANCE\
+                \n- si vous n'avez pas de CHANCE, retirez un total de 3 points.",
+
+            "Mmenu1_sub1_5": f"Lors de votre exploration, grâce aux aventures et aux combats, vos niveaux de caractéristiques peuvent évoluer.\
+                \n1. AGILITÉ - ne change que légèrement\
+                \n- les armes enchantées augmentent l'AGILITÉ\
+                \n- l'élixir d'AGILITÉ ramène le niveau à sa valeur initiale\
+                \n2. ENDURANCE - change constamment\
+                \n- chaque repas (vous en avez {cnst.eatables_count} au départ) ajoute {cnst.eatable_W_load} points\
+                \n- l'élixir d'ENDURANCE ramène le niveau à sa valeur initiale\
+                \n3. CHANCE\
+                \n- les aventures réussies ajoutent des points\
+                \n- l'élixir de CHANCE ramène le niveau à sa valeur initiale, voire l'augmente de 1.\
+                \nEn dehors de cette situation, l'AGILITÉ, l'ENDURANCE et la CHANCE ne peuvent pas dépasser leur niveau initial.",
+
+            "Mmenu1_sub1_6": f"Dans votre sac à dos, vous avez des provisions qui suffisent pour {cnst.eatables_count} repas.\
+                \nVous ne pouvez manger un repas QUE si le texte le permet.\
+                \nVous ne pouvez manger qu'un repas à la fois. En mangeant un repas, vous récupérez {cnst.eatable_W_load} points d'ENDURANCE.",
+
+            "Mmenu1_sub1_7": "Votre objectif est d'atteindre le trésor. Vous vous aventurerez à travers le labyrinthe de couloirs.\
+                \nVous visiterez de nombreuses pièces où vivent différentes créatures. Vous ferez face à diverses surprises.\
+                \nVous tomberez probablement dans des pièges.\
+                \nTrouver le bon chemin et vaincre les monstres ne sera pas facile.\
+                \nVous devrez probablement entreprendre plusieurs expéditions avant de parvenir à votre objectif.\
+                \nDessinez une carte des souterrains à chaque fois. Cela vous sera très utile.",
+        },
+    'it':
+        {
+            "return": "ritorna",
+
+            "Mmenu_headline": "MENU PRINCIPALE",
+
+            "Mmenu0": "Benvenuto",
+
+            "Mmenu1": "Gioca",
+
+            "Mmenu2": "Regole del Gioco",
+
+            "Mmenu3": "Impostazioni",
+
+            "Mmenu3_sub1": "Lingua",
+
+            "Mmenu3_sub1_1": "Seleziona lingua",
+
+            "Mmenu3_sub1_2": "Hai selezionato",
+
+            "Mmenu3_sub1_3": "facile",
+
+            "Mmenu3_sub1_4": "medio",
+
+            "Mmenu3_sub1_5": "difficile",
+
+            "Mmenu3_sub2": "Livello di difficoltà",
+
+            "Mmenu3_sub3": "Audio",
+
+            "Mmenu3_sub3_1": "Dialoghi",
+
+            "Mmenu3_sub3_2": "Effetti",
+
+            "Mmenu3_sub3_3": "Musica",
+
+            "Mmenu3_sub4": "Nome del personaggio",
+
+            "Mmenu3_sub4_1": "Seleziona il nome del protagonista (o premi Invio per un nome casuale)",
+
+            "Mmenu3_sub5": "Genera nuove caratteristiche del personaggio",
+
+            "Mmenu3_sub5_1": "Generazione iniziale delle statistiche del protagonista",
+
+            "Mmenu4": "Esci dal gioco",
+
+            "Mmenu4_sub1_1": "Sei sicuro?",
+
+            "Mmenu1_sub1": "Equipaggiamento e attributi",
+
+            "Mmenu1_sub2": "Combattimento",
+
+            "Mmenu1_sub3": "Fuga",
+
+            "Mmenu1_sub4": "Fortuna",
+
+            "Mmenu1_sub5": "Aumentare il livello degli attributi",
+
+            "Mmenu1_sub6": "Provvisioni",
+
+            "Mmenu1_sub7": "Obiettivo dell'avventura",
+
+            "Mmenu1_sub1_1a": "Sei un Coraggioso.\
+                \n\
+                \nIl tuo equipaggiamento include:",
+
+            "Mmenu1_sub1_1b": f"Mentre esplori i sotterranei, troverai diversi tipi di armi e oggetti.\
+                \nRicorda che - a parte la spada - ogni arma può essere utilizzata solo una volta.\
+                \nAllo stesso modo, gli oggetti trovati possono essere utilizzati una sola volta.\
+                \nPuoi portare con te una sola bottiglia di elisir.\
+                \nPuoi scegliere tra gli elisir: {cnst.special_txt_clr}DESTREZZA{cnst.def_txt_clr}, {cnst.special_txt_clr}RESISTENZA{cnst.def_txt_clr} e {cnst.special_txt_clr}FORTUNA{cnst.def_txt_clr}.\
+                \nPuoi berlo in qualsiasi momento, ma solo due volte durante l'avventura.\
+                \n{cnst.def_txt_clr}I tuoi attributi sono: DESTREZZA, RESISTENZA e FORTUNA.\
+                \nPrima di scendere nei sotterranei, vengono generate casualmente i livelli iniziali di questi attributi.\
+                \nI loro livelli cambieranno costantemente durante il tuo viaggio,\
+                \nma non possono superare il livello iniziale.",
+
+            "Mmenu1_sub1_2": f"Ti scontrerai con mostri. Le loro caratteristiche (DESTREZZA e RESISTENZA) sono individuali per ogni nemico.\
+                \nNella versione attuale del gioco, i combattimenti vengono eseguiti automaticamente. Non c'è interazione durante il combattimento,\
+                \na meno che il testo non preveda la possibilità di fuggire.",
+
+            "Mmenu1_sub1_3": "Quando sei in pericolo, puoi cercare di fuggire, a condizione che il testo lo preveda.\
+                \nSe fuggi, il mostro ti infligge una ferita: sottrai 2 dalla tua RESISTENZA.\
+                \nDurante la fuga (prima o durante il combattimento), puoi usare la Procedura di Salvataggio dalla Sfortuna (PSS) come descritto di seguito.",
+
+            "Mmenu1_sub1_4": "Durante il tuo viaggio, puoi verificare se la fortuna ti sorride. Puoi farlo nel seguente modo:\
+                \nLancia 2D. Se il risultato è uguale o inferiore al tuo livello attuale di FORTUNA, allora hai FORTUNA.\
+                \nSe il risultato è maggiore, non hai FORTUNA.\
+                \nQuesta procedura è chiamata Procedura di Salvataggio dalla Sfortuna (PSS).\
+                \nDopo ogni PSS - indipendentemente dal risultato - sottrai 1 dal tuo livello attuale di FORTUNA.\
+                \nIl PSS deve essere eseguito quando previsto dal testo e può essere eseguito anche durante il combattimento.\
+                \nDurante il combattimento, il PSS viene eseguito nel momento appropriato del round (vedi sopra), e il suo risultato si applica solo a quel round.\
+                \nEcco cosa significa per il corso del combattimento il PSS:\
+                \n\
+                \n1. Quando infliggi una ferita al mostro\
+                \n- se hai FORTUNA, sottrai ulteriormente 2 dalla RESISTENZA del mostro (totale -4).\
+                \n- se non hai FORTUNA, sottrai un totale di 1.\
+                \n2. Quando il mostro ti infligge una ferita\
+                \n- se hai FORTUNA, sottrai un totale di 1 dalla tua RESISTENZA\
+                \n- se non hai FORTUNA, sottrai un totale di 3.",
+
+            "Mmenu1_sub1_5": f"Durante il tuo viaggio, grazie alle avventure e ai combattimenti, il livello dei tuoi attributi cambierà.\
+                \n1. DESTREZZA - cambia poco\
+                \n- le armi incantate aumentano la DESTREZZA\
+                \n- l'elisir di DESTREZZA ripristina il livello iniziale\
+                \n2. RESISTENZA - cambia costantemente\
+                \n- ogni pasto (hai {cnst.eatables_count} pasti all'inizio) aggiunge {cnst.eatable_W_load} punti\
+                \n- l'elisir di RESISTENZA ripristina il livello iniziale\
+                \n3. FORTUNA\
+                \n- le avventure fortunate aggiungono punti\
+                \n- l'elisir di FORTUNA ripristina il livello iniziale e può aumentarlo di 1.\
+                \nOltre a questo caso, DESTREZZA, RESISTENZA e FORTUNA non possono superare il livello iniziale.",
+
+            "Mmenu1_sub1_6": f"Nello zaino hai del Cibo, che è sufficiente per {cnst.eatables_count} pasti. Puoi mangiare il Cibo SOLO quando previsto dal testo.\
+                \nPuoi mangiare solo un pasto alla volta. Dopo aver mangiato il pasto, ricevi {cnst.eatable_W_load} punti nella tua RESISTENZA.",
+
+            "Mmenu1_sub1_7": "Il tuo obiettivo è raggiungere la camera del tesoro. Camminerai attraverso il labirinto dei corridoi.\
+                \nVisiterai molte stanze in cui vivono diverse creature. Incontrerai molte sorprese.\
+                \nProbabilmente incapperai in qualche trappola.\
+                \nTrovare la strada giusta e sconfiggere i mostri non sarà facile.\
+                \nProbabilmente dovrai intraprendere diverse spedizioni prima di riuscire a raggiungere l'obiettivo.\
+                \nDisegna una mappa del sottosuolo ogni volta. Ti sarà molto utile.",
+        },
+
 }
 
 
