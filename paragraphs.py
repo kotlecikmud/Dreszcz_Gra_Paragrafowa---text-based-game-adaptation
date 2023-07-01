@@ -53,7 +53,7 @@ def _00():
             func.clear_terminal()
             print(f"{cnst.special_txt_clr}Niepoprawny wybór.")
 
-    func.loading(10)
+    func.loading(1)
     func.clear_terminal()
     time.sleep(1)
 

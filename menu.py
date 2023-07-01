@@ -63,13 +63,21 @@ def main_menu():
         for choice_main_menu, description in choices_main_menu:  # displaying list
             if usr_input == choice_main_menu:
 
-                # play game
+                # new game
                 if choice_main_menu == gb.infoboook[cnst.translation]['Mmenu1']:
                     func.clear_terminal()
                     print(f"/ {choice_main_menu}{cnst.def_txt_clr}")
                     time.sleep(cnst.delay)
+                    func.get_game_state('s')
                     pygame.mixer.music.fadeout(1800)
                     prg._00()
+
+                # load game
+                elif choice_main_menu == gb.infoboook[cnst.translation]['Mmenu2']:
+                    func.clear_terminal()
+                    print(f"/ {choice_main_menu}{cnst.def_txt_clr}")
+                    time.sleep(cnst.delay)
+                    func.get_game_state('l')
 
                 # Rules
                 elif choice_main_menu == choice_main_menu == gb.infoboook[cnst.translation]['Mmenu3']:
@@ -293,8 +301,8 @@ def main_menu():
                                     time.sleep(cnst.delay)
                                     print(gb.infoboook[cnst.translation][
                                               'Mmenu4_sub5_1'])
-                                    func.loading(20)
-                                    func.rpar()
+                                    func.loading(2)
+                                    func.get_player_par()
                                     func.show_player_stats()
                                     input(f'\r{cnst.input_sign}')
 
@@ -308,7 +316,7 @@ def main_menu():
                         func.clear_terminal()
                         time.sleep(cnst.delay)
                         pygame.mixer.music.fadeout(2200)
-                        func.loading(10)
+                        func.loading(1)
                         exit()
 
                 elif choice_main_menu == 'eval()':  # only for dev purposes; evaluating functions in paragraphs.py
@@ -318,7 +326,7 @@ def main_menu():
 
 # main menu
 func.get_music('main')  # loading background music
-func.rpar()  # loading player parameters
+func.get_player_par()  # loading player parameters
 os.system('cls')
 
 if cnst.dev_mode:

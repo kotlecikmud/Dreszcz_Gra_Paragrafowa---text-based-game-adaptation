@@ -10,7 +10,7 @@ import gamebook as gb
 import constants as cnst
 # paragraphs needs to be imported:
 import paragraphs as prg
-from colorama import Fore
+from colorama import Fore, Style
 
 
 def debug_message(msg):
@@ -32,11 +32,16 @@ def clear_terminal():
         subprocess.call('cls' if os.name == 'nt' else 'clear', shell=True)
 
 
-def loading(duration):  # loading 'animation'
-    while duration > 0:
-        print('.', end='')
+def loading(duration):
+    animation_signs = ['|', '/', '-', '\\']
+    end_time = time.time() + duration
+    l_braket = f'{Style.RESET_ALL} - {Fore.YELLOW}{Style.BRIGHT}'
+    sign_index = 0
+
+    while time.time() < end_time:
+        print(l_braket + animation_signs[sign_index % len(animation_signs)] + l_braket, end='\r')
         time.sleep(0.1)
-        duration -= 1
+        sign_index += 1
     clear_terminal()
 
 
@@ -171,14 +176,14 @@ def update_num_variable(variable, change):
     return variable
 
 
-def rpar():
+def get_player_par():
     cnst.z_init = cnst.z_count = random.randint(1, 6) + 6
     cnst.w_init = cnst.w_count = random.randint(2, 12) + 12
     cnst.s_init = cnst.s_count = random.randint(1, 6) + 6
     return cnst.z_init, cnst.z_count, cnst.w_init, cnst.w_count, cnst.s_init, cnst.s_count
 
 
-def game_state(action):
+def get_game_state(action, last_paragraph='00a'):
     # folder path for saving json file
     folder_path = os.path.join(os.path.expanduser("~/Documents"), "Dreszcz_saves")
 
@@ -197,7 +202,8 @@ def game_state(action):
             "count_potion": cnst.count_potion,
             "eatables_count": cnst.eatables_count,
             "gold_amount": cnst.gold_amount,
-            "translation": cnst.translation
+            "translation": cnst.translation,
+            "last_paragraph": last_paragraph
         }
 
         # Create file path
@@ -207,7 +213,8 @@ def game_state(action):
         with open(file_path, "w") as f:
             json.dump(game_state, f)
 
-        print("Game state was saved in:", file_path)
+        if cnst.dev_mode:
+            debug_message(f'Saved: {file_path}')
 
     elif action == 'l':
 
@@ -229,6 +236,9 @@ def game_state(action):
                         with open(file_path, "r") as f:
                             game_state = json.load(f)
 
+                            if cnst.dev_mode:
+                                debug_message(f'Loaded from: {selected_file}')
+
                             # Przypisanie wczytanych danych z powrotem do zmiennych
                             cnst.player_name = game_state.get("player_name")
                             cnst.s_count = game_state.get("s_count")
@@ -239,8 +249,7 @@ def game_state(action):
                             cnst.eatables_count = game_state.get("eatables_count")
                             cnst.gold_amount = game_state.get("gold_amount")
                             cnst.translation = game_state.get("translation")
-
-                            print("Game state was loaded from:", selected_file)
+                            last_paragraph = game_state.get("last_paragraph")
 
                     else:
                         print("Podano niepoprawny numer pliku.")
@@ -331,7 +340,7 @@ def win():
 
 def check_for_luck():
     print(f'{cnst.special_txt_clr}Sprawdzam czy masz szczęście:')
-    loading(20)
+    loading(2)
     cfl_val = random.randint(2, 12)
 
     if cfl_val <= cnst.s_count:
@@ -418,11 +427,10 @@ def eq_change(new_item_name):
 
 
 def show_player_stats():
-    print(f'\
-    \n{cnst.def_txt_clr}Statystyki {Fore.LIGHTYELLOW_EX}{cnst.player_name}{cnst.combat_txt_clr}:\
-        \nWytrzymałość: {cnst.w_count}/{cnst.w_init}\
-        \nZręczność: {cnst.z_count}/{cnst.z_init}\
-        \nSzczęście: {cnst.s_count}/{cnst.s_init}{cnst.def_txt_clr}')
+    print(f'{cnst.def_txt_clr}\
+    \nWytrzymałość: {cnst.w_count}/{cnst.w_init} \
+    \nZręczność: {cnst.z_count}/{cnst.z_init} \
+    \nSzczęście: {cnst.s_count}/{cnst.s_init}{cnst.def_txt_clr}')
     time.sleep(cnst.delay)
 
 
@@ -549,7 +557,7 @@ def combat_round(entity, state, esc_possible, escape_id, stay_id, to_the_end, p_
         b = input(f"Podaj wartość 'b' rzucając dwiema kośćmi{cnst.input_sign}")
 
     if state:
-        loading(10)
+        loading(1)
         if a > b:  # if enemy won
 
             if cnst.w_count > 0:

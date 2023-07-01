@@ -1921,7 +1921,7 @@ infoboook = {
 
             "Mmenu1": "New game",
 
-            "Mmenu2": "Load game state",
+            "Mmenu2": "Load game",
 
             "Mmenu3": "Game Rules",
 
@@ -2163,7 +2163,9 @@ infoboook = {
 
             "Mmenu0": "Bienvenido",
 
-            "Mmenu1": "Jugar",
+            "Mmenu1": "Nuevo juego",
+
+            "Mmenu2": "Cargar juego",
 
             "Mmenu3": "Reglas del Juego",
 
@@ -2288,7 +2290,9 @@ infoboook = {
 
             "Mmenu0": "Bonjour",
 
-            "Mmenu1": "Jouer",
+            "Mmenu1": "Nouveau jeu",
+
+            "Mmenu2": "Chargement du jeu",
 
             "Mmenu3": "Règles du jeu",
 
@@ -2411,7 +2415,9 @@ infoboook = {
 
             "Mmenu0": "Benvenuto",
 
-            "Mmenu1": "Gioca",
+            "Mmenu1": "Nuovo gioco",
+
+            "Mmenu2": "Carica il gioco",
 
             "Mmenu3": "Regole del Gioco",
 
