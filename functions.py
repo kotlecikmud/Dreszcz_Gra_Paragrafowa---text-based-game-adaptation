@@ -35,7 +35,7 @@ def clear_terminal():
 def loading(duration):
     animation_signs = ['|', '/', '-', '\\']
     end_time = time.time() + duration
-    l_braket = f'{Style.RESET_ALL} - {Fore.YELLOW}{Style.BRIGHT}'
+    l_braket = f'{Fore.YELLOW} - '
     sign_index = 0
 
     while time.time() < end_time:

@@ -7,10 +7,11 @@ ver_num = ''
 dev_mode = True  # Toggle for developer mode; enables many debug information, error indicators and other exlusive machanics while playing
 
 if dev_mode:
-    print(
-        f"{Fore.LIGHTBLUE_EX}Code is running in developer mode. Disable by going to constants.py and changing 'dev_mode' boolean to {Fore.YELLOW}False{Style.RESET_ALL}")
     skip_dub = True  # Determines whether dubbing has been skipped.
     get_music_enable = False
+    input(
+        f"{Fore.LIGHTBLUE_EX}Code is running in developer mode. Disable by going to constants.py and changing 'dev_mode' boolean to {Fore.YELLOW}False{Style.RESET_ALL}\
+        \n>>> ")
 else:
     skip_dub = False
     get_music_enable = True

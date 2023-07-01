@@ -338,4 +338,6 @@ if cnst.dev_mode:
     gb.get_translation('en')  # default language for dev_mode
 else:
     gb.get_translation('pl')  # default language for normal game
+
+
 main_menu()  # entry point
