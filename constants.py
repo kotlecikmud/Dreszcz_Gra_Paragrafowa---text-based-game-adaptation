@@ -4,7 +4,7 @@ from colorama import Fore, Style
 ver_num = ''
 
 # /// settings
-dev_mode = True  # Toggle for developer mode; enables many debug information, error indicators and other exlusive machanics while playing
+dev_mode = False  # Toggle for developer mode; enables many debug information, error indicators and other exlusive machanics while playing
 
 if dev_mode:
     print(
@@ -79,9 +79,9 @@ music_main = [f'{assets_audio_music_pth}/main/music_main_1.mp3',  # List of main
 # /// sound mixer setup
 pygame.mixer.init(frequency=44100, size=-16, channels=1,
                   buffer=2 ** 12)  # Initialize the mixer module with the specified settings
-def_action_volume = 1  # Default volume for action sounds
-def_sfx_volume = 0.8  # Default volume for sound effects
-def_bckg_volume = 0.8  # Default volume for background music
+action_volume = 1  # Default volume for action sounds
+sfx_volume = 0.8  # Default volume for sound effects
+bckg_volume = 0.8  # Default volume for background music
 
 # /// ekwipunki
 

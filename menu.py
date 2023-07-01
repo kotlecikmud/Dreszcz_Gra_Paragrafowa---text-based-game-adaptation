@@ -39,10 +39,11 @@ def main_menu():
         time.sleep(cnst.delay)
 
         choices_main_menu = [
-            (gb.infoboook[cnst.translation]['Mmenu1'], ''),
-            (gb.infoboook[cnst.translation]['Mmenu2'], ''),
-            (gb.infoboook[cnst.translation]['Mmenu3'], ''),
-            (gb.infoboook[cnst.translation]['Mmenu4'], ''),
+            (gb.infoboook[cnst.translation]['Mmenu1'], ''),  # new game
+            (gb.infoboook[cnst.translation]['Mmenu2'], ''),  # load game
+            (gb.infoboook[cnst.translation]['Mmenu3'], ''),  # rules
+            (gb.infoboook[cnst.translation]['Mmenu4'], ''),  # settings
+            (gb.infoboook[cnst.translation]['Mmenu5'], ''),  # exit
         ]
 
         if cnst.dev_mode:
@@ -71,20 +72,20 @@ def main_menu():
                     prg._00()
 
                 # Rules
-                elif choice_main_menu == choice_main_menu == gb.infoboook[cnst.translation]['Mmenu2']:
+                elif choice_main_menu == choice_main_menu == gb.infoboook[cnst.translation]['Mmenu3']:
                     while True:
                         func.clear_terminal()
                         print(f"{cnst.special_txt_clr}/ {choice_main_menu}{cnst.def_txt_clr}")
                         time.sleep(cnst.delay)
 
                         choices_rules = [
-                            (gb.infoboook[cnst.translation]['Mmenu1_sub1'], ''),
-                            (gb.infoboook[cnst.translation]['Mmenu1_sub2'], ''),
-                            (gb.infoboook[cnst.translation]['Mmenu1_sub3'], ''),
-                            (gb.infoboook[cnst.translation]['Mmenu1_sub4'], ''),
-                            (gb.infoboook[cnst.translation]['Mmenu1_sub5'], ''),
-                            (gb.infoboook[cnst.translation]['Mmenu1_sub6'], ''),
-                            (gb.infoboook[cnst.translation]['Mmenu1_sub7'], ''),
+                            (gb.infoboook[cnst.translation]['Mmenu3_sub1'], ''),
+                            (gb.infoboook[cnst.translation]['Mmenu3_sub2'], ''),
+                            (gb.infoboook[cnst.translation]['Mmenu3_sub3'], ''),
+                            (gb.infoboook[cnst.translation]['Mmenu3_sub4'], ''),
+                            (gb.infoboook[cnst.translation]['Mmenu3_sub5'], ''),
+                            (gb.infoboook[cnst.translation]['Mmenu3_sub6'], ''),
+                            (gb.infoboook[cnst.translation]['Mmenu3_sub7'], ''),
                             (gb.infoboook[cnst.translation]['return'], '')
                         ]
 
@@ -105,36 +106,36 @@ def main_menu():
                                 time.sleep(cnst.delay)
 
                                 # Equipment and attributes
-                                if choice_rules == gb.infoboook[cnst.translation]['Mmenu1_sub1']:
-                                    print(gb.infoboook[cnst.translation]['Mmenu1_sub1_1a'])
+                                if choice_rules == gb.infoboook[cnst.translation]['Mmenu3_sub1']:
+                                    print(gb.infoboook[cnst.translation]['Mmenu3_sub1_1a'])
 
                                     func.show_equipment_list()  # show equipment list
 
-                                    print(gb.infoboook[cnst.translation]['Mmenu1_sub1_1b'])
+                                    print(gb.infoboook[cnst.translation]['Mmenu3_sub1_1b'])
 
                                 # Combat
-                                elif choice_rules == gb.infoboook[cnst.translation]['Mmenu1_sub2']:
-                                    print(gb.infoboook[cnst.translation]['Mmenu1_sub1_2'])
+                                elif choice_rules == gb.infoboook[cnst.translation]['Mmenu3_sub2']:
+                                    print(gb.infoboook[cnst.translation]['Mmenu3_sub1_2'])
 
                                 # Escape
-                                elif choice_rules == gb.infoboook[cnst.translation]['Mmenu1_sub3']:
-                                    print(gb.infoboook[cnst.translation]['Mmenu1_sub1_3'])
+                                elif choice_rules == gb.infoboook[cnst.translation]['Mmenu3_sub3']:
+                                    print(gb.infoboook[cnst.translation]['Mmenu3_sub1_3'])
 
                                 # Luck
-                                elif choice_rules == gb.infoboook[cnst.translation]['Mmenu1_sub4']:
-                                    print(gb.infoboook[cnst.translation]['Mmenu1_sub1_4'])
+                                elif choice_rules == gb.infoboook[cnst.translation]['Mmenu3_sub4']:
+                                    print(gb.infoboook[cnst.translation]['Mmenu3_sub1_4'])
 
                                 # Leveling up attributes
-                                elif choice_rules == gb.infoboook[cnst.translation]['Mmenu1_sub5']:
-                                    print(gb.infoboook[cnst.translation]['Mmenu1_sub1_5'])
+                                elif choice_rules == gb.infoboook[cnst.translation]['Mmenu3_sub5']:
+                                    print(gb.infoboook[cnst.translation]['Mmenu3_sub1_5'])
 
                                 # Provisions
-                                elif choice_rules == gb.infoboook[cnst.translation]['Mmenu1_sub6']:
-                                    print(gb.infoboook[cnst.translation]['Mmenu1_sub1_6'])
+                                elif choice_rules == gb.infoboook[cnst.translation]['Mmenu3_sub6']:
+                                    print(gb.infoboook[cnst.translation]['Mmenu3_sub1_6'])
 
                                 # Purpose of the expedition
-                                elif choice_rules == gb.infoboook[cnst.translation]['Mmenu1_sub7']:
-                                    print(gb.infoboook[cnst.translation]['Mmenu1_sub1_7'])
+                                elif choice_rules == gb.infoboook[cnst.translation]['Mmenu3_sub7']:
+                                    print(gb.infoboook[cnst.translation]['Mmenu3_sub1_7'])
 
                                 elif choice_rules == gb.infoboook[cnst.translation]['return']:
                                     # print('POWODZENIA!')
@@ -144,18 +145,18 @@ def main_menu():
                                 input(f'{cnst.input_sign}')
 
                 # Settings
-                elif choice_main_menu == gb.infoboook[cnst.translation]['Mmenu3']:
+                elif choice_main_menu == gb.infoboook[cnst.translation]['Mmenu4']:
                     while True:
                         func.clear_terminal()
                         print(f"{cnst.special_txt_clr}/ {choice_main_menu}{cnst.def_txt_clr}")
                         time.sleep(cnst.delay)
 
                         choices_settings = [
-                            (gb.infoboook[cnst.translation]['Mmenu3_sub1'], ''),
-                            (gb.infoboook[cnst.translation]['Mmenu3_sub2'], ''),
-                            # (gb.infoboook[cnst.translation]['Mmenu3_sub3'], ''),  # currently unfinished
-                            (gb.infoboook[cnst.translation]['Mmenu3_sub4'], ''),
-                            (gb.infoboook[cnst.translation]['Mmenu3_sub5'], ''),
+                            (gb.infoboook[cnst.translation]['Mmenu4_sub1'], ''),
+                            (gb.infoboook[cnst.translation]['Mmenu4_sub2'], ''),
+                            # (gb.infoboook[cnst.translation]['Mmenu4_sub3'], ''),  # currently unfinished
+                            (gb.infoboook[cnst.translation]['Mmenu4_sub4'], ''),
+                            (gb.infoboook[cnst.translation]['Mmenu4_sub5'], ''),
                             (gb.infoboook[cnst.translation]['return'], '')
                         ]
 
@@ -173,28 +174,28 @@ def main_menu():
                             if usr_input == choice_settings:
 
                                 if choice_settings == gb.infoboook[cnst.translation][
-                                    'Mmenu3_sub1']:  # Language settings
+                                    'Mmenu4_sub1']:  # Language settings
                                     availableLocales = []
                                     for key in gb.gameboook:
                                         availableLocales.append(key)
 
                                     translation = str(input(
-                                        f"{cnst.def_txt_clr}{gb.infoboook[cnst.translation]['Mmenu3_sub1_1']} {availableLocales}\
+                                        f"{cnst.def_txt_clr}{gb.infoboook[cnst.translation]['Mmenu4_sub1_1']} {availableLocales}\
                                     \n{cnst.input_sign}")).lower()
                                     gb.get_translation(translation)  # update localization dictionaries
                                     func.debug_message(
-                                        f"{gb.infoboook[cnst.translation]['Mmenu3_sub1_2']}: {cnst.translation}")
+                                        f"{gb.infoboook[cnst.translation]['Mmenu4_sub1_2']}: {cnst.translation}")
 
                                 if choice_settings == gb.infoboook[cnst.translation][
-                                    'Mmenu3_sub2']:  # Difficulty level settings
+                                    'Mmenu4_sub2']:  # Difficulty level settings
                                     func.clear_terminal()
                                     print(f"{cnst.special_txt_clr}// {choice_settings}{cnst.def_txt_clr}")
                                     time.sleep(cnst.delay)
 
                                     choices_difficulty_lvl = [
-                                        (gb.infoboook[cnst.translation]['Mmenu3_sub1_3'], ''),
-                                        (gb.infoboook[cnst.translation]['Mmenu3_sub1_4'], ''),
-                                        (gb.infoboook[cnst.translation]['Mmenu3_sub1_5'], '')
+                                        (gb.infoboook[cnst.translation]['Mmenu4_sub1_3'], ''),
+                                        (gb.infoboook[cnst.translation]['Mmenu4_sub1_4'], ''),
+                                        (gb.infoboook[cnst.translation]['Mmenu4_sub1_5'], '')
                                     ]
 
                                     for i, (choice_difficulty_lvl, description) in enumerate(choices_difficulty_lvl, 1):
@@ -211,30 +212,30 @@ def main_menu():
                                     for choice_difficulty_lvl, description in choices_difficulty_lvl:
                                         if usr_input == choice_difficulty_lvl:
 
-                                            if choice_difficulty_lvl == gb.infoboook[cnst.translation]['Mmenu3_sub1_1']:
+                                            if choice_difficulty_lvl == gb.infoboook[cnst.translation]['Mmenu4_sub1_1']:
                                                 difficulty_lvl = cnst.d_lvl_e
 
                                             elif choice_difficulty_lvl == gb.infoboook[cnst.translation][
-                                                'Mmenu3_sub1_2']:
+                                                'Mmenu4_sub1_2']:
                                                 difficulty_lvl = cnst.d_lvl_m
 
                                             elif choice_difficulty_lvl == gb.infoboook[cnst.translation][
-                                                'Mmenu3_sub1_3']:
+                                                'Mmenu4_sub1_3']:
                                                 difficulty_lvl = cnst.d_lvl_h
 
                                             cnst.e_mult_choice = difficulty_lvl
 
 
-                                elif choice_settings == gb.infoboook[cnst.translation]['Mmenu3_sub3']:  # Audio settings
+                                elif choice_settings == gb.infoboook[cnst.translation]['Mmenu4_sub3']:  # Audio settings
 
                                     func.clear_terminal()
                                     print(f"{cnst.special_txt_clr}// {choice_settings}{cnst.def_txt_clr}")
                                     time.sleep(cnst.delay)
 
                                     choices_sound_settings = [
-                                        (gb.infoboook[cnst.translation]['Mmenu3_sub3_1'], ''),
-                                        (gb.infoboook[cnst.translation]['Mmenu3_sub3_2'], ''),
-                                        (gb.infoboook[cnst.translation]['Mmenu3_sub3_3'], ''),
+                                        (gb.infoboook[cnst.translation]['Mmenu4_sub3_1'], ''),
+                                        (gb.infoboook[cnst.translation]['Mmenu4_sub3_2'], ''),
+                                        (gb.infoboook[cnst.translation]['Mmenu4_sub3_3'], ''),
                                         (gb.infoboook[cnst.translation]['return'], '')
                                     ]
 
@@ -263,35 +264,35 @@ def main_menu():
                                                     print("Podano nieprawidłową wartość. Wprowadź liczbę (1-10).")
 
                                             if choice_sound_settings == gb.infoboook[cnst.translation]['Mmenu3_sub3_1']:
-                                                cnst.def_action_volume = new_volume
+                                                cnst.action_volume = new_volume
 
                                             elif choice_sound_settings == gb.infoboook[cnst.translation][
-                                                'Mmenu3_sub3_2']:
-                                                cnst.def_sfx_volume = new_volume
+                                                'Mmenu4_sub3_2']:
+                                                cnst.sfx_volume = new_volume
 
                                             elif choice_sound_settings == gb.infoboook[cnst.translation][
-                                                'Mmenu3_sub3_3']:
-                                                cnst.def_bckg_volume = new_volume
+                                                'Mmenu4_sub3_3']:
+                                                cnst.bckg_volume = new_volume
                                                 pygame.mixer.music.set_volume(new_volume)
 
                                             elif choice_sound_settings == gb.infoboook[cnst.translation]['return']:
                                                 main_menu()
 
-                                elif choice_settings == gb.infoboook[cnst.translation]['Mmenu3_sub4']:  # Name setting
+                                elif choice_settings == gb.infoboook[cnst.translation]['Mmenu4_sub4']:  # Name setting
                                     time.sleep(cnst.delay)
 
                                     name = input(
-                                        f"{gb.infoboook[cnst.translation]['Mmenu3_sub4_1']}{cnst.input_sign}")
+                                        f"{gb.infoboook[cnst.translation]['Mmenu4_sub4_1']}{cnst.input_sign}")
                                     cnst.player_name = f"{Fore.LIGHTYELLOW_EX}{name}{cnst.def_txt_clr}"
 
                                     if name == '':
                                         func.name_randomizer()
 
                                 elif choice_settings == gb.infoboook[cnst.translation][
-                                    'Mmenu3_sub5']:  # Randomize atributes
+                                    'Mmenu4_sub5']:  # Randomize atributes
                                     time.sleep(cnst.delay)
                                     print(gb.infoboook[cnst.translation][
-                                              'Mmenu3_sub5_1'])
+                                              'Mmenu4_sub5_1'])
                                     func.loading(20)
                                     func.rpar()
                                     func.show_player_stats()
@@ -301,8 +302,8 @@ def main_menu():
                                     main_menu()
 
                 # Exit game
-                elif choice_main_menu == gb.infoboook[cnst.translation]['Mmenu4']:
-                    choice2 = input(f"{gb.infoboook[cnst.translation]['Mmenu4_sub1_1']} [Y/N]:").lower()
+                elif choice_main_menu == gb.infoboook[cnst.translation]['Mmenu5']:
+                    choice2 = input(f"{gb.infoboook[cnst.translation]['Mmenu5_sub1_1']} [Y/N]:").lower()
                     if choice2.upper() == "Y":
                         func.clear_terminal()
                         time.sleep(cnst.delay)

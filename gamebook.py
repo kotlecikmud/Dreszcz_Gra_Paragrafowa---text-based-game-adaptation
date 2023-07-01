@@ -1919,59 +1919,61 @@ infoboook = {
 
             "Mmenu0": "Hello",
 
-            "Mmenu1": "Play",
+            "Mmenu1": "New game",
 
-            "Mmenu2": "Game Rules",
+            "Mmenu2": "Load game state",
 
-            "Mmenu3": "Settings",
+            "Mmenu3": "Game Rules",
 
-            "Mmenu3_sub1": "Language",
+            "Mmenu4": "Settings",
 
-            "Mmenu3_sub1_1": "Choose language",
+            "Mmenu4_sub1": "Language",
 
-            "Mmenu3_sub1_2": "You chose",
+            "Mmenu4_sub1_1": "Choose language",
 
-            "Mmenu3_sub1_3": "easy",
+            "Mmenu4_sub1_2": "You chose",
 
-            "Mmenu3_sub1_4": "medium",
+            "Mmenu4_sub1_3": "easy",
 
-            "Mmenu3_sub1_5": "hard",
+            "Mmenu4_sub1_4": "medium",
 
-            "Mmenu3_sub2": "Difficulty level",
+            "Mmenu4_sub1_5": "hard",
 
-            "Mmenu3_sub3": "Sound",
+            "Mmenu4_sub2": "Difficulty level",
 
-            "Mmenu3_sub4": "Character name",
+            "Mmenu4_sub3": "Sound",
 
-            "Mmenu3_sub4_1": "Choose a character name (or press enter to generate a random name)",
+            "Mmenu4_sub4": "Character name",
 
-            "Mmenu3_sub5": "Randomize character attributes",
+            "Mmenu4_sub4_1": "Choose a character name (or press enter to generate a random name)",
 
-            "Mmenu3_sub5_1": "Generating initial character statistics through randomization",
+            "Mmenu4_sub5": "Randomize character attributes",
 
-            "Mmenu4": "Exit the game",
+            "Mmenu4_sub5_1": "Generating initial character statistics through randomization",
 
-            "Mmenu4_sub1_1": "Are you sure?",
+            "Mmenu5": "Exit the game",
 
-            "Mmenu1_sub1": "Equipment and attributes",
+            "Mmenu5_sub1_1": "Are you sure?",
 
-            "Mmenu1_sub2": "Combat",
+            "Mmenu3_sub1": "Equipment and attributes",
 
-            "Mmenu1_sub3": "Escape",
+            "Mmenu3_sub2": "Combat",
 
-            "Mmenu1_sub4": "Luck",
+            "Mmenu3_sub3": "Escape",
 
-            "Mmenu1_sub5": "Leveling up attributes",
+            "Mmenu3_sub4": "Luck",
 
-            "Mmenu1_sub6": "Provisions",
+            "Mmenu3_sub5": "Leveling up attributes",
 
-            "Mmenu1_sub7": "Purpose of the expedition",
+            "Mmenu3_sub6": "Provisions",
 
-            "Mmenu1_sub1_1a": "You are a daredevil.\
+            "Mmenu3_sub7": "Purpose of the expedition",
+
+            "Mmenu3_sub1_1a": "You are a daredevil.\
                 \n\
                 \nYour equipment consists of:",
 
-            "Mmenu1_sub1_1b": f"While wandering through the dungeons, you will find different types of weapons and items.\
+            "Mmenu3_sub1_1b": f"While wandering through the dungeons, you will find different types of weapons and items.\
                 \nRemember that - except for the sword - each weapon can only be used once.\
                 \nSimilarly, the found items are single-use.\
                 \nYou can take one bottle of elixir with you.\
@@ -1982,15 +1984,15 @@ infoboook = {
                 \nTheir level will constantly change during your journey,\
                 \nbut it cannot exceed the initial level.",
 
-            "Mmenu1_sub1_2": "You will be fighting monsters. Their attributes (AGILITY and ENDURANCE) are unique to each enemy.\
+            "Mmenu3_sub1_2": "You will be fighting monsters. Their attributes (AGILITY and ENDURANCE) are unique to each enemy.\
                 \nIn the current version of the game, battles are performed automatically. There is no possibility of interaction until the end of the fight,\
                 \nunless the text allows for the option of escape.",
 
-            "Mmenu1_sub1_3": "When in danger, you can save yourself by Escaping, if the text allows it.\
+            "Mmenu3_sub1_3": "When in danger, you can save yourself by Escaping, if the text allows it.\
                 \nIf you escape, the monster inflicts a wound: subtract 2 from your STAMINA.\
                 \nDuring Escape (before or during combat), you can use SSS as described below.",
 
-            "Mmenu1_sub1_4": "While traveling, you check if luck is on your side. You do it as follows:\
+            "Mmenu3_sub1_4": "While traveling, you check if luck is on your side. You do it as follows:\
                 \nRoll 2D. If the result is equal to or less than your current LUCK level, you have LUCK.\
                 \nIf the result is greater, you don't have LUCK.\
                 \nThis procedure is called Checking Your Luck (CYL).\
@@ -2006,7 +2008,7 @@ infoboook = {
                 \n- if you have LUCK, subtract a total of 1 from your STAMINA.\
                 \n- if you don't have LUCK, subtract a total of 3.",
 
-            "Mmenu1_sub1_5": f"While traveling, through adventures and combat, your characteristics change.\
+            "Mmenu3_sub1_5": f"While traveling, through adventures and combat, your characteristics change.\
                 \n1. SKILL - changes very little\
                 \n- enchanted weapon increases SKILL\
                 \n- ELIXIR OF SKILL restores the initial level\
@@ -2018,10 +2020,10 @@ infoboook = {
                 \n- ELIXIR OF LUCK restores the initial level and even raises it by 1.\
                 \nExcept for that case, SKILL, STAMINA, and LUCK cannot exceed the initial level.",
 
-            "Mmenu1_sub1_6": f"In your backpack, you have Provisions, which are enough for {cnst.eatables_count} meals. You can only eat a meal when the text allows it.\
+            "Mmenu3_sub1_6": f"In your backpack, you have Provisions, which are enough for {cnst.eatables_count} meals. You can only eat a meal when the text allows it.\
                 \nYou can eat only one meal at a time. After consuming a meal, you gain {cnst.eatable_W_load} to your STAMINA.",
 
-            "Mmenu1_sub1_7": "Your goal is to reach the treasure chamber. You will wander through a maze of corridors.\
+            "Mmenu3_sub1_7": "Your goal is to reach the treasure chamber. You will wander through a maze of corridors.\
                 \nYou will visit many chambers inhabited by different creatures. You will encounter various surprises.\
                 \nYou will probably fall into some traps.\
                 \nFinding the right path and defeating the monsters will not be easy.\
@@ -2036,65 +2038,67 @@ infoboook = {
 
             "Mmenu0": "Witaj",
 
-            "Mmenu1": "Graj",
+            "Mmenu1": "Nowa gra",
 
-            "Mmenu2": "Zasady Gry",
+            "Mmenu2": "Wczytaj grę",
 
-            "Mmenu3": "Ustawienia",
+            "Mmenu3": "Zasady Gry",
 
-            "Mmenu3_sub1": "Język",
+            "Mmenu4": "Ustawienia",
 
-            "Mmenu3_sub1_1": "Wybierz język",
+            "Mmenu4_sub1": "Język",
 
-            "Mmenu3_sub1_2": "Wybrałeś",
+            "Mmenu4_sub1_1": "Wybierz język",
 
-            "Mmenu3_sub1_3": "łatwy",
+            "Mmenu4_sub1_2": "Wybrałeś",
 
-            "Mmenu3_sub1_4": "średni",
+            "Mmenu4_sub1_3": "łatwy",
 
-            "Mmenu3_sub1_5": "trudny",
+            "Mmenu4_sub1_4": "średni",
 
-            "Mmenu3_sub2": "Poziom trudności",
+            "Mmenu4_sub1_5": "trudny",
 
-            "Mmenu3_sub3": "Dźwięk",
+            "Mmenu4_sub2": "Poziom trudności",
 
-            "Mmenu3_sub3_1": "Dialogi",
+            "Mmenu4_sub3": "Dźwięk",
 
-            "Mmenu3_sub3_2": "Efekty",
+            "Mmenu4_sub3_1": "Dialogi",
 
-            "Mmenu3_sub3_3": "Muzyka",
+            "Mmenu4_sub3_2": "Efekty",
 
-            "Mmenu3_sub4": "Imię postaci",
+            "Mmenu4_sub3_3": "Muzyka",
 
-            "Mmenu3_sub4_1": "Wybierz imię bohatera (lub wciśnij enter aby wylosować imię)",
+            "Mmenu4_sub4": "Imię postaci",
 
-            "Mmenu3_sub5": "Losuj nowe atrybuty postaci",
+            "Mmenu4_sub4_1": "Wybierz imię bohatera (lub wciśnij enter aby wylosować imię)",
 
-            "Mmenu3_sub5_1": "Losowanie początkowych statystyk bohatera",
+            "Mmenu4_sub5": "Losuj nowe atrybuty postaci",
 
-            "Mmenu4": "Wyjdź z gry",
+            "Mmenu4_sub5_1": "Losowanie początkowych statystyk bohatera",
 
-            "Mmenu4_sub1_1": "Czy na pewno?",
+            "Mmenu5": "Wyjdź z gry",
 
-            "Mmenu1_sub1": "Wyposażenie i cechy",
+            "Mmenu5_sub1_1": "Czy na pewno?",
 
-            "Mmenu1_sub2": "Walka",
+            "Mmenu3_sub1": "Wyposażenie i cechy",
 
-            "Mmenu1_sub3": "Ucieczka",
+            "Mmenu3_sub2": "Walka",
 
-            "Mmenu1_sub4": "Szczęście",
+            "Mmenu3_sub3": "Ucieczka",
 
-            "Mmenu1_sub5": "Podwyższanie poziomu cech",
+            "Mmenu3_sub4": "Szczęście",
 
-            "Mmenu1_sub6": "Prowiant",
+            "Mmenu3_sub5": "Podwyższanie poziomu cech",
 
-            "Mmenu1_sub7": "Cel wyprawy",
+            "Mmenu3_sub6": "Prowiant",
 
-            "Mmenu1_sub1_1a": "Jesteś Śmiałkiem.\
+            "Mmenu3_sub7": "Cel wyprawy",
+
+            "Mmenu3_sub1_1a": "Jesteś Śmiałkiem.\
                 \n\
                 \nTwój ekwipunek to:",
 
-            "Mmenu1_sub1_1b": f"Wędrując po podziemiach będziesz znajdował inne rodzaje broni i przedmioty.\
+            "Mmenu3_sub1_1b": f"Wędrując po podziemiach będziesz znajdował inne rodzaje broni i przedmioty.\
                 \nPamiętaj, że - poza mieczem - każda broń może być wykorzystana tylko raz.\
                 \nPodobnie, znajdowane przedmioty są jednorazowego użytku.\
                 \nMożesz zabrać ze sobą jedną butelkę eliksiru.\
@@ -2105,15 +2109,15 @@ infoboook = {
                 \nIch poziom będzie się nieustannie zmieniał podczas wędrówki,\
                 \nale nie może przekroczyć poziomu początkowego.",
 
-            "Mmenu1_sub1_2": f"Będziesz walczył z potworami. Ich cechy (ZRĘCZNOŚĆ i WYTRZYMAŁOŚĆ) są indywidualne dla każdego wroga.\
+            "Mmenu3_sub1_2": f"Będziesz walczył z potworami. Ich cechy (ZRĘCZNOŚĆ i WYTRZYMAŁOŚĆ) są indywidualne dla każdego wroga.\
                 \nW bieżącej wersji gry walki są wykonywane automatycznie. Do końca walki nie ma możliwości interackji,\
                 \nchyba że tekst przewiduje możliwość ucieczki.",
 
-            "Mmenu1_sub1_3": "Będąc w niebezpieczeństwie możesz ratować się Ucieczką, o ile tekst to przewiduje.\
+            "Mmenu3_sub1_3": "Będąc w niebezpieczeństwie możesz ratować się Ucieczką, o ile tekst to przewiduje.\
                 \nJeśli uciekasz, potwór zadaje ci ranę: odejmij 2 od swojej WYTRZYMAŁOŚCI.\
                 \nPodczas Ucieczki (przed walką lub w jej trakcie) możesz zastosować SSS w opisany niżej sposób.",
 
-            "Mmenu1_sub1_4": "Podczas wędrówki sprawdzasz, czy szczęście ci sprzyja. Robisz to w następujący sposób:\
+            "Mmenu3_sub1_4": "Podczas wędrówki sprawdzasz, czy szczęście ci sprzyja. Robisz to w następujący sposób:\
                 \nRzucasz 2K. Jeśli wynik jest równy lub mniejszy od aktualnego poziomu SZCZĘŚCIA, to masz SZCZĘŚCIE.\
                 \nJeśli wynik jest większy, nie masz SZCZĘŚCIA.\
                 \nTa procedura nazywa się Sprawdzanie Swojego Szczęścia (SSS).\
@@ -2129,7 +2133,7 @@ infoboook = {
                 \n- jeśli masz SZCZĘŚCIE, to odejmujesz łącznie 1 od swojej WYTRZYMAŁOŚCI\
                 \n- jeśli nie masz SZCZĘŚCIA, to odejmujesz łącznie 3.",
 
-            "Mmenu1_sub1_5": f"Podczas wędrówki, dzięki przygodom i walce, zmienia się poziom twoich cech.\
+            "Mmenu3_sub1_5": f"Podczas wędrówki, dzięki przygodom i walce, zmienia się poziom twoich cech.\
                 \n1. ZRĘCZNOŚĆ - niewiele się zmienia\
                 \n- zaczarowana broń podwyższa ZRĘCZNOŚĆ\
                 \n- eliksir ZRĘCZNOŚCI przywraca poziom początkowy\
@@ -2141,10 +2145,10 @@ infoboook = {
                 \n- eliksir SZCZĘŚCIA przywraca poziom początkowy, a nawet podnosi go o 1.\
                 \nPoza tym przypadkiem, ZRĘCZNOŚĆ, WYTRZYMAŁOŚĆ i SZCZĘŚCIE nie mogą przekroczyć poziomu początkowego.",
 
-            "Mmenu1_sub1_6": f"W plecaku masz Prowiant, który wystarcza na {cnst.eatables_count} posiłków. Posiłek można zjeść TYLKO wówczas, gdy przewiduje to tekst.\
+            "Mmenu3_sub1_6": f"W plecaku masz Prowiant, który wystarcza na {cnst.eatables_count} posiłków. Posiłek można zjeść TYLKO wówczas, gdy przewiduje to tekst.\
                 \nZa jednym razem można zjeść tylko jeden posiłek. Spożywszy posiłek, dostajesz {cnst.eatable_W_load} do swojej WYTRZYMAŁOŚCI.",
 
-            "Mmenu1_sub1_7": "Twoim celem jest dotarcie do skarbca. Będziesz wędrował przez labirynt korytarzy.\
+            "Mmenu3_sub1_7": "Twoim celem jest dotarcie do skarbca. Będziesz wędrował przez labirynt korytarzy.\
                 \nOdwiedzisz wiele komnat, w których żyją różne istoty. Spotkają cię rozmaite niespodzianki.\
                 \nZapewne wpadniesz w jakieś pułapki.\
                 \nZnalezienie właściwej drogi i pokonanie potworów nie będzie łatwe.\
@@ -2161,63 +2165,63 @@ infoboook = {
 
             "Mmenu1": "Jugar",
 
-            "Mmenu2": "Reglas del Juego",
+            "Mmenu3": "Reglas del Juego",
 
-            "Mmenu3": "Configuración",
+            "Mmenu4": "Configuración",
 
-            "Mmenu3_sub1": "Idioma",
+            "Mmenu4_sub1": "Idioma",
 
-            "Mmenu3_sub1_1": "Seleccionar idioma",
+            "Mmenu4_sub1_1": "Seleccionar idioma",
 
-            "Mmenu3_sub1_2": "Has seleccionado",
+            "Mmenu4_sub1_2": "Has seleccionado",
 
-            "Mmenu3_sub1_3": "fácil",
+            "Mmenu4_sub1_3": "fácil",
 
-            "Mmenu3_sub1_4": "medio",
+            "Mmenu4_sub1_4": "medio",
 
-            "Mmenu3_sub1_5": "difícil",
+            "Mmenu4_sub1_5": "difícil",
 
-            "Mmenu3_sub2": "Nivel de dificultad",
+            "Mmenu4_sub2": "Nivel de dificultad",
 
-            "Mmenu3_sub3": "Sonido",
+            "Mmenu4_sub3": "Sonido",
 
-            "Mmenu3_sub3_1": "Diálogos",
+            "Mmenu4_sub3_1": "Diálogos",
 
-            "Mmenu3_sub3_2": "Efectos",
+            "Mmenu4_sub3_2": "Efectos",
 
-            "Mmenu3_sub3_3": "Música",
+            "Mmenu4_sub3_3": "Música",
 
-            "Mmenu3_sub4": "Nombre del personaje",
+            "Mmenu4_sub4": "Nombre del personaje",
 
-            "Mmenu3_sub4_1": "Selecciona un nombre para el héroe (o presiona enter para generar uno al azar)",
+            "Mmenu4_sub4_1": "Selecciona un nombre para el héroe (o presiona enter para generar uno al azar)",
 
-            "Mmenu3_sub5": "Generar nuevos atributos para el personaje",
+            "Mmenu4_sub5": "Generar nuevos atributos para el personaje",
 
-            "Mmenu3_sub5_1": "Generando estadísticas iniciales del héroe",
+            "Mmenu4_sub5_1": "Generando estadísticas iniciales del héroe",
 
-            "Mmenu4": "Salir del juego",
+            "Mmenu5": "Salir del juego",
 
-            "Mmenu4_sub1_1": "¿Estás seguro?",
+            "Mmenu5_sub1_1": "¿Estás seguro?",
 
-            "Mmenu1_sub1": "Equipamiento y habilidades",
+            "Mmenu3_sub1": "Equipamiento y habilidades",
 
-            "Mmenu1_sub2": "Combate",
+            "Mmenu3_sub2": "Combate",
 
-            "Mmenu1_sub3": "Huida",
+            "Mmenu3_sub3": "Huida",
 
-            "Mmenu1_sub4": "Suerte",
+            "Mmenu3_sub4": "Suerte",
 
-            "Mmenu1_sub5": "Mejora de habilidades",
+            "Mmenu3_sub5": "Mejora de habilidades",
 
-            "Mmenu1_sub6": "Provisiones",
+            "Mmenu3_sub6": "Provisiones",
 
-            "Mmenu1_sub7": "Objetivo de la expedición",
+            "Mmenu3_sub7": "Objetivo de la expedición",
 
-            "Mmenu1_sub1_1a": "Eres un Valiente.\
+            "Mmenu3_sub1_1a": "Eres un Valiente.\
                 \n\
                 \nTu equipamiento incluye:",
 
-            "Mmenu1_sub1_1b": f"A medida que explores las mazmorras, encontrarás diferentes tipos de armas y objetos.\
+            "Mmenu3_sub1_1b": f"A medida que explores las mazmorras, encontrarás diferentes tipos de armas y objetos.\
                 \nRecuerda que, excepto por la espada, cada arma solo se puede usar una vez.\
                 \nDel mismo modo, los objetos encontrados son de un solo uso.\
                 \nPuedes llevar contigo una botella de elixir.\
@@ -2228,15 +2232,15 @@ infoboook = {
                 \nSus niveles cambiarán constantemente durante tu viaje,\
                 \npero no pueden superar el nivel inicial.",
 
-            "Mmenu1_sub1_2": f"Te enfrentarás a monstruos. Sus habilidades (DESTREZA y RESISTENCIA) son individuales para cada enemigo.\
+            "Mmenu3_sub1_2": f"Te enfrentarás a monstruos. Sus habilidades (DESTREZA y RESISTENCIA) son individuales para cada enemigo.\
                 \nEn la versión actual del juego, los combates se resuelven automáticamente. No hay posibilidad de interacción,\
                 \na menos que el texto permita la opción de huir.",
 
-            "Mmenu1_sub1_3": "Cuando te encuentres en peligro, puedes intentar huir si el texto lo permite.\
+            "Mmenu3_sub1_3": "Cuando te encuentres en peligro, puedes intentar huir si el texto lo permite.\
                 \nSi escapas, el monstruo te infligirá una herida: resta 2 puntos de tu RESISTENCIA.\
                 \nDurante la huida (antes o durante el combate), puedes utilizar la Prueba de Suerte de la siguiente manera.",
 
-            "Mmenu1_sub1_4": "Durante tu viaje, verificarás si tienes suerte. Lo haces de la siguiente manera:\
+            "Mmenu3_sub1_4": "Durante tu viaje, verificarás si tienes suerte. Lo haces de la siguiente manera:\
                 \nLanzas 2D. Si el resultado es igual o menor que tu nivel actual de SUERTE, entonces tienes suerte.\
                 \nSi el resultado es mayor, no tienes suerte.\
                 \nEste procedimiento se llama Prueba de Suerte Personal (PSP).\
@@ -2252,7 +2256,7 @@ infoboook = {
                 \n- si tienes SUERTE, resta un total de 1 punto de tu RESISTENCIA\
                 \n- si no tienes SUERTE, resta un total de 3 puntos.",
 
-            "Mmenu1_sub1_5": f"Durante tu viaje, a través de aventuras y combates, tus habilidades cambiarán de nivel.\
+            "Mmenu3_sub1_5": f"Durante tu viaje, a través de aventuras y combates, tus habilidades cambiarán de nivel.\
                 \n1. DESTREZA: cambia poco\
                 \n- las armas encantadas aumentan tu DESTREZA\
                 \n- el elixir de DESTREZA restablece tu nivel inicial\
@@ -2264,11 +2268,11 @@ infoboook = {
                 \n- el elixir de SUERTE restablece tu nivel inicial e incluso lo incrementa en 1.\
                 \nExcepto en el caso mencionado, DESTREZA, RESISTENCIA y SUERTE no pueden superar el nivel inicial.",
 
-            "Mmenu1_sub1_6": f"Tienes provisiones en tu mochila, suficientes para {cnst.eatables_count} comidas. Solo puedes comer una comida\
+            "Mmenu3_sub1_6": f"Tienes provisiones en tu mochila, suficientes para {cnst.eatables_count} comidas. Solo puedes comer una comida\
                 \nen los momentos indicados por el texto.\
                 \nSolo puedes comer una comida a la vez. Después de comer, se suman {cnst.eatable_W_load} puntos a tu RESISTENCIA.",
 
-            "Mmenu1_sub1_7": "Tu objetivo es llegar a la cámara del tesoro. Viajarás a través de un laberinto de pasillos.\
+            "Mmenu3_sub1_7": "Tu objetivo es llegar a la cámara del tesoro. Viajarás a través de un laberinto de pasillos.\
                 \nVisitarás muchas habitaciones donde habitan diferentes criaturas. Encontrarás diversas sorpresas.\
                 \nProbablemente caerás en algunas trampas.\
                 \nEncontrar el camino correcto y derrotar a los monstruos no será fácil.\
@@ -2286,63 +2290,63 @@ infoboook = {
 
             "Mmenu1": "Jouer",
 
-            "Mmenu2": "Règles du jeu",
+            "Mmenu3": "Règles du jeu",
 
-            "Mmenu3": "Paramètres",
+            "Mmenu4": "Paramètres",
 
-            "Mmenu3_sub1": "Langue",
+            "Mmenu4_sub1": "Langue",
 
-            "Mmenu3_sub1_1": "Choisissez une langue",
+            "Mmenu4_sub1_1": "Choisissez une langue",
 
-            "Mmenu3_sub1_2": "Vous avez sélectionné",
+            "Mmenu4_sub1_2": "Vous avez sélectionné",
 
-            "Mmenu3_sub1_3": "facile",
+            "Mmenu4_sub1_3": "facile",
 
-            "Mmenu3_sub1_4": "moyen",
+            "Mmenu4_sub1_4": "moyen",
 
-            "Mmenu3_sub1_5": "difficile",
+            "Mmenu4_sub1_5": "difficile",
 
-            "Mmenu3_sub2": "Niveau de difficulté",
+            "Mmenu4_sub2": "Niveau de difficulté",
 
-            "Mmenu3_sub3": "Son",
+            "Mmenu4_sub3": "Son",
 
-            "Mmenu3_sub3_1": "Dialogues",
+            "Mmenu4_sub3_1": "Dialogues",
 
-            "Mmenu3_sub3_2": "Effets",
+            "Mmenu4_sub3_2": "Effets",
 
-            "Mmenu3_sub3_3": "Musique",
+            "Mmenu4_sub3_3": "Musique",
 
-            "Mmenu3_sub4": "Nom du personnage",
+            "Mmenu4_sub4": "Nom du personnage",
 
-            "Mmenu3_sub4_1": "Choisissez le nom du héros (ou appuyez sur Entrée pour générer un nom aléatoire)",
+            "Mmenu4_sub4_1": "Choisissez le nom du héros (ou appuyez sur Entrée pour générer un nom aléatoire)",
 
-            "Mmenu3_sub5": "Générer de nouvelles caractéristiques pour le personnage",
+            "Mmenu4_sub5": "Générer de nouvelles caractéristiques pour le personnage",
 
-            "Mmenu3_sub5_1": "Génération des statistiques initiales du héros",
+            "Mmenu4_sub5_1": "Génération des statistiques initiales du héros",
 
-            "Mmenu4": "Quitter le jeu",
+            "Mmenu5": "Quitter le jeu",
 
-            "Mmenu4_sub1_1": "Êtes-vous sûre ?",
+            "Mmenu5_sub1_1": "Êtes-vous sûre ?",
 
-            "Mmenu1_sub1": "Équipement et caractéristiques",
+            "Mmenu3_sub1": "Équipement et caractéristiques",
 
-            "Mmenu1_sub2": "Combat",
+            "Mmenu3_sub2": "Combat",
 
-            "Mmenu1_sub3": "Fuite",
+            "Mmenu3_sub3": "Fuite",
 
-            "Mmenu1_sub4": "Chance",
+            "Mmenu3_sub4": "Chance",
 
-            "Mmenu1_sub5": "Amélioration des caractéristiques",
+            "Mmenu3_sub5": "Amélioration des caractéristiques",
 
-            "Mmenu1_sub6": "Ravitaillement",
+            "Mmenu3_sub6": "Ravitaillement",
 
-            "Mmenu1_sub7": "Objectif de l'expédition",
+            "Mmenu3_sub7": "Objectif de l'expédition",
 
-            "Mmenu1_sub1_1a": "Vous êtes un Intrépide.\
+            "Mmenu3_sub1_1a": "Vous êtes un Intrépide.\
                 \n\
                 \nVotre équipement comprend :",
 
-            "Mmenu1_sub1_1b": f"Lors de votre exploration des souterrains, vous trouverez différents types d'armes et d'objets.\
+            "Mmenu3_sub1_1b": f"Lors de votre exploration des souterrains, vous trouverez différents types d'armes et d'objets.\
                 \nVeuillez noter que, à l'exception de l'épée, chaque arme ne peut être utilisée qu'une seule fois.\
                 \nDe même, les objets trouvés sont à usage unique.\
                 \nVous pouvez emporter une seule fiole d'élixir avec vous.\
@@ -2352,15 +2356,15 @@ infoboook = {
                 \nLes niveaux initiaux de ces caractéristiques sont générés aléatoirement avant d'entrer dans les souterrains,\
                 \net ils peuvent évoluer tout au long de votre périple, mais ne peuvent pas dépasser le niveau initial.",
 
-            "Mmenu1_sub1_2": f"Vous affronterez des monstres. Leurs caractéristiques (AGILITÉ et ENDURANCE) sont spécifiques à chaque ennemi.\
+            "Mmenu3_sub1_2": f"Vous affronterez des monstres. Leurs caractéristiques (AGILITÉ et ENDURANCE) sont spécifiques à chaque ennemi.\
                 \nDans la version actuelle du jeu, les combats sont automatisés. Il n'est pas possible d'interagir pendant le combat,\
                 \nà moins que le texte ne vous donne la possibilité de fuir.",
 
-            "Mmenu1_sub1_3": "En cas de danger, vous pouvez tenter de vous échapper si le texte le permet.\
+            "Mmenu3_sub1_3": "En cas de danger, vous pouvez tenter de vous échapper si le texte le permet.\
                 \nSi vous parvenez à vous échapper, le monstre vous infligera une blessure : retirez 2 points de votre ENDURANCE.\
                 \nLors de la fuite (avant ou pendant le combat), vous pouvez utiliser la procédure SSS décrite ci-dessous.",
 
-            "Mmenu1_sub1_4": "Lors de votre exploration, vous pouvez tester votre chance. Voici comment procéder :\
+            "Mmenu3_sub1_4": "Lors de votre exploration, vous pouvez tester votre chance. Voici comment procéder :\
                 \nLancez 2D. Si le résultat est inférieur ou égal à votre niveau actuel de CHANCE, vous avez de la chance.\
                 \nSi le résultat est supérieur, vous n'avez pas de chance.\
                 \nCette procédure est appelée Vérification de Votre Chance (VVC).\
@@ -2376,7 +2380,7 @@ infoboook = {
                 \n- si vous avez de la CHANCE, retirez un total de 1 point de votre ENDURANCE\
                 \n- si vous n'avez pas de CHANCE, retirez un total de 3 points.",
 
-            "Mmenu1_sub1_5": f"Lors de votre exploration, grâce aux aventures et aux combats, vos niveaux de caractéristiques peuvent évoluer.\
+            "Mmenu3_sub1_5": f"Lors de votre exploration, grâce aux aventures et aux combats, vos niveaux de caractéristiques peuvent évoluer.\
                 \n1. AGILITÉ - ne change que légèrement\
                 \n- les armes enchantées augmentent l'AGILITÉ\
                 \n- l'élixir d'AGILITÉ ramène le niveau à sa valeur initiale\
@@ -2388,11 +2392,11 @@ infoboook = {
                 \n- l'élixir de CHANCE ramène le niveau à sa valeur initiale, voire l'augmente de 1.\
                 \nEn dehors de cette situation, l'AGILITÉ, l'ENDURANCE et la CHANCE ne peuvent pas dépasser leur niveau initial.",
 
-            "Mmenu1_sub1_6": f"Dans votre sac à dos, vous avez des provisions qui suffisent pour {cnst.eatables_count} repas.\
+            "Mmenu3_sub1_6": f"Dans votre sac à dos, vous avez des provisions qui suffisent pour {cnst.eatables_count} repas.\
                 \nVous ne pouvez manger un repas QUE si le texte le permet.\
                 \nVous ne pouvez manger qu'un repas à la fois. En mangeant un repas, vous récupérez {cnst.eatable_W_load} points d'ENDURANCE.",
 
-            "Mmenu1_sub1_7": "Votre objectif est d'atteindre le trésor. Vous vous aventurerez à travers le labyrinthe de couloirs.\
+            "Mmenu3_sub1_7": "Votre objectif est d'atteindre le trésor. Vous vous aventurerez à travers le labyrinthe de couloirs.\
                 \nVous visiterez de nombreuses pièces où vivent différentes créatures. Vous ferez face à diverses surprises.\
                 \nVous tomberez probablement dans des pièges.\
                 \nTrouver le bon chemin et vaincre les monstres ne sera pas facile.\
@@ -2409,63 +2413,63 @@ infoboook = {
 
             "Mmenu1": "Gioca",
 
-            "Mmenu2": "Regole del Gioco",
+            "Mmenu3": "Regole del Gioco",
 
-            "Mmenu3": "Impostazioni",
+            "Mmenu4": "Impostazioni",
 
-            "Mmenu3_sub1": "Lingua",
+            "Mmenu4_sub1": "Lingua",
 
-            "Mmenu3_sub1_1": "Seleziona lingua",
+            "Mmenu4_sub1_1": "Seleziona lingua",
 
-            "Mmenu3_sub1_2": "Hai selezionato",
+            "Mmenu4_sub1_2": "Hai selezionato",
 
-            "Mmenu3_sub1_3": "facile",
+            "Mmenu4_sub1_3": "facile",
 
-            "Mmenu3_sub1_4": "medio",
+            "Mmenu4_sub1_4": "medio",
 
-            "Mmenu3_sub1_5": "difficile",
+            "Mmenu4_sub1_5": "difficile",
 
-            "Mmenu3_sub2": "Livello di difficoltà",
+            "Mmenu4_sub2": "Livello di difficoltà",
 
-            "Mmenu3_sub3": "Audio",
+            "Mmenu4_sub3": "Audio",
 
-            "Mmenu3_sub3_1": "Dialoghi",
+            "Mmenu4_sub3_1": "Dialoghi",
 
-            "Mmenu3_sub3_2": "Effetti",
+            "Mmenu4_sub3_2": "Effetti",
 
-            "Mmenu3_sub3_3": "Musica",
+            "Mmenu4_sub3_3": "Musica",
 
-            "Mmenu3_sub4": "Nome del personaggio",
+            "Mmenu4_sub4": "Nome del personaggio",
 
-            "Mmenu3_sub4_1": "Seleziona il nome del protagonista (o premi Invio per un nome casuale)",
+            "Mmenu4_sub4_1": "Seleziona il nome del protagonista (o premi Invio per un nome casuale)",
 
-            "Mmenu3_sub5": "Genera nuove caratteristiche del personaggio",
+            "Mmenu4_sub5": "Genera nuove caratteristiche del personaggio",
 
-            "Mmenu3_sub5_1": "Generazione iniziale delle statistiche del protagonista",
+            "Mmenu4_sub5_1": "Generazione iniziale delle statistiche del protagonista",
 
-            "Mmenu4": "Esci dal gioco",
+            "Mmenu5": "Esci dal gioco",
 
-            "Mmenu4_sub1_1": "Sei sicuro?",
+            "Mmenu5_sub1_1": "Sei sicuro?",
 
-            "Mmenu1_sub1": "Equipaggiamento e attributi",
+            "Mmenu3_sub1": "Equipaggiamento e attributi",
 
-            "Mmenu1_sub2": "Combattimento",
+            "Mmenu3_sub2": "Combattimento",
 
-            "Mmenu1_sub3": "Fuga",
+            "Mmenu3_sub3": "Fuga",
 
-            "Mmenu1_sub4": "Fortuna",
+            "Mmenu3_sub4": "Fortuna",
 
-            "Mmenu1_sub5": "Aumentare il livello degli attributi",
+            "Mmenu3_sub5": "Aumentare il livello degli attributi",
 
-            "Mmenu1_sub6": "Provvisioni",
+            "Mmenu3_sub6": "Provvisioni",
 
-            "Mmenu1_sub7": "Obiettivo dell'avventura",
+            "Mmenu3_sub7": "Obiettivo dell'avventura",
 
-            "Mmenu1_sub1_1a": "Sei un Coraggioso.\
+            "Mmenu3_sub1_1a": "Sei un Coraggioso.\
                 \n\
                 \nIl tuo equipaggiamento include:",
 
-            "Mmenu1_sub1_1b": f"Mentre esplori i sotterranei, troverai diversi tipi di armi e oggetti.\
+            "Mmenu3_sub1_1b": f"Mentre esplori i sotterranei, troverai diversi tipi di armi e oggetti.\
                 \nRicorda che - a parte la spada - ogni arma può essere utilizzata solo una volta.\
                 \nAllo stesso modo, gli oggetti trovati possono essere utilizzati una sola volta.\
                 \nPuoi portare con te una sola bottiglia di elisir.\
@@ -2476,15 +2480,15 @@ infoboook = {
                 \nI loro livelli cambieranno costantemente durante il tuo viaggio,\
                 \nma non possono superare il livello iniziale.",
 
-            "Mmenu1_sub1_2": f"Ti scontrerai con mostri. Le loro caratteristiche (DESTREZZA e RESISTENZA) sono individuali per ogni nemico.\
+            "Mmenu3_sub1_2": f"Ti scontrerai con mostri. Le loro caratteristiche (DESTREZZA e RESISTENZA) sono individuali per ogni nemico.\
                 \nNella versione attuale del gioco, i combattimenti vengono eseguiti automaticamente. Non c'è interazione durante il combattimento,\
                 \na meno che il testo non preveda la possibilità di fuggire.",
 
-            "Mmenu1_sub1_3": "Quando sei in pericolo, puoi cercare di fuggire, a condizione che il testo lo preveda.\
+            "Mmenu3_sub1_3": "Quando sei in pericolo, puoi cercare di fuggire, a condizione che il testo lo preveda.\
                 \nSe fuggi, il mostro ti infligge una ferita: sottrai 2 dalla tua RESISTENZA.\
                 \nDurante la fuga (prima o durante il combattimento), puoi usare la Procedura di Salvataggio dalla Sfortuna (PSS) come descritto di seguito.",
 
-            "Mmenu1_sub1_4": "Durante il tuo viaggio, puoi verificare se la fortuna ti sorride. Puoi farlo nel seguente modo:\
+            "Mmenu3_sub1_4": "Durante il tuo viaggio, puoi verificare se la fortuna ti sorride. Puoi farlo nel seguente modo:\
                 \nLancia 2D. Se il risultato è uguale o inferiore al tuo livello attuale di FORTUNA, allora hai FORTUNA.\
                 \nSe il risultato è maggiore, non hai FORTUNA.\
                 \nQuesta procedura è chiamata Procedura di Salvataggio dalla Sfortuna (PSS).\
@@ -2500,7 +2504,7 @@ infoboook = {
                 \n- se hai FORTUNA, sottrai un totale di 1 dalla tua RESISTENZA\
                 \n- se non hai FORTUNA, sottrai un totale di 3.",
 
-            "Mmenu1_sub1_5": f"Durante il tuo viaggio, grazie alle avventure e ai combattimenti, il livello dei tuoi attributi cambierà.\
+            "Mmenu3_sub1_5": f"Durante il tuo viaggio, grazie alle avventure e ai combattimenti, il livello dei tuoi attributi cambierà.\
                 \n1. DESTREZZA - cambia poco\
                 \n- le armi incantate aumentano la DESTREZZA\
                 \n- l'elisir di DESTREZZA ripristina il livello iniziale\
@@ -2512,10 +2516,10 @@ infoboook = {
                 \n- l'elisir di FORTUNA ripristina il livello iniziale e può aumentarlo di 1.\
                 \nOltre a questo caso, DESTREZZA, RESISTENZA e FORTUNA non possono superare il livello iniziale.",
 
-            "Mmenu1_sub1_6": f"Nello zaino hai del Cibo, che è sufficiente per {cnst.eatables_count} pasti. Puoi mangiare il Cibo SOLO quando previsto dal testo.\
+            "Mmenu3_sub1_6": f"Nello zaino hai del Cibo, che è sufficiente per {cnst.eatables_count} pasti. Puoi mangiare il Cibo SOLO quando previsto dal testo.\
                 \nPuoi mangiare solo un pasto alla volta. Dopo aver mangiato il pasto, ricevi {cnst.eatable_W_load} punti nella tua RESISTENZA.",
 
-            "Mmenu1_sub1_7": "Il tuo obiettivo è raggiungere la camera del tesoro. Camminerai attraverso il labirinto dei corridoi.\
+            "Mmenu3_sub1_7": "Il tuo obiettivo è raggiungere la camera del tesoro. Camminerai attraverso il labirinto dei corridoi.\
                 \nVisiterai molte stanze in cui vivono diverse creature. Incontrerai molte sorprese.\
                 \nProbabilmente incapperai in qualche trappola.\
                 \nTrovare la strada giusta e sconfiggere i mostri non sarà facile.\

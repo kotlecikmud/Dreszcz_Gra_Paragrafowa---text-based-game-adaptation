@@ -1,5 +1,10 @@
-import random, time, pygame, os, subprocess
-
+import random
+import time
+import pygame
+import os
+import subprocess
+import json
+import datetime
 import constants
 import gamebook as gb
 import constants as cnst
@@ -34,6 +39,7 @@ def loading(duration):  # loading 'animation'
         duration -= 1
     clear_terminal()
 
+
 def get_music(category=None, fadeout=None):
     if constants.get_music_enable:
         if category:
@@ -54,7 +60,7 @@ def get_music(category=None, fadeout=None):
             if constants.dev_mode:
                 debug_message(f'Playing {category}: {rnd_choice}')
             pygame.mixer.music.load(rnd_choice)
-            pygame.mixer.music.set_volume(cnst.def_bckg_volume)
+            pygame.mixer.music.set_volume(cnst.bckg_volume)
             pygame.mixer.music.play(-1)  # loop
         else:
             if constants.dev_mode:
@@ -86,7 +92,7 @@ def dub_play(string_id, voice=None):
         current_sound = pygame.mixer.Sound(f'{cnst.assets_audio_effects_pth}/click_snd.mp3')
 
     pygame.mixer.stop()
-    current_sound.set_volume(cnst.def_action_volume)
+    current_sound.set_volume(cnst.action_volume)
 
     # find empty channel
     channel = None
@@ -132,9 +138,8 @@ def name_randomizer():
     if first_name == 'Zbyszko z Bogdańca':  # meme for ya (probabbly only poles could understand, sorry)
         audio_file_id = f"{cnst.assets_audio_effects_pth}/zbych.mp3"
         try:
-            def_action_volume = cnst.def_action_volume
             current_sound = pygame.mixer.Sound(audio_file_id)
-            current_sound.set_volume(def_action_volume)
+            current_sound.set_volume(cnst.action_volume)
             channel = pygame.mixer.find_channel()
             if channel is None:
                 debug_message('Could not find empty channel.')
@@ -173,16 +178,93 @@ def rpar():
     return cnst.z_init, cnst.z_count, cnst.w_init, cnst.w_count, cnst.s_init, cnst.s_count
 
 
+def game_state(action):
+    # folder path for saving json file
+    folder_path = os.path.join(os.path.expanduser("~/Documents"), "Dreszcz_saves")
+
+    if action == 's':
+        # mkdir if doesn't exists
+        if not os.path.exists(folder_path):
+            os.makedirs(folder_path)
+
+        # Save game state to variable
+        game_state = {
+            "player_name": cnst.player_name,
+            "s_count": cnst.s_count,
+            "w_count": cnst.w_count,
+            "z_count": cnst.z_count,
+            "equipment": cnst.main_eq,
+            "count_potion": cnst.count_potion,
+            "eatables_count": cnst.eatables_count,
+            "gold_amount": cnst.gold_amount,
+            "translation": cnst.translation
+        }
+
+        # Create file path
+        file_path = os.path.join(folder_path, f"dreszcz_{datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}.json")
+
+        # Savig game state as json file
+        with open(file_path, "w") as f:
+            json.dump(game_state, f)
+
+        print("Game state was saved in:", file_path)
+
+    elif action == 'l':
+
+        if os.path.exists(folder_path):
+            game_states = os.listdir(folder_path)
+            json_files = [file for file in game_states if file.endswith(".json")]
+
+            if len(json_files) > 0:
+                print("List of JSON files:")
+                for i, file in enumerate(json_files, start=1):
+                    print(f"{i}. {file}")
+
+                file_number = input("Choose game state to load: ")
+                try:
+                    file_number = int(file_number)
+                    if 1 <= file_number <= len(json_files):
+                        selected_file = json_files[file_number - 1]
+                        file_path = os.path.join(folder_path, selected_file)
+                        with open(file_path, "r") as f:
+                            game_state = json.load(f)
+
+                            # Przypisanie wczytanych danych z powrotem do zmiennych
+                            cnst.player_name = game_state.get("player_name")
+                            cnst.s_count = game_state.get("s_count")
+                            cnst.w_count = game_state.get("w_count")
+                            cnst.z_count = game_state.get("z_count")
+                            cnst.main_eq = game_state.get("equipment")
+                            cnst.count_potion = game_state.get("count_potion")
+                            cnst.eatables_count = game_state.get("eatables_count")
+                            cnst.gold_amount = game_state.get("gold_amount")
+                            cnst.translation = game_state.get("translation")
+
+                            print("Game state was loaded from:", selected_file)
+
+                    else:
+                        print("Podano niepoprawny numer pliku.")
+
+                except ValueError:
+                    print("Podano niepoprawny numer pliku.")
+
+            else:
+                print("Brak plików JSON w folderze.")
+
+        else:
+            print("Podany folder nie istnieje.")
+
+
 def pth_selector(path_strings=[], actions=[], visit_check=False, room_id=0):
     if room_id != 0:  # add visit count if room number was given
         room_id.visit_count = update_num_variable(room_id.visit_count, 1)
         debug_message(f'added visit: visit count of room number {room_id.room_num} = {room_id.visit_count}')
 
     if not visit_check:
-        debug_message(f'evaluating action: {actions}')
+        if cnst.dev_mode:
+            debug_message(f'evaluating action: {actions}')
 
         if len(actions) != 1:  # if there is more than one path, display choice menu
-
             for i, path in enumerate(path_strings):
                 print(f'{i + 1} · {path}')
                 time.sleep(cnst.delay)
