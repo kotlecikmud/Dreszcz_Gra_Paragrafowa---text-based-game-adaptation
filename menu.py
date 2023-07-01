@@ -77,7 +77,12 @@ def main_menu():
                     func.clear_terminal()
                     print(f"/ {choice_main_menu}{cnst.def_txt_clr}")
                     time.sleep(cnst.delay)
-                    func.get_game_state('l')
+
+                    last_paragraph = func.get_game_state('l')
+                    func.loading(1)
+
+                    if not last_paragraph == '00a':
+                        func.pth_selector([], [f'{last_paragraph}()'])
 
                 # Rules
                 elif choice_main_menu == choice_main_menu == gb.infoboook[cnst.translation]['Mmenu3']:

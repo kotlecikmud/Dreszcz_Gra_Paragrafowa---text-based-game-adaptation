@@ -4,7 +4,7 @@ from colorama import Fore, Style
 ver_num = ''
 
 # /// settings
-dev_mode = False  # Toggle for developer mode; enables many debug information, error indicators and other exlusive machanics while playing
+dev_mode = True  # Toggle for developer mode; enables many debug information, error indicators and other exlusive machanics while playing
 
 if dev_mode:
     print(

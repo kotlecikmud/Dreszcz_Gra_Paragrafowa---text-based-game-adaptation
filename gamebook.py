@@ -710,6 +710,8 @@ gameboook = {
             "233": "",
 
             "234": "You finish the fight with the DEMON. Do you want to look inside the stone box on the altar?",
+
+            "301": "You can try to open the door",
             
             "349": "Gently, you slide your foot into a narrow gap. With your hips, you push the door open.\
                 \nThey swing aside. This is the method! You catch a faint scent of dried herbs.\
