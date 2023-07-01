@@ -8,13 +8,6 @@ import paragraphs as prg
 from colorama import Fore
 
 
-def loading(duration):  # loading 'animation'
-    while duration > 0:
-        print('.', end='')
-        time.sleep(0.1)
-        duration -= 1
-
-
 def debug_message(msg):
     if cnst.dev_mode:
         print(f'{cnst.debug_txt_clr}DEBUG: {msg}{cnst.def_txt_clr}')
@@ -33,6 +26,13 @@ def clear_terminal():
     else:
         subprocess.call('cls' if os.name == 'nt' else 'clear', shell=True)
 
+
+def loading(duration):  # loading 'animation'
+    while duration > 0:
+        print('.', end='')
+        time.sleep(0.1)
+        duration -= 1
+    clear_terminal()
 
 def get_music(category=None, fadeout=None):
     if constants.get_music_enable:

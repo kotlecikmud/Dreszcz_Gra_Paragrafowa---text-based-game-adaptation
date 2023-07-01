@@ -321,7 +321,7 @@ func.rpar()  # loading player parameters
 os.system('cls')
 
 if cnst.dev_mode:
-    gb.get_translation('pl')  # default language for dev_mode
+    gb.get_translation('en')  # default language for dev_mode
 else:
-    gb.get_translation('en')  # default language for normal game
+    gb.get_translation('pl')  # default language for normal game
 main_menu()  # entry point

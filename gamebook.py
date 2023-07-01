@@ -8,6 +8,16 @@ gameboook = {
         {
             "xxx": "",
 
+            "combat_init": "Begin the fight!",
+
+            "combat_dead_info": "You have been killed by",
+
+            "esc_choice": f"{cnst.def_txt_clr}Do you escape or stay and continue fighting? {cnst.special_txt_clr}/Stamina - 2/{cnst.def_txt_clr}:\
+              \nescape          = <enter>\
+              \ncontinue fighting = type anything",
+
+            "combat_win_info": "You have defeated",
+
             "door": "door",
 
             "are": "are",

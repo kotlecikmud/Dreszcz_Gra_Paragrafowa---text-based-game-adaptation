@@ -16,6 +16,9 @@ def _xx():  # placeholder
                 \nor type any command here:\
                 \n{cnst.input_sign}{cnst.def_txt_clr}")
 
+        if odp == 'exit':
+            exit()
+
         func.get_music('main', 1200)  # loading background music
 
         if len(odp) > 0:
@@ -890,7 +893,6 @@ def _242():
 
 
 def _251():
-
     func.get_music('main', 1500)  # loading background music
 
     func.dub_play('251', 'adam')
