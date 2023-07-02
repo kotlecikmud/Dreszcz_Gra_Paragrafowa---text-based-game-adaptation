@@ -318,9 +318,9 @@ def main_menu():
                 elif choice_main_menu == gb.infoboook[cnst.translation]['Mmenu5']:
                     choice2 = input(f"{gb.infoboook[cnst.translation]['Mmenu5_sub1_1']} [Y/N]:").lower()
                     if choice2.lower() == "y":
-                        pygame.mixer.music.fadeout(1000)
+                        pygame.mixer.music.fadeout(600)
                         func.clear_terminal()
-                        func.loading(1.4)
+                        func.loading(1)
                         exit()
 
                 elif choice_main_menu == 'eval()':  # only for dev purposes; evaluating functions in paragraphs.py
