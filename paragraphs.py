@@ -10,24 +10,20 @@ import constants as cnst
 # - - - - - - - - -
 def _xx():  # placeholder
     while True:
-        odp = input(f"{cnst.special_txt_clr}--placeholder function--\
-                \n\
-                \npress enter to return to _64()\
-                \nor type any command here:\
-                \n{cnst.input_sign}{cnst.def_txt_clr}")
+        func.debug_message("--placeholder function--")
+        odp = input(f"{cnst.def_txt_clr}\
+        \nenter a paragraph number you want to jump to:\
+        \n{cnst.input_sign}{cnst.def_txt_clr}")
 
         if odp == 'exit':
             exit()
 
         func.get_music('main', 1200)  # loading background music
-
-        if len(odp) > 0:
-            eval(odp)
-
-        else:
-            print('returning to _64()')
-            time.sleep(1.5)
-            _64()
+        try:
+            if len(odp) > 0:
+                eval("_" + odp + "()")
+        except NameError as e:
+            func.error_message("NameError", e)
 
 
 # - - - - - - - - -

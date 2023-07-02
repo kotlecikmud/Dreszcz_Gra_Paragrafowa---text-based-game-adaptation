@@ -183,91 +183,92 @@ def get_player_par():
     return cnst.z_init, cnst.z_count, cnst.w_init, cnst.w_count, cnst.s_init, cnst.s_count
 
 
-def get_game_state(action, last_paragraph='prg.00a'):
-    if not cnst.dev_mode:
-        # folder path for saving json file
-        folder_path = os.path.join(os.path.expanduser("~/Documents"), "Dreszcz_saves")
+def get_game_state(action, last_paragraph='prg.00a', new_game=False):
+    # folder path for saving json file
+    folder_path = os.path.join(os.path.expanduser("~/Documents"), "Dreszcz_saves")
 
-        if action == 's':
-            # mkdir if doesn't exists
-            if not os.path.exists(folder_path):
-                os.makedirs(folder_path)
+    if new_game:
+        # mkdir if doesn't exists
+        if not os.path.exists(folder_path):
+            os.makedirs(folder_path)
 
-            # Save game state to variable
-            game_state = {
-                "player_name": cnst.player_name,
-                "s_count": cnst.s_count,
-                "w_count": cnst.w_count,
-                "z_count": cnst.z_count,
-                "equipment": cnst.main_eq,
-                "potion": cnst.potion,
-                "count_potion": cnst.count_potion,
-                "eatables_count": cnst.eatables_count,
-                "gold_amount": cnst.gold_amount,
-                "translation": cnst.translation,
-                "last_paragraph": last_paragraph
-            }
+        # Save game state to variable
+        game_state = {
+            "player_name": cnst.player_name,
+            "s_count": cnst.s_count,
+            "w_count": cnst.w_count,
+            "z_count": cnst.z_count,
+            "equipment": cnst.main_eq,
+            "potion": cnst.potion,
+            "count_potion": cnst.count_potion,
+            "eatables_count": cnst.eatables_count,
+            "gold_amount": cnst.gold_amount,
+            "translation": cnst.translation,
+            "last_paragraph": last_paragraph
+        }
 
-            # Create file path
-            file_path = os.path.join(folder_path,
-                                     f"dreszcz_{last_paragraph}_{datetime.datetime.now().strftime('%y-%m-%d_%S')}.json")
+        # Create file path
+        file_path = os.path.join(folder_path,
+                                 f"dreszcz_{last_paragraph}_{datetime.datetime.now().strftime('%y-%m-%d_%S')}.json")
 
-            # Savig game state as json file
-            with open(file_path, "w") as f:
-                json.dump(game_state, f)
+        # Savig game state as json file
+        with open(file_path, "w") as f:
+            json.dump(game_state, f)
 
-            debug_message(f'Saved: {file_path}')
+        debug_message(f'Saved: {file_path}')
+    elif action == 'u': # update active save
+        # tutaj uzupełnij kod
 
-        elif action == 'l':
+    elif action == 'l':
 
-            if os.path.exists(folder_path):
-                game_states = os.listdir(folder_path)
-                json_files = [file for file in game_states if file.endswith(".json")]
+        if os.path.exists(folder_path):
+            game_states = os.listdir(folder_path)
+            json_files = [file for file in game_states if file.endswith(".json")]
 
-                if len(json_files) > 0:
-                    print("Saved game states:") # List of JSON files
-                    for i, file in enumerate(json_files, start=1):
-                        print(f"{i}. {file}")
+            if len(json_files) > 0:
+                print("Saved game states:")  # List of JSON files
+                for i, file in enumerate(json_files, start=1):
+                    print(f"{i}. {file}")
 
-                    file_number = input(f"\
-                        \nChoose game state to load\
-                        \n{cnst.input_sign}")
-                    try:
-                        file_number = int(file_number)
-                        if 1 <= file_number <= len(json_files):
-                            selected_file = json_files[file_number - 1]
-                            file_path = os.path.join(folder_path, selected_file)
-                            with open(file_path, "r") as f:
-                                game_state = json.load(f)
+                file_number = input(f"\
+                    \nChoose game state to load\
+                    \n{cnst.input_sign}")
+                try:
+                    file_number = int(file_number)
+                    if 1 <= file_number <= len(json_files):
+                        selected_file = json_files[file_number - 1]
+                        file_path = os.path.join(folder_path, selected_file)
+                        with open(file_path, "r") as f:
+                            game_state = json.load(f)
 
-                                debug_message(f'Loaded from: {selected_file}')
+                            debug_message(f'Loaded from: {selected_file}')
 
-                                # Assigning the loaded data back to variables.
-                                cnst.player_name = game_state.get("player_name")
-                                cnst.s_count = game_state.get("s_count")
-                                cnst.w_count = game_state.get("w_count")
-                                cnst.z_count = game_state.get("z_count")
-                                cnst.main_eq = game_state.get("equipment")
-                                cnst.potion = game_state.get("potion")
-                                cnst.count_potion = game_state.get("count_potion")
-                                cnst.eatables_count = game_state.get("eatables_count")
-                                cnst.gold_amount = game_state.get("gold_amount")
-                                cnst.translation = game_state.get("translation")
-                                last_paragraph = game_state.get("last_paragraph")
+                            # Assigning the loaded data back to variables.
+                            cnst.player_name = game_state.get("player_name")
+                            cnst.s_count = game_state.get("s_count")
+                            cnst.w_count = game_state.get("w_count")
+                            cnst.z_count = game_state.get("z_count")
+                            cnst.main_eq = game_state.get("equipment")
+                            cnst.potion = game_state.get("potion")
+                            cnst.count_potion = game_state.get("count_potion")
+                            cnst.eatables_count = game_state.get("eatables_count")
+                            cnst.gold_amount = game_state.get("gold_amount")
+                            cnst.translation = game_state.get("translation")
+                            last_paragraph = game_state.get("last_paragraph")
 
-                        else:
-                            print("Podano niepoprawny numer pliku.")
-
-                    except ValueError:
+                    else:
                         print("Podano niepoprawny numer pliku.")
 
-                else:
-                    print("Brak plików JSON w folderze.")
+                except ValueError:
+                    print("Podano niepoprawny numer pliku.")
 
             else:
-                print("Podany folder nie istnieje.")
+                print("Brak plików JSON w folderze.")
 
-            return last_paragraph
+        else:
+            print("Podany folder nie istnieje.")
+
+        return last_paragraph
 
 
 def pth_selector(path_strings=[], actions=[], visit_check=False, room_id=0):
@@ -377,48 +378,30 @@ def check_for_gold_amount(true_path, false_path, req_amount):
 def eatables():
     if cnst.eatables_count != 0:
         if cnst.w_count != cnst.w_init:
-            dub_play(f'{cnst.special_txt_clr}Czy chcesz zjeśc prowiant? (+4 Wytrzymałość) (tak/nie)',
-                     f'{cnst.assets_audio_pth}/eatables.mp3')
+            dub_play("eatables", "adam")
             print(f"/// Wytrzymałość: {cnst.w_count}/{cnst.w_init}")
             print(f"/// Prowiant: {cnst.eatables_count}/{cnst.init_eatables_count}")
-            odp = input(f"{cnst.input_sign}\
-            \n")
+            odp = input(f"{cnst.input_sign}")
+            loading(1)
             if odp.lower() in {'tak', 't', 'y', 'yes'}:
                 if cnst.w_count < cnst.w_init:
-                    cnst.eatables_count += -1
-                    if cnst.eatables_count >= 0:
-                        if cnst.w_count == cnst.w_init - 1:
-                            # + 1
-                            print(f"Wytrzymałość + {cnst.eatable_W_load - 3}")
-                            cnst.w_count += cnst.eatable_W_load - 3
-                        elif cnst.w_count == cnst.w_init - 2:
-                            # + 2
-                            print(f"Wytrzymałość + {cnst.eatable_W_load - 2}")
-                            cnst.w_count += cnst.eatable_W_load - 2
-                        elif cnst.w_count == cnst.w_init - 3:
-                            # + 3
-                            print(f"Wytrzymałość + {cnst.eatable_W_load - 1}")
-                            cnst.w_count += cnst.eatable_W_load - 1
-                        else:
-                            # + 4
-                            print(f"Wytrzymałość + {cnst.eatable_W_load}")
-                            cnst.w_count += cnst.eatable_W_load
-                        print(f"/// Wytrzymałość: {cnst.w_count}/{cnst.w_init}")
-                        time.sleep(cnst.delay)
-                        print(
-                            f"/// Prowiant: {cnst.eatables_count}/{cnst.init_eatables_count}{cnst.def_txt_clr}")
-                        time.sleep(cnst.delay)
-                        print(f"{cnst.def_txt_clr}")
+                    cnst.eatables_count -= 1
+                    wzrost_wytrzymalosci = min(cnst.eatable_W_load, cnst.w_init - cnst.w_count)
+                    cnst.w_count += wzrost_wytrzymalosci
+                    print(f"Wytrzymałość + {wzrost_wytrzymalosci}")
+                    print(f"/// Wytrzymałość: {cnst.w_count}/{cnst.w_init}")
+                    print(f"/// Prowiant: {cnst.eatables_count}/{cnst.init_eatables_count}{cnst.def_txt_clr}")
+                    print(f"{cnst.def_txt_clr}")
 
             elif odp.lower() in {'nie', 'n', 'no'}:
                 print("Zostawiasz prowiant na później")
-                time.sleep(cnst.delay)
                 print(f"{cnst.def_txt_clr}")
+
             else:
                 print("Wpisz tak/nie")
-                time.sleep(cnst.delay)
                 eatables()
 
+            time.sleep(cnst.delay)
             return cnst.w_count, cnst.eatables_count
 
 
@@ -511,13 +494,12 @@ def combat_init(entity, state, esc_possible, escape_id, stay_id, win_path_id):
 
 
 def combat_main(entity, state, esc_possible, escape_id, stay_id, to_the_end, p_w_count, e_w_count, win_path):
-    if e_w_count <= 0:  # if enemy dead
+    if e_w_count <= 0:  # if the enemy is dead
         pygame.mixer.music.fadeout(1500)
-        get_music('main')  # loading background music
+        get_music('main')  # load background music for main
 
         state = False
 
-        # obj_class.Entity.die(pygame.mixer.Sound(f'{cnst.assets_audio_pth}/placeholder.mp3')) # broken line of code; to be investigated
         print(f"\
         \n{cnst.combat_txt_clr}{gb.gameboook[cnst.translation]['combat_win_info']} {Fore.LIGHTRED_EX}{entity.name}{cnst.combat_txt_clr}!\
         \n")
@@ -528,8 +510,7 @@ def combat_main(entity, state, esc_possible, escape_id, stay_id, to_the_end, p_w
         clear_terminal()
 
         if esc_possible:
-
-            # /// choice of escape or not
+            # Prompt the player to choose whether to escape or not
             ecape_opt = "{0}{1}".format(escape_id, (
                 "entity, state, esc_possible, escape_id, stay_id, to_the_end, p_w_count, e_w_count)"))
             stay_opt = "{0}{1}".format(stay_id, (
@@ -540,6 +521,7 @@ def combat_main(entity, state, esc_possible, escape_id, stay_id, to_the_end, p_w
             odp = input(f"Y/N {cnst.input_sign} \
             \n")
             if len(odp) == 0:
+                # Reduce player's endurance by 2 and proceed to escape option
                 print(
                     f"{cnst.special_txt_clr}Wytrzymałość: {cnst.w_count} {cnst.input_sign} {cnst.w_count - 2}{cnst.def_txt_clr}\
                 \n")
@@ -551,7 +533,7 @@ def combat_main(entity, state, esc_possible, escape_id, stay_id, to_the_end, p_w
         else:
             eval(win_path)
 
-    elif p_w_count <= 0:  # if player dead
+    elif p_w_count <= 0:  # if the player is dead
         dub_play(f"\
         \n{gb.gameboook[cnst.translation]['combat_dead_info']} {Fore.LIGHTRED_EX}{entity.name}{cnst.combat_txt_clr}!\
         \n", 'combat_die.wav')
@@ -571,40 +553,46 @@ def combat_round(entity, state, esc_possible, escape_id, stay_id, to_the_end, p_
     e_w_count = entity.entity_w_count
 
     if cnst.automatic_battle:
-        a = random.randint(2, 12) + entity.entity_z_count * cnst.e_mult_choice
+        # Generate values 'a' and 'b' in automatic mode
+        a = random.randint(2,
+                           12) + entity.entity_z_count * cnst.e_mult_choice  # e_mult_choice acts as difficulty level affects the enemy's agility
         b = random.randint(2, 12) + cnst.z_count
     else:
-        a = input(f"Podaj wartość 'a' rzucając dwiema kośćmi{cnst.input_sign}")
-        b = input(f"Podaj wartość 'b' rzucając dwiema kośćmi{cnst.input_sign}")
+        # Prompt the player to input values 'a' and 'b' manually by rolling two dice
+        a = input(f"Enter the value of 'a' by rolling two dice{cnst.input_sign}")
+        b = input(f"Enter the value of 'b' by rolling two dice{cnst.input_sign}")
 
     if state:
         loading(1)
-        if a > b:  # if enemy won
+        if a > b:  # if the enemy won
 
             if cnst.w_count > 0:
                 if e_w_count <= 0:
                     state = False
+                    # Proceed to combat_main function if the enemy is defeated
                     combat_main(entity, state, esc_possible, escape_id, stay_id, to_the_end, p_w_count, e_w_count,
                                 win_path)
                 cnst.w_count += cnst.e_hit_val_
-                print(f"{Fore.LIGHTRED_EX}{entity.name}{cnst.combat_txt_clr} zadał cios!\
-                \n{cnst.special_txt_clr}/// Wytrzymałość {Fore.LIGHTYELLOW_EX}{cnst.player_name}{cnst.special_txt_clr}: {cnst.w_count}/{cnst.w_init}")
+                # Print the enemy's attack and update player's endurance
+                print(f"{Fore.LIGHTRED_EX}{entity.name}{cnst.combat_txt_clr} landed a hit!\
+                \n{cnst.special_txt_clr}/// Endurance {Fore.LIGHTYELLOW_EX}{cnst.player_name}{cnst.special_txt_clr}: {cnst.w_count}/{cnst.w_init}")
                 dub_play('round_false', 'adam')
 
                 cnst.w_count = max(cnst.w_count, 0)
 
-        elif a < b:  # if player won
+        elif a < b:  # if the player won
 
             if entity.entity_w_count > 0:
                 entity.entity_w_count += cnst.p_hit_val_
-                print(f"{Fore.LIGHTYELLOW_EX}{cnst.player_name}{cnst.combat_txt_clr} zadał cios!\
-                \n{cnst.special_txt_clr}/// Wytrzymałość {Fore.LIGHTRED_EX}{entity.name}{cnst.special_txt_clr}: {entity.entity_w_count}/{entity.entity_w_init}")
+                # Print the player's attack and update enemy's endurance
+                print(f"{Fore.LIGHTYELLOW_EX}{cnst.player_name}{cnst.combat_txt_clr} landed a hit!\
+                \n{cnst.special_txt_clr}/// Endurance {Fore.LIGHTRED_EX}{entity.name}{cnst.special_txt_clr}: {entity.entity_w_count}/{entity.entity_w_init}")
                 dub_play('round_true', 'adam')
 
                 entity.entity_w_count = max(entity.entity_w_count, 0)
 
-        else:  # if remis
-            print(f'{cnst.special_txt_clr}Remis!')
+        else:  # if it's a draw
+            print(f'{cnst.special_txt_clr}Draw!')
             dub_play('round_none', 'adam')
 
         if cnst.allow_skip_dub:  # If the option to skip the dubbing is enabled

@@ -8,6 +8,8 @@ gameboook = {
         {
             "xxx": "",
 
+            "eatables": "Would you like to eat provisions? (+4 Stamina) (Y/N)",
+
             "combat_init": "Begin the fight!",
 
             "combat_dead_info": "You have been killed by",
@@ -740,6 +742,8 @@ gameboook = {
     'pl':
         {
             "xxx": "",
+
+            "eatables": "Czy chcesz zjeść prowiant? (+4 Wytrzymałość) (Y/N)",
 
             "combat_init": "Rozpocznij walkę!",
 

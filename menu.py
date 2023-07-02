@@ -68,7 +68,7 @@ def main_menu():
                     func.clear_terminal()
                     print(f"/ {choice_main_menu}{cnst.def_txt_clr}")
                     time.sleep(cnst.delay)
-                    func.get_game_state('s')
+                    func.get_game_state('s', None, True)
                     pygame.mixer.music.fadeout(1800)
                     prg._00()
 
@@ -317,11 +317,10 @@ def main_menu():
                 # Exit game
                 elif choice_main_menu == gb.infoboook[cnst.translation]['Mmenu5']:
                     choice2 = input(f"{gb.infoboook[cnst.translation]['Mmenu5_sub1_1']} [Y/N]:").lower()
-                    if choice2.upper() == "Y":
+                    if choice2.lower() == "y":
+                        pygame.mixer.music.fadeout(1000)
                         func.clear_terminal()
-                        time.sleep(cnst.delay)
-                        pygame.mixer.music.fadeout(2200)
-                        func.loading(1)
+                        func.loading(1.4)
                         exit()
 
                 elif choice_main_menu == 'eval()':  # only for dev purposes; evaluating functions in paragraphs.py
@@ -338,6 +337,5 @@ if cnst.dev_mode:
     gb.get_translation('en')  # default language for dev_mode
 else:
     gb.get_translation('pl')  # default language for normal game
-
 
 main_menu()  # entry point
