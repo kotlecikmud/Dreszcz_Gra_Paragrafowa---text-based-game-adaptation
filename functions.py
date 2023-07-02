@@ -10,7 +10,7 @@ import gamebook as gb
 import constants as cnst
 # paragraphs needs to be imported:
 import paragraphs as prg
-from colorama import Fore, Style
+from colorama import Fore
 
 
 def debug_message(msg):
@@ -35,13 +35,14 @@ def clear_terminal():
 def loading(duration):
     animation_signs = ['|', '/', '-', '\\']
     end_time = time.time() + duration
-    l_braket = f'{Fore.YELLOW} - '
     sign_index = 0
 
+    print(Fore.YELLOW)
     while time.time() < end_time:
-        print(l_braket + animation_signs[sign_index % len(animation_signs)] + l_braket, end='\r')
+        print('- ' + animation_signs[sign_index % len(animation_signs)] + ' -', end='\r')
         time.sleep(0.1)
         sign_index += 1
+    print(cnst.def_txt_clr)
 
 
 def get_music(category=None, fadeout=None):
@@ -182,7 +183,7 @@ def get_player_par():
     return cnst.z_init, cnst.z_count, cnst.w_init, cnst.w_count, cnst.s_init, cnst.s_count
 
 
-def get_game_state(action, last_paragraph='00a'):
+def get_game_state(action, last_paragraph='prg.00a'):
     if not cnst.dev_mode:
         # folder path for saving json file
         folder_path = os.path.join(os.path.expanduser("~/Documents"), "Dreszcz_saves")
@@ -199,6 +200,7 @@ def get_game_state(action, last_paragraph='00a'):
                 "w_count": cnst.w_count,
                 "z_count": cnst.z_count,
                 "equipment": cnst.main_eq,
+                "potion": cnst.potion,
                 "count_potion": cnst.count_potion,
                 "eatables_count": cnst.eatables_count,
                 "gold_amount": cnst.gold_amount,
@@ -223,7 +225,7 @@ def get_game_state(action, last_paragraph='00a'):
                 json_files = [file for file in game_states if file.endswith(".json")]
 
                 if len(json_files) > 0:
-                    print("List of JSON files:")
+                    print("Saved game states:") # List of JSON files
                     for i, file in enumerate(json_files, start=1):
                         print(f"{i}. {file}")
 
@@ -240,12 +242,13 @@ def get_game_state(action, last_paragraph='00a'):
 
                                 debug_message(f'Loaded from: {selected_file}')
 
-                                # Przypisanie wczytanych danych z powrotem do zmiennych
+                                # Assigning the loaded data back to variables.
                                 cnst.player_name = game_state.get("player_name")
                                 cnst.s_count = game_state.get("s_count")
                                 cnst.w_count = game_state.get("w_count")
                                 cnst.z_count = game_state.get("z_count")
                                 cnst.main_eq = game_state.get("equipment")
+                                cnst.potion = game_state.get("potion")
                                 cnst.count_potion = game_state.get("count_potion")
                                 cnst.eatables_count = game_state.get("eatables_count")
                                 cnst.gold_amount = game_state.get("gold_amount")
@@ -331,7 +334,6 @@ def pth_selector(path_strings=[], actions=[], visit_check=False, room_id=0):
             eval(actions[1])
 
 
-# /// mechaniki
 def kill():
     pygame.mixer.music.fadeout(1200)
     input("Koniec gry")
@@ -368,7 +370,7 @@ def check_for_gold_amount(true_path, false_path, req_amount):
     if cnst.gold_amount >= req_amount:
         eval(true_path)
     else:
-        print('Nie masz wystarczającej ilości złota.')
+        print("Nie masz wystarczającej ilości złota.")  # You don't have enough gold.
         eval(false_path)
 
 
@@ -470,6 +472,19 @@ def stats_change(attribute_name, updated_variable, amount):
     time.sleep(cnst.delay)
 
     return updated_variable
+
+
+def use_potion():
+    if cnst.count_potion > 0:
+        potion_attributes = {
+            'w': (cnst.w_count, cnst.w_init),
+            'z': (cnst.z_count, cnst.z_init),
+            's': (cnst.s_count, cnst.s_init + 1)
+        }
+        if cnst.potion in potion_attributes:
+            attr_name, attr_value = potion_attributes[cnst.potion]
+            setattr(cnst, attr_name, attr_value)
+        cnst.count_potion -= 1
 
 
 # - - - - - - - - -

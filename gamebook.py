@@ -31,6 +31,8 @@ gameboook = {
                 \n2. Endurance\
                 \n3. Luck",
 
+            "wrong_input": "Wrong input",
+
             "00a": f"\r{cnst.def_txt_clr}While wandering through the underground, you will find different types of weapons and items.\
                 \nRemember that - except for the sword - each weapon can be used only once.\
                 \nSimilarly, the found items are for single use.\
@@ -625,7 +627,11 @@ gameboook = {
 
             "191": "",
 
-            "192": "'Maybe it's time to squeeze something out of this clown?' you think. You reach for your sword. Oh, why a sword? Just a punch will do. You approach the creature and prepare to strike. The creature disappears. Moreover, with a bang, the grate in the passage through which you entered this room falls. You look around. You don't see any other exit. You approach the fountain. Indeed, at the bottom, you see various mysterious objects: a monster's bone, a jar with omnivores (perpetually hungry crustaceans), a tin butterfly, a spear, and a shiny key. So, do you want water or one of these things? Remember, you can only take one thing.",
+            "192": "'Maybe it's time to squeeze something out of this clown?' you think. You reach for your sword. Oh, why a sword? Just a punch will do.\
+            \nYou approach the creature and prepare to strike. The creature disappears. Moreover, with a bang, the grate in the passage through which you entered this room falls.\
+            \nYou look around. You don't see any other exit. You approach the fountain. Indeed, at the bottom, you see various mysterious objects: a monster's bone,\
+            \na jar with omnivores (perpetually hungry crustaceans), a tin butterfly, a spear, and a shiny key. So, do you want water or one of these things?\
+            \nRemember, you can only take one thing.",
 
             "193": "",
 
@@ -757,6 +763,8 @@ gameboook = {
                 \n1. Zręczności\
                 \n2. Wytrzymałości\
                 \n3. Szczęścia",
+
+            "wrong_choice": "Niepoprawny wybór",
 
             "00a": f"\r{cnst.def_txt_clr}Wędrując po podziemiach będziesz znajdował inne rodzaje broni i przedmioty.\
                 \nPamiętaj, że - poza mieczem - każda broń może być wykorzystana tylko raz.\
@@ -1055,10 +1063,10 @@ gameboook = {
             "66":
                 "Rzucasz dwiema kostkami. Pokaża ci ile sztuk złota wygrywasz. Chcesz grac dalej? - patrz 229. Nie chcesz? - patrz 19",
 
-            "67": "Musisz się wycofać- patrz 50.",
+            "67": "Musisz się wycofać.",
 
             "68":
-                "Wychodzisz ze zbrojowni. Jedyne drzwi prowadzą na północ. Podążasz korytarzem aż do najbliższego skrzyżowania. Po drodze możesz usiąść i zjeść Prowiant. Patrz 212.",
+                "Wychodzisz ze zbrojowni. Jedyne drzwi prowadzą na północ. Podążasz korytarzem aż do najbliższego skrzyżowania. Po drodze możesz usiąść i zjeść Prowiant.",
 
             "69a": "Sam tego chciałeś. Pod ścianą komnaty siedzą dwa koszmarne upiory.\
                 \nTakie spotkanie może zakończyć się tylko walką, najpierw z jednym, a później z drugim potworem.",
@@ -1597,7 +1605,9 @@ gameboook = {
 
             "295": "",
 
-            "296": "Korytarz biegnie na zachód i skręca na północ.",
+            "296a": "Korytarz biegnie na zachód i skręca na północ.",
+
+            "296b": "Idziesz dalej. Przed sobą widzisz skrzyżowanie.",
 
             "297": "",
 

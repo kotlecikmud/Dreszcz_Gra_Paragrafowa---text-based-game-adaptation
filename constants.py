@@ -4,7 +4,7 @@ from colorama import Fore, Style
 ver_num = ''
 
 # /// settings
-dev_mode = True  # Toggle for developer mode; enables many debug information, error indicators and other exlusive machanics while playing
+dev_mode = False  # Toggle for developer mode; enables many debug information, error indicators and other exlusive machanics while playing
 
 if dev_mode:
     skip_dub = True  # Determines whether dubbing has been skipped.
@@ -21,6 +21,7 @@ allow_skip_dub = False  # Determines whether dubbing can be skipped by hitting e
 
 # /// initiators
 translation = None
+potion = None
 count = 0  # Counter
 count_potion = 2  # num of potions
 choice_count = 0  # num of choices (universal)

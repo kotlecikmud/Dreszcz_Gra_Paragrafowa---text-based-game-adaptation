@@ -41,17 +41,17 @@ def _00():
         choice = input(f'{cnst.input_sign}{cnst.def_txt_clr}')
 
         if choice == '1':
-            potion = 'zręczności'
+            cnst.potion = 'z'
             break
         elif choice == '2':
-            potion = 'wytrzymałości'
+            cnst.potion = 'w'
             break
         elif choice == '3':
-            potion = 'szczęścia'
+            cnst.potion = 's'
             break
         else:
             func.clear_terminal()
-            print(f"{cnst.special_txt_clr}Niepoprawny wybór.")
+            print(cnst.special_txt_clr, gb.gameboook[cnst.translation]['wrong_input'])
 
     func.loading(1)
     func.clear_terminal()
@@ -405,6 +405,13 @@ def _67():
     func.dub_play('67', 'adam')
     path_strings = ['Musisz się wycofać.']
     actions = ['prg._50()']
+    func.pth_selector(path_strings, actions)
+
+
+def _68():
+    func.dub_play('68', 'adam')
+    path_strings = []
+    actions = ['prg._212()']
     func.pth_selector(path_strings, actions)
 
 
@@ -963,9 +970,9 @@ def _291():
 
 
 def _296():
-    func.dub_play('296', 'adam')
+    func.dub_play('296a', 'adam')
     func.eatables()
-    func.dub_play('Idziesz dalej. Przed sobą widzisz skrzyżowanie.', 'dreszcz_p_296b.mp3')
+    func.dub_play('296b', 'adam')
     path_strings = []
     actions = ['prg._39()']
     func.pth_selector(path_strings, actions)
@@ -1011,7 +1018,6 @@ def _317a():
     func.dub_play('317a', 'adam')
     func.combat_init(ent.entity_317, ent.entity_317.state, ent.entity_317.esc_possible, '', '',
                      'prg._317b()')
-    # combat_init(entity, state, esc_possible, escape_id, stay_id, win_path_id):
 
 
 def _317b():

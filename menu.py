@@ -81,7 +81,7 @@ def main_menu():
                     last_paragraph = func.get_game_state('l')
                     func.loading(1)
 
-                    if not last_paragraph == '00a':
+                    if not last_paragraph == 'prg.00a':
                         func.pth_selector([], [f'{last_paragraph}()'])
 
                 # Rules
