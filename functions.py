@@ -203,6 +203,9 @@ def get_game_state(action, last_paragraph='prg.00a', new_game=False):
             "s_count": cnst.s_count,
             "w_count": cnst.w_count,
             "z_count": cnst.z_count,
+            "s_init": cnst.s_init,
+            "w_init": cnst.w_init,
+            "z_init": cnst.z_init,
             "equipment": cnst.main_eq,
             "potion": cnst.potion,
             "count_potion": cnst.count_potion,
@@ -245,6 +248,9 @@ def get_game_state(action, last_paragraph='prg.00a', new_game=False):
                             cnst.s_count = game_state.get("s_count")
                             cnst.w_count = game_state.get("w_count")
                             cnst.z_count = game_state.get("z_count")
+                            cnst.s_count = game_state.get("s_init")
+                            cnst.w_count = game_state.get("w_init")
+                            cnst.z_count = game_state.get("z_init")
                             cnst.main_eq = game_state.get("equipment")
                             cnst.potion = game_state.get("potion")
                             cnst.count_potion = game_state.get("count_potion")
