@@ -187,10 +187,15 @@ def get_game_state(action, last_paragraph='prg.00a', new_game=False):
     # folder path for saving json file
     folder_path = os.path.join(os.path.expanduser("~/Documents"), "Dreszcz_saves")
 
-    if new_game:
-        # mkdir if doesn't exists
-        if not os.path.exists(folder_path):
-            os.makedirs(folder_path)
+    if action == 's':
+        if new_game:
+            # mkdir if doesn't exists
+            if not os.path.exists(folder_path):
+                os.makedirs(folder_path)
+
+            # Create new file path
+            file_path = os.path.join(folder_path,
+                                     f"dreszcz_{last_paragraph}_{datetime.datetime.now().strftime('%y-%m-%d_%S')}.json")
 
         # Save game state to variable
         game_state = {
@@ -206,18 +211,6 @@ def get_game_state(action, last_paragraph='prg.00a', new_game=False):
             "translation": cnst.translation,
             "last_paragraph": last_paragraph
         }
-
-        # Create file path
-        file_path = os.path.join(folder_path,
-                                 f"dreszcz_{last_paragraph}_{datetime.datetime.now().strftime('%y-%m-%d_%S')}.json")
-
-        # Savig game state as json file
-        with open(file_path, "w") as f:
-            json.dump(game_state, f)
-
-        debug_message(f'Saved: {file_path}')
-    elif action == 'u': # update active save
-        # tutaj uzupełnij kod
 
     elif action == 'l':
 
@@ -268,7 +261,11 @@ def get_game_state(action, last_paragraph='prg.00a', new_game=False):
         else:
             print("Podany folder nie istnieje.")
 
-        return last_paragraph
+    # Savig game state as json file
+    with open(file_path, "w") as f:
+        json.dump(game_state, f)
+
+    return last_paragraph
 
 
 def pth_selector(path_strings=[], actions=[], visit_check=False, room_id=0):

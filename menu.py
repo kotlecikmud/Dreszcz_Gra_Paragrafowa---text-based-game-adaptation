@@ -68,7 +68,7 @@ def main_menu():
                     func.clear_terminal()
                     print(f"/ {choice_main_menu}{cnst.def_txt_clr}")
                     time.sleep(cnst.delay)
-                    func.get_game_state('s', None, True)
+                    func.get_game_state('s', new_game=True)
                     pygame.mixer.music.fadeout(1800)
                     prg._00()
 
