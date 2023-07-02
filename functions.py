@@ -193,9 +193,9 @@ def get_game_state(action, last_paragraph='prg.00a', new_game=False):
             if not os.path.exists(folder_path):
                 os.makedirs(folder_path)
 
-            # Create new file path
-            file_path = os.path.join(folder_path,
-                                     f"dreszcz_{last_paragraph}_{datetime.datetime.now().strftime('%y-%m-%d_%S')}.json")
+            # Create new file path and update active gameplay file_path
+            cnst.active_gameplay = os.path.join(folder_path,
+                                                f"dreszcz_{datetime.datetime.now().strftime('%y-%m-%d_%S')}.json")
 
         # Save game state to variable
         game_state = {
@@ -211,6 +211,10 @@ def get_game_state(action, last_paragraph='prg.00a', new_game=False):
             "translation": cnst.translation,
             "last_paragraph": last_paragraph
         }
+
+        # Saving game state as json file
+        with open(cnst.active_gameplay, "w") as f:
+            json.dump(game_state, f)
 
     elif action == 'l':
 
@@ -260,10 +264,6 @@ def get_game_state(action, last_paragraph='prg.00a', new_game=False):
 
         else:
             print("Podany folder nie istnieje.")
-
-    # Savig game state as json file
-    with open(file_path, "w") as f:
-        json.dump(game_state, f)
 
     return last_paragraph
 
