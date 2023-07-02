@@ -195,7 +195,7 @@ def get_game_state(action, last_paragraph='prg.00a', new_game=False):
 
             # Create new file path and update active gameplay file_path
             cnst.active_gameplay = os.path.join(folder_path,
-                                                f"dreszcz_{datetime.datetime.now().strftime('%y-%m-%d_%S')}.json")
+                                                f"dreszcz-game-state_{datetime.datetime.now().strftime('%y-%m-%d_%S')}.json")
 
         # Save game state to variable
         game_state = {
@@ -234,8 +234,8 @@ def get_game_state(action, last_paragraph='prg.00a', new_game=False):
                     file_number = int(file_number)
                     if 1 <= file_number <= len(json_files):
                         selected_file = json_files[file_number - 1]
-                        file_path = os.path.join(folder_path, selected_file)
-                        with open(file_path, "r") as f:
+                        cnst.active_gameplay = os.path.join(folder_path, selected_file)
+                        with open(cnst.active_gameplay, "r") as f:
                             game_state = json.load(f)
 
                             debug_message(f'Loaded from: {selected_file}')
