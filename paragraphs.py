@@ -596,7 +596,7 @@ def _119():
 
 
 def _120():
-    func.dub_play('120', 'adam', False)
+    func.dub_play('120', 'adam')
     path_strings = []
     actions = ['prg._64()']
     func.pth_selector(path_strings, actions)

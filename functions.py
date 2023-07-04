@@ -36,10 +36,10 @@ def loading(duration, message=None):
     end_time = time.time() + duration
     sign_index = 0
 
-    if not message == None:
+    if message:
         print(message, end='')  # Display message if one is given
 
-    print(Fore.YELLOW)
+    print(Fore.YELLOW, end='\r')
     while time.time() < end_time:
         print('- ' + animation_signs[sign_index % len(animation_signs)] + ' -', end='\r')
         time.sleep(0.1)
@@ -329,7 +329,7 @@ def get_game_state(action, last_paragraph='prg.00a', new_game=False):
             cnst.eatables_count = game_state.get("eatables_count")
             cnst.gold_amount = game_state.get("gold_amount")
             cnst.translation = game_state.get("translation")
-            cnst.dev_mode = ("dev_mode")
+            cnst.dev_mode = game_state.get("dev_mode")
 
     elif action == 'init':  # check if any game states exist
         if len(json_files) > 0:
@@ -448,8 +448,8 @@ def check_for_gold_amount(true_path, false_path, req_amount):
 
 
 def eatables():
-    while True:
-        if cnst.eatables_count != 0:
+    if cnst.eatables_count != 0:
+        while True:
             if cnst.w_count != cnst.w_init:
                 dub_play("eatables", "adam", False)
                 print(f"/// Wytrzymałość: {cnst.w_count}/{cnst.w_init}")
@@ -504,7 +504,7 @@ def show_entity_stats(entity):
 
 
 def stats_change(attribute_name, updated_variable, amount):
-    updated_variable += amount
+    updated_variable += amount / 2  # /2 is temporary fix
 
     if amount < 0:
         inter = ''
