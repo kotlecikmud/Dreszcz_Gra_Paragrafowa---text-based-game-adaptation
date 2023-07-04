@@ -58,7 +58,7 @@ def update_setup_file():
         json.dump(setup_data, json_file)
 
 
-def load_setup_file():
+def read_setup_file():
     # load setup data from json file
     with open(cnst.setup_file_path, "r") as f:
         setup_data = json.load(f)
@@ -272,11 +272,11 @@ def get_game_state(action, last_paragraph='prg.00a', new_game=False):
                 if 1 <= file_number <= len(json_files):
                     selected_file = json_files[file_number - 1]
                     cnst.active_gameplay = os.path.join(folder_path, selected_file)
-                    update_setup_file()
+                    # update_setup_file()
                     with open(cnst.active_gameplay, "r") as f:
                         game_state = json.load(f)
 
-                        debug_message(f'Game loaded from: {selected_file}')
+                        debug_message(f'Game state loaded from: {selected_file}')
 
                         # Assigning the loaded data back to variables.
                         last_paragraph = game_state.get("last_paragraph")
@@ -305,9 +305,31 @@ def get_game_state(action, last_paragraph='prg.00a', new_game=False):
         else:
             debug_message("No JSON files in the folder.")
 
-    elif action == 'c': # continue
-        load_setup_file()
+    elif action == 'c':  # continue
+        read_setup_file()
 
+        with open(cnst.active_gameplay, "r") as f:
+            game_state = json.load(f)
+
+            debug_message(f'Game state loaded from: {cnst.active_gameplay}')
+
+            # Assigning the loaded data back to variables.
+            last_paragraph = game_state.get("last_paragraph")
+            cnst.player_name = game_state.get("player_name")
+            cnst.difficulty = game_state.get("difficulty")
+            cnst.s_count = game_state.get("s_count")
+            cnst.w_count = game_state.get("w_count")
+            cnst.z_count = game_state.get("z_count")
+            cnst.s_count = game_state.get("s_init")
+            cnst.w_count = game_state.get("w_init")
+            cnst.z_count = game_state.get("z_init")
+            cnst.main_eq = game_state.get("equipment")
+            cnst.potion = game_state.get("potion")
+            cnst.count_potion = game_state.get("count_potion")
+            cnst.eatables_count = game_state.get("eatables_count")
+            cnst.gold_amount = game_state.get("gold_amount")
+            cnst.translation = game_state.get("translation")
+            cnst.dev_mode = ("dev_mode")
 
     elif action == 'init':  # check if any game states exist
         if len(json_files) > 0:
