@@ -86,7 +86,6 @@ def main_menu():
                     print(f"/ {choice_main_menu}{cnst.def_txt_clr}")
 
                     last_paragraph = func.get_game_state('l')
-                    func.loading(1)
 
                     if not last_paragraph == 'prg.00a':
                         func.pth_selector([], [f'{last_paragraph}()'])

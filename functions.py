@@ -36,7 +36,8 @@ def loading(duration, message=None):
     end_time = time.time() + duration
     sign_index = 0
 
-    if not message == None: print(message)  # Display message if one is given
+    if not message == None:
+        print(message, end='')  # Display message if one is given
 
     print(Fore.YELLOW)
     while time.time() < end_time:
@@ -257,44 +258,25 @@ def get_game_state(action, last_paragraph='prg.00a', new_game=False):
             json.dump(game_state, f)
         debug_message(f'Game saved to: {cnst.active_gameplay}')
 
+
     elif action == 'l':
 
         if len(json_files) > 0:
             print("Saved game states:")  # List of JSON files
             for i, file in enumerate(json_files, start=1):
                 print(f"{i}. {file}")
+            file_number = input(f"\nChoose game state to load\n{cnst.input_sign}")
 
-            file_number = input(f"\
-                    \nChoose game state to load\
-                    \n{cnst.input_sign}")
             try:
                 file_number = int(file_number)
+
                 if 1 <= file_number <= len(json_files):
                     selected_file = json_files[file_number - 1]
                     cnst.active_gameplay = os.path.join(folder_path, selected_file)
-                    # update_setup_file()
+                    update_setup_file()
                     with open(cnst.active_gameplay, "r") as f:
                         game_state = json.load(f)
-
-                        debug_message(f'Game state loaded from: {selected_file}')
-
-                        # Assigning the loaded data back to variables.
-                        last_paragraph = game_state.get("last_paragraph")
-                        cnst.player_name = game_state.get("player_name")
-                        cnst.difficulty = game_state.get("difficulty")
-                        cnst.s_count = game_state.get("s_count")
-                        cnst.w_count = game_state.get("w_count")
-                        cnst.z_count = game_state.get("z_count")
-                        cnst.s_count = game_state.get("s_init")
-                        cnst.w_count = game_state.get("w_init")
-                        cnst.z_count = game_state.get("z_init")
-                        cnst.main_eq = game_state.get("equipment")
-                        cnst.potion = game_state.get("potion")
-                        cnst.count_potion = game_state.get("count_potion")
-                        cnst.eatables_count = game_state.get("eatables_count")
-                        cnst.gold_amount = game_state.get("gold_amount")
-                        cnst.translation = game_state.get("translation")
-                        cnst.dev_mode = ("dev_mode")
+                    debug_message(f'Game state loaded from: {selected_file}')
 
                 else:
                     debug_message("Incorrect file number provided.")
@@ -302,8 +284,26 @@ def get_game_state(action, last_paragraph='prg.00a', new_game=False):
             except ValueError:
                 debug_message("Incorrect file number provided.")
 
+            # Assigning the loaded data back to variables.
+            last_paragraph = game_state.get("last_paragraph")
+            cnst.player_name = game_state.get("player_name")
+            cnst.difficulty = game_state.get("difficulty")
+            cnst.s_count = game_state.get("s_count")
+            cnst.w_count = game_state.get("w_count")
+            cnst.z_count = game_state.get("z_count")
+            cnst.s_count = game_state.get("s_init")
+            cnst.w_count = game_state.get("w_init")
+            cnst.z_count = game_state.get("z_init")
+            cnst.main_eq = game_state.get("equipment")
+            cnst.potion = game_state.get("potion")
+            cnst.count_potion = game_state.get("count_potion")
+            cnst.eatables_count = game_state.get("eatables_count")
+            cnst.gold_amount = game_state.get("gold_amount")
+            cnst.translation = game_state.get("translation")
+            cnst.dev_mode = game_state.get("dev_mode")
+
         else:
-            debug_message("No JSON files in the folder.")
+            debug_message("No saved game states found.")
 
     elif action == 'c':  # continue
         read_setup_file()
