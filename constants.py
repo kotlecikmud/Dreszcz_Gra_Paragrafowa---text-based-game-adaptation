@@ -17,7 +17,7 @@ else:
     get_music_enable = True
 
 automatic_battle = True  # Determines whether battles are automatic.
-allow_skip_dub = False  # Determines whether dubbing can be skipped by hitting enter key
+allow_skip_dub = True  # Determines whether dubbing can be skipped by hitting enter key
 
 # /// initiators
 active_gameplay = None

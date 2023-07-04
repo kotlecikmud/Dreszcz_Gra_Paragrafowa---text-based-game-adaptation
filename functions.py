@@ -405,7 +405,6 @@ def eatables():
                 print("Wpisz tak/nie")
                 eatables()
 
-            time.sleep(cnst.delay)
             return cnst.w_count, cnst.eatables_count
 
 
@@ -413,7 +412,6 @@ def show_equipment_list():
     for i in cnst.main_eq:
         print(f'- {i}')
     input(f"{cnst.input_sign} ")
-    time.sleep(cnst.delay)
 
 
 def eq_change(new_item_name):
@@ -426,15 +424,13 @@ def show_player_stats():
     \nWytrzymałość: {cnst.w_count}/{cnst.w_init} \
     \nZręczność: {cnst.z_count}/{cnst.z_init} \
     \nSzczęście: {cnst.s_count}/{cnst.s_init}{cnst.def_txt_clr}')
-    time.sleep(cnst.delay)
 
 
 def show_entity_stats(entity):
     print(f'\
-        \nStatystyki {entity.name}{cnst.combat_txt_clr}:\
-        \nWytrzymałość: {entity.entity_w_count}/{entity.entity_w_init}\
-        \nZręczność: {entity.entity_z_count}/{entity.entity_z_init}')
-    time.sleep(2 * cnst.delay)
+    \nStatystyki {entity.name}{cnst.combat_txt_clr}:\
+    \nWytrzymałość: {entity.entity_w_count}/{entity.entity_w_init}\
+    \nZręczność: {entity.entity_z_count}/{entity.entity_z_init}')
 
 
 def stats_change(attribute_name, updated_variable, amount):
@@ -456,7 +452,6 @@ def stats_change(attribute_name, updated_variable, amount):
 
     print(
         f'{cnst.special_txt_clr}/// {attribute_name} {inter}{amount} {constants.input_sign} {updated_variable + amount}{cnst.def_txt_clr}')
-    time.sleep(cnst.delay)
 
     return updated_variable
 
@@ -509,9 +504,7 @@ def combat_main(entity, state, esc_possible, escape_id, stay_id, to_the_end, p_w
         \n")
         dub_play('xxx', 'adam')
 
-        time.sleep(cnst.delay)
         show_player_stats()
-        clear_terminal()
 
         if esc_possible:
             # Prompt the player to choose whether to escape or not
