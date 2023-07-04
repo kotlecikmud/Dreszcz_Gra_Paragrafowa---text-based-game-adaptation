@@ -1,4 +1,6 @@
-import time, random
+import time
+import random
+import os
 import gamebook as gb
 import entities as ent
 import functions as func
@@ -9,6 +11,8 @@ import constants as cnst
 # /// PARAGRAPHS
 # - - - - - - - - -
 def _xx():  # placeholder
+    if cnst.active_gameplay == None:
+        cnst.active_gameplay = os.path.join(os.path.dirname(os.path.abspath(__file__)), "dummy_gs.json")
     while True:
         func.debug_message("--placeholder function--")
         odp = input(f"{cnst.def_txt_clr}\
@@ -33,7 +37,7 @@ def _00():
     func.dub_play('00a', 'adam')
 
     while True:  # elixir choice menu
-        func.dub_play('elxr_chc', 'adam')
+        func.dub_play('elxr_chc', 'adam', False)
         choice = input(f'{cnst.input_sign}{cnst.def_txt_clr}')
 
         if choice == '1':
@@ -54,6 +58,8 @@ def _00():
     time.sleep(1)
 
     func.get_music('main')  # loading background music
+
+    func.get_game_state('s', new_game=True)
 
     func.clear_terminal()
     func.dub_play('00b', 'adam')
@@ -212,7 +218,7 @@ def _19():
 
 
 def _20():
-    func.dub_play('20', 'adam')
+    func.dub_play('20', 'adam', False)
     path_strings = []
     actions = ['prg._238a()']
     func.pth_selector(path_strings, actions)
@@ -240,7 +246,7 @@ def _24():
 
 
 def _25():
-    func.dub_play('25', 'adam')
+    func.dub_play('25', 'adam', False)
     path_strings = ['Idziesz na zachód', 'Wybierasz drogę prowadzącą na wschód']
     actions = ['prg._200()', 'prg._44()']
     func.pth_selector(path_strings, actions)
@@ -322,7 +328,7 @@ def _38():
 
 
 def _39():
-    func.dub_play('39', 'adam')
+    func.dub_play('39', 'adam', False)
     path_strings = ['zachód', 'północ', 'południe']
     actions = ['prg._331()', 'prg._228()', 'prg._146()']
     func.pth_selector(path_strings, actions)
@@ -391,7 +397,7 @@ def _59():
 
 
 def _64():
-    func.dub_play('64', 'adam')
+    func.dub_play('64', 'adam', False)
     path_strings = ['zachód', 'północ', 'wschód', 'południe']
     actions = ['prg._296()', 'prg._264()', 'prg._284()', 'prg._224()']
     func.pth_selector(path_strings, actions)
@@ -451,7 +457,7 @@ def _82():
 
 
 def _89():
-    func.dub_play('89a', 'adam')
+    func.dub_play('89a', 'adam', False)
     func.stats_change('Szczęscie', cnst.s_count, 2)
     func.stats_change('Złoto', cnst.gold_amount, 3)
     func.dub_play('89b', 'adam')
@@ -576,7 +582,7 @@ def _116a():
 
 
 def _116b():
-    func.dub_play('116b', 'adam')
+    func.dub_play('116b', 'adam', False)
     path_strings = ['Rozejrzyj się', 'Opuść pieczarę']
     actions = ['prg._89()', 'prg._120()']
     func.pth_selector(path_strings, actions)
@@ -590,7 +596,7 @@ def _119():
 
 
 def _120():
-    func.dub_play('120', 'adam')
+    func.dub_play('120', 'adam', False)
     path_strings = []
     actions = ['prg._64()']
     func.pth_selector(path_strings, actions)
@@ -790,7 +796,7 @@ def _199():
 
 
 def _200():
-    func.dub_play('200', 'adam')
+    func.dub_play('200', 'adam', False)
     path_strings = []
     actions = ['prg._120()', 'prg._301()']
     func.pth_selector(path_strings, actions, True, ent.room_364)
@@ -966,7 +972,7 @@ def _291():
 
 
 def _296():
-    func.dub_play('296a', 'adam')
+    func.dub_play('296a', 'adam', False)
     func.eatables()
     func.dub_play('296b', 'adam')
     path_strings = []
@@ -983,7 +989,7 @@ def _298():
 
 
 def _301():
-    func.dub_play('301', 'adam')
+    func.dub_play('301', 'adam', False)
     path_strings = ['Spróbuj otworzyć drzwi', 'Zawróć']
     actions = ['prg._364()', 'prg._120()']
     func.pth_selector(path_strings, actions)
@@ -1098,7 +1104,7 @@ def _364():
     ent.room_364.room_state = func.update_bool_variable(ent.room_364.room_state, True)
     func.debug_message(f'ent.room_364.room_state = {ent.room_364.room_state}')
 
-    func.dub_play('364', 'adam')
+    func.dub_play('364', 'adam', False)
     path_strings = ['Próbujesz zabrać ukradkiem pudełko', 'Decydujesz się podjąć walkę']
     actions = ['prg._29()', 'prg._116a()']
     func.pth_selector(path_strings, actions, '', ent.room_364)

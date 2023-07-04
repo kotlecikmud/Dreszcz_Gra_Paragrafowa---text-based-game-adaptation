@@ -464,7 +464,7 @@ gameboook = {
             "118": "",
 
             "119":
-            f"What was this beast blocking so much? You touch the wall where the hairy {ent.entity_317.name} leaned.\
+                f"What was this beast blocking so much? You touch the wall where the hairy {ent.entity_317.name} leaned.\
             \nSuddenly, a part of the wall moves. It's a hiding place! Inside, there's a long, fire-resistant rope with a hook, an empty, moldy flask, and a WEREWOLF scalp.\
             \nYou can take up to two of these items.",
 
@@ -720,7 +720,7 @@ gameboook = {
             "234": "You finish the fight with the DEMON. Do you want to look inside the stone box on the altar?",
 
             "301": "You can try to open the door",
-            
+
             "349": "Gently, you slide your foot into a narrow gap. With your hips, you push the door open.\
                 \nThey swing aside. This is the method! You catch a faint scent of dried herbs.\
                 \nOn the left wall, there are two smooth columns.\
@@ -768,7 +768,7 @@ gameboook = {
                 \n2. Wytrzymałości\
                 \n3. Szczęścia",
 
-            "wrong_choice": "Niepoprawny wybór",
+            "wrong_input": "Niepoprawny wybór",
 
             "00a": f"\r{cnst.def_txt_clr}Wędrując po podziemiach będziesz znajdował inne rodzaje broni i przedmioty.\
                 \nPamiętaj, że - poza mieczem - każda broń może być wykorzystana tylko raz.\
@@ -1933,7 +1933,9 @@ infoboook = {
 
             "Mmenu_headline": "MAIN MENU",
 
-            "Mmenu0": "Hello",
+            "Mmenu_h": "Hello",
+
+            "Mmenu0": "Continue",
 
             "Mmenu1": "New game",
 
@@ -2052,7 +2054,9 @@ infoboook = {
 
             "Mmenu_headline": "MENU GŁÓWNE",
 
-            "Mmenu0": "Witaj",
+            "Mmenu_h": "Witaj",
+
+            "Mmenu0": "Kontynuuj",
 
             "Mmenu1": "Nowa gra",
 
@@ -2177,7 +2181,9 @@ infoboook = {
 
             "Mmenu_headline": "MENÚ PRINCIPAL",
 
-            "Mmenu0": "Bienvenido",
+            "Mmenu_h": "Bienvenido",
+
+            "Mmenu0": "Continuar",
 
             "Mmenu1": "Nuevo juego",
 
@@ -2304,7 +2310,9 @@ infoboook = {
 
             "Mmenu_headline": "MENU PRINCIPAL",
 
-            "Mmenu0": "Bonjour",
+            "Mmenu_h": "Bonjour",
+
+            "Mmenu0": "Continuer",
 
             "Mmenu1": "Nouveau jeu",
 
@@ -2429,7 +2437,9 @@ infoboook = {
 
             "Mmenu_headline": "MENU PRINCIPALE",
 
-            "Mmenu0": "Benvenuto",
+            "Mmenu_h": "Benvenuto",
+
+            "Mmenu0": "Continua",
 
             "Mmenu1": "Nuovo gioco",
 

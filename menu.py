@@ -9,8 +9,10 @@
 # - - - - - - - - -
 # - - - - - - - - -
 # - - - - - - - - -
-import time, pygame, os
-
+import time
+import pygame
+import os
+import json
 import constants
 import gamebook as gb
 import paragraphs as prg
@@ -34,21 +36,23 @@ def main_menu():
 
         func.clear_terminal()
         if cnst.player_name:
-            print(f"{cnst.def_txt_clr}{gb.infoboook[cnst.translation]['Mmenu0']} {cnst.player_name}!")
+            print(f"{cnst.def_txt_clr}{gb.infoboook[cnst.translation]['Mmenu_h']} {cnst.player_name}!")
         print(f"{cnst.special_txt_clr}{gb.infoboook[cnst.translation]['Mmenu_headline']}{cnst.def_txt_clr}")
-        
 
         choices_main_menu = [
             (gb.infoboook[cnst.translation]['Mmenu1'], ''),  # new game
-            (gb.infoboook[cnst.translation]['Mmenu2'], ''),  # load game
             (gb.infoboook[cnst.translation]['Mmenu3'], ''),  # rules
             (gb.infoboook[cnst.translation]['Mmenu4'], ''),  # settings
-            (gb.infoboook[cnst.translation]['Mmenu5'], ''),  # exit
+            (gb.infoboook[cnst.translation]['Mmenu5'], '')  # exit
         ]
 
         if cnst.dev_mode:
             choices_main_menu.append(
                 ('eval()', f'bypass to any paragraph - {Fore.LIGHTRED_EX}for testing only!!!{Style.RESET_ALL}'))
+
+        if cnst.game_state_exists:
+            choices_main_menu.insert(1, (gb.infoboook[cnst.translation]['Mmenu0'], ''))  # continue last gameplay
+            choices_main_menu.insert(2, (gb.infoboook[cnst.translation]['Mmenu2'], ''))  # load game
 
         for i, (choice_main_menu, description) in enumerate(choices_main_menu, 1):  # displaying list in main menu
             print(cnst.template.format(i, choice_main_menu, description))
@@ -63,12 +67,16 @@ def main_menu():
         for choice_main_menu, description in choices_main_menu:  # displaying list
             if usr_input == choice_main_menu:
 
+                # continue last gameplay
+                if choice_main_menu == gb.infoboook[cnst.translation]['Mmenu0']:
+                    func.get_game_state('c')
+                    # func.pth_selector([], [f'{last_paragraph}()'])
+
                 # new game
-                if choice_main_menu == gb.infoboook[cnst.translation]['Mmenu1']:
+                elif choice_main_menu == gb.infoboook[cnst.translation]['Mmenu1']:
                     func.clear_terminal()
                     print(f"/ {choice_main_menu}{cnst.def_txt_clr}")
-                    
-                    func.get_game_state('s', new_game=True)
+
                     pygame.mixer.music.fadeout(1800)
                     prg._00()
 
@@ -76,7 +84,6 @@ def main_menu():
                 elif choice_main_menu == gb.infoboook[cnst.translation]['Mmenu2']:
                     func.clear_terminal()
                     print(f"/ {choice_main_menu}{cnst.def_txt_clr}")
-                    
 
                     last_paragraph = func.get_game_state('l')
                     func.loading(1)
@@ -84,12 +91,12 @@ def main_menu():
                     if not last_paragraph == 'prg.00a':
                         func.pth_selector([], [f'{last_paragraph}()'])
 
+
                 # Rules
                 elif choice_main_menu == choice_main_menu == gb.infoboook[cnst.translation]['Mmenu3']:
                     while True:
                         func.clear_terminal()
                         print(f"{cnst.special_txt_clr}/ {choice_main_menu}{cnst.def_txt_clr}")
-                        
 
                         choices_rules = [
                             (gb.infoboook[cnst.translation]['Mmenu3_sub1'], ''),
@@ -116,7 +123,6 @@ def main_menu():
                             if usr_input == choice_rules:
                                 func.clear_terminal()
                                 print(f"{cnst.special_txt_clr}// {choice_rules}{cnst.def_txt_clr}")
-                                
 
                                 # Equipment and attributes
                                 if choice_rules == gb.infoboook[cnst.translation]['Mmenu3_sub1']:
@@ -162,7 +168,6 @@ def main_menu():
                     while True:
                         func.clear_terminal()
                         print(f"{cnst.special_txt_clr}/ {choice_main_menu}{cnst.def_txt_clr}")
-                        
 
                         choices_settings = [
                             (gb.infoboook[cnst.translation]['Mmenu4_sub1'], ''),
@@ -203,7 +208,6 @@ def main_menu():
                                     'Mmenu4_sub2']:  # Difficulty level settings
                                     func.clear_terminal()
                                     print(f"{cnst.special_txt_clr}// {choice_settings}{cnst.def_txt_clr}")
-                                    
 
                                     choices_difficulty_lvl = [
                                         (gb.infoboook[cnst.translation]['Mmenu4_sub1_3'], ''),
@@ -243,7 +247,6 @@ def main_menu():
 
                                     func.clear_terminal()
                                     print(f"{cnst.special_txt_clr}// {choice_settings}{cnst.def_txt_clr}")
-                                    
 
                                     choices_sound_settings = [
                                         (gb.infoboook[cnst.translation]['Mmenu4_sub3_1'], ''),
@@ -292,7 +295,6 @@ def main_menu():
                                                 main_menu()
 
                                 elif choice_settings == gb.infoboook[cnst.translation]['Mmenu4_sub4']:  # Name setting
-                                    
 
                                     name = input(
                                         f"{gb.infoboook[cnst.translation]['Mmenu4_sub4_1']}{cnst.input_sign}")
@@ -303,7 +305,7 @@ def main_menu():
 
                                 elif choice_settings == gb.infoboook[cnst.translation][
                                     'Mmenu4_sub5']:  # Randomize atributes
-                                    
+
                                     print(gb.infoboook[cnst.translation][
                                               'Mmenu4_sub5_1'])
                                     func.loading(2)
@@ -324,9 +326,14 @@ def main_menu():
                         exit()
 
                 elif choice_main_menu == 'eval()':  # only for dev purposes; evaluating functions in paragraphs.py
-                    
+
                     prg._xx()  # calling placeholder function
 
+
+# --- --- --- ---
+# --- --- --- ---
+# --- --- --- ---
+# --- --- --- ---
 
 # main menu
 func.get_music('main')  # loading background music
@@ -338,4 +345,5 @@ if cnst.dev_mode:
 else:
     gb.get_translation('pl')  # default language for normal game
 
+func.get_game_state('init')  # omit the "load game" menu option from being displayed if no game states found
 main_menu()  # entry point

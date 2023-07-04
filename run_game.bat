@@ -1,9 +1,9 @@
 @echo off
 
-REM Check for updates
-git pull
 REM Chceck pyton version
 python --version
+REM Check for updates
+git pull
 REM Install/upgarde pip
 python -m ensurepip --upgrade
 REM Install required libraries

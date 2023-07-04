@@ -1,13 +1,14 @@
 import pygame
+import os
 from colorama import Fore, Style
 
 ver_num = ''
 
 # /// settings
-dev_mode = False  # Toggle for developer mode; enables many debug information, error indicators and other exlusive machanics while playing
+dev_mode = True  # Toggle for developer mode; enables many debug information, error indicators and other exlusive machanics while playing
 
 if dev_mode:
-    skip_dub = True  # Determines whether dubbing has been skipped.
+    skip_dub = True  # Determines whether dubbing will be skipped
     get_music_enable = False
     input(
         f"{Fore.LIGHTBLUE_EX}Code is running in developer mode. Disable by going to constants.py and changing 'dev_mode' boolean to {Fore.YELLOW}False{Style.RESET_ALL}\
@@ -20,6 +21,7 @@ automatic_battle = True  # Determines whether battles are automatic.
 allow_skip_dub = True  # Determines whether dubbing can be skipped by hitting enter key
 
 # /// initiators
+difficulty = None  # placeholder, for now useless
 active_gameplay = None
 translation = None
 potion = None
@@ -57,7 +59,7 @@ p_mult = 1  # player multiplier for damage calculation
 p_hit_val_ = -2 * e_mult_choice  # player hit value
 e_hit_val_ = -2 * e_mult_choice  # enemy hit value
 def_txt_clr = Fore.LIGHTWHITE_EX  # default text color
-entity_txt_clr = Fore.RED  # color for entities
+entity_txt_clr = Fore.LIGHTRED_EX  # color for entities
 special_txt_clr = Fore.LIGHTMAGENTA_EX  # color for headlines and particular special texts
 combat_txt_clr = Fore.LIGHTCYAN_EX  # color for combat text
 debug_txt_clr = Fore.LIGHTBLACK_EX  # color for debug messages
@@ -71,6 +73,12 @@ template = "({}) {}"
 assets_audio_pth = 'Assets/Audio'  # Path to audio files
 assets_audio_effects_pth = 'Assets/Audio/fx'  # Path to sound effects
 assets_audio_music_pth = 'Assets/Audio/music'  # Path to music
+game_state_dir_name = "Dreszcz_saves"
+setup_file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                               "setup_data.json")  # Get the script's location and generate the file path for saving the JSON file
+game_state_exists = None
+
+audio_ext = '.mp3'
 
 music_combat = [f'{assets_audio_music_pth}/combat/music_combat_1.mp3',  # List of combat music tracks
                 f'{assets_audio_music_pth}/combat/music_combat_2.mp3']
