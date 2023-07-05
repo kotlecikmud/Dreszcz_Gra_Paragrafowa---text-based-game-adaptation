@@ -77,6 +77,11 @@ game_state_dir_name = "Dreszcz_saves"
 setup_file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)),
                                "setup_data.json")  # Get the script's location and generate the file path for saving the JSON file
 game_state_exists = None
+setup_data = {
+        "last_gameplay": cnst.active_gameplay,
+        "translation": cnst.translation,
+        "dev_mode": cnst.dev_mode
+    }
 
 audio_ext = '.mp3'
 
