@@ -48,15 +48,8 @@ def loading(duration, message=None):
 
 
 def update_setup_file():
-    # Save setup data to variable
-    setup_data = {
-        "last_gameplay": cnst.active_gameplay,
-        "translation": cnst.translation,
-        "dev_mode": cnst.dev_mode
-    }
-
     with open(cnst.setup_file_path, 'w') as json_file:  # Save the setup data to a JSON file
-        json.dump(setup_data, json_file)
+        json.dump(cnst.setup_data, json_file)
 
 
 def read_setup_file():
