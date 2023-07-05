@@ -45,14 +45,13 @@ def main_menu():
             (gb.infoboook[cnst.translation]['Mmenu4'], ''),  # settings
             (gb.infoboook[cnst.translation]['Mmenu5'], '')  # exit
         ]
-
-        if cnst.dev_mode:
-            choices_main_menu.append(
-                ('eval()', f'bypass to any paragraph - {Fore.LIGHTRED_EX}for testing only!!!{Style.RESET_ALL}'))
-
-        if cnst.game_state_exists:
+        if cnst.game_state_exists: # if any game state exists, display corresponding menu options
             choices_main_menu.insert(1, (gb.infoboook[cnst.translation]['Mmenu0'], ''))  # continue last gameplay
             choices_main_menu.insert(2, (gb.infoboook[cnst.translation]['Mmenu2'], ''))  # load game
+
+        if cnst.dev_mode: # append developer mode tools to main menu list
+            choices_main_menu.append(
+                ('eval()', f'bypass to any paragraph - {Fore.LIGHTRED_EX}for testing only!!!{Style.RESET_ALL}'))
 
         for i, (choice_main_menu, description) in enumerate(choices_main_menu, 1):  # displaying list in main menu
             print(cnst.template.format(i, choice_main_menu, description))
