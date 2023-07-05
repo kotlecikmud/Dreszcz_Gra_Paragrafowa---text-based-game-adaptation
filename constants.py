@@ -17,6 +17,7 @@ else:
     skip_dub = False
     get_music_enable = True
 
+show_start_sequence = False  # Toggle for displaying start sequence before main menu
 automatic_battle = True  # Determines whether battles are automatic.
 allow_skip_dub = True  # Determines whether dubbing can be skipped by hitting enter key
 
@@ -77,21 +78,31 @@ game_state_dir_name = "Dreszcz_saves"
 setup_file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)),
                                "setup_data.json")  # Get the script's location and generate the file path for saving the JSON file
 game_state_exists = None
+
 # Save setup data to variable
 setup_data = {
-        "last_gameplay": cnst.active_gameplay,
-        "translation": cnst.translation,
-        "dev_mode": cnst.dev_mode
-    }
+    "last_gameplay": active_gameplay,
+    "translation": translation,
+    "dev_mode": dev_mode
+}
 
 audio_ext = '.mp3'
 
-music_combat = [f'{assets_audio_music_pth}/combat/music_combat_1.mp3',  # List of combat music tracks
-                f'{assets_audio_music_pth}/combat/music_combat_2.mp3']
+music_combat = [
+    f'{assets_audio_music_pth}/combat/music_combat_1.mp3',  # List of combat music tracks
+    f'{assets_audio_music_pth}/combat/music_combat_2.mp3'
+]
 
-music_main = [f'{assets_audio_music_pth}/main/music_main_1.mp3',  # List of main music tracks
-              f'{assets_audio_music_pth}/main/music_main_2.mp3',
-              f'{assets_audio_music_pth}/main/music_main_3.mp3']
+music_main = [
+    f'{assets_audio_music_pth}/main/music_main_1.mp3',  # List of main music tracks
+    f'{assets_audio_music_pth}/main/music_main_2.mp3',
+    f'{assets_audio_music_pth}/main/music_main_3.mp3'
+]
+
+music_menu = [
+    f'{assets_audio_music_pth}/menu/music_menu_1.mp3',  # List of menu music tracks
+    # f'{assets_audio_music_pth}/menu/music_menu_2.mp3',
+]
 
 # /// sound mixer setup
 pygame.mixer.init(frequency=44100, size=-16, channels=1,

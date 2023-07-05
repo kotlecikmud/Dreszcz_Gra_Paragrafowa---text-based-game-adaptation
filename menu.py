@@ -45,11 +45,11 @@ def main_menu():
             (gb.infoboook[cnst.translation]['Mmenu4'], ''),  # settings
             (gb.infoboook[cnst.translation]['Mmenu5'], '')  # exit
         ]
-        if cnst.game_state_exists: # if any game state exists, display corresponding menu options
+        if cnst.game_state_exists:  # if any game state exists, display corresponding menu options
             choices_main_menu.insert(1, (gb.infoboook[cnst.translation]['Mmenu0'], ''))  # continue last gameplay
             choices_main_menu.insert(2, (gb.infoboook[cnst.translation]['Mmenu2'], ''))  # load game
 
-        if cnst.dev_mode: # append developer mode tools to main menu list
+        if cnst.dev_mode:  # append developer mode tools to main menu list
             choices_main_menu.append(
                 ('eval()', f'bypass to any paragraph - {Fore.LIGHTRED_EX}for testing only!!!{Style.RESET_ALL}'))
 
@@ -73,10 +73,12 @@ def main_menu():
 
                 # new game
                 elif choice_main_menu == gb.infoboook[cnst.translation]['Mmenu1']:
+                    func.update_setup_file()
                     func.clear_terminal()
                     print(f"/ {choice_main_menu}{cnst.def_txt_clr}")
 
-                    pygame.mixer.music.fadeout(1800)
+                    pygame.mixer.music.fadeout(5000)
+                    func.loading(3)
                     prg._00()
 
                 # load game
@@ -328,13 +330,27 @@ def main_menu():
                     prg._xx()  # calling placeholder function
 
 
+def start_screen():  # time: 23.1 seconds
+    func.get_music('menu')  # loading background music
+    func.loading(1.4)  # loading screen
+
+    messages = [
+        'Jacek Ciesielski', 'Filip Pawłowski', 'presents'
+    ]
+    for message in messages:
+        print(message)
+        time.sleep(5.4)
+    print('DRESZCZ - GRA PARAGRAFOWA')
+
+
 # --- --- --- ---
 # --- --- --- ---
 # --- --- --- ---
 # --- --- --- ---
 
-# main menu
-func.get_music('main')  # loading background music
+if cnst.show_start_sequence:
+    start_screen()
+
 func.get_player_par()  # loading player parameters
 os.system('cls')
 

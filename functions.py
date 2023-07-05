@@ -78,6 +78,9 @@ def get_music(category=None, fadeout=None):
             elif category == 'combat':
                 rnd_choice = random.choice(cnst.music_combat)
 
+            elif category == 'menu':
+                rnd_choice = random.choice(cnst.music_menu)
+
             else:
                 # rnd_choice = random.choice(cnst.music_other) # unused for now
                 pass
