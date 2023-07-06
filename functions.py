@@ -8,7 +8,8 @@ import datetime
 import constants
 import gamebook as gb
 import constants as cnst
-import paragraphs as prg  # paragraphs must be imported
+# paragraphs must be imported
+import paragraphs as prg
 from colorama import Fore
 
 
@@ -25,10 +26,10 @@ def error_message(error_name, msg):
 
 
 def clear_terminal():
-    if not cnst.dev_mode:
-        subprocess.call('cls' if os.name == 'nt' else 'clear', shell=True)
-    else:
+    if cnst.dev_mode:
         debug_message('if dev_mode; clear_terminal() is disabled')
+    else:
+        subprocess.call('cls' if os.name == 'nt' else 'clear', shell=True)
 
 
 def loading(duration, message=None):
@@ -50,30 +51,18 @@ def loading(duration, message=None):
 def update_setup_file():
     with open(cnst.setup_file_path, 'w') as json_file:  # Save the setup data to a JSON file
         json.dump(cnst.setup_data, json_file)
-
-
-def read_setup_file():
-    # load setup data from json file
-    with open(cnst.setup_file_path, "r") as f:
-        setup_data = json.load(f)
-
-    # Assigning the loaded data back to variables.
-    cnst.active_gameplay = setup_data.get("last_gameplay")
-    cnst.translation = setup_data.get("translation")
-    cnst.dev_mode = setup_data.get("dev_mode")
-
-    debug_message(f'Setup data loaded from: {cnst.setup_file_path}')
+    debug_message('setup.json has been updated')
 
 
 def get_music(category=None, fadeout=None):
-    if constants.get_music_enable:
+    if constants.get_music:
         if category:
             rnd_choice = None
             if fadeout:
                 pygame.mixer.music.fadeout(fadeout)
 
             if category == 'main':
-                rnd_choice = random.choice(cnst.music_main)  # losowanie muzyki z listy
+                rnd_choice = random.choice(cnst.music_main)  # randomizing music from list
 
             elif category == 'combat':
                 rnd_choice = random.choice(cnst.music_combat)
@@ -146,7 +135,7 @@ def dub_play(string_id, voice=None, skippable=True):
             input(f'skip {cnst.input_sign}')
             pygame.mixer.stop()
 
-    elif cnst.skip_dub:
+    elif cnst.auto_skip_dub:
         loading(1, 'skipping...')
 
     else:
@@ -227,7 +216,6 @@ def get_game_state(action, last_paragraph='prg.00a', new_game=False):
             # Create new file path and update active gameplay file_path
             cnst.active_gameplay = os.path.join(folder_path,
                                                 f"dreszcz_{datetime.datetime.now().strftime('%y-%m-%d_%S')}.json")
-            update_setup_file()
 
         # Save game state to variable
         game_state = {
@@ -269,7 +257,6 @@ def get_game_state(action, last_paragraph='prg.00a', new_game=False):
                 if 1 <= file_number <= len(json_files):
                     selected_file = json_files[file_number - 1]
                     cnst.active_gameplay = os.path.join(folder_path, selected_file)
-                    update_setup_file()
                     with open(cnst.active_gameplay, "r") as f:
                         game_state = json.load(f)
                     debug_message(f'Game state loaded from: {selected_file}')
@@ -302,7 +289,6 @@ def get_game_state(action, last_paragraph='prg.00a', new_game=False):
             debug_message("No saved game states found.")
 
     elif action == 'c':  # continue
-        read_setup_file()
 
         with open(cnst.active_gameplay, "r") as f:
             game_state = json.load(f)

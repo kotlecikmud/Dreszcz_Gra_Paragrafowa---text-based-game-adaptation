@@ -1,30 +1,11 @@
 import pygame
 import os
+import json
 from colorama import Fore, Style
 
-ver_num = ''
-
-# /// settings
-dev_mode = False  # Toggle for developer mode; enables many debug information, error indicators and other exlusive machanics while playing
-
-if dev_mode:
-    skip_dub = True  # Determines whether dubbing will be skipped
-    get_music_enable = False
-    input(
-        f"{Fore.LIGHTBLUE_EX}Code is running in developer mode. Disable by going to constants.py and changing 'dev_mode' boolean to {Fore.YELLOW}False{Style.RESET_ALL}\
-        \n>>> ")
-else:
-    skip_dub = False
-    get_music_enable = True
-
-show_start_sequence = False  # Toggle for displaying start sequence before main menu
-automatic_battle = True  # Determines whether battles are automatic.
-allow_skip_dub = True  # Determines whether dubbing can be skipped by hitting enter key
-
 # /// initiators
-difficulty = None  # placeholder, for now useless
-active_gameplay = None
-translation = None
+audio_ext = '.mp3'
+game_state_exists = None
 potion = None
 count = 0  # Counter
 count_potion = 2  # num of potions
@@ -76,17 +57,7 @@ assets_audio_effects_pth = 'Assets/Audio/fx'  # Path to sound effects
 assets_audio_music_pth = 'Assets/Audio/music'  # Path to music
 game_state_dir_name = "Dreszcz_saves"
 setup_file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                               "setup_data.json")  # Get the script's location and generate the file path for saving the JSON file
-game_state_exists = None
-
-# Save setup data to variable
-setup_data = {
-    "last_gameplay": active_gameplay,
-    "translation": translation,
-    "dev_mode": dev_mode
-}
-
-audio_ext = '.mp3'
+                               "setup.json")  # Get the script's location and generate the file path for saving the JSON file
 
 music_combat = [
     f'{assets_audio_music_pth}/combat/music_combat_1.mp3',  # List of combat music tracks
@@ -104,20 +75,50 @@ music_menu = [
     # f'{assets_audio_music_pth}/menu/music_menu_2.mp3',
 ]
 
-# /// sound mixer setup
+# load setup data from json file
+with open(setup_file_path, "r") as f:
+    setup_data = json.load(f)
+
+active_gameplay = setup_data.get("last_gameplay")
+translation = setup_data.get("translation")
+dev_mode = setup_data.get("dev_mode")  # Enables exlusive mechanics while playing and additional debug information
+show_start_sequence = setup_data.get("show_start_sequence")
+automatic_battle = setup_data.get("automatic_battle")
+allow_skip_dub = setup_data.get("allow_skip_dub")
+auto_skip_dub = setup_data.get("skip_dub")  # Determines whether dubbing will be skipped
+get_music = setup_data.get("get_music")  # Determines whether music playing is enabled
+ver_num = setup_data.get("ver_num")
+difficulty = setup_data.get("difficulty")  # placeholder, currently not implemented
+
+print(f'Setup data was succesfully loaded from: {setup_file_path}')
+
+# DEV_MODE ADDITIONAL SETUP
+if dev_mode:
+    input(
+        f"{Fore.LIGHTBLUE_EX}Code is running in developer mode.\
+        \nSee: setup.json\
+            \n>>> ")
+    skip_dub = True
+    get_music = False
+
+else:
+    skip_dub = False
+    get_music = True
+
+# /// pygame mixer setup
 pygame.mixer.init(frequency=44100, size=-16, channels=1,
                   buffer=2 ** 12)  # Initialize the mixer module with the specified settings
 action_volume = 1  # Default volume for action sounds
 sfx_volume = 0.8  # Default volume for sound effects
 bckg_volume = 0.8  # Default volume for background music
 
-# /// ekwipunki
+# /// equipment list
 
-# główny ekwipunek
+# main equipment
 main_eq = ['plecak na Prowiant', f'prowiant ({eatables_count} porcji)', 'tarcza', 'miecz',
            f'złoto({gold_amount} sztuk)']
 
-# /// słowniki wyborów
+# /// choice dictionaries
 choices_115 = {'Miecz': '_232()',
                'Kościany kordelas': '_324()',
                'Rękawice': '_95()',
@@ -125,3 +126,5 @@ choices_115 = {'Miecz': '_232()',
                'Hełm': '_298()',
                'Młot': '_324()',
                }
+
+# --- --- --- ---

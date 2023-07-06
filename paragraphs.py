@@ -12,7 +12,7 @@ import constants as cnst
 # - - - - - - - - -
 def _xx():  # placeholder
     if cnst.active_gameplay == None:
-        cnst.active_gameplay = os.path.join(os.path.dirname(os.path.abspath(__file__)), "dummy_gs.json")
+        cnst.active_gameplay = os.path.join(os.path.dirname(os.path.abspath(__file__)), "dummy_game-state.json")
     while True:
         func.debug_message("--placeholder function--")
         odp = input(f"{cnst.def_txt_clr}\
@@ -62,6 +62,7 @@ def _00():
     func.get_game_state('s', new_game=True)
 
     func.clear_terminal()
+    func.update_setup_file()
     func.dub_play('00b', 'adam')
     path_strings = [f'Ruszaj {cnst.input_sign}']
     actions = ['prg._01()']

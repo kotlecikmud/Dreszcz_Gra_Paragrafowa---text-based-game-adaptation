@@ -1,7 +1,7 @@
 # - - - - - - - - -
 # - - - - - - - - -
 # - - - - - - - - -
-# 'DRESZCZ'
+# "DRESZCZ"
 # GRA PARAGRAFOWA
 # author: Jacek Ciesielski 1987
 # programmer: Filip Pawłowski 2023 (filippawlowski2012@gmail.com)
@@ -73,12 +73,10 @@ def main_menu():
 
                 # new game
                 elif choice_main_menu == gb.infoboook[cnst.translation]['Mmenu1']:
-                    func.update_setup_file()
                     func.clear_terminal()
                     print(f"/ {choice_main_menu}{cnst.def_txt_clr}")
-
-                    pygame.mixer.music.fadeout(5000)
-                    func.loading(3)
+                    pygame.mixer.music.fadeout(2500)
+                    func.loading(2)
                     prg._00()
 
                 # load game
@@ -335,7 +333,7 @@ def start_screen():  # time: 23.1 seconds
     func.loading(1.4)  # loading screen
 
     messages = [
-        'Jacek Ciesielski', 'Filip Pawłowski', 'presents'
+        'Jacek Ciesielski\r', 'Filip Pawłowski', 'presents...'
     ]
     for message in messages:
         print(message)
@@ -344,12 +342,11 @@ def start_screen():  # time: 23.1 seconds
 
 
 # --- --- --- ---
-# --- --- --- ---
-# --- --- --- ---
-# --- --- --- ---
 
 if cnst.show_start_sequence:
     start_screen()
+else:
+    func.get_music('main')
 
 func.get_player_par()  # loading player parameters
 os.system('cls')
