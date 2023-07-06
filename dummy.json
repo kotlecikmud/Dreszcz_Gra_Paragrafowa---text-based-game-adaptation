@@ -1,0 +1,22 @@
+{
+  "last_paragraph": "prg._200()",
+  "player_name": "dummy_layer",
+  "difficulty": null,
+  "s_count": 9,
+  "w_count": 14,
+  "z_count": 7,
+  "s_init": 9,
+  "w_init": 14,
+  "z_init": 7,
+  "equipment": [
+    "plecak na Prowiant",
+    "prowiant (8 porcji)",
+    "tarcza",
+    "miecz",
+    "z\u0142oto(0 sztuk)"
+  ],
+  "potion": "w",
+  "count_potion": 2,
+  "eatables_count": 8,
+  "gold_amount": 0
+}

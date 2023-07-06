@@ -46,7 +46,7 @@ def main_menu():
             (gb.infoboook[cnst.translation]['Mmenu5'], '')  # exit
         ]
         if cnst.game_state_exists:  # if any game state exists, display corresponding menu options
-            choices_main_menu.insert(1, (gb.infoboook[cnst.translation]['Mmenu0'], ''))  # continue last gameplay
+            choices_main_menu.insert(0, (gb.infoboook[cnst.translation]['Mmenu0'], ''))  # continue last gameplay
             choices_main_menu.insert(2, (gb.infoboook[cnst.translation]['Mmenu2'], ''))  # load game
 
         if cnst.dev_mode:  # append developer mode tools to main menu list
@@ -57,7 +57,8 @@ def main_menu():
             print(cnst.template.format(i, choice_main_menu, description))
 
         usr_input = input(f'{cnst.input_sign}{cnst.special_txt_clr} ').strip()
-
+        # play click
+        # func.dub_play('click', 'fx')
         if usr_input.isdigit():  # is digit
             index = int(usr_input) - 1
             if 0 <= index < len(choices_main_menu):  # is digit in range
@@ -328,33 +329,21 @@ def main_menu():
                     prg._xx()  # calling placeholder function
 
 
-def start_screen():  # time: 23.1 seconds
-    func.get_music('menu')  # loading background music
-    func.loading(1.4)  # loading screen
-
-    messages = [
-        'Jacek Ciesielski\r', 'Filip Pawłowski', 'presents...'
-    ]
-    for message in messages:
-        print(message)
-        time.sleep(5.4)
-    print('DRESZCZ - GRA PARAGRAFOWA')
-
-
 # --- --- --- ---
+if not cnst.dev_mode:
+    if cnst.show_start_sequence:  # time: 23.1 seconds
+        func.get_music('menu')  # loading background music
+        func.loading(1.4)  # loading screen
+        messages = ['Jacek Ciesielski\r', 'Filip Pawłowski', 'presents...', 'DRESZCZ - GRA PARAGRAFOWA']
+        for message in messages:
+            print(message)
+            time.sleep(5.4)
 
-if cnst.show_start_sequence:
-    start_screen()
-else:
-    func.get_music('main')
+    else:
+        func.get_music('main')
 
 func.get_player_par()  # loading player parameters
-os.system('cls')
-
-if cnst.dev_mode:
-    gb.get_translation('en')  # default language for dev_mode
-else:
-    gb.get_translation('pl')  # default language for normal game
+func.clear_terminal()  # clearing terminal
 
 func.get_game_state('init')  # omit the "load game" menu option from being displayed if no game states found
 main_menu()  # entry point

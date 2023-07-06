@@ -7,12 +7,10 @@ import functions as func
 import constants as cnst
 
 
-# - - - - - - - - -
-# /// PARAGRAPHS
-# - - - - - - - - -
-def _xx():  # placeholder
+# placeholder
+def _xx():
     if cnst.active_gameplay == None:
-        cnst.active_gameplay = os.path.join(os.path.dirname(os.path.abspath(__file__)), "dummy_game-state.json")
+        cnst.active_gameplay = os.path.join(os.path.dirname(os.path.abspath(__file__)), "dummy.json")
     while True:
         func.debug_message("--placeholder function--")
         odp = input(f"{cnst.def_txt_clr}\
@@ -31,7 +29,7 @@ def _xx():  # placeholder
 
 
 # - - - - - - - - -
-# - - - - - - - - -
+# /// PARAGRAPHS
 # - - - - - - - - -
 def _00():
     func.dub_play('00a', 'adam')
@@ -146,9 +144,6 @@ def _10():
 
 
 def _11():
-    func.get_music('main', 2600)  # loading background music
-    music = f'{cnst.assets_audio_music_pth}/scene_11_background.mp3'
-
     func.dub_play('11', 'adam')
     path_strings = ['idziesz od razu po wodę', 'dobierasz się do stwora']
     actions = ['prg._45()', 'prg._192()']

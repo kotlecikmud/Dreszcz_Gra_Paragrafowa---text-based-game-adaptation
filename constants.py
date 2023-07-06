@@ -35,7 +35,7 @@ and_his_name_is = '''
         ZZZZZZZ    BBBBBB           YYY        SSSSSS        ZZZZZZZZ     K     K     OOOOO     
         '''
 input_sign = '>>> '  # sign indicating that the user should provide an input
-delay = 0.3  # time delay in seconds between printing each character in text
+delay = 0.2  # time delay in seconds between printing each character in text
 e_mult_choice = d_lvl_e  # multiplier for entity level (default level)
 p_mult = 1  # player multiplier for damage calculation
 p_hit_val_ = -2 * e_mult_choice  # player hit value
@@ -79,11 +79,12 @@ music_menu = [
 with open(setup_file_path, "r") as f:
     setup_data = json.load(f)
 
-active_gameplay = setup_data.get("last_gameplay")
+active_gameplay = setup_data.get("active_gameplay")
 translation = setup_data.get("translation")
 dev_mode = setup_data.get("dev_mode")  # Enables exlusive mechanics while playing and additional debug information
 show_start_sequence = setup_data.get("show_start_sequence")
-automatic_battle = setup_data.get("automatic_battle")
+automatic_battle = setup_data.get(
+    "automatic_battle")  # if False, enables manual input for 'a' and 'b' values during combat round
 allow_skip_dub = setup_data.get("allow_skip_dub")
 auto_skip_dub = setup_data.get("skip_dub")  # Determines whether dubbing will be skipped
 get_music = setup_data.get("get_music")  # Determines whether music playing is enabled
@@ -94,16 +95,11 @@ print(f'Setup data was succesfully loaded from: {setup_file_path}')
 
 # DEV_MODE ADDITIONAL SETUP
 if dev_mode:
-    input(
-        f"{Fore.LIGHTBLUE_EX}Code is running in developer mode.\
-        \nSee: setup.json\
-            \n>>> ")
     skip_dub = True
     get_music = False
-
-else:
-    skip_dub = False
-    get_music = True
+    input(f"{Fore.LIGHTBLUE_EX}Code is running in developer mode.\
+        \nSee: setup.json\
+        \n>>> ")
 
 # /// pygame mixer setup
 pygame.mixer.init(frequency=44100, size=-16, channels=1,
@@ -126,5 +122,3 @@ choices_115 = {'Miecz': '_232()',
                'Hełm': '_298()',
                'Młot': '_324()',
                }
-
-# --- --- --- ---

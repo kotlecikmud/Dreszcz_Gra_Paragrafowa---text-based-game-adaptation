@@ -196,7 +196,7 @@ def get_player_par():
     return cnst.z_init, cnst.z_count, cnst.w_init, cnst.w_count, cnst.s_init, cnst.s_count
 
 
-def get_game_state(action, last_paragraph='prg.00a', new_game=False):
+def get_game_state(action, last_paragraph='prg.00a', new_game=None):
     folder_path = os.path.join(os.path.expanduser("~/Documents"), cnst.game_state_dir_name)
     # folder path for saving json file
 
@@ -214,8 +214,8 @@ def get_game_state(action, last_paragraph='prg.00a', new_game=False):
     if action == 's':
         if new_game:
             # Create new file path and update active gameplay file_path
-            cnst.active_gameplay = os.path.join(folder_path,
-                                                f"dreszcz_{datetime.datetime.now().strftime('%y-%m-%d_%S')}.json")
+            cnst.active_gameplay = os.path.join(folder_path, f"dreszcz_{datetime.datetime.now().strftime('%y-%m-%d_%S')}.json")
+            print(cnst.active_gameplay)
 
         # Save game state to variable
         game_state = {
@@ -232,9 +232,7 @@ def get_game_state(action, last_paragraph='prg.00a', new_game=False):
             "potion": cnst.potion,
             "count_potion": cnst.count_potion,
             "eatables_count": cnst.eatables_count,
-            "gold_amount": cnst.gold_amount,
-            "translation": cnst.translation,
-            "dev_mode": cnst.dev_mode
+            "gold_amount": cnst.gold_amount
         }
 
         # Saving game state as json file
@@ -249,23 +247,25 @@ def get_game_state(action, last_paragraph='prg.00a', new_game=False):
             print("Saved game states:")  # List of JSON files
             for i, file in enumerate(json_files, start=1):
                 print(f"{i}. {file}")
-            file_number = input(f"\nChoose game state to load\n{cnst.input_sign}")
 
-            try:
-                file_number = int(file_number)
+            while True:
+                file_number = input(f"\nChoose game state to load\
+                \n{cnst.input_sign}")
+                try:
+                    file_number = int(file_number)
 
-                if 1 <= file_number <= len(json_files):
-                    selected_file = json_files[file_number - 1]
-                    cnst.active_gameplay = os.path.join(folder_path, selected_file)
-                    with open(cnst.active_gameplay, "r") as f:
-                        game_state = json.load(f)
-                    debug_message(f'Game state loaded from: {selected_file}')
+                    if 1 <= file_number <= len(json_files):
+                        selected_file = json_files[file_number - 1]
+                        cnst.active_gameplay = os.path.join(folder_path, selected_file)
+                        with open(cnst.active_gameplay, "r") as f:
+                            game_state = json.load(f)
+                        debug_message(f'Game state loaded from: {selected_file}')
+                        break
+                    else:
+                        debug_message("Incorrect file number provided.")
 
-                else:
+                except ValueError:
                     debug_message("Incorrect file number provided.")
-
-            except ValueError:
-                debug_message("Incorrect file number provided.")
 
             # Assigning the loaded data back to variables.
             last_paragraph = game_state.get("last_paragraph")
@@ -282,14 +282,11 @@ def get_game_state(action, last_paragraph='prg.00a', new_game=False):
             cnst.count_potion = game_state.get("count_potion")
             cnst.eatables_count = game_state.get("eatables_count")
             cnst.gold_amount = game_state.get("gold_amount")
-            cnst.translation = game_state.get("translation")
-            cnst.dev_mode = game_state.get("dev_mode")
 
         else:
             debug_message("No saved game states found.")
 
     elif action == 'c':  # continue
-
         with open(cnst.active_gameplay, "r") as f:
             game_state = json.load(f)
 
@@ -310,8 +307,6 @@ def get_game_state(action, last_paragraph='prg.00a', new_game=False):
             cnst.count_potion = game_state.get("count_potion")
             cnst.eatables_count = game_state.get("eatables_count")
             cnst.gold_amount = game_state.get("gold_amount")
-            cnst.translation = game_state.get("translation")
-            cnst.dev_mode = game_state.get("dev_mode")
 
     elif action == 'init':  # check if any game states exist
         if len(json_files) > 0:
