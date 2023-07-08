@@ -81,7 +81,7 @@ def get_music(category=None, fadeout=None):
             debug_message('if dev_mode; get_music() is disabled')
 
 
-def dub_play(string_id, voice=None, skippable=True, with_text=None):
+def dub_play(string_id, voice=None, skippable=True, with_text=True):
     # building file path based on voice, translation and string_id
     audio_path = None
     if voice.lower() == 'adam':
@@ -135,8 +135,8 @@ def dub_play(string_id, voice=None, skippable=True, with_text=None):
             input(f'skip {cnst.input_sign}')
             pygame.mixer.stop()
 
-    elif cnst.auto_skip_dub:
-        loading(1, 'skipping...')
+        elif cnst.auto_skip_dub:
+            debug_message('dialog skipped')
 
     else:
         while channel.get_busy():
@@ -196,33 +196,92 @@ def get_player_par():
     return cnst.z_init, cnst.z_count, cnst.w_init, cnst.w_count, cnst.s_init, cnst.s_count
 
 
-def update_setup_file():
-    setup_data = {
-        "active_gameplay": cnst.active_gameplay,
-        "translation": cnst.translation,
-        "dev_mode": cnst.dev_mode,
-        "show_start_sequence": cnst.show_start_sequence,
-        "automatic_battle": cnst.automatic_battle,
-        "allow_skip_dub": cnst.allow_skip_dub,
-        "auto_skip_dub": cnst.auto_skip_dub,
-        "get_music": cnst.get_music,
-        "ver_num": cnst.ver_num,
-        "difficulty": cnst.difficulty
-    }
+def update_setup_file(manual=False):
+    if manual:
+        print("Leave empty for no changes:")
+        setup_data = {}
+        fields = [
+            "active_gameplay",
+            "translation",
+            "dev_mode",
+            "use_dummy",
+            "show_start_sequence",
+            "automatic_battle",
+            "allow_skip_dub",
+            "auto_skip_dub",
+            "get_music",
+            "ver_num",
+            "difficulty"
+        ]
+
+        for field in fields:
+            print()
+            if field == "active_gameplay":
+                print('(path)')
+
+            elif field == "translation":
+                availableLocales = list(gb.gameboook.keys())
+                print(", ".join(availableLocales))
+
+            elif field == "dev_mode" or field == "use_dummy" or field == "show_start_sequence" or field == "automatic_battle" or field == "allow_skip_dub" or field == "auto_skip_dub" or field == "get_music":
+                print('(True/False)')
+
+            elif field == "ver_num":
+                print('int, float, or string')
+
+            elif field == "difficulty":
+                print(", ".join(cnst.difficulty_levels), end='\r')
+
+            value = input(f"{field}: ") or cnst.__dict__[field]
+            if value == "True":
+                setup_data[field] = True
+            elif value == "False":
+                setup_data[field] = False
+            elif value == "None":
+                setup_data[field] = None
+            else:
+                setup_data[field] = value
+
+    else:
+        setup_data = {
+            "active_gameplay": cnst.active_gameplay,
+            "translation": cnst.translation,
+            "dev_mode": cnst.dev_mode,
+            "use_dummy": cnst.dev_mode,
+            "show_start_sequence": cnst.show_start_sequence,
+            "automatic_battle": cnst.automatic_battle,
+            "allow_skip_dub": cnst.allow_skip_dub,
+            "auto_skip_dub": cnst.auto_skip_dub,
+            "get_music": cnst.get_music,
+            "ver_num": cnst.ver_num,
+            "difficulty": cnst.difficulty
+        }
+
     with open(cnst.setup_name, 'w') as json_file:  # Save the setup data to a JSON file
         json.dump(setup_data, json_file)
-    debug_message('setup.json has been updated')
+    debug_message("setup.json has been updated")
+
+    if manual:
+        input(f"Restart game to apply changes\
+        \n{cnst.input_sign}")
+        exit()
 
 
 def get_game_state(action, last_paragraph='prg.00', new_game=None):
-    folder_path = os.path.join(os.path.expanduser("~/Documents"), cnst.game_state_dir_name)
-    # folder path for saving json file
+    if cnst.use_dummy:
+        # local folder
+        folder_path = os.path.dirname(os.path.abspath(__file__))
+    else:
+        # folder path for saving json file
+        folder_path = os.path.join(os.path.expanduser("~/Documents"), cnst.game_state_dir_name)
 
     json_files = []
     # list of json files in folder_path
 
-    if os.path.exists(folder_path):  # check if .json file exist
+    if os.path.exists(folder_path):
         json_files = [file for file in os.listdir(folder_path) if file.endswith(".json")]
+        if "setup.json" in json_files:
+            json_files.remove("setup.json")  # Exclude "setup.json" file from the list
 
     else:  # create dir if it doesn't exists
         os.makedirs(folder_path)
@@ -303,6 +362,8 @@ def get_game_state(action, last_paragraph='prg.00', new_game=None):
         else:
             debug_message("No saved game states found.")
 
+        update_setup_file()  # dump all setup to json file
+
     elif action == 'c':  # continue
         with open(cnst.active_gameplay, "r") as f:
             game_state = json.load(f)
@@ -325,6 +386,8 @@ def get_game_state(action, last_paragraph='prg.00', new_game=None):
             cnst.eatables_count = game_state.get("eatables_count")
             cnst.gold_amount = game_state.get("gold_amount")
 
+            update_setup_file()  # dump all setup to json file
+
     elif action == 'init':  # check if any game states exist
         if len(json_files) > 0:
             cnst.game_state_exists = True
@@ -333,8 +396,6 @@ def get_game_state(action, last_paragraph='prg.00', new_game=None):
             cnst.game_state_exists = False
 
         return cnst.game_state_exists
-
-    update_setup_file()  # dump all setup to json file
 
     return last_paragraph
 
@@ -499,27 +560,19 @@ def show_entity_stats(entity):
     \nZręczność: {entity.entity_z_count}/{entity.entity_z_init}')
 
 
-def stats_change(attribute_name, updated_variable, amount):
-    updated_variable += amount / 2  # /2 is temporary fix
+def stats_change(attribute_name, parameter, amount, init_value=None):
+    if init_value:
+        updated_parameter = min(parameter + amount, init_value)
 
-    if amount < 0:
-        inter = ''
     else:
-        inter = '+'
+        updated_parameter = parameter + amount
 
-    # because of non compatibility with source material, this block is disabled for now
-    #
-    # if variable == cnst.s_count:
-    #     if cnst.s_count == cnst.s_init:
-    #         cnst.s_count += 1
-    #     elif cnst.s_count < cnst.s_init + 1:
-    #         new_count = min(cnst.s_count + amount, cnst.s_init + 1)
-    #         cnst.s_count = new_count
+    inter = '+' if amount >= 0 else ''
 
     print(
-        f'{cnst.special_txt_clr}/// {attribute_name} {inter}{amount} {constants.input_sign} {updated_variable + amount}{cnst.def_txt_clr}')
+        f'{cnst.special_txt_clr}/// {attribute_name}({parameter}) {inter} {amount} {constants.input_sign}{updated_parameter}{cnst.def_txt_clr}')
 
-    return updated_variable
+    return updated_parameter
 
 
 def use_potion():
@@ -532,7 +585,9 @@ def use_potion():
         if cnst.potion in potion_attributes:
             attr_name, attr_value = potion_attributes[cnst.potion]
             setattr(cnst, attr_name, attr_value)
-        cnst.count_potion -= 1
+        updated_state = cnst.count_potion - 1
+
+    return updated_state
 
 
 # - - - - - - - - -

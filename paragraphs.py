@@ -454,7 +454,7 @@ def _82():
 
 def _89():
     func.dub_play('89a', 'adam', False)
-    func.stats_change('Szczęscie', cnst.s_count, 2)
+    func.stats_change('Szczęscie', cnst.s_count, 2, cnst.s_init)
     func.stats_change('Złoto', cnst.gold_amount, 3)
     func.dub_play('89b', 'adam')
     path_strings = []

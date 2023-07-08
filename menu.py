@@ -60,8 +60,10 @@ def main_menu():
 
         if cnst.dev_mode:  # append developer mode tools to main menu list
             choices_main_menu.append(
-                ('eval()', f'bypass to any paragraph - {Fore.LIGHTRED_EX}for testing only!!!{Style.RESET_ALL}'))
-
+                (f'{cnst.special_txt_clr}test_paragraph{cnst.def_txt_clr}',
+                 f'bypass to any paragraph - {Fore.LIGHTRED_EX}for testing only!!!{Style.RESET_ALL}'))
+            choices_main_menu.append(
+                (f'{cnst.special_txt_clr}configure_setup_file - restart_required!!!{cnst.def_txt_clr}', ''))
         for i, (choice_main_menu, description) in enumerate(choices_main_menu, 1):  # displaying list in main menu
             print(cnst.template.format(i, choice_main_menu, description))
 
@@ -332,9 +334,14 @@ def main_menu():
                         func.loading(1)
                         exit()
 
-                elif choice_main_menu == 'eval()':  # only for dev purposes; evaluating functions in paragraphs.py
-
+                # ADDITIONAL DEV FUNCTIONALITY
+                # evaluating functions in paragraphs.py
+                elif choice_main_menu == f'{cnst.special_txt_clr}test_paragraph{cnst.def_txt_clr}':
                     prg._xx()  # calling placeholder function
+
+                # configuring setup.json file
+                elif choice_main_menu == f'{cnst.special_txt_clr}configure_setup_file - restart_required!!!{cnst.def_txt_clr}':
+                    func.update_setup_file(True)
 
 
 # --- --- --- --- entry point
@@ -353,4 +360,6 @@ if not cnst.dev_mode:
 func.get_player_par()  # loading player parameters
 
 func.get_game_state('init')  # omit the "load game" menu option from being displayed if no game states found
+
+cnst.game_state_exists = True  # temporary for testing with dummy.json
 main_menu()

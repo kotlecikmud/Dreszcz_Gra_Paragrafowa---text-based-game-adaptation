@@ -22,7 +22,6 @@ w_count = w_init = 0  # Action points counter: stamina
 z_count = z_init = 0  # Action points counter: dexterity
 init_eatables_count = eatables_count = 8  # Initial number of meals
 eatable_W_load = 4  # How many load of stamina in one meal
-gold_amount = 0  # Initial num of gold
 
 # /// constants
 and_his_name_is = '''
@@ -88,10 +87,9 @@ main_eq = {"plecak na Prowiant": "",
            "prowiant": eatables_count,
            "tarcza": "",
            "miecz": "",
-           "złoto": gold_amount,
            }
 
-# /// choice dictionaries
+# /// dictionaries
 choices_115 = {'Miecz': '_232()',
                'Kościany kordelas': '_324()',
                'Rękawice': '_95()',
@@ -99,6 +97,12 @@ choices_115 = {'Miecz': '_232()',
                'Hełm': '_298()',
                'Młot': '_324()',
                }
+
+difficulty_levels = {
+    "easy": 1,
+    "medium": 1.3,
+    "hard": 1.6
+}
 # ///
 # /// SETUP ///
 # ///
@@ -110,6 +114,7 @@ with open(setup_name, "r") as f:
 active_gameplay = loaded_setup.get("active_gameplay")
 translation = loaded_setup.get("translation")
 dev_mode = loaded_setup.get("dev_mode")  # Enables exlusive mechanics while playing and additional debug information
+use_dummy = loaded_setup.get("use_dummy")  # Enables use of dummy player and dummy data - for testing
 show_start_sequence = loaded_setup.get("show_start_sequence")
 automatic_battle = loaded_setup.get(
     "automatic_battle")  # if False, allow input of "a" and "b" values during combat round

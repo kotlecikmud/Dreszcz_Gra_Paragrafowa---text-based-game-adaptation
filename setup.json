@@ -1,12 +1,1 @@
-{
-  "active_gameplay": "C:\\Users\\filip/Documents\\Dreszcz_saves\\dummy.json",
-  "translation": "pl",
-  "dev_mode": false,
-  "show_start_sequence": false,
-  "automatic_battle": true,
-  "allow_skip_dub": true,
-  "auto_skip_dub": null,
-  "get_music": false,
-  "ver_num": null,
-  "difficulty": null
-}
+{"active_gameplay": "E:\\PycharmProjects\\Dreszcz_Gra_Paragrafowa---text-based-game-adaptation\\dummy.json", "translation": "en", "dev_mode": false, "use_dummy": false, "show_start_sequence": false, "automatic_battle": true, "allow_skip_dub": true, "auto_skip_dub": null, "get_music": false, "ver_num": null, "difficulty": null}
