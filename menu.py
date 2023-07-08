@@ -30,7 +30,7 @@ if not os.path.exists(cnst.assets_audio_pth):
 
 def main_menu():
     while True:
-        if cnst.ver_num != '':
+        if cnst.ver_num != None:
             print(f'ver.{cnst.debug_txt_clr}{cnst.ver_num}')
             time.sleep(2)
 
@@ -70,7 +70,7 @@ def main_menu():
                 # continue last gameplay
                 if choice_main_menu == gb.infoboook[cnst.translation]['Mmenu0']:
                     last_paragraph = func.get_game_state('c')
-                    func.pth_selector([], [f'{last_paragraph}()'])
+                    func.pth_selector([], [f'{last_paragraph}'])
 
                 # new game
                 elif choice_main_menu == gb.infoboook[cnst.translation]['Mmenu1']:
@@ -87,8 +87,8 @@ def main_menu():
 
                     last_paragraph = func.get_game_state('l')
 
-                    if not last_paragraph == 'prg.00a':
-                        func.pth_selector([], [f'{last_paragraph}()'])
+                    if not last_paragraph == 'prg.00':
+                        func.pth_selector([], [f'{last_paragraph}'])
 
 
                 # Rules
@@ -329,7 +329,7 @@ def main_menu():
                     prg._xx()  # calling placeholder function
 
 
-# --- --- --- ---
+# --- --- --- --- entry point
 if not cnst.dev_mode:
     if cnst.show_start_sequence:  # time: 23.1 seconds
         func.get_music('menu')  # loading background music
@@ -346,4 +346,4 @@ func.get_player_par()  # loading player parameters
 func.clear_terminal()  # clearing terminal
 
 func.get_game_state('init')  # omit the "load game" menu option from being displayed if no game states found
-main_menu()  # entry point
+main_menu()

@@ -56,8 +56,7 @@ assets_audio_pth = 'Assets/Audio'  # Path to audio files
 assets_audio_effects_pth = 'Assets/Audio/fx'  # Path to sound effects
 assets_audio_music_pth = 'Assets/Audio/music'  # Path to music
 game_state_dir_name = "Dreszcz_saves"
-setup_file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                               "setup.json")  # Get the script's location and generate the file path for saving the JSON file
+setup_name = "setup.json"  # Get the setup script's location
 
 music_combat = [
     f'{assets_audio_music_pth}/combat/music_combat_1.mp3',  # List of combat music tracks
@@ -75,32 +74,6 @@ music_menu = [
     # f'{assets_audio_music_pth}/menu/music_menu_2.mp3',
 ]
 
-# load setup data from json file
-with open(setup_file_path, "r") as f:
-    setup_data = json.load(f)
-
-active_gameplay = setup_data.get("active_gameplay")
-translation = setup_data.get("translation")
-dev_mode = setup_data.get("dev_mode")  # Enables exlusive mechanics while playing and additional debug information
-show_start_sequence = setup_data.get("show_start_sequence")
-automatic_battle = setup_data.get(
-    "automatic_battle")  # if False, enables manual input for 'a' and 'b' values during combat round
-allow_skip_dub = setup_data.get("allow_skip_dub")
-auto_skip_dub = setup_data.get("skip_dub")  # Determines whether dubbing will be skipped
-get_music = setup_data.get("get_music")  # Determines whether music playing is enabled
-ver_num = setup_data.get("ver_num")
-difficulty = setup_data.get("difficulty")  # placeholder, currently not implemented
-
-print(f'Setup data was succesfully loaded from: {setup_file_path}')
-
-# DEV_MODE ADDITIONAL SETUP
-if dev_mode:
-    skip_dub = True
-    get_music = False
-    input(f"{Fore.LIGHTBLUE_EX}Code is running in developer mode.\
-        \nSee: setup.json\
-        \n>>> ")
-
 # /// pygame mixer setup
 pygame.mixer.init(frequency=44100, size=-16, channels=1,
                   buffer=2 ** 12)  # Initialize the mixer module with the specified settings
@@ -111,8 +84,12 @@ bckg_volume = 0.8  # Default volume for background music
 # /// equipment list
 
 # main equipment
-main_eq = ['plecak na Prowiant', f'prowiant ({eatables_count} porcji)', 'tarcza', 'miecz',
-           f'złoto({gold_amount} sztuk)']
+main_eq = {"plecak na Prowiant": "",
+           "prowiant": eatables_count,
+           "tarcza": "",
+           "miecz": "",
+           "złoto": gold_amount,
+           }
 
 # /// choice dictionaries
 choices_115 = {'Miecz': '_232()',
@@ -122,3 +99,39 @@ choices_115 = {'Miecz': '_232()',
                'Hełm': '_298()',
                'Młot': '_324()',
                }
+# ///
+# /// SETUP ///
+# ///
+
+# load setup data from json file
+with open(setup_name, "r") as f:
+    loaded_data = json.load(f)
+
+active_gameplay = loaded_data.get("active_gameplay")
+translation = loaded_data.get("translation")
+dev_mode = loaded_data.get("dev_mode")  # Enables exlusive mechanics while playing and additional debug information
+show_start_sequence = loaded_data.get("show_start_sequence")
+automatic_battle = loaded_data.get("automatic_battle")  # if False, allow input of "a" and "b" values during combat round
+allow_skip_dub = loaded_data.get("allow_skip_dub")
+auto_skip_dub = loaded_data.get("skip_dub")  # Determines whether dubbing will be skipped
+get_music = loaded_data.get("get_music")  # Determines whether music playing is enabled
+ver_num = loaded_data.get("ver_num")
+difficulty = loaded_data.get("difficulty")  # placeholder, currently not implemented
+
+with open(setup_name, 'w') as json_file:  # Save the setup data to a JSON file
+    json.dump(loaded_data, json_file)
+
+print(f"Setup data loaded with these values\
+\n{setup_name}\
+\n")
+for key, value in loaded_data.items():
+    print(f"- {key} - {value}")
+print()
+
+# DEV_MODE ADDITIONAL SETUP
+if dev_mode:
+    skip_dub = True
+    get_music = False
+    input(f"{Fore.LIGHTBLUE_EX}Code is running in developer mode.\
+        \nSee: setup.json\
+        \n>>> ")

@@ -1,13 +1,12 @@
 {
-  "last_gameplay": "C:\\Users\\filip/Documents\\Dreszcz_saves\\dreszcz_23-07-06_35.json",
+  "active_gameplay": "C:\\Users\\filip/Documents\\Dreszcz_saves\\dummy.json",
   "translation": "pl",
-  "dev_mode": false,
+  "dev_mode": true,
   "show_start_sequence": false,
   "automatic_battle": true,
   "allow_skip_dub": true,
-  "auto_skip_dub": false,
+  "auto_skip_dub": null,
   "get_music": false,
-  "ver_num": "",
-  "difficulty": null,
-  "": ""
+  "ver_num": null,
+  "difficulty": null
 }

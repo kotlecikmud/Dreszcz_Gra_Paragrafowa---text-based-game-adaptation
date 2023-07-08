@@ -48,12 +48,6 @@ def loading(duration, message=None):
     print(cnst.def_txt_clr)
 
 
-def update_setup_file():
-    with open(cnst.setup_file_path, 'w') as json_file:  # Save the setup data to a JSON file
-        json.dump(cnst.setup_data, json_file)
-    debug_message('setup.json has been updated')
-
-
 def get_music(category=None, fadeout=None):
     if constants.get_music:
         if category:
@@ -196,7 +190,25 @@ def get_player_par():
     return cnst.z_init, cnst.z_count, cnst.w_init, cnst.w_count, cnst.s_init, cnst.s_count
 
 
-def get_game_state(action, last_paragraph='prg.00a', new_game=None):
+def update_setup_file():
+    setup_data = {
+        "active_gameplay": cnst.active_gameplay,
+        "translation": cnst.translation,
+        "dev_mode": cnst.dev_mode,
+        "show_start_sequence": cnst.show_start_sequence,
+        "automatic_battle": cnst.automatic_battle,
+        "allow_skip_dub": cnst.allow_skip_dub,
+        "auto_skip_dub": cnst.auto_skip_dub,
+        "get_music": cnst.get_music,
+        "ver_num": cnst.ver_num,
+        "difficulty": cnst.difficulty
+    }
+    with open(cnst.setup_name, 'w') as json_file:  # Save the setup data to a JSON file
+        json.dump(setup_data, json_file)
+    debug_message('setup.json has been updated')
+
+
+def get_game_state(action, last_paragraph='prg.00', new_game=None):
     folder_path = os.path.join(os.path.expanduser("~/Documents"), cnst.game_state_dir_name)
     # folder path for saving json file
 
@@ -204,8 +216,7 @@ def get_game_state(action, last_paragraph='prg.00a', new_game=None):
     # list of json files in folder_path
 
     if os.path.exists(folder_path):  # check if .json file exist
-        game_states = os.listdir(folder_path)
-        json_files = [file for file in game_states if file.endswith(".json")]
+        json_files = [file for file in os.listdir(folder_path) if file.endswith(".json")]
 
     else:  # create dir if it doesn't exists
         os.makedirs(folder_path)
@@ -214,8 +225,8 @@ def get_game_state(action, last_paragraph='prg.00a', new_game=None):
     if action == 's':
         if new_game:
             # Create new file path and update active gameplay file_path
-            cnst.active_gameplay = os.path.join(folder_path, f"dreszcz_{datetime.datetime.now().strftime('%y-%m-%d_%S')}.json")
-            print(cnst.active_gameplay)
+            cnst.active_gameplay = os.path.join(folder_path,
+                                                f"dreszcz_{datetime.datetime.now().strftime('%y-%m-%d_%S')}.json")
 
         # Save game state to variable
         game_state = {
@@ -316,6 +327,8 @@ def get_game_state(action, last_paragraph='prg.00a', new_game=None):
             cnst.game_state_exists = False
 
         return cnst.game_state_exists
+
+    update_setup_file()  # dump all setup to json file
 
     return last_paragraph
 
