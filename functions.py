@@ -230,9 +230,15 @@ def update_setup_file(manual=False):
                 print('int, float, or string')
 
             elif field == "difficulty":
-                print(", ".join(cnst.difficulty_levels), end='\r')
+                print('(1, 1.3, 1.6)')
 
             value = input(f"{field}: ") or cnst.__dict__[field]
+
+            try:
+                value = int(value)
+            except:
+                pass
+
             if value == "True":
                 setup_data[field] = True
             elif value == "False":
