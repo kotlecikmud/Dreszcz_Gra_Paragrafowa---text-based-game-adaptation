@@ -114,13 +114,14 @@ with open(setup_name, "r") as f:
 
 active_gameplay = loaded_setup.get("active_gameplay")
 translation = loaded_setup.get("translation")
-dev_mode = loaded_setup.get("dev_mode")  # Enables exlusive mechanics while playing and additional debug information
+dev_mode = loaded_setup.get("dev_mode")  # Enables exclusive mechanics while playing and additional debug information
+debug_msg = loaded_setup.get("debug_msg")
 use_dummy = loaded_setup.get("use_dummy")  # Enables use of dummy player and dummy data - for testing
 show_start_sequence = loaded_setup.get("show_start_sequence")
 manual_battle = loaded_setup.get(
     "manual_battle")  # if False, allow input of "a" and "b" values during combat round
 allow_skip_dub = loaded_setup.get("allow_skip_dub")
-auto_skip_dub = loaded_setup.get("skip_dub")  # Determines whether dubbing will be skipped
+auto_skip_dub = loaded_setup.get("auto_skip_dub")  # Determines whether dubbing will be skipped
 get_music = loaded_setup.get("get_music")  # Determines whether music playing is enabled
 ver_num = loaded_setup.get("ver_num")
 difficulty = loaded_setup.get("difficulty")  # placeholder, currently not implemented
@@ -138,10 +139,11 @@ if dev_mode:
         \n{special_txt_clr}Setup parameters:{Style.RESET_ALL}")
 
     for key, value in loaded_setup.items():
-        print(f"- {key} - {value}")
+        print(f"- {key.ljust(20)} - {value}")
 
     input(f"\
-    \n{Fore.LIGHTBLUE_EX}Code is running in developer mode.\
-        \nSee setup parameters in >>> {setup_name}.\
-        \nIf you want to load new settings, you need to reload the game.\
+    \n{Fore.LIGHTBLUE_EX}Code is running in developer mode.{def_txt_clr}\
+        \nusefull files:\
+        \nsetup parameters {input_sign}{setup_name}\
+        \ndocumentation {input_sign}Assets/PDF&HTML/\
         \n{input_sign}")

@@ -12,8 +12,6 @@
 import time
 import pygame
 import os
-import sys
-import json
 import constants
 import gamebook as gb
 import paragraphs as prg
@@ -54,6 +52,7 @@ def main_menu():
             (gb.infoboook[cnst.translation]['Mmenu4'], ''),  # settings
             (gb.infoboook[cnst.translation]['Mmenu5'], '')  # exit
         ]
+
         if cnst.game_state_exists:  # if any game state exists, display corresponding menu options
             choices_main_menu.insert(0, (gb.infoboook[cnst.translation]['Mmenu0'], ''))  # continue last gameplay
             choices_main_menu.insert(2, (gb.infoboook[cnst.translation]['Mmenu2'], ''))  # load game
@@ -62,17 +61,22 @@ def main_menu():
             choices_main_menu.append(
                 (f'{cnst.special_txt_clr}test_paragraph{cnst.def_txt_clr}',
                  f'bypass to any paragraph - {Fore.LIGHTRED_EX}for testing only!!!{Style.RESET_ALL}'))
+
             choices_main_menu.append(
                 (f'{cnst.special_txt_clr}configure_setup_file - restart_required!!!{cnst.def_txt_clr}', ''))
+
+            choices_main_menu.append(
+                (f'{cnst.special_txt_clr}project documentation{cnst.def_txt_clr}', ''))
+
         for i, (choice_main_menu, description) in enumerate(choices_main_menu, 1):  # displaying list in main menu
             print(cnst.template.format(i, choice_main_menu, description))
 
         usr_input = ask_for_user_input()
 
         # temporarily enable/disable dev_mode
-        if usr_input == 'dd':  # temporarily enable dev_mode
+        if usr_input == 'rayman':  # temporarily enable dev_mode
             cnst.dev_mode = True
-        elif usr_input == 'qq':  # temporarily disable dev_mode
+        elif usr_input == 'mario':  # temporarily disable dev_mode
             cnst.dev_mode = False
 
         if usr_input.isdigit():  # is digit
@@ -346,8 +350,15 @@ def main_menu():
                     prg._xx()  # calling placeholder function
 
                 # configuring setup.json file
-                elif choice_main_menu == f'{cnst.special_txt_clr}configure_setup_file - restart_required!!!{cnst.def_txt_clr}':
+                elif choice_main_menu == f'{cnst.special_txt_clr}configure_setup_file - for all changes restart required!!!{cnst.def_txt_clr}':
                     func.update_setup_file(True)
+
+                elif choice_main_menu == f'{cnst.special_txt_clr}project documentation{cnst.def_txt_clr}':
+                    func.clear_terminal()
+                    input(f"no documentation available\
+                    \n{cnst.input_sign}")
+                    time.sleep(2)
+                    # code for opening documentation file
 
 
 # --- --- --- --- entry point

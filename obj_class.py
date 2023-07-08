@@ -13,10 +13,6 @@ class Entity:
         self.state = state
         self.esc_possible = esc_possible
 
-    # /// attack action
-    def attack(self):
-        print(f"{self.name} atakuje!")
-
     # /// die action
     def die(self):
         print(f"{self.name} został zabity!")

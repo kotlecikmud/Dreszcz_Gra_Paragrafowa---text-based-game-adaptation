@@ -1,13 +1,13 @@
 {
-  "active_gameplay": "E:\\PycharmProjects\\Dreszcz_Gra_Paragrafowa---text-based-game-adaptation\\dummy.json",
+  "active_gameplay": "dummy.json",
   "translation": "pl",
-  "dev_mode": false,
-  "use_dummy": 0,
-  "show_start_sequence": 0,
-  "manual_battle": null,
-  "allow_skip_dub": 1,
-  "auto_skip_dub": null,
-  "get_music": 0,
+  "dev_mode": true,
+  "use_dummy": true,
+  "show_start_sequence": false,
+  "manual_battle": false,
+  "allow_skip_dub": false,
+  "auto_skip_dub": false,
+  "get_music": true,
   "ver_num": null,
   "difficulty": 1
 }

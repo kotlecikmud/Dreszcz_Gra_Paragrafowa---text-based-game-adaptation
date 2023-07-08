@@ -14,7 +14,7 @@ from colorama import Fore
 
 
 def debug_message(msg):
-    if cnst.dev_mode:
+    if cnst.debug_msg:
         print(f'{cnst.debug_txt_clr}DEBUG: {msg}{cnst.def_txt_clr}')
 
 
@@ -26,10 +26,7 @@ def error_message(error_name, msg):
 
 
 def clear_terminal():
-    if cnst.dev_mode:
-        debug_message('if dev_mode; clear_terminal() is disabled')
-    else:
-        subprocess.call('cls' if os.name == 'nt' else 'clear', shell=True)
+    subprocess.call('cls' if os.name == 'nt' else 'clear', shell=True)
 
 
 def loading(duration, message=None):
@@ -129,19 +126,17 @@ def dub_play(string_id, voice=None, skippable=True, with_text=True):
             channel.play(pygame.mixer.Sound(f'{cnst.assets_audio_effects_pth}/click_snd.mp3'))
             error_message('KeyError', f'Could not find string: {string_id}')
 
-    # wait until audio stops playing
     if skippable:
-        if cnst.allow_skip_dub:
-            input(f'skip {cnst.input_sign}')
-            pygame.mixer.stop()
-
-        elif cnst.auto_skip_dub:
+        if cnst.auto_skip_dub:
             debug_message('dialog skipped')
 
     else:
         while channel.get_busy():
-            continue
-    return
+            if cnst.allow_skip_dub:
+                input(f'skip {cnst.input_sign}')
+                pygame.mixer.stop()
+            else:
+                continue  # wait until audio stops playing
 
 
 def name_randomizer():
@@ -213,47 +208,62 @@ def update_setup_file(manual=False):
             "ver_num",
             "difficulty"
         ]
+        backup = {
+            "active_gameplay": "dummy.json",
+            "translation": "en",
+            "dev_mode": True,
+            "debug_msg": True,
+            "use_dummy": True,
+            "show_start_sequence": False,
+            "manual_battle": False,
+            "allow_skip_dub": False,
+            "auto_skip_dub": False,
+            "get_music": True,
+            "ver_num": None,
+            "difficulty": 1
+        }
 
         for field in fields:
             print()
             if field == "active_gameplay":
                 print('(path)')
-
             elif field == "translation":
                 availableLocales = list(gb.gameboook.keys())
                 print(", ".join(availableLocales))
-
             elif field == "dev_mode" or field == "use_dummy" or field == "show_start_sequence" or field == "manual_battle" or field == "allow_skip_dub" or field == "auto_skip_dub" or field == "get_music":
                 print('(True/False)')
-
             elif field == "ver_num":
                 print('int, float, or string')
-
             elif field == "difficulty":
                 print('(1, 1.3, 1.6)')
 
-            value = input(f"{field}: ") or cnst.__dict__[field]
+            value = input(f"{field}: ")
 
-            try:
-                value = int(value)
-            except:
-                pass
+            if value != '':
+                try:
+                    value = int(value)
+                except:
+                    pass
 
-            if value == "True":
-                setup_data[field] = True
-            elif value == "False":
-                setup_data[field] = False
-            elif value == "None":
-                setup_data[field] = None
+                if value == "True":
+                    setup_data[field] = True
+                elif value == "False":
+                    setup_data[field] = False
+                elif value == "None":
+                    setup_data[field] = None
+                else:
+                    setup_data[field] = value
             else:
-                setup_data[field] = value
+                setup_data[field] = cnst.__dict__[field]
+
 
     else:
         setup_data = {
             "active_gameplay": cnst.active_gameplay,
             "translation": cnst.translation,
             "dev_mode": cnst.dev_mode,
-            "use_dummy": cnst.dev_mode,
+            "debug_msg": cnst.debug_msg,
+            "use_dummy": cnst.use_dummy,
             "show_start_sequence": cnst.show_start_sequence,
             "manual_battle": cnst.manual_battle,
             "allow_skip_dub": cnst.allow_skip_dub,
@@ -268,9 +278,8 @@ def update_setup_file(manual=False):
     debug_message("setup.json has been updated")
 
     if manual:
-        input(f"Restart game to apply changes\
-        \n{cnst.input_sign}")
-        exit()
+        input(f"{cnst.special_txt_clr}Restart game to apply changes\
+        \n{cnst.input_sign}{cnst.def_txt_clr}")
 
 
 def get_game_state(action, last_paragraph='prg.00', new_game=None):
@@ -370,6 +379,7 @@ def get_game_state(action, last_paragraph='prg.00', new_game=None):
 
         update_setup_file()  # dump all setup to json file
 
+
     elif action == 'c':  # continue
         with open(cnst.active_gameplay, "r") as f:
             game_state = json.load(f)
@@ -406,12 +416,42 @@ def get_game_state(action, last_paragraph='prg.00', new_game=None):
     return last_paragraph
 
 
-def pth_selector(path_strings=[], actions=[], visit_check=False, room_id=0):
-    if room_id != 0:  # add visit count if room number was given
+def pth_selector(path_strings=None, actions=None, visit_check=False, room_id=None):
+    if room_id:  # add visit count if room number was given
         room_id.visit_count = update_num_variable(room_id.visit_count, 1)
         debug_message(f'added visit: visit count of room number {room_id.room_num} = {room_id.visit_count}')
 
-    if not visit_check:
+    if visit_check:
+        if room_id.room_state:  # if open
+            print(
+                f"{gb.gameboook[cnst.translation]['door']} {cnst.special_txt_clr}{room_id.room_num}{cnst.def_txt_clr} {gb.gameboook[cnst.translation]['are']} {cnst.special_txt_clr}{gb.gameboook[cnst.translation]['opened']}{cnst.def_txt_clr}.")
+            dub_play('opened', 'adam', False)
+
+            if not room_id.visit_count - 1 >= room_id.max_visit_count:  # Player is visiting the room more times than the allowed number.
+                if room_id.visit_count == 1:  # Player first time in room
+                    debug_message(f'eval: {actions[1]}')
+                    get_game_state('s', actions[1])
+                    eval(actions[1])
+
+                elif room_id.visit_count >= 2:  # Player has already visited the room before, but did not exceed the allowed number of visits.
+                    debug_message(f'eval: {actions[0]}')
+                    get_game_state('s', actions[0])
+                    eval(actions[0])
+
+            else:
+                print("Nie masz tu czego szukać")
+
+        else:  # if closed
+            try:
+                print(
+                    f"{gb.gameboook[cnst.translation]['door']} {cnst.special_txt_clr}{room_id.room_num}{cnst.def_txt_clr} {gb.gameboook[cnst.translation]['are']} {cnst.special_txt_clr}{gb.gameboook[cnst.translation]['closed']}{cnst.def_txt_clr}.")
+            except KeyError:
+                debug_message(f"this line does not exist in gamebook[{cnst.translation}]")
+            dub_play('closed', 'adam', False)
+            debug_message(f'eval: {actions[1]}')
+            eval(actions[1])
+
+    else:
         debug_message(f'evaluating action: {actions}')
 
         if len(actions) != 1:  # if there is more than one path, display choice menu
@@ -442,43 +482,16 @@ def pth_selector(path_strings=[], actions=[], visit_check=False, room_id=0):
             get_game_state('s', actions[odp - 1])
             eval(actions[odp - 1])
 
-    else:
-        if room_id.room_state:  # if open
-            print(
-                f"{gb.gameboook[cnst.translation]['door']} {cnst.special_txt_clr}{room_id.room_num}{cnst.def_txt_clr} {gb.gameboook[cnst.translation]['are']} {cnst.special_txt_clr}{gb.gameboook[cnst.translation]['opened']}{cnst.def_txt_clr}.")
-            dub_play('opened', 'adam', False)
-
-            if not room_id.visit_count - 1 >= room_id.max_visit_count:  # Player is visiting the room more times than the allowed number.
-                if room_id.visit_count == 1:  # Player first time in room
-                    debug_message(f'eval: {actions[1]}')
-                    get_game_state('s', actions[1])
-                    eval(actions[1])
-
-                elif room_id.visit_count >= 2:  # Player has already visited the room before, but did not exceed the allowed number of visits.
-                    debug_message(f'eval: {actions[0]}')
-                    get_game_state('s', actions[0])
-                    eval(actions[0])
-
-            else:
-                print('Nie masz tu czego szukać')
-
-        else:  # if closed
-            print(
-                f"{gb.gameboook[cnst.translation]['door']} {cnst.special_txt_clr}{room_id.room_num}{cnst.def_txt_clr} {gb.gameboook[cnst.translation]['are']} {cnst.special_txt_clr}{gb.gameboook[cnst.translation]['closed']}{cnst.def_txt_clr}.")
-            dub_play('closed', 'adam', False)
-            debug_message(f'eval: {actions[1]}')
-            eval(actions[1])
-
 
 def kill():
-    pygame.mixer.music.fadeout(1200)
-    input("Koniec gry")
+    print("Przegrałeś!!!")
+    pygame.mixer.music.fadeout(2000)
     exit()
 
 
 def win():
-    pygame.mixer.music.fadeout(1200)
-    input("GRATULACJE, WYGRAŁEŚ!!!")
+    print("Wygrałeś!!!")
+    pygame.mixer.music.fadeout(2000)
     exit()
 
 
