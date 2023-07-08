@@ -45,7 +45,7 @@ entity_txt_clr = Fore.LIGHTRED_EX  # color for entities
 special_txt_clr = Fore.LIGHTMAGENTA_EX  # color for headlines and particular special texts
 combat_txt_clr = Fore.LIGHTCYAN_EX  # color for combat text
 debug_txt_clr = Fore.LIGHTBLACK_EX  # color for debug messages
-error_txt_clr = Fore.LIGHTRED_EX  # color for error messages
+error_txt_clr = Fore.RED  # color for error messages
 
 # template for list printing (if dev_mode: explainer lines)
 template = "({}) {}"
@@ -56,7 +56,7 @@ assets_audio_pth = 'Assets/Audio'  # Path to audio files
 assets_audio_effects_pth = 'Assets/Audio/fx'  # Path to sound effects
 assets_audio_music_pth = 'Assets/Audio/music'  # Path to music
 game_state_dir_name = "Dreszcz_saves"
-setup_name = "setup.json"  # Get the setup script's location
+setup_name = "setup.json"  # Get the setup script's name and or location
 
 music_combat = [
     f'{assets_audio_music_pth}/combat/music_combat_1.mp3',  # List of combat music tracks
@@ -105,33 +105,37 @@ choices_115 = {'Miecz': '_232()',
 
 # load setup data from json file
 with open(setup_name, "r") as f:
-    loaded_data = json.load(f)
+    loaded_setup = json.load(f)
 
-active_gameplay = loaded_data.get("active_gameplay")
-translation = loaded_data.get("translation")
-dev_mode = loaded_data.get("dev_mode")  # Enables exlusive mechanics while playing and additional debug information
-show_start_sequence = loaded_data.get("show_start_sequence")
-automatic_battle = loaded_data.get("automatic_battle")  # if False, allow input of "a" and "b" values during combat round
-allow_skip_dub = loaded_data.get("allow_skip_dub")
-auto_skip_dub = loaded_data.get("skip_dub")  # Determines whether dubbing will be skipped
-get_music = loaded_data.get("get_music")  # Determines whether music playing is enabled
-ver_num = loaded_data.get("ver_num")
-difficulty = loaded_data.get("difficulty")  # placeholder, currently not implemented
+active_gameplay = loaded_setup.get("active_gameplay")
+translation = loaded_setup.get("translation")
+dev_mode = loaded_setup.get("dev_mode")  # Enables exlusive mechanics while playing and additional debug information
+show_start_sequence = loaded_setup.get("show_start_sequence")
+automatic_battle = loaded_setup.get(
+    "automatic_battle")  # if False, allow input of "a" and "b" values during combat round
+allow_skip_dub = loaded_setup.get("allow_skip_dub")
+auto_skip_dub = loaded_setup.get("skip_dub")  # Determines whether dubbing will be skipped
+get_music = loaded_setup.get("get_music")  # Determines whether music playing is enabled
+ver_num = loaded_setup.get("ver_num")
+difficulty = loaded_setup.get("difficulty")  # placeholder, currently not implemented
 
 with open(setup_name, 'w') as json_file:  # Save the setup data to a JSON file
-    json.dump(loaded_data, json_file)
+    json.dump(loaded_setup, json_file)
 
-print(f"Setup data loaded with these values\
-\n{setup_name}\
-\n")
-for key, value in loaded_data.items():
-    print(f"- {key} - {value}")
-print()
-
-# DEV_MODE ADDITIONAL SETUP
+# DEV_MODE ADDITIONAL SETUP AND INFO
 if dev_mode:
     skip_dub = True
     get_music = False
-    input(f"{Fore.LIGHTBLUE_EX}Code is running in developer mode.\
-        \nSee: setup.json\
-        \n>>> ")
+
+    print(f"{special_txt_clr}Setup parameters successfully loaded from: {Fore.YELLOW}{setup_name}\
+        \n\
+        \n{special_txt_clr}Setup parameters:{Style.RESET_ALL}")
+
+    for key, value in loaded_setup.items():
+        print(f"- {key} - {value}")
+
+    input(f"\
+    \n{Fore.LIGHTBLUE_EX}Code is running in developer mode.\
+        \nSee setup parameters in >>> {setup_name}.\
+        \nIf you want to load new settings, you need to reload the game.\
+        \n{input_sign}")

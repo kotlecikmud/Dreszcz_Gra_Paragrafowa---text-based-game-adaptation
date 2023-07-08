@@ -12,6 +12,7 @@
 import time
 import pygame
 import os
+import sys
 import json
 import constants
 import gamebook as gb
@@ -28,13 +29,21 @@ if not os.path.exists(cnst.assets_audio_pth):
     exit()
 
 
+def ask_for_user_input():
+    choice = input(f'{cnst.input_sign}{cnst.special_txt_clr} ').strip()
+    # play click
+    func.dub_play('click_snd', 'fx', None, False)
+
+    return choice
+
+
 def main_menu():
     while True:
         if cnst.ver_num != None:
             print(f'ver.{cnst.debug_txt_clr}{cnst.ver_num}')
             time.sleep(2)
 
-        func.clear_terminal()
+        func.clear_terminal()  # clearing terminal
         if cnst.player_name:
             print(f"{cnst.def_txt_clr}{gb.infoboook[cnst.translation]['Mmenu_h']} {cnst.player_name}!")
         print(f"{cnst.special_txt_clr}{gb.infoboook[cnst.translation]['Mmenu_headline']}{cnst.def_txt_clr}")
@@ -56,9 +65,8 @@ def main_menu():
         for i, (choice_main_menu, description) in enumerate(choices_main_menu, 1):  # displaying list in main menu
             print(cnst.template.format(i, choice_main_menu, description))
 
-        usr_input = input(f'{cnst.input_sign}{cnst.special_txt_clr} ').strip()
-        # play click
-        # func.dub_play('click', 'fx')
+        usr_input = ask_for_user_input()
+
         if usr_input.isdigit():  # is digit
             index = int(usr_input) - 1
             if 0 <= index < len(choices_main_menu):  # is digit in range
@@ -111,7 +119,7 @@ def main_menu():
                         for i, (choice_rules, description) in enumerate(choices_rules, 1):
                             print(cnst.template.format(i, choice_rules, description))
 
-                        usr_input = input(f'{cnst.special_txt_clr} ').strip()
+                        usr_input = ask_for_user_input()
 
                         if usr_input.isdigit():
                             index = int(usr_input) - 1
@@ -180,7 +188,7 @@ def main_menu():
                         for i, (choice_settings, description) in enumerate(choices_settings, 1):
                             print(cnst.template.format(i, choice_settings, description))
 
-                        usr_input = input(f'{cnst.special_txt_clr} ').strip()
+                        usr_input = ask_for_user_input()
 
                         if usr_input.isdigit():
                             index = int(usr_input) - 1
@@ -217,7 +225,7 @@ def main_menu():
                                     for i, (choice_difficulty_lvl, description) in enumerate(choices_difficulty_lvl, 1):
                                         print(cnst.template.format(i, choice_difficulty_lvl, description))
 
-                                    usr_input = input(f'{cnst.special_txt_clr} ').strip()
+                                    usr_input = ask_for_user_input()
 
                                     if usr_input.isdigit():
                                         index = int(usr_input) - 1
@@ -257,7 +265,7 @@ def main_menu():
                                     for i, (choice_sound_settings, description) in enumerate(choices_sound_settings, 1):
                                         print(cnst.template.format(i, choice_sound_settings, description))
 
-                                    usr_input = input(f'{cnst.special_txt_clr} ').strip()
+                                    usr_input = ask_for_user_input()
 
                                     if usr_input.isdigit():
                                         index = int(usr_input) - 1
@@ -343,7 +351,6 @@ if not cnst.dev_mode:
         func.get_music('main')
 
 func.get_player_par()  # loading player parameters
-func.clear_terminal()  # clearing terminal
 
 func.get_game_state('init')  # omit the "load game" menu option from being displayed if no game states found
 main_menu()

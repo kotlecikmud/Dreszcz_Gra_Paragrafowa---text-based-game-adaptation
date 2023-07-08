@@ -1,7 +1,7 @@
 {
   "active_gameplay": "C:\\Users\\filip/Documents\\Dreszcz_saves\\dummy.json",
   "translation": "pl",
-  "dev_mode": true,
+  "dev_mode": false,
   "show_start_sequence": false,
   "automatic_battle": true,
   "allow_skip_dub": true,

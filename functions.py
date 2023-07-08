@@ -81,7 +81,7 @@ def get_music(category=None, fadeout=None):
             debug_message('if dev_mode; get_music() is disabled')
 
 
-def dub_play(string_id, voice=None, skippable=True):
+def dub_play(string_id, voice=None, skippable=True, with_text=None):
     # building file path based on voice, translation and string_id
     audio_path = None
     if voice.lower() == 'adam':
@@ -91,7 +91,10 @@ def dub_play(string_id, voice=None, skippable=True):
     elif voice.lower() == 'fx':
         audio_path = cnst.assets_audio_effects_pth
 
-    audio_file_id = f'{audio_path}/{cnst.translation}/audiobook_{voice.lower()}_{cnst.translation}_{string_id}{cnst.audio_ext}'
+    if with_text:
+        audio_file_id = f'{audio_path}/{cnst.translation}/audiobook_{voice.lower()}_{cnst.translation}_{string_id}{cnst.audio_ext}'
+    else:
+        audio_file_id = f'{audio_path}/{string_id}{cnst.audio_ext}'
 
     try:
         current_sound = pygame.mixer.Sound(audio_file_id)
@@ -116,12 +119,15 @@ def dub_play(string_id, voice=None, skippable=True):
 
     # play sound on found channel
     channel.play(current_sound)
-    try:
-        if len(string_id) > 0:
-            print(gb.gameboook[cnst.translation][string_id])
-    except KeyError:
-        channel.play(pygame.mixer.Sound(f'{cnst.assets_audio_effects_pth}/click_snd.mp3'))
-        error_message('KeyError', f'Could not find string: {string_id}')
+
+    if with_text:
+        # display text message from gamebook
+        try:
+            if len(string_id) > 0:
+                print(gb.gameboook[cnst.translation][string_id])
+        except KeyError:
+            channel.play(pygame.mixer.Sound(f'{cnst.assets_audio_effects_pth}/click_snd.mp3'))
+            error_message('KeyError', f'Could not find string: {string_id}')
 
     # wait until audio stops playing
     if skippable:
