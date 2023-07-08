@@ -206,7 +206,7 @@ def update_setup_file(manual=False):
             "dev_mode",
             "use_dummy",
             "show_start_sequence",
-            "automatic_battle",
+            "manual_battle",
             "allow_skip_dub",
             "auto_skip_dub",
             "get_music",
@@ -223,7 +223,7 @@ def update_setup_file(manual=False):
                 availableLocales = list(gb.gameboook.keys())
                 print(", ".join(availableLocales))
 
-            elif field == "dev_mode" or field == "use_dummy" or field == "show_start_sequence" or field == "automatic_battle" or field == "allow_skip_dub" or field == "auto_skip_dub" or field == "get_music":
+            elif field == "dev_mode" or field == "use_dummy" or field == "show_start_sequence" or field == "manual_battle" or field == "allow_skip_dub" or field == "auto_skip_dub" or field == "get_music":
                 print('(True/False)')
 
             elif field == "ver_num":
@@ -249,7 +249,7 @@ def update_setup_file(manual=False):
             "dev_mode": cnst.dev_mode,
             "use_dummy": cnst.dev_mode,
             "show_start_sequence": cnst.show_start_sequence,
-            "automatic_battle": cnst.automatic_battle,
+            "manual_battle": cnst.manual_battle,
             "allow_skip_dub": cnst.allow_skip_dub,
             "auto_skip_dub": cnst.auto_skip_dub,
             "get_music": cnst.get_music,
@@ -671,15 +671,15 @@ def combat_round(entity, state, esc_possible, escape_id, stay_id, to_the_end, p_
     p_w_count = cnst.w_count
     e_w_count = entity.entity_w_count
 
-    if cnst.automatic_battle:
+    if cnst.manual_battle:
+        # Prompt the player to input values 'a' and 'b' manually by rolling two dice
+        a = input(f"Enter the value of 'a' by rolling two dice{cnst.input_sign}")
+        b = input(f"Enter the value of 'b' by rolling two dice{cnst.input_sign}")
+    else:
         # Generate values 'a' and 'b' in automatic mode
         a = random.randint(2,
                            12) + entity.entity_z_count * cnst.e_mult_choice  # e_mult_choice acts as difficulty level affects the enemy's agility
         b = random.randint(2, 12) + cnst.z_count
-    else:
-        # Prompt the player to input values 'a' and 'b' manually by rolling two dice
-        a = input(f"Enter the value of 'a' by rolling two dice{cnst.input_sign}")
-        b = input(f"Enter the value of 'b' by rolling two dice{cnst.input_sign}")
 
     if state:
         loading(1)

@@ -69,6 +69,12 @@ def main_menu():
 
         usr_input = ask_for_user_input()
 
+        # temporarily enable/disable dev_mode
+        if usr_input == 'dd':  # temporarily enable dev_mode
+            cnst.dev_mode = True
+        elif usr_input == 'qq':  # temporarily disable dev_mode
+            cnst.dev_mode = False
+
         if usr_input.isdigit():  # is digit
             index = int(usr_input) - 1
             if 0 <= index < len(choices_main_menu):  # is digit in range

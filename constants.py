@@ -10,6 +10,7 @@ potion = None
 count = 0  # Counter
 count_potion = 2  # num of potions
 choice_count = 0  # num of choices (universal)
+gold_amount = 0
 d_lvl_e = 1  # Difficulty level: easy
 d_lvl_m = d_lvl_e * 1.3  # Difficulty level: medium
 d_lvl_h = d_lvl_e * 1.6  # Difficulty level: hard
@@ -116,8 +117,8 @@ translation = loaded_setup.get("translation")
 dev_mode = loaded_setup.get("dev_mode")  # Enables exlusive mechanics while playing and additional debug information
 use_dummy = loaded_setup.get("use_dummy")  # Enables use of dummy player and dummy data - for testing
 show_start_sequence = loaded_setup.get("show_start_sequence")
-automatic_battle = loaded_setup.get(
-    "automatic_battle")  # if False, allow input of "a" and "b" values during combat round
+manual_battle = loaded_setup.get(
+    "manual_battle")  # if False, allow input of "a" and "b" values during combat round
 allow_skip_dub = loaded_setup.get("allow_skip_dub")
 auto_skip_dub = loaded_setup.get("skip_dub")  # Determines whether dubbing will be skipped
 get_music = loaded_setup.get("get_music")  # Determines whether music playing is enabled
