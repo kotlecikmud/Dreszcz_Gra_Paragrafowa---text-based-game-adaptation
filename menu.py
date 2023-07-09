@@ -4,7 +4,7 @@
 # "DRESZCZ"
 # GRA PARAGRAFOWA
 # author: Jacek Ciesielski 1987
-# programmer: Filip Pawłowski 2023 (filippawlowski2012@gmail.com)
+# developer: Filip Pawłowski 2023 (filippawlowski2012@gmail.com)
 # github repo: https://github.com/kotlecikmud/Dreszcz_Gra_Paragrafowa.git
 # - - - - - - - - -
 # - - - - - - - - -
@@ -63,7 +63,7 @@ def main_menu():
                  f'bypass to any paragraph - {Fore.LIGHTRED_EX}for testing only!!!{Style.RESET_ALL}'))
 
             choices_main_menu.append(
-                (f'{cnst.special_txt_clr}configure_setup_file - restart_required!!!{cnst.def_txt_clr}', ''))
+                (f'{cnst.special_txt_clr}configure_setup_file{cnst.def_txt_clr}', ''))
 
             choices_main_menu.append(
                 (f'{cnst.special_txt_clr}project documentation{cnst.def_txt_clr}', ''))
@@ -350,7 +350,7 @@ def main_menu():
                     prg._xx()  # calling placeholder function
 
                 # configuring setup.json file
-                elif choice_main_menu == f'{cnst.special_txt_clr}configure_setup_file - for all changes restart required!!!{cnst.def_txt_clr}':
+                elif choice_main_menu == f'{cnst.special_txt_clr}configure_setup_file{cnst.def_txt_clr}':
                     func.update_setup_file(True)
 
                 elif choice_main_menu == f'{cnst.special_txt_clr}project documentation{cnst.def_txt_clr}':
