@@ -1,12 +1,12 @@
 {
-  "last_paragraph": "prg._64()",
+  "last_paragraph": "prg._39()",
   "player_name": "dummy_player",
   "difficulty": 1,
   "s_count": 9,
-  "w_count": 16,
+  "w_count": 19,
   "z_count": 9,
-  "s_init": 9,
-  "w_init": 16,
+  "s_init": 7,
+  "w_init": 19,
   "z_init": 9,
   "equipment": {
     "plecak na Prowiant": "",
@@ -16,6 +16,6 @@
   },
   "potion": "w",
   "count_potion": 2,
-  "eatables_count": 8,
+  "eatables_count": 7,
   "gold_amount": 0
 }

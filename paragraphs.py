@@ -77,7 +77,7 @@ def _01():
 def _02():
     func.dub_play('02', 'adam')
     # initiate combat with entity_002
-    func.combat_init(ent.entity_002, ent.entity_002.state, ent.entity_002.esc_possible, 'prg._372(', '',
+    func.combat_main(ent.entity_002, ent.entity_002.state, ent.entity_002.esc_possible, 'prg._372(', '',
                      'prg._380()')
 
 
@@ -415,12 +415,12 @@ def _68():
 
 def _69a():
     func.dub_play('69a', 'adam')
-    func.combat_init(ent.entity_069_1, True, ent.entity_069_1.esc_possible, '', '', 'prg._69b()')
+    func.combat_main(ent.entity_069_1, True, ent.entity_069_1.esc_possible, '', '', 'prg._69b()')
 
 
 def _69b():
     func.dub_play('69b', 'adam')
-    func.combat_init(ent.entity_069_2, True, ent.entity_069_2.esc_possible, '', '', 'prg._69c()')
+    func.combat_main(ent.entity_069_2, True, ent.entity_069_2.esc_possible, '', '', 'prg._69c()')
 
 
 def _69c():
@@ -521,11 +521,11 @@ def _106():
 
 def _107():
     # initiate combat with entity_107
-    func.combat_init(ent.entity_107, True, ent.entity_107.esc_possible, '', '', '_23()')
+    func.combat_main(ent.entity_107, True, ent.entity_107.esc_possible, '', '', '_23()')
 
 
 def _112():
-    value = random.randint(4, 48)
+    value = random.randint(4, 48) # 4 dice auto randomizing
     if value >= 18:
         print('Szczęście ci sprzyja')
         _28()
@@ -573,7 +573,7 @@ def _115():
 
 def _116a():
     func.dub_play('116a', 'adam')
-    func.combat_init(ent.entity_116, ent.entity_116.state, ent.entity_116.esc_possible, '', '',
+    func.combat_main(ent.entity_116, ent.entity_116.state, ent.entity_116.esc_possible, '', '',
                      'prg._116b()')
 
 
@@ -739,7 +739,7 @@ def _183():
 def _184():
     func.dub_play('184', 'adam')
     # initiate combat with entity_184
-    func.combat_init(ent.entity_184, True, ent.entity_184.esc_possible, '_385(', '_226(', '_234()')
+    func.combat_main(ent.entity_184, True, ent.entity_184.esc_possible, '_385(', '_226(', '_234()')
 
 
 def _185():
@@ -860,27 +860,27 @@ def _234():
 
 def _238a():
     func.dub_play('238a', 'adam')
-    func.combat_init(ent.entity_238_1, ent.entity_238_1.state, ent.entity_238_1.esc_possible,
+    func.combat_main(ent.entity_238_1, ent.entity_238_1.state, ent.entity_238_1.esc_possible,
                      'prg._316(', 'prg._238b(', 'prg._xx()')
 
 
 def _238b():
-    func.combat_init(ent.entity_238_2, ent.entity_238_2.state, ent.entity_238_2.esc_possible,
+    func.combat_main(ent.entity_238_2, ent.entity_238_2.state, ent.entity_238_2.esc_possible,
                      'prg._316(', 'prg._238c(', 'prg._xx()')
 
 
 def _238c():
-    func.combat_init(ent.entity_238_3, ent.entity_238_3.state, ent.entity_238_3.esc_possible,
+    func.combat_main(ent.entity_238_3, ent.entity_238_3.state, ent.entity_238_3.esc_possible,
                      'prg._316(', 'prg._238d(', 'prg._xx()')
 
 
 def _238d():
-    func.combat_init(ent.entity_238_4, ent.entity_238_4.state, ent.entity_238_4.esc_possible,
+    func.combat_main(ent.entity_238_4, ent.entity_238_4.state, ent.entity_238_4.esc_possible,
                      'prg._316(', 'prg._238e(', 'prg._xx()')
 
 
 def _238e():
-    func.combat_init(ent.entity_238_5, ent.entity_238_5.state, ent.entity_238_5.esc_possible,
+    func.combat_main(ent.entity_238_5, ent.entity_238_5.state, ent.entity_238_5.esc_possible,
                      'prg._316(', 'prg._xx(', 'prg._xx()')
 
 
@@ -1014,7 +1014,7 @@ def _316():
 
 def _317a():
     func.dub_play('317a', 'adam')
-    func.combat_init(ent.entity_317, ent.entity_317.state, ent.entity_317.esc_possible, '', '',
+    func.combat_main(ent.entity_317, ent.entity_317.state, ent.entity_317.esc_possible, '', '',
                      'prg._317b()')
 
 
@@ -1051,7 +1051,7 @@ def _332():
     func.dub_play('332a', 'adam')
     func.stats_change('Wytrzymałość', cnst.w_count, -2)
     func.dub_play('332b', 'adam')
-    func.combat_init(ent.entity_332, True, ent.entity_332.esc_possible, '', '', 'prg._06a()')
+    func.combat_main(ent.entity_332, True, ent.entity_332.esc_possible, '', '', 'prg._06a()')
 
 
 def _336():
@@ -1063,7 +1063,7 @@ def _336():
 
 def _344():
     func.dub_play('344', 'adam')
-    func.combat_init(ent.entity_344, True, ent.entity_344.esc_possible, '', '', "prg._23()")
+    func.combat_main(ent.entity_344, True, ent.entity_344.esc_possible, '', '', "prg._23()")
 
 
 def _345():

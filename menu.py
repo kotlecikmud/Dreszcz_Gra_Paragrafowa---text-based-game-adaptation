@@ -355,9 +355,7 @@ def main_menu():
 
                 elif choice_main_menu == f'{cnst.special_txt_clr}project documentation{cnst.def_txt_clr}':
                     func.clear_terminal()
-                    input(f"no documentation available\
-                    \n{cnst.input_sign}")
-                    time.sleep(2)
+                    func.error_message('','NotImplementedError')
                     # code for opening documentation file
 
 

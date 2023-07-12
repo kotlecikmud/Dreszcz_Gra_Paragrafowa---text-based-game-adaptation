@@ -66,16 +66,17 @@ def get_music(category=None, fadeout=None):
                 pass
 
             if constants.dev_mode:
-                debug_message(f'Playing {category}: {rnd_choice}')
+                debug_message(f"Playing {category}: {rnd_choice}")
             pygame.mixer.music.load(rnd_choice)
             pygame.mixer.music.set_volume(cnst.bckg_volume)
-            pygame.mixer.music.play(-1)  # loop
+            if pygame.mixer.music.get_busy() == 0:
+                pygame.mixer.music.play(-1)  # play in loop --> (-1)
         else:
             if constants.dev_mode:
-                debug_message('Playing: None of music was selected')
+                debug_message("Playing: None of music was selected")
     else:
         if constants.dev_mode:
-            debug_message('if dev_mode; get_music() is disabled')
+            debug_message("if dev_mode; get_music() is disabled")
 
 
 def dub_play(string_id, voice=None, skippable=True, with_text=True):
@@ -612,128 +613,98 @@ def use_potion():
 # - - - - - - - - -
 # /// COMBAT
 # - - - - - - - - -
-def combat_init(entity, state, esc_possible, escape_id, stay_id, win_path_id):
+
+def combat_main(entity, state, esc_possible, escape_id, stay_id, win_path):
     pygame.mixer.music.fadeout(1500)
 
-    get_music('combat')  # loading background music
+    # loading background music
+    get_music('combat')
 
-    # /// setting up the combat
+    # setting up the combat
     cnst.round_count = 0
-    win_path = win_path_id
     p_w_count = cnst.w_count
     e_w_count = entity.entity_w_count
-    to_the_end = False
 
     show_player_stats()
     show_entity_stats(entity)
 
-    input(f"\
-    \n{cnst.combat_txt_clr}{gb.gameboook[cnst.translation]['combat_init']} {cnst.input_sign}")
-    combat_main(entity, state, esc_possible, escape_id, stay_id, to_the_end, p_w_count, e_w_count, win_path)
+    input(f"\n{cnst.combat_txt_clr}{gb.gameboook[cnst.translation]['combat_init']} {cnst.input_sign}")
 
+    while True:
 
-def combat_main(entity, state, esc_possible, escape_id, stay_id, to_the_end, p_w_count, e_w_count, win_path):
-    if e_w_count <= 0:  # if the enemy is dead
-        pygame.mixer.music.fadeout(1500)
-        get_music('main')  # load background music for main
+        if state:  # if enemy is alive begin new round
 
-        state = False
+            # preparing next round
+            clear_terminal()
+            cnst.round_count += 1
 
-        print(f"\
-        \n{cnst.combat_txt_clr}{gb.gameboook[cnst.translation]['combat_win_info']} {Fore.LIGHTRED_EX}{entity.name}{cnst.combat_txt_clr}!\
-        \n")
-        dub_play('xxx', 'adam', False)
+            print(f"\n{cnst.combat_txt_clr}Round: {cnst.round_count}{cnst.combat_txt_clr}")  # display round ID
 
-        show_player_stats()
+            if cnst.manual_battle:
+                a = input(f"Enter the value of 'a' by rolling two dice{cnst.input_sign}")
+                b = input(f"Enter the value of 'b' by rolling two dice{cnst.input_sign}")
 
-        if esc_possible:
-            # Prompt the player to choose whether to escape or not
-            ecape_opt = "{0}{1}".format(escape_id, (
-                "entity, state, esc_possible, escape_id, stay_id, to_the_end, p_w_count, e_w_count)"))
-            stay_opt = "{0}{1}".format(stay_id, (
-                "entity, state, esc_possible, escape_id, stay_id, to_the_end, p_w_count, e_w_count, win_path)"))
+            else:
+                a = random.randint(2, 12) + entity.entity_z_count * cnst.e_mult_choice  # value of enemy power
+                b = random.randint(2, 12) + cnst.z_count  # value of player power
 
-            print(gb.gameboook[cnst.translation]['esc_choice'])
+            if a > b:  # if the enemy is stronger
+                if cnst.w_count > 0:
+                    cnst.w_count += cnst.e_hit_val_
+                    dub_play('round_false', 'adam', False, False)
+                    cnst.w_count = max(cnst.w_count, 0)
+                    print('Enemy STORNK')
+                    # print(f"{Fore.LIGHTRED_EX}{entity.name}{cnst.combat_txt_clr} landed a hit!")
 
-            odp = input(f"Y/N {cnst.input_sign} \
-            \n")
-            if len(odp) == 0:
-                # Reduce player's endurance by 2 and proceed to escape option
+            elif a < b:  # if the player is stronger
+                if entity.entity_w_count > 0:
+                    entity.entity_w_count += cnst.p_hit_val_
+                    dub_play('round_true', 'adam', False, False)
+                    entity.entity_w_count = max(entity.entity_w_count, 0)
+                    print('Player STORNK')
+                    # print(f"{Fore.LIGHTYELLOW_EX}{cnst.player_name}{cnst.combat_txt_clr} landed a hit!")
+
+            else:  # if it's a draw
+                print(f'{cnst.special_txt_clr}Draw!\
+                \nNobody got hurt!')
+                dub_play('round_none', 'adam', False, False)
+
+            print(
+                f"\
+                \n{Fore.LIGHTYELLOW_EX}{cnst.player_name}{cnst.special_txt_clr}: {cnst.w_count}/{cnst.w_init}\
+                \n{Fore.LIGHTRED_EX}{entity.name}{cnst.special_txt_clr}: {entity.entity_w_count}/{entity.entity_w_init}")
+
+            # input(f"enemy:{entity.entity_w_count}, player: {cnst.w_count}")
+
+            loading(1)
+
+            if entity.entity_w_count <= 0:  # if the enemy is dead
+                break
+
+            elif cnst.w_count <= 0:  # if the player is dead
                 print(
-                    f"{cnst.special_txt_clr}Wytrzymałość: {cnst.w_count} {cnst.input_sign} {cnst.w_count - 2}{cnst.def_txt_clr}\
-                \n")
-                cnst.w_count -= 2
-                eval(ecape_opt)
-            elif len(odp) > 0:
-                eval(stay_opt)
+                    f"\n{gb.gameboook[cnst.translation]['combat_dead_info']} {Fore.LIGHTRED_EX}{entity.name}{cnst.combat_txt_clr}!")
+                dub_play('combat_die', 'adam', False, False)
+                kill()
 
-        else:
-            eval(win_path)
+    pygame.mixer.music.fadeout(1500)
+    get_music('main')
 
-    elif p_w_count <= 0:  # if the player is dead
-        print(f"\
-        \n{gb.gameboook[cnst.translation]['combat_dead_info']} {Fore.LIGHTRED_EX}{entity.name}{cnst.combat_txt_clr}!\
-        \n")
-        dub_play('combat_die', 'adam', False)
-        kill()
-
-    else:  # if both player and enemy are alive
-        combat_round(entity, state, esc_possible, escape_id, stay_id, to_the_end, p_w_count, e_w_count, win_path)
-
-    return state, cnst.w_count, cnst.count
-
-
-def combat_round(entity, state, esc_possible, escape_id, stay_id, to_the_end, p_w_count, e_w_count, win_path):
-    cnst.round_count += 1
-    print(f'\
-    \n{cnst.combat_txt_clr}Runda: {cnst.round_count}{cnst.combat_txt_clr}')
-    p_w_count = cnst.w_count
-    e_w_count = entity.entity_w_count
-
-    if cnst.manual_battle:
-        # Prompt the player to input values 'a' and 'b' manually by rolling two dice
-        a = input(f"Enter the value of 'a' by rolling two dice{cnst.input_sign}")
-        b = input(f"Enter the value of 'b' by rolling two dice{cnst.input_sign}")
+    print(
+        f"\n{cnst.combat_txt_clr}{gb.gameboook[cnst.translation]['combat_win_info']} {Fore.LIGHTRED_EX}{entity.name}{cnst.combat_txt_clr}!")
+    dub_play('xxx', 'adam', False)
+    show_player_stats()
+    if esc_possible:
+        escape_opt = f"{escape_id}(entity, state, esc_possible, escape_id, stay_id, to_the_end, p_w_count, e_w_count)"
+        stay_opt = f"{stay_id}(entity, state, esc_possible, escape_id, stay_id, to_the_end, p_w_count, e_w_count, win_path)"
+        print(gb.gameboook[cnst.translation]['esc_choice'])
+        odp = input(f"Y/N {cnst.input_sign}\n")
+        if len(odp) == 0:
+            print(
+                f"{cnst.special_txt_clr}Wytrzymałość: {cnst.w_count} {cnst.input_sign} {cnst.w_count - 2}{cnst.def_txt_clr}")
+            cnst.w_count -= 2
+            eval(escape_opt)
+        elif len(odp) > 0:
+            eval(stay_opt)
     else:
-        # Generate values 'a' and 'b' in automatic mode
-        a = random.randint(2,
-                           12) + entity.entity_z_count * cnst.e_mult_choice  # e_mult_choice acts as difficulty level affects the enemy's agility
-        b = random.randint(2, 12) + cnst.z_count
-
-    if state:
-        loading(1)
-        if a > b:  # if the enemy won
-
-            if cnst.w_count > 0:
-                if e_w_count <= 0:
-                    state = False
-                    # Proceed to combat_main function if the enemy is defeated
-                    combat_main(entity, state, esc_possible, escape_id, stay_id, to_the_end, p_w_count, e_w_count,
-                                win_path)
-                cnst.w_count += cnst.e_hit_val_
-                # Print the enemy's attack and update player's endurance
-                print(f"{Fore.LIGHTRED_EX}{entity.name}{cnst.combat_txt_clr} landed a hit!\
-                \n{cnst.special_txt_clr}/// Endurance {Fore.LIGHTYELLOW_EX}{cnst.player_name}{cnst.special_txt_clr}: {cnst.w_count}/{cnst.w_init}")
-                dub_play('round_false', 'adam', False)
-
-                cnst.w_count = max(cnst.w_count, 0)
-
-        elif a < b:  # if the player won
-
-            if entity.entity_w_count > 0:
-                entity.entity_w_count += cnst.p_hit_val_
-                # Print the player's attack and update enemy's endurance
-                print(f"{Fore.LIGHTYELLOW_EX}{cnst.player_name}{cnst.combat_txt_clr} landed a hit!\
-                \n{cnst.special_txt_clr}/// Endurance {Fore.LIGHTRED_EX}{entity.name}{cnst.special_txt_clr}: {entity.entity_w_count}/{entity.entity_w_init}")
-                dub_play('round_true', 'adam', False)
-
-                entity.entity_w_count = max(entity.entity_w_count, 0)
-
-        else:  # if it's a draw
-            print(f'{cnst.special_txt_clr}Draw!')
-            dub_play('round_none', 'adam', False)
-
-        if cnst.allow_skip_dub:  # If the option to skip the dubbing is enabled
-            time.sleep(2 * cnst.delay)
-
-    combat_main(entity, state, esc_possible, escape_id, stay_id, to_the_end, p_w_count, e_w_count, win_path)
+        eval(win_path)
