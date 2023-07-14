@@ -47,27 +47,19 @@ def loading(duration, message=None):
 
 def get_music(category=None, fadeout=None):
     if constants.get_music:
-        if category:
-            rnd_choice = None
+        if category == 'main' or category == 'combat' or category == 'menu':
+            random_track = random.choice(cnst.music_tracks[category])
+
             if fadeout:
                 pygame.mixer.music.fadeout(fadeout)
 
-            if category == 'main':
-                rnd_choice = random.choice(cnst.music_main)  # randomizing music from list
-
-            elif category == 'combat':
-                rnd_choice = random.choice(cnst.music_combat)
-
-            elif category == 'menu':
-                rnd_choice = random.choice(cnst.music_menu)
-
             else:
-                # rnd_choice = random.choice(cnst.music_other) # unused for now
+                # random_track = random.choice(cnst.music_other) # unused for now
                 pass
 
             if constants.dev_mode:
-                debug_message(f"Playing {category}: {rnd_choice}")
-            pygame.mixer.music.load(rnd_choice)
+                debug_message(f"Playing {category}: {random_track}")
+            pygame.mixer.music.load(random_track)
             pygame.mixer.music.set_volume(cnst.bckg_volume)
             if pygame.mixer.music.get_busy() == 0:
                 pygame.mixer.music.play(-1)  # play in loop --> (-1)
@@ -185,7 +177,7 @@ def get_player_par():
     return cnst.z_init, cnst.z_count, cnst.w_init, cnst.w_count, cnst.s_init, cnst.s_count
 
 
-def update_setup_file(manual=False):
+def update_setup_file(manual=False, backup=False):
     if manual:
         print("Leave empty for no changes:")
         setup_data = {}
@@ -201,19 +193,6 @@ def update_setup_file(manual=False):
             "ver_num",
             "difficulty"
         ]
-        backup = {
-            "active_gameplay": "dummy.json",
-            "translation": "en",
-            "dev_mode": True,
-            "debug_msg": True,
-            "use_dummy": True,
-            "show_start_sequence": False,
-            "manual_battle": False,
-            "allow_dialog_skipping": False,
-            "get_music": True,
-            "ver_num": None,
-            "difficulty": 1
-        }
 
         for field in fields:
             print()
@@ -245,7 +224,21 @@ def update_setup_file(manual=False):
             else:
                 setup_data[field] = cnst.__dict__[field]
 
-
+    elif backup:
+        setup_data = {
+            "active_gameplay": "dreszcz_dummy.json",
+            "translation": "en",
+            "dev_mode": True,
+            "debug_msg": True,
+            "use_dummy": True,
+            "show_start_sequence": False,
+            "manual_battle": False,
+            "allow_dialog_skipping": True,
+            "get_music": True,
+            "ver_num": None,
+            "difficulty": 1
+        }
+        debug_message('backup data loaded')
 
     else:
         setup_data = {
@@ -330,8 +323,12 @@ def get_game_state(action, last_paragraph='prg.00', new_game=None):
                 print(f"{i}. {file}")
 
             while True:
-                file_number = input(f"\nChoose game state to load\
+                file_number = input(f"\nChoose game state to load (leave empty to return to main menu)\
                 \n{cnst.input_sign}")
+
+                if file_number == '':
+                    break
+
                 try:
                     file_number = int(file_number)
 

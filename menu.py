@@ -57,16 +57,19 @@ def main_menu():
             choices_main_menu.insert(0, (gb.infoboook[cnst.translation]['Mmenu0'], ''))  # continue last gameplay
             choices_main_menu.insert(2, (gb.infoboook[cnst.translation]['Mmenu2'], ''))  # load game
 
-        if cnst.dev_mode:  # append developer mode tools to main menu list
+        if cnst.dev_mode:  # append developer mode options to main menu list
             choices_main_menu.append(
                 (f'{cnst.special_txt_clr}test_paragraph{cnst.def_txt_clr}',
-                 f'bypass to any paragraph - {Fore.LIGHTRED_EX}for testing only!!!{Style.RESET_ALL}'))
+                 f'bypass to any paragraph'))
 
             choices_main_menu.append(
                 (f'{cnst.special_txt_clr}configure_setup_file{cnst.def_txt_clr}', ''))
 
             choices_main_menu.append(
-                (f'{cnst.special_txt_clr}project documentation{cnst.def_txt_clr}', ''))
+                (f'{cnst.special_txt_clr}project documentation{cnst.def_txt_clr}', 'pdf scan of original book, HTML adaptation from http://www.dudziarz.net'))
+
+            choices_main_menu.append(
+                (f'{cnst.special_txt_clr}restore default{cnst.def_txt_clr}', 'ALL CHANGES WILL BE LOST!!!'))
 
         for i, (choice_main_menu, description) in enumerate(choices_main_menu, 1):  # displaying list in main menu
             print(cnst.template.format(i, choice_main_menu, description))
@@ -292,12 +295,12 @@ def main_menu():
                                             while True:
 
                                                 try:
-                                                    new_volume = int(input('Podaj nowy poziom głośności (1-10): '))
+                                                    new_volume = int(input('New volume level (1-10): '))
                                                     if 0 <= new_volume <= 10:
                                                         break
 
                                                 except ValueError:
-                                                    print("Podano nieprawidłową wartość. Wprowadź liczbę (1-10).")
+                                                    print("Given input is not 'int' type. Please try again.")
 
                                             if choice_sound_settings == gb.infoboook[cnst.translation]['Mmenu4_sub3_1']:
                                                 cnst.action_volume = new_volume
@@ -352,6 +355,7 @@ def main_menu():
 
                 # configuring setup.json file
                 elif choice_main_menu == f'{cnst.special_txt_clr}configure_setup_file{cnst.def_txt_clr}':
+                    func.clear_terminal()
                     func.update_setup_file(True)
 
                 elif choice_main_menu == f'{cnst.special_txt_clr}project documentation{cnst.def_txt_clr}':
@@ -359,6 +363,9 @@ def main_menu():
                     func.error_message('', 'NotImplementedError')
                     # code for opening documentation file
 
+                elif choice_main_menu == f'{cnst.special_txt_clr}restore default{cnst.def_txt_clr}':
+                    func.clear_terminal()
+                    func.update_setup_file(backup=True)
 
 """
 ADDITIONAL INFO FOR DEVELOPER MODE
