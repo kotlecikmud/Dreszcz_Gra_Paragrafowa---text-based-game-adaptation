@@ -1960,6 +1960,12 @@ infoboook = {
 
             "Mmenu4_sub3": "Sound",
 
+            "Mmenu4_sub3_1": "Dialogs",
+
+            "Mmenu4_sub3_2": "Effects",
+
+            "Mmenu4_sub3_3": "Music",
+
             "Mmenu4_sub4": "Character name",
 
             "Mmenu4_sub4_1": "Choose a character name (leave this field empty to generate a random name)",

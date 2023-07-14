@@ -5,7 +5,6 @@ from colorama import Fore
 
 # /// initiators
 audio_ext = '.mp3'
-game_state_exists = None
 potion = None
 count = 0  # Counter
 potion_count = 2  # num of potions
@@ -165,7 +164,6 @@ debug_msg = loaded_setup.get("debug_msg")
 use_dummy = loaded_setup.get("use_dummy")
 show_start_sequence = loaded_setup.get("show_start_sequence")
 manual_battle = loaded_setup.get("manual_battle")
-category = loaded_setup.get("category")
 allow_dialog_skipping = loaded_setup.get("allow_dialog_skipping")
 get_music = loaded_setup.get("get_music")
 ver_num = loaded_setup.get("ver_num")
@@ -174,6 +172,8 @@ difficulty = loaded_setup.get("difficulty")
 # further auto config:
 if use_dummy:
     game_state_exists = True  # enables 'Continue' and 'Load game' options in main menu
+else:
+    game_state_exists = False # disables the above
 if dev_mode:
     template = "({}) {} - {}"  # - version with enabled annotations
 else:

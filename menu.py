@@ -191,7 +191,7 @@ def main_menu():
                         choices_settings = [
                             (gb.infoboook[cnst.translation]['Mmenu4_sub1'], ''),
                             (gb.infoboook[cnst.translation]['Mmenu4_sub2'], ''),
-                            # (gb.infoboook[cnst.translation]['Mmenu4_sub3'], ''),  # currently unfinished
+                            (gb.infoboook[cnst.translation]['Mmenu4_sub3'], ''),  # currently unfinished
                             (gb.infoboook[cnst.translation]['Mmenu4_sub4'], ''),
                             (gb.infoboook[cnst.translation]['Mmenu4_sub5'], ''),
                             (gb.infoboook[cnst.translation]['return'], '')
@@ -219,7 +219,7 @@ def main_menu():
                                     translation = str(input(
                                         f"{cnst.def_txt_clr}{gb.infoboook[cnst.translation]['Mmenu4_sub1_1']} {availableLocales}\
                                     \n{cnst.input_sign}")).lower()
-                                    gb.get_translation(translation)  # update localization dictionaries
+                                    gb.get_translation(translation)  # get localization dictionaries from gamebook
                                     func.debug_message(
                                         f"{gb.infoboook[cnst.translation]['Mmenu4_sub1_2']}: {cnst.translation}")
 
@@ -287,24 +287,30 @@ def main_menu():
                                     for choice_sound_settings, description in choices_sound_settings:
 
                                         if usr_input == choice_sound_settings:
-
                                             while True:
-
                                                 try:
+                                                    # 1-10 because it's easier to input whole numbers than float
                                                     new_volume = int(input('New volume level (1-10): '))
-                                                    if 0 <= new_volume <= 10:
+                                                    if 0 < new_volume <= 10:
                                                         break
+                                                    else:
+                                                        print("Volume level must be between 1 and 10.")
 
                                                 except ValueError:
                                                     print("Given input is not 'int' type. Please try again.")
 
-                                            if choice_sound_settings == gb.infoboook[cnst.translation]['Mmenu4_sub3_1']:
+                                            new_volume = new_volume / 10  # divide by 10 to get value between 0 and 1
+                                            # dialogs
+                                            if choice_sound_settings == gb.infoboook[cnst.translation][
+                                                'Mmenu4_sub3_1']:
                                                 cnst.action_volume = new_volume
 
+                                            # effects
                                             elif choice_sound_settings == gb.infoboook[cnst.translation][
                                                 'Mmenu4_sub3_2']:
                                                 cnst.sfx_volume = new_volume
 
+                                            # background music
                                             elif choice_sound_settings == gb.infoboook[cnst.translation][
                                                 'Mmenu4_sub3_3']:
                                                 cnst.bckg_volume = new_volume
@@ -312,6 +318,8 @@ def main_menu():
 
                                             elif choice_sound_settings == gb.infoboook[cnst.translation]['return']:
                                                 main_menu()
+
+                                            func.get_music(update=True)
 
                                 elif choice_settings == gb.infoboook[cnst.translation]['Mmenu4_sub4']:  # Name setting
 

@@ -45,30 +45,30 @@ def loading(duration, message=None):
     print(cnst.def_txt_clr)
 
 
-def get_music(category=None, fadeout=None):
-    if constants.get_music:
-        if category == 'main' or category == 'combat' or category == 'menu':
-            random_track = random.choice(cnst.music_tracks[category])
+def get_music(category=None, fadeout=None, update=None):
+    if update:
+        pygame.mixer.music.set_volume(cnst.bckg_volume)
+    else:
+        if constants.get_music:
+            if category == 'main' or category == 'combat' or category == 'menu':
+                random_track = random.choice(cnst.music_tracks[category])
 
-            if fadeout:
-                pygame.mixer.music.fadeout(fadeout)
+                if fadeout:
+                    pygame.mixer.music.fadeout(fadeout)
 
-            else:
-                # random_track = random.choice(cnst.music_other) # unused for now
-                pass
-
-            if constants.dev_mode:
                 debug_message(f"Playing {category}: {random_track}")
-            pygame.mixer.music.load(random_track)
-            pygame.mixer.music.set_volume(cnst.bckg_volume)
-            if pygame.mixer.music.get_busy() == 0:
-                pygame.mixer.music.play(-1)  # play in loop --> (-1)
+
+                pygame.mixer.music.load(random_track)
+                pygame.mixer.music.set_volume(cnst.bckg_volume)
+
+                if pygame.mixer.music.get_busy() == 0:
+                    pygame.mixer.music.play(-1)  # play in loop --> (-1)
+            else:
+                if constants.dev_mode:
+                    debug_message("Playing: No music was selected")
         else:
             if constants.dev_mode:
-                debug_message("Playing: None of music was selected")
-    else:
-        if constants.dev_mode:
-            debug_message("if dev_mode; get_music() is disabled")
+                debug_message("if dev_mode; get_music() is disabled")
 
 
 def dub_play(string_id, category=None, skippable=True, with_text=True):
