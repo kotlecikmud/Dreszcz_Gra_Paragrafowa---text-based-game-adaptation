@@ -111,15 +111,10 @@ def dub_play(string_id, category=None, skippable=True, with_text=True):
         debug_message('Could not find empty channel.')
         return
 
-    if with_text:
-        # display text message from gamebook
+    if with_text:  # display currently selected gamebook identifier as text
         try:
             if len(string_id) > 0:
-                # display currently selected gamebook identifier as text
                 print(gb.gameboook[cnst.translation][string_id])
-                # for char in enumerate(gb.gameboook[cnst.translation][string_id]):
-                #     print(char)
-                #     time.sleep(0.1)
 
         except KeyError:
             channel.play(pygame.mixer.Sound(f'{cnst.assets_audio_effects_pth}/audiobook_click_snd.mp3'))
@@ -128,7 +123,7 @@ def dub_play(string_id, category=None, skippable=True, with_text=True):
     # play sound on found channel
     channel.play(current_sound)
 
-    while pygame.mixer.music.get_busy():
+    if pygame.mixer.music.get_busy():
         if skippable:
             if cnst.allow_dialog_skipping:
                 debug_message('dialog skipped automatically')
@@ -201,7 +196,6 @@ def update_setup_file(manual=False):
             "use_dummy",
             "show_start_sequence",
             "manual_battle",
-            "allow_skip_dub",
             "allow_dialog_skipping",
             "get_music",
             "ver_num",
@@ -215,7 +209,6 @@ def update_setup_file(manual=False):
             "use_dummy": True,
             "show_start_sequence": False,
             "manual_battle": False,
-            "allow_skip_dub": False,
             "allow_dialog_skipping": False,
             "get_music": True,
             "ver_num": None,
@@ -229,7 +222,7 @@ def update_setup_file(manual=False):
             elif field == "translation":
                 availableLocales = list(gb.gameboook.keys())
                 print(", ".join(availableLocales))
-            elif field in ["dev_mode", "use_dummy", "show_start_sequence", "manual_battle", "allow_skip_dub",
+            elif field in ["dev_mode", "use_dummy", "show_start_sequence", "manual_battle",
                            "allow_dialog_skipping", "get_music"]:
                 print('(True/False)')
             elif field == "ver_num":
@@ -263,7 +256,6 @@ def update_setup_file(manual=False):
             "use_dummy": cnst.use_dummy,
             "show_start_sequence": cnst.show_start_sequence,
             "manual_battle": cnst.manual_battle,
-            "allow_skip_dub": cnst.allow_skip_dub,
             "allow_dialog_skipping": cnst.allow_dialog_skipping,
             "get_music": cnst.get_music,
             "ver_num": cnst.ver_num,
@@ -281,16 +273,20 @@ def update_setup_file(manual=False):
 
 def get_game_state(action, last_paragraph='prg.00', new_game=None):
     if cnst.use_dummy:
-        # local folder
+        # use game states saved in project location
         folder_path = os.path.dirname(os.path.abspath(__file__))
     else:
-        # folder path for saving json file
+        # use local 'documents' folder path for saving json file
         folder_path = os.path.join(os.path.expanduser("~/Documents"), cnst.game_state_dir_name)
 
     json_files = []  # list of json files in folder_path
 
     if os.path.exists(folder_path):
         json_files = [file for file in os.listdir(folder_path) if file.endswith(".json") and file != "setup.json"]
+
+        for file_name in json_files:
+            if not file_name.startswith("dreszcz_") or not file_name.endswith(".json"):
+                debug_message(f"{file_name} is not a valid game state file")
     else:
         if not cnst.use_dummy:
             os.makedirs(folder_path)
@@ -356,6 +352,7 @@ def get_game_state(action, last_paragraph='prg.00', new_game=None):
             last_paragraph = game_state.get("last_paragraph")
             cnst.player_name = game_state.get("player_name")
             cnst.difficulty = game_state.get("difficulty")
+            cnst.s_count = game_state.get("s_count")
             cnst.s_count = game_state.get("s_count")
             cnst.w_count = game_state.get("w_count")
             cnst.z_count = game_state.get("z_count")

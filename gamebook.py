@@ -1962,7 +1962,7 @@ infoboook = {
 
             "Mmenu4_sub4": "Character name",
 
-            "Mmenu4_sub4_1": "Choose a character name (or press enter to generate a random name)",
+            "Mmenu4_sub4_1": "Choose a character name (leave this field empty to generate a random name)",
 
             "Mmenu4_sub5": "Randomize character attributes",
 
@@ -2089,7 +2089,7 @@ infoboook = {
 
             "Mmenu4_sub4": "Imię postaci",
 
-            "Mmenu4_sub4_1": "Wybierz imię bohatera (lub wciśnij enter aby wylosować imię)",
+            "Mmenu4_sub4_1": "Wybierz imię bohatera (zostaw puste aby wylosować imię)",
 
             "Mmenu4_sub5": "Losuj nowe atrybuty postaci",
 
@@ -2216,7 +2216,7 @@ infoboook = {
 
             "Mmenu4_sub4": "Nombre del personaje",
 
-            "Mmenu4_sub4_1": "Selecciona un nombre para el héroe (o presiona enter para generar uno al azar)",
+            "Mmenu4_sub4_1": "Selecciona un nombre para el héroe (deja en blanco para generar uno al azar.)",
 
             "Mmenu4_sub5": "Generar nuevos atributos para el personaje",
 
@@ -2345,7 +2345,7 @@ infoboook = {
 
             "Mmenu4_sub4": "Nom du personnage",
 
-            "Mmenu4_sub4_1": "Choisissez le nom du héros (ou appuyez sur Entrée pour générer un nom aléatoire)",
+            "Mmenu4_sub4_1": "Choisissez le nom du héros (veuillez laisser le champ vide pour générer un nom aléatoire)",
 
             "Mmenu4_sub5": "Générer de nouvelles caractéristiques pour le personnage",
 
@@ -2472,7 +2472,7 @@ infoboook = {
 
             "Mmenu4_sub4": "Nome del personaggio",
 
-            "Mmenu4_sub4_1": "Seleziona il nome del protagonista (o premi Invio per un nome casuale)",
+            "Mmenu4_sub4_1": "Seleziona il nome del protagonista (lascia vuoto questo casella per scegliere un nome casuale)",
 
             "Mmenu4_sub5": "Genera nuove caratteristiche del personaggio",
 

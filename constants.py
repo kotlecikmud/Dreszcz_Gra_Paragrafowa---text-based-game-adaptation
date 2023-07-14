@@ -1,6 +1,6 @@
 import pygame
 import json
-from colorama import Fore, Style
+from colorama import Fore
 
 # /// initiators
 audio_ext = '.mp3'
@@ -9,10 +9,7 @@ potion = None
 count = 0  # Counter
 count_potion = 2  # num of potions
 choice_count = 0  # num of choices (universal)
-gold_amount = 0
-d_lvl_e = 1  # Difficulty level: easy
-d_lvl_m = d_lvl_e * 1.3  # Difficulty level: medium
-d_lvl_h = d_lvl_e * 1.6  # Difficulty level: hard
+gold_amount = 0  # initial gold amount
 p_luck = None  # Player's luck
 player_name = None  # Player's name
 init_round_count = 0  # Initial num of rounds
@@ -35,10 +32,10 @@ and_his_name_is = '''
         '''
 input_sign = '>>> '  # sign indicating that the user should provide an input
 delay = 0.2  # time delay in seconds between printing each character in text
-e_mult_choice = d_lvl_e  # multiplier for entity level (default level)
+entity_hit_mult = 1  # multiplier for entity level (default level is '1')
 p_mult = 1  # player multiplier for damage calculation
-p_hit_val_ = -2 * e_mult_choice - 100  # player hit value
-e_hit_val_ = -2 * e_mult_choice  # enemy hit value
+p_hit_val_ = -2 * entity_hit_mult - 100  # player hit value
+e_hit_val_ = -2 * entity_hit_mult  # enemy hit value
 def_txt_clr = Fore.LIGHTWHITE_EX  # default text color
 entity_txt_clr = Fore.LIGHTRED_EX  # color for entities
 special_txt_clr = Fore.LIGHTMAGENTA_EX  # color for headlines and particular special texts
@@ -47,10 +44,25 @@ debug_txt_clr = Fore.LIGHTBLACK_EX  # color for debug messages
 error_txt_clr = Fore.RED  # color for error messages
 
 # template for list printing (if dev_mode: explainer lines)
-template = "({}) {}"
-# template = "({}) {} - {}" if dev_mode else "({}) {}"
+template = "({}) {}"  # template = "({}) {} - {}" if dev_mode else "({}) {}"  # - version with enabled annotations
 
-# /// paths
+"""
+/// PATHS
+This section contains path definitions and lists of audio files used in the game.
+
+Paths:
+- assets_audio_pth: Path to the directory containing audio files.
+- assets_audio_effects_pth: Path to the directory containing sound effects.
+- assets_audio_music_pth: Path to the directory containing music files.
+- game_state_dir_name: Name of the directory used for game state saves.
+- setup_name: Name of the setup script file.
+
+Music Lists:
+- music_combat: List of music tracks used in combat .
+- music_main: List of main music tracks.
+- music_menu: List of menu music tracks.
+"""
+
 assets_audio_pth = 'Assets/Audio'  # Path to audio files
 assets_audio_effects_pth = 'Assets/Audio/fx'  # Path to sound effects
 assets_audio_music_pth = 'Assets/Audio/music'  # Path to music
@@ -74,6 +86,7 @@ music_menu = [
 ]
 
 # /// pygame mixer setup
+
 pygame.mixer.init(frequency=44100, size=-16, channels=1,
                   buffer=2 ** 12)  # Initialize the mixer module with the specified settings
 action_volume = 1  # Default volume for action sounds
@@ -98,11 +111,7 @@ choices_115 = {'Miecz': '_232()',
                'Młot': '_324()',
                }
 
-difficulty_levels = {
-    "easy": 1,
-    "medium": 1.3,
-    "hard": 1.6
-}
+difficulty_levels = {"easy": 1, "medium": 1.3, "hard": 1.6}
 
 """
 /// SETUP ///
@@ -147,11 +156,8 @@ ver_num: str
 difficulty: str
     Placeholder for difficulty setting (currently not implemented).
 
-The setup data is loaded from the JSON file specified by the setup_name variable located in the ///paths section.
+The setup data is loaded from the JSON file specified by the setup_name variable located in the ///PATHS section above.
 The values are assigned to their respective variables using the get() method of the loaded_setup dictionary.
-
-If the dev_mode variable is set to True, some useful information is displayed,
-including the setup parameters file name, documentation path.
 """
 
 # load setup data from json file
@@ -171,21 +177,6 @@ get_music = loaded_setup.get("get_music")
 ver_num = loaded_setup.get("ver_num")
 difficulty = loaded_setup.get("difficulty")
 
-# ADDITIONAL INFO FOR DEVELOPER MODE
-if dev_mode:
-
-    print(f"{special_txt_clr}Game setup parameters successfully loaded from file: {Fore.YELLOW}{setup_name}\
-        \n\
-        \n{special_txt_clr}Setup parameters:{Style.RESET_ALL}")
-
-    for key, value in loaded_setup.items():  # display all the setup parameters
-        print(f"- {key.ljust(22)} - {value}")
-
-    input(f"\
-    \n{Fore.LIGHTBLUE_EX}Code is running in developer mode.\
-    \n(to activate the dev_mode temporarily toggle in the main menu, enter 'rayman'-ON or 'mario'-OFF.){def_txt_clr}\
-    \n\
-    \nusefull stuff:\
-    \nsetup parameters {input_sign}{setup_name}\
-    \ndocumentation {input_sign}Assets/PDF&HTML/\
-    \n{input_sign}")
+# further auto config:
+if use_dummy:
+    game_state_exists = True

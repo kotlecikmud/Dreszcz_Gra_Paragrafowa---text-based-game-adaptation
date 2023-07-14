@@ -244,22 +244,23 @@ def main_menu():
                                         if 0 <= index < len(choices_difficulty_lvl):
                                             usr_input = choices_difficulty_lvl[index][0]
 
-                                    difficulty_lvl = None
+                                    dif_lvl_choice = None  # initialize parameter
                                     for choice_difficulty_lvl, description in choices_difficulty_lvl:
                                         if usr_input == choice_difficulty_lvl:
-
-                                            if choice_difficulty_lvl == gb.infoboook[cnst.translation]['Mmenu4_sub1_1']:
-                                                difficulty_lvl = cnst.d_lvl_e
+                                            if choice_difficulty_lvl == gb.infoboook[cnst.translation][
+                                                'Mmenu4_sub1_1']:
+                                                dif_lvl_choice = cnst.difficulty_levels["easy"]
 
                                             elif choice_difficulty_lvl == gb.infoboook[cnst.translation][
                                                 'Mmenu4_sub1_2']:
-                                                difficulty_lvl = cnst.d_lvl_m
+                                                dif_lvl_choice = cnst.difficulty_levels["medium"]
 
                                             elif choice_difficulty_lvl == gb.infoboook[cnst.translation][
                                                 'Mmenu4_sub1_3']:
-                                                difficulty_lvl = cnst.d_lvl_h
+                                                dif_lvl_choice = cnst.difficulty_levels["hard"]
 
-                                            cnst.e_mult_choice = difficulty_lvl
+                                            cnst.entity_hit_mult = func.update_variable(cnst.entity_hit_mult,
+                                                                                        dif_lvl_choice)
 
 
                                 elif choice_settings == gb.infoboook[cnst.translation]['Mmenu4_sub3']:  # Audio settings
@@ -298,7 +299,7 @@ def main_menu():
                                                 except ValueError:
                                                     print("Podano nieprawidłową wartość. Wprowadź liczbę (1-10).")
 
-                                            if choice_sound_settings == gb.infoboook[cnst.translation]['Mmenu3_sub3_1']:
+                                            if choice_sound_settings == gb.infoboook[cnst.translation]['Mmenu4_sub3_1']:
                                                 cnst.action_volume = new_volume
 
                                             elif choice_sound_settings == gb.infoboook[cnst.translation][
@@ -355,26 +356,45 @@ def main_menu():
 
                 elif choice_main_menu == f'{cnst.special_txt_clr}project documentation{cnst.def_txt_clr}':
                     func.clear_terminal()
-                    func.error_message('','NotImplementedError')
+                    func.error_message('', 'NotImplementedError')
                     # code for opening documentation file
 
 
-# --- --- --- --- entry point
-if not cnst.dev_mode:
-    if cnst.show_start_sequence:  # time: 23.1 seconds
-        func.get_music('menu')  # loading background music
-        func.loading(1.4)  # loading screen
-        messages = ['Jacek Ciesielski\r', 'Filip Pawłowski', 'presents...', 'DRESZCZ - GRA PARAGRAFOWA']
-        for message in messages:
-            print(message)
-            time.sleep(5.4)
+"""
+ADDITIONAL INFO FOR DEVELOPER MODE
+If the dev_mode variable is set to True, some useful information is displayed,
+including the setup parameters file name, documentation path.
+"""
+if cnst.dev_mode:
+    print(f"\
+        \n{Fore.LIGHTBLUE_EX}Code is running in developer mode.\
+        \nTo deactivate the dev_mode temporarily toggle in the main menu, enter 'rayman'-ON or 'mario'-OFF.\
+        \nAlso you can change the setup parameters in the setup file manually.{cnst.def_txt_clr}\
+        \n\
+        \nusefull stuff:\
+        \nsetup parameters {cnst.input_sign}{cnst.setup_name}\
+        \ndocumentation {cnst.input_sign}Assets/PDF&HTML/\
+        \n{cnst.input_sign}")
 
-    else:
-        func.get_music('main')
+    print(f"\n{cnst.special_txt_clr}Setup parameters loaded from file: {Fore.YELLOW}{cnst.setup_name}{Style.RESET_ALL}")
+
+    for key, value in cnst.loaded_setup.items():  # display all the setup parameters
+        print(f"- {key.ljust(22)} - {value}")
+
+    input(f"\ncontinue to main menu {cnst.input_sign}")
+
+if cnst.show_start_sequence:  # time: 23.1 seconds
+    func.get_music('menu')  # loading background music
+    func.loading(1.4)  # loading screen
+    messages = ['Jacek Ciesielski\r', 'Filip Pawłowski', 'presents...', 'DRESZCZ - GRA PARAGRAFOWA']
+    for message in messages:
+        print(message)
+        time.sleep(5.4)
+else:
+    func.get_music('main')
 
 func.get_player_par()  # loading player parameters
 
 func.get_game_state('init')  # omit the "load game" menu option from being displayed if no game states found
 
-cnst.game_state_exists = True  # temporary for testing with dummy.json
-main_menu()
+main_menu()  # --- --- --- --- entry point
