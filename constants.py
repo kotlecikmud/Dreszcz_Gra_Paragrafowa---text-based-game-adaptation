@@ -1,5 +1,4 @@
 import pygame
-import os
 import json
 from colorama import Fore, Style
 
@@ -56,7 +55,7 @@ assets_audio_pth = 'Assets/Audio'  # Path to audio files
 assets_audio_effects_pth = 'Assets/Audio/fx'  # Path to sound effects
 assets_audio_music_pth = 'Assets/Audio/music'  # Path to music
 game_state_dir_name = "Dreszcz_saves"
-setup_name = "config.json"  # Get the setup script's name and or location
+setup_name = "setup.json"  # Get the setup script's name and or location
 
 music_combat = [
     f'{assets_audio_music_pth}/combat/music_combat_1.mp3',  # List of combat music tracks
@@ -104,9 +103,56 @@ difficulty_levels = {
     "medium": 1.3,
     "hard": 1.6
 }
-# ///
-# /// SETUP ///
-# ///
+
+"""
+/// SETUP ///
+
+The code defines and loads various setup parameters for a game from a JSON file.
+
+The loaded parameters include:
+
+active_gameplay: bool
+    Stores the localization of the active game state file.
+
+translation: str
+    Stores the translation setting.
+
+dev_mode: bool
+    Enables exclusive mechanics while playing and additional debug information.
+
+debug_msg: bool
+    Enables debug messages in between gameplay.
+
+use_dummy: bool
+    Enables the use of dummy player and dummy data for testing purposes.
+
+show_start_sequence: bool
+    Determines if the start sequence should be shown.
+
+manual_battle: bool
+    If False, allows input of "a" and "b" values during combat round.
+
+category: str
+    Stores the category information.
+
+allow_dialog_skipping: bool
+    Determines whether dubbing will be skipped.
+
+get_music: bool
+    Determines whether music playing is enabled.
+
+ver_num: str
+    Stores the version number.
+
+difficulty: str
+    Placeholder for difficulty setting (currently not implemented).
+
+The setup data is loaded from the JSON file specified by the setup_name variable located in the ///paths section.
+The values are assigned to their respective variables using the get() method of the loaded_setup dictionary.
+
+If the dev_mode variable is set to True, some useful information is displayed,
+including the setup parameters file name, documentation path.
+"""
 
 # load setup data from json file
 with open(setup_name, "r") as f:
@@ -114,29 +160,25 @@ with open(setup_name, "r") as f:
 
 active_gameplay = loaded_setup.get("active_gameplay")
 translation = loaded_setup.get("translation")
-dev_mode = loaded_setup.get("dev_mode")  # Enables exclusive mechanics while playing and additional debug information
-debug_msg = loaded_setup.get("debug_msg")  # Enables debug messages in between gameplay
-use_dummy = loaded_setup.get("use_dummy")  # Enables use of dummy player and dummy data - for testing
+dev_mode = loaded_setup.get("dev_mode")
+debug_msg = loaded_setup.get("debug_msg")
+use_dummy = loaded_setup.get("use_dummy")
 show_start_sequence = loaded_setup.get("show_start_sequence")
-manual_battle = loaded_setup.get(
-    "manual_battle")  # if False, allow input of "a" and "b" values during combat round
+manual_battle = loaded_setup.get("manual_battle")
 category = loaded_setup.get("category")
-allow_dialog_skipping = loaded_setup.get("allow_dialog_skipping")  # Determines whether dubbing will be skipped
-get_music = loaded_setup.get("get_music")  # Determines whether music playing is enabled
+allow_dialog_skipping = loaded_setup.get("allow_dialog_skipping")
+get_music = loaded_setup.get("get_music")
 ver_num = loaded_setup.get("ver_num")
-difficulty = loaded_setup.get("difficulty")  # placeholder, currently not implemented
-
-with open(setup_name, 'w') as json_file:  # Save the setup data to a JSON file
-    json.dump(loaded_setup, json_file)
+difficulty = loaded_setup.get("difficulty")
 
 # ADDITIONAL INFO FOR DEVELOPER MODE
 if dev_mode:
 
-    print(f"{special_txt_clr}Game setup parameters successfully loaded from: {Fore.YELLOW}{setup_name}\
+    print(f"{special_txt_clr}Game setup parameters successfully loaded from file: {Fore.YELLOW}{setup_name}\
         \n\
         \n{special_txt_clr}Setup parameters:{Style.RESET_ALL}")
 
-    for key, value in loaded_setup.items():
+    for key, value in loaded_setup.items():  # display all the setup parameters
         print(f"- {key.ljust(22)} - {value}")
 
     input(f"\
