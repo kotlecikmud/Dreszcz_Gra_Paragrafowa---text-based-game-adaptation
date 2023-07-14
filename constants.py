@@ -56,7 +56,7 @@ assets_audio_pth = 'Assets/Audio'  # Path to audio files
 assets_audio_effects_pth = 'Assets/Audio/fx'  # Path to sound effects
 assets_audio_music_pth = 'Assets/Audio/music'  # Path to music
 game_state_dir_name = "Dreszcz_saves"
-setup_name = "setup.json"  # Get the setup script's name and or location
+setup_name = "config.json"  # Get the setup script's name and or location
 
 music_combat = [
     f'{assets_audio_music_pth}/combat/music_combat_1.mp3',  # List of combat music tracks
@@ -115,13 +115,13 @@ with open(setup_name, "r") as f:
 active_gameplay = loaded_setup.get("active_gameplay")
 translation = loaded_setup.get("translation")
 dev_mode = loaded_setup.get("dev_mode")  # Enables exclusive mechanics while playing and additional debug information
-debug_msg = loaded_setup.get("debug_msg")
+debug_msg = loaded_setup.get("debug_msg")  # Enables debug messages in between gameplay
 use_dummy = loaded_setup.get("use_dummy")  # Enables use of dummy player and dummy data - for testing
 show_start_sequence = loaded_setup.get("show_start_sequence")
 manual_battle = loaded_setup.get(
     "manual_battle")  # if False, allow input of "a" and "b" values during combat round
-allow_skip_dub = loaded_setup.get("allow_skip_dub")
-auto_skip_dub = loaded_setup.get("auto_skip_dub")  # Determines whether dubbing will be skipped
+category = loaded_setup.get("category")
+allow_dialog_skipping = loaded_setup.get("allow_dialog_skipping")  # Determines whether dubbing will be skipped
 get_music = loaded_setup.get("get_music")  # Determines whether music playing is enabled
 ver_num = loaded_setup.get("ver_num")
 difficulty = loaded_setup.get("difficulty")  # placeholder, currently not implemented
@@ -129,21 +129,21 @@ difficulty = loaded_setup.get("difficulty")  # placeholder, currently not implem
 with open(setup_name, 'w') as json_file:  # Save the setup data to a JSON file
     json.dump(loaded_setup, json_file)
 
-# DEV_MODE ADDITIONAL SETUP AND INFO
+# ADDITIONAL INFO FOR DEVELOPER MODE
 if dev_mode:
-    skip_dub = True
-    get_music = False
 
-    print(f"{special_txt_clr}Setup parameters successfully loaded from: {Fore.YELLOW}{setup_name}\
+    print(f"{special_txt_clr}Game setup parameters successfully loaded from: {Fore.YELLOW}{setup_name}\
         \n\
         \n{special_txt_clr}Setup parameters:{Style.RESET_ALL}")
 
     for key, value in loaded_setup.items():
-        print(f"- {key.ljust(20)} - {value}")
+        print(f"- {key.ljust(22)} - {value}")
 
     input(f"\
-    \n{Fore.LIGHTBLUE_EX}Code is running in developer mode.{def_txt_clr}\
-        \nusefull files:\
-        \nsetup parameters {input_sign}{setup_name}\
-        \ndocumentation {input_sign}Assets/PDF&HTML/\
-        \n{input_sign}")
+    \n{Fore.LIGHTBLUE_EX}Code is running in developer mode.\
+    \n(to activate the dev_mode temporarily toggle in the main menu, enter 'rayman'-ON or 'mario'-OFF.){def_txt_clr}\
+    \n\
+    \nusefull stuff:\
+    \nsetup parameters {input_sign}{setup_name}\
+    \ndocumentation {input_sign}Assets/PDF&HTML/\
+    \n{input_sign}")

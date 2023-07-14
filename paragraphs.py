@@ -11,6 +11,7 @@ import constants as cnst
 def _xx():
     if cnst.active_gameplay == None:
         cnst.active_gameplay = os.path.join(os.path.dirname(os.path.abspath(__file__)), "dummy.json")
+        func.debug_message('no game state found - loading dummy game state')
     while True:
         func.debug_message("--placeholder function--")
         odp = input(f"{cnst.def_txt_clr}\
@@ -311,7 +312,7 @@ def _36():
 
 
 def _37():
-    func.update_num_variable(cnst.choice_count, 1)
+    func.update_variable(cnst.choice_count, 1)
     if cnst.choice_count < 3:
         eval('_115()')
     else:
@@ -463,7 +464,7 @@ def _89():
 
 
 def _95():
-    func.update_num_variable(cnst.choice_count, 1)
+    func.update_variable(cnst.choice_count, 1)
     if cnst.choice_count < 3:
         eval('_115()')
     else:
@@ -642,7 +643,7 @@ def _153():
     func.dub_play('153', 'adam')
 
     func.stats_change('Szczęście', cnst.s_count, 1)
-    func.update_num_variable(cnst.p_hit_val_, cnst.p_hit_val_ + 1)
+    func.update_variable(cnst.p_hit_val_, cnst.p_hit_val_ + 1)
 
     path_strings = []
     actions = ['prg._115()']
@@ -839,7 +840,7 @@ def _228():
 
 
 def _232():
-    func.update_num_variable(cnst.choice_count, 1)
+    func.update_variable(cnst.choice_count, 1)
     if cnst.choice_count < 3:
         eval('_271()')
     else:
@@ -977,7 +978,7 @@ def _296():
 
 
 def _298():
-    func.update_num_variable(cnst.choice_count, 1)
+    func.update_variable(cnst.choice_count, 1)
     if cnst.choice_count < 3:
         eval('_115()')
     else:
@@ -1026,7 +1027,7 @@ def _317b():
 
 
 def _324():
-    func.update_num_variable(cnst.choice_count, 1)
+    func.update_variable(cnst.choice_count, 1)
     if cnst.choice_count < 3:
         eval('_115()')
     else:
@@ -1097,7 +1098,7 @@ def _358():
 def _364():
     func.debug_message(f'ent.room_364.visit_count = {ent.room_364.visit_count}')
 
-    ent.room_364.room_state = func.update_bool_variable(ent.room_364.room_state, True)
+    ent.room_364.room_state = func.update_variable(ent.room_364.room_state, True)
     func.debug_message(f'ent.room_364.room_state = {ent.room_364.room_state}')
 
     func.dub_play('364', 'adam', False)

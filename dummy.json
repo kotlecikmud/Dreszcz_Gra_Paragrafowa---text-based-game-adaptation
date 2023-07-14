@@ -1,1 +1,21 @@
-{"last_paragraph": "prg._xx()", "player_name": null, "difficulty": 1, "s_count": 7, "w_count": 12, "z_count": 7, "s_init": 7, "w_init": 14, "z_init": 7, "equipment": {"plecak na Prowiant": "", "prowiant": 8, "tarcza": "", "miecz": ""}, "potion": null, "count_potion": 2, "eatables_count": 8, "gold_amount": 0}
+{
+  "last_paragraph": "prg._268()",
+  "player_name": "dummy_player",
+  "difficulty": 1,
+  "s_count": 12,
+  "w_count": 21,
+  "z_count": 11,
+  "s_init": 12,
+  "w_init": 21,
+  "z_init": 11,
+  "equipment": {
+    "plecak na Prowiant": "",
+    "prowiant": 8,
+    "tarcza": "",
+    "miecz": ""
+  },
+  "potion": "w",
+  "count_potion": 2,
+  "eatables_count": 8,
+  "gold_amount": 0
+}

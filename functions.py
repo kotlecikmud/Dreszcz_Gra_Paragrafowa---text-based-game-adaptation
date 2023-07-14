@@ -79,18 +79,14 @@ def get_music(category=None, fadeout=None):
             debug_message("if dev_mode; get_music() is disabled")
 
 
-def dub_play(string_id, voice=None, skippable=True, with_text=True):
-    # building file path based on voice, translation and string_id
-    audio_path = None
-    if voice.lower() == 'adam':
+def dub_play(string_id, category=None, skippable=True, with_text=True):
+    audio_file_id = None
+
+    if category and category.lower() == 'adam':
         audio_path = f'{cnst.assets_audio_pth}/Adam'
+        audio_file_id = f'{audio_path}/{cnst.translation}/audiobook_{category.lower()}_{cnst.translation}_{string_id}{cnst.audio_ext}'
 
-        audio_file_id = f'{audio_path}/{cnst.translation}/audiobook_{voice.lower()}_{cnst.translation}_{string_id}{cnst.audio_ext}'
-
-    # elif voice.lower() == 'xxx':  # placeholder for future use
-    #     audio_path = f'{cnst.assets_audio_pth}/xxx'
-
-    elif voice.lower() == 'fx':
+    elif category and category.lower() == 'fx':
         audio_file_id = f'{cnst.assets_audio_effects_pth}/audiobook_{string_id}{cnst.audio_ext}'
 
     try:
@@ -101,8 +97,8 @@ def dub_play(string_id, voice=None, skippable=True, with_text=True):
         error_message('FileNotFoundError', f'Could not find: {audio_file_id}')
         current_sound = pygame.mixer.Sound(f'{cnst.assets_audio_effects_pth}/audiobook_click_snd.mp3')
 
-    pygame.mixer.stop()
-    current_sound.set_volume(cnst.action_volume)
+    pygame.mixer.stop()  # stop any sound currently being played
+    current_sound.set_volume(cnst.action_volume)  # ensure that volume is on default
 
     # find empty channel
     channel = None
@@ -110,33 +106,44 @@ def dub_play(string_id, voice=None, skippable=True, with_text=True):
         if not pygame.mixer.Channel(i).get_busy():
             channel = pygame.mixer.Channel(i)
             break
+
     if channel is None:
         debug_message('Could not find empty channel.')
         return
-
-    # play sound on found channel
-    channel.play(current_sound)
 
     if with_text:
         # display text message from gamebook
         try:
             if len(string_id) > 0:
+                # display currently selected gamebook identifier as text
                 print(gb.gameboook[cnst.translation][string_id])
+                # for char in enumerate(gb.gameboook[cnst.translation][string_id]):
+                #     print(char)
+                #     time.sleep(0.1)
+
         except KeyError:
             channel.play(pygame.mixer.Sound(f'{cnst.assets_audio_effects_pth}/audiobook_click_snd.mp3'))
             error_message('KeyError', f'Could not find string: {string_id}')
 
-    if skippable:
-        if cnst.auto_skip_dub:
-            debug_message('dialog skipped')
+    # play sound on found channel
+    channel.play(current_sound)
 
-    else:
-        while channel.get_busy():
-            if cnst.allow_skip_dub:
-                input(f'skip {cnst.input_sign}')
-                pygame.mixer.stop()
+    while pygame.mixer.music.get_busy():
+        if skippable:
+            if cnst.allow_dialog_skipping:
+                debug_message('dialog skipped automatically')
+
             else:
-                continue  # wait until audio stops playing
+                # press any button to skip dialogue or wait for sound to finish for automatic skipping
+                print("Press any key to skip the dialog.")
+                while True:
+                    if pygame.key.get_pressed():
+                        # Gracz nacisnął klawisz, można pominąć dialog
+                        print("Dialog skipped by player.")
+                        break
+
+
+pygame.mixer.music.stop()
 
 
 def name_randomizer():
@@ -195,7 +202,7 @@ def update_setup_file(manual=False):
             "show_start_sequence",
             "manual_battle",
             "allow_skip_dub",
-            "auto_skip_dub",
+            "allow_dialog_skipping",
             "get_music",
             "ver_num",
             "difficulty"
@@ -209,7 +216,7 @@ def update_setup_file(manual=False):
             "show_start_sequence": False,
             "manual_battle": False,
             "allow_skip_dub": False,
-            "auto_skip_dub": False,
+            "allow_dialog_skipping": False,
             "get_music": True,
             "ver_num": None,
             "difficulty": 1
@@ -222,7 +229,8 @@ def update_setup_file(manual=False):
             elif field == "translation":
                 availableLocales = list(gb.gameboook.keys())
                 print(", ".join(availableLocales))
-            elif field == "dev_mode" or field == "use_dummy" or field == "show_start_sequence" or field == "manual_battle" or field == "allow_skip_dub" or field == "auto_skip_dub" or field == "get_music":
+            elif field in ["dev_mode", "use_dummy", "show_start_sequence", "manual_battle", "allow_skip_dub",
+                           "allow_dialog_skipping", "get_music"]:
                 print('(True/False)')
             elif field == "ver_num":
                 print('int, float, or string')
@@ -233,20 +241,17 @@ def update_setup_file(manual=False):
 
             if value != '':
                 try:
-                    value = int(value)
+                    value = eval(value)
                 except:
                     pass
 
-                if value == "True":
-                    setup_data[field] = True
-                elif value == "False":
-                    setup_data[field] = False
-                elif value == "None":
-                    setup_data[field] = None
-                else:
+                if value is True or value is False or value is None:
                     setup_data[field] = value
+                else:
+                    setup_data[field] = str(value)
             else:
                 setup_data[field] = cnst.__dict__[field]
+
 
 
     else:
@@ -259,7 +264,7 @@ def update_setup_file(manual=False):
             "show_start_sequence": cnst.show_start_sequence,
             "manual_battle": cnst.manual_battle,
             "allow_skip_dub": cnst.allow_skip_dub,
-            "auto_skip_dub": cnst.auto_skip_dub,
+            "allow_dialog_skipping": cnst.allow_dialog_skipping,
             "get_music": cnst.get_music,
             "ver_num": cnst.ver_num,
             "difficulty": cnst.difficulty
@@ -282,17 +287,14 @@ def get_game_state(action, last_paragraph='prg.00', new_game=None):
         # folder path for saving json file
         folder_path = os.path.join(os.path.expanduser("~/Documents"), cnst.game_state_dir_name)
 
-    json_files = []
-    # list of json files in folder_path
+    json_files = []  # list of json files in folder_path
 
     if os.path.exists(folder_path):
-        json_files = [file for file in os.listdir(folder_path) if file.endswith(".json")]
-        if "setup.json" in json_files:
-            json_files.remove("setup.json")  # Exclude "setup.json" file from the list
-
-    else:  # create dir if it doesn't exists
-        os.makedirs(folder_path)
-        debug_message(f'Folder {folder_path} created')
+        json_files = [file for file in os.listdir(folder_path) if file.endswith(".json") and file != "setup.json"]
+    else:
+        if not cnst.use_dummy:
+            os.makedirs(folder_path)
+            debug_message(f'Created dir: {folder_path}')
 
     if action == 's':
         if new_game:
@@ -410,7 +412,7 @@ def get_game_state(action, last_paragraph='prg.00', new_game=None):
 
 def pth_selector(path_strings=None, actions=None, visit_check=False, room_id=None):
     if room_id:  # add visit count if room number was given
-        room_id.visit_count = update_num_variable(room_id.visit_count, 1)
+        room_id.visit_count = update_variable(room_id.visit_count, 1)
         debug_message(f'added visit: visit count of room number {room_id.room_num} = {room_id.visit_count}')
 
     if visit_check:
