@@ -304,7 +304,7 @@ def get_game_state(action, last_paragraph='prg.00', new_game=None):
             "z_init": cnst.z_init,
             "equipment": cnst.main_eq,
             "potion": cnst.potion,
-            "count_potion": cnst.count_potion,
+            "potion_count": cnst.potion_count,
             "eatables_count": cnst.eatables_count,
             "gold_amount": cnst.gold_amount
         }
@@ -358,7 +358,7 @@ def get_game_state(action, last_paragraph='prg.00', new_game=None):
             cnst.z_count = game_state.get("z_init")
             cnst.main_eq = game_state.get("equipment")
             cnst.potion = game_state.get("potion")
-            cnst.count_potion = game_state.get("count_potion")
+            cnst.potion_count = game_state.get("potion_count")
             cnst.eatables_count = game_state.get("eatables_count")
             cnst.gold_amount = game_state.get("gold_amount")
 
@@ -386,7 +386,7 @@ def get_game_state(action, last_paragraph='prg.00', new_game=None):
             cnst.z_count = game_state.get("z_init")
             cnst.main_eq = game_state.get("equipment")
             cnst.potion = game_state.get("potion")
-            cnst.count_potion = game_state.get("count_potion")
+            cnst.potion_count = game_state.get("potion_count")
             cnst.eatables_count = game_state.get("eatables_count")
             cnst.gold_amount = game_state.get("gold_amount")
 
@@ -567,14 +567,14 @@ def show_entity_stats(entity):
     \nZręczność: {entity.entity_z_count}/{entity.entity_z_init}')
 
 
-def stats_change(attribute_name, parameter, amount, init_value=None):
-    if init_value:
-        updated_parameter = min(parameter + amount, init_value)
-
-    else:
-        updated_parameter = parameter + amount
-
+def stats_change(attribute_name, parameter, amount, limit=None):
     inter = '+' if amount >= 0 else ''
+
+    if limit:  # for attributes that can't be increased above limit
+        updated_parameter = min(parameter + amount, limit)
+
+    else:  # for attributes that can be increased above limit
+        updated_parameter = parameter + amount
 
     print(
         f'{cnst.special_txt_clr}/// {attribute_name}({parameter}) {inter} {amount} {constants.input_sign}{updated_parameter}{cnst.def_txt_clr}')
@@ -583,7 +583,8 @@ def stats_change(attribute_name, parameter, amount, init_value=None):
 
 
 def use_potion():
-    if cnst.count_potion > 0:
+    updated_state = None
+    if cnst.potion_count > 0:
         potion_attributes = {
             'w': (cnst.w_count, cnst.w_init),
             'z': (cnst.z_count, cnst.z_init),
@@ -592,7 +593,7 @@ def use_potion():
         if cnst.potion in potion_attributes:
             attr_name, attr_value = potion_attributes[cnst.potion]
             setattr(cnst, attr_name, attr_value)
-        updated_state = cnst.count_potion - 1
+        updated_state = cnst.potion_count - 1
 
     return updated_state
 
@@ -632,7 +633,7 @@ def combat_main(entity, state, esc_possible, escape_id, stay_id, win_path):
                 b = input(f"Enter the value of 'b' by rolling two dice{cnst.input_sign}")
 
             else:
-                a = random.randint(2, 12) + entity.entity_z_count * cnst.e_mult_choice  # value of enemy power
+                a = random.randint(2, 12) + entity.entity_z_count * cnst.entity_hit_mult  # value of enemy power
                 b = random.randint(2, 12) + cnst.z_count  # value of player power
 
             if a > b:  # if the enemy is stronger

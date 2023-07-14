@@ -27,11 +27,9 @@ if not os.path.exists(cnst.assets_audio_pth):
     exit()
 
 
-def ask_for_user_input():
-    choice = input(f'{cnst.input_sign}{cnst.special_txt_clr} ').strip()
-    # play click
-    func.dub_play('click_snd', 'fx', None, False)
-
+def ask_for_user_input(message=None):
+    input_message = message or ''
+    choice = input(f'{input_message.strip()}{cnst.input_sign}{cnst.special_txt_clr}').strip()
     return choice
 
 
@@ -63,10 +61,11 @@ def main_menu():
                  f'bypass to any paragraph'))
 
             choices_main_menu.append(
-                (f'{cnst.special_txt_clr}configure_setup_file{cnst.def_txt_clr}', ''))
+                (f'{cnst.special_txt_clr}configure setup file{cnst.def_txt_clr}', 'basic config wizard'))
 
             choices_main_menu.append(
-                (f'{cnst.special_txt_clr}project documentation{cnst.def_txt_clr}', 'pdf scan of original book, HTML adaptation from http://www.dudziarz.net'))
+                (f'{cnst.special_txt_clr}project documentation{cnst.def_txt_clr}',
+                 'pdf scan of original book, HTML adaptation from http://www.dudziarz.net'))
 
             choices_main_menu.append(
                 (f'{cnst.special_txt_clr}restore default{cnst.def_txt_clr}', 'ALL CHANGES WILL BE LOST!!!'))
@@ -179,8 +178,6 @@ def main_menu():
                                     print(gb.infoboook[cnst.translation]['Mmenu3_sub1_7'])
 
                                 elif choice_rules == gb.infoboook[cnst.translation]['return']:
-                                    # print('POWODZENIA!')
-                                    # 
                                     main_menu()
 
                                 input(f'{cnst.input_sign}')
@@ -262,8 +259,7 @@ def main_menu():
                                                 'Mmenu4_sub1_3']:
                                                 dif_lvl_choice = cnst.difficulty_levels["hard"]
 
-                                            cnst.entity_hit_mult = func.update_variable(cnst.entity_hit_mult,
-                                                                                        dif_lvl_choice)
+                                            cnst.entity_hit_mult = dif_lvl_choice
 
 
                                 elif choice_settings == gb.infoboook[cnst.translation]['Mmenu4_sub3']:  # Audio settings
@@ -354,7 +350,7 @@ def main_menu():
                     prg._xx()  # calling placeholder function
 
                 # configuring setup.json file
-                elif choice_main_menu == f'{cnst.special_txt_clr}configure_setup_file{cnst.def_txt_clr}':
+                elif choice_main_menu == f'{cnst.special_txt_clr}configure setup file{cnst.def_txt_clr}':
                     func.clear_terminal()
                     func.update_setup_file(True)
 
@@ -366,6 +362,7 @@ def main_menu():
                 elif choice_main_menu == f'{cnst.special_txt_clr}restore default{cnst.def_txt_clr}':
                     func.clear_terminal()
                     func.update_setup_file(backup=True)
+
 
 """
 ADDITIONAL INFO FOR DEVELOPER MODE

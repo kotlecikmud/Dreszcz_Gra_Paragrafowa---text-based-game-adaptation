@@ -69,6 +69,7 @@ def _00():
 
 
 def _01():
+    input(cnst.entity_hit_mult)
     func.dub_play('01', 'adam')
     path_strings = []
     actions = ['prg._25()']
