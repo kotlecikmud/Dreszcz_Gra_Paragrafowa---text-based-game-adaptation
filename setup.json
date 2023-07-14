@@ -1,0 +1,13 @@
+{
+  "active_gameplay": "dreszcz_dummy.json",
+  "translation": "pl",
+  "dev_mode": true,
+  "debug_msg": true,
+  "use_dummy": true,
+  "show_start_sequence": false,
+  "manual_battle": false,
+  "allow_dialog_skipping": true,
+  "get_music": true,
+  "ver_num": null,
+  "difficulty": 1
+}
