@@ -84,15 +84,14 @@ def dub_play(string_id, voice=None, skippable=True, with_text=True):
     audio_path = None
     if voice.lower() == 'adam':
         audio_path = f'{cnst.assets_audio_pth}/Adam'
-    elif voice.lower() == 'xxx':  # placeholder for future use
-        audio_path = f'{cnst.assets_audio_pth}/xxx'
-    elif voice.lower() == 'fx':
-        audio_path = cnst.assets_audio_effects_pth
 
-    if with_text:
         audio_file_id = f'{audio_path}/{cnst.translation}/audiobook_{voice.lower()}_{cnst.translation}_{string_id}{cnst.audio_ext}'
-    else:
-        audio_file_id = f'{audio_path}/{string_id}{cnst.audio_ext}'
+
+    # elif voice.lower() == 'xxx':  # placeholder for future use
+    #     audio_path = f'{cnst.assets_audio_pth}/xxx'
+
+    elif voice.lower() == 'fx':
+        audio_file_id = f'{cnst.assets_audio_effects_pth}/audiobook_{string_id}{cnst.audio_ext}'
 
     try:
         current_sound = pygame.mixer.Sound(audio_file_id)
@@ -100,7 +99,7 @@ def dub_play(string_id, voice=None, skippable=True, with_text=True):
 
     except FileNotFoundError:
         error_message('FileNotFoundError', f'Could not find: {audio_file_id}')
-        current_sound = pygame.mixer.Sound(f'{cnst.assets_audio_effects_pth}/click_snd.mp3')
+        current_sound = pygame.mixer.Sound(f'{cnst.assets_audio_effects_pth}/audiobook_click_snd.mp3')
 
     pygame.mixer.stop()
     current_sound.set_volume(cnst.action_volume)
@@ -124,7 +123,7 @@ def dub_play(string_id, voice=None, skippable=True, with_text=True):
             if len(string_id) > 0:
                 print(gb.gameboook[cnst.translation][string_id])
         except KeyError:
-            channel.play(pygame.mixer.Sound(f'{cnst.assets_audio_effects_pth}/click_snd.mp3'))
+            channel.play(pygame.mixer.Sound(f'{cnst.assets_audio_effects_pth}/audiobook_click_snd.mp3'))
             error_message('KeyError', f'Could not find string: {string_id}')
 
     if skippable:
@@ -147,21 +146,11 @@ def name_randomizer():
                   'Zacny', 'Zuchwały', 'Pyzdra']
 
     first_name = random.choice(first_parts)
-    last_name = ''
-    if first_name == 'Zbyszko z Bogdańca':  # meme for ya (probabbly only poles could understand, sorry)
-        audio_file_id = f"{cnst.assets_audio_effects_pth}/zbych.mp3"
-        try:
-            current_sound = pygame.mixer.Sound(audio_file_id)
-            current_sound.set_volume(cnst.action_volume)
-            channel = pygame.mixer.find_channel()
-            if channel is None:
-                debug_message('Could not find empty channel.')
-                return
-            channel.play(current_sound)
-        except FileNotFoundError:
-            print(f'{Fore.LIGHTRED_EX}FileNotFoundError{cnst.def_txt_clr} || Could not find: {audio_file_id}')
-            return
-        # zbyszko z bogdańca easteregg
+    last_name = None
+
+    # 'zbyszko z bogdańca' easteregg mechanic
+    if first_name == 'Zbyszko z Bogdańca':  # meme for ya (probably only poles could understand, sorry)
+        dub_play("zbych", "fx", True, False)
         time.sleep(2.7)
         clear_terminal()
         print(cnst.and_his_name_is)
@@ -175,14 +164,16 @@ def name_randomizer():
     return cnst.player_name
 
 
-def update_bool_variable(variable, change):
-    variable = change
-    return variable
+def update_variable(variable, change):
+    if isinstance(variable, bool):
+        new_variable = change
+    elif isinstance(variable, int) or isinstance(variable, float):
+        new_variable = variable + change
+    else:
+        # Handling other variable types
+        new_variable = variable
 
-
-def update_num_variable(variable, change):
-    variable += change
-    return variable
+    return new_variable
 
 
 def get_player_par():
@@ -653,16 +644,14 @@ def combat_main(entity, state, esc_possible, escape_id, stay_id, win_path):
                     cnst.w_count += cnst.e_hit_val_
                     dub_play('round_false', 'adam', False, False)
                     cnst.w_count = max(cnst.w_count, 0)
-                    print('Enemy STORNK')
-                    # print(f"{Fore.LIGHTRED_EX}{entity.name}{cnst.combat_txt_clr} landed a hit!")
+                    print(f"{Fore.LIGHTRED_EX}{entity.name}{cnst.combat_txt_clr} landed a hit!")
 
             elif a < b:  # if the player is stronger
                 if entity.entity_w_count > 0:
                     entity.entity_w_count += cnst.p_hit_val_
                     dub_play('round_true', 'adam', False, False)
                     entity.entity_w_count = max(entity.entity_w_count, 0)
-                    print('Player STORNK')
-                    # print(f"{Fore.LIGHTYELLOW_EX}{cnst.player_name}{cnst.combat_txt_clr} landed a hit!")
+                    print(f"{Fore.LIGHTYELLOW_EX}{cnst.player_name}{cnst.combat_txt_clr} landed a hit!")
 
             else:  # if it's a draw
                 print(f'{cnst.special_txt_clr}Draw!\
@@ -674,7 +663,7 @@ def combat_main(entity, state, esc_possible, escape_id, stay_id, win_path):
                 \n{Fore.LIGHTYELLOW_EX}{cnst.player_name}{cnst.special_txt_clr}: {cnst.w_count}/{cnst.w_init}\
                 \n{Fore.LIGHTRED_EX}{entity.name}{cnst.special_txt_clr}: {entity.entity_w_count}/{entity.entity_w_init}")
 
-            # input(f"enemy:{entity.entity_w_count}, player: {cnst.w_count}")
+            debug_message(f"enemy:{entity.entity_w_count}, player: {cnst.w_count}")
 
             loading(1)
 
@@ -684,7 +673,7 @@ def combat_main(entity, state, esc_possible, escape_id, stay_id, win_path):
             elif cnst.w_count <= 0:  # if the player is dead
                 print(
                     f"\n{gb.gameboook[cnst.translation]['combat_dead_info']} {Fore.LIGHTRED_EX}{entity.name}{cnst.combat_txt_clr}!")
-                dub_play('combat_die', 'adam', False, False)
+                dub_play('combat_false', 'adam', False, False)
                 kill()
 
     pygame.mixer.music.fadeout(1500)
@@ -692,13 +681,13 @@ def combat_main(entity, state, esc_possible, escape_id, stay_id, win_path):
 
     print(
         f"\n{cnst.combat_txt_clr}{gb.gameboook[cnst.translation]['combat_win_info']} {Fore.LIGHTRED_EX}{entity.name}{cnst.combat_txt_clr}!")
-    dub_play('xxx', 'adam', False)
+    dub_play('combat_true', 'adam', False)
     show_player_stats()
     if esc_possible:
-        escape_opt = f"{escape_id}(entity, state, esc_possible, escape_id, stay_id, to_the_end, p_w_count, e_w_count)"
-        stay_opt = f"{stay_id}(entity, state, esc_possible, escape_id, stay_id, to_the_end, p_w_count, e_w_count, win_path)"
+        escape_opt = f"{escape_id})"
+        stay_opt = f"{stay_id})"
         print(gb.gameboook[cnst.translation]['esc_choice'])
-        odp = input(f"Y/N {cnst.input_sign}\n")
+        odp = input(cnst.input_sign)
         if len(odp) == 0:
             print(
                 f"{cnst.special_txt_clr}Wytrzymałość: {cnst.w_count} {cnst.input_sign} {cnst.w_count - 2}{cnst.def_txt_clr}")

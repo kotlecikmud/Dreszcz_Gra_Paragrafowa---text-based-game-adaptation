@@ -16,15 +16,15 @@ class Entity:
     # /// die action
     def die(self):
         print(f"{self.name} został zabity!")
-        # find empty channel
-        channel = None
-        for i in range(pygame.mixer.get_num_channels()):
-            if not pygame.mixer.Channel(i).get_busy():
-                channel = pygame.mixer.Channel(i)
-                break
-        if channel is None:
-            print("DEBUG: Nie znaleziono wolnego kanału.")
-            return
+        # # find empty channel
+        # channel = None
+        # for i in range(pygame.mixer.get_num_channels()):
+        #     if not pygame.mixer.Channel(i).get_busy():
+        #         channel = pygame.mixer.Channel(i)
+        #         break
+        # if channel is None:
+        #     print("DEBUG: Nie znaleziono wolnego kanału.")
+        #     return
 
         # play sound on found channel
         # channel.play(f'{cnst.assets_audio_effects_pth}/{self.name}_kill_sound.mp3')
