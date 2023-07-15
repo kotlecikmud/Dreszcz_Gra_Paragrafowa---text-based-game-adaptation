@@ -11,20 +11,11 @@
 # - - - - - - - - -
 import time
 import pygame
-import os
-import constants
 import gamebook as gb
 import paragraphs as prg
 import functions as func
 import constants as cnst
 from colorama import Fore, Style
-
-# check if the assets audio path exists, and if not, display an error message and exit the program
-if not os.path.exists(cnst.assets_audio_pth):
-    if constants.dev_mode:
-        func.error_message('AssetsNotFound',
-                           "The specified path for the audio assets is either non-existent or inaccessible. Check if /Assets exists.")
-    exit()
 
 
 def ask_for_user_input(message=None):
@@ -52,7 +43,7 @@ def main_menu():
         ]
 
         if cnst.game_state_exists:  # if any game state exists, display corresponding menu options
-            choices_main_menu.insert(0, (gb.infoboook[cnst.translation]['Mmenu0'], ''))  # continue last gameplay
+            choices_main_menu.insert(0, (gb.infoboook[cnst.translation]['Mmenu0'], cnst.active_gameplay))  # continue last gameplay
             choices_main_menu.insert(2, (gb.infoboook[cnst.translation]['Mmenu2'], ''))  # load game
 
         if cnst.dev_mode:  # append developer mode options to main menu list
@@ -68,7 +59,7 @@ def main_menu():
                  'pdf scan of original book, HTML adaptation from http://www.dudziarz.net'))
 
             choices_main_menu.append(
-                (f'{cnst.special_txt_clr}restore default{cnst.def_txt_clr}', 'ALL CHANGES WILL BE LOST!!!'))
+                (f'{cnst.special_txt_clr}restore default setup file{cnst.def_txt_clr}', 'ALL CHANGES WILL BE LOST!!!'))
 
         for i, (choice_main_menu, description) in enumerate(choices_main_menu, 1):  # displaying list in main menu
             print(cnst.template.format(i, choice_main_menu, description))
@@ -78,8 +69,10 @@ def main_menu():
         # temporarily enable/disable dev_mode
         if usr_input == 'rayman':  # temporarily enable dev_mode
             cnst.dev_mode = True
+            cnst.template = "({}) {} - {}"
         elif usr_input == 'mario':  # temporarily disable dev_mode
             cnst.dev_mode = False
+            cnst.template = "({}) {}"
 
         if usr_input.isdigit():  # is digit
             index = int(usr_input) - 1
@@ -98,8 +91,7 @@ def main_menu():
                 elif choice_main_menu == gb.infoboook[cnst.translation]['Mmenu1']:
                     func.clear_terminal()
                     print(f"/ {choice_main_menu}{cnst.def_txt_clr}")
-                    pygame.mixer.music.fadeout(2500)
-                    func.loading(2)
+                    func.loading(1)
                     prg._00()
 
                 # load game
@@ -268,9 +260,9 @@ def main_menu():
                                     print(f"{cnst.special_txt_clr}// {choice_settings}{cnst.def_txt_clr}")
 
                                     choices_sound_settings = [
-                                        (gb.infoboook[cnst.translation]['Mmenu4_sub3_1'], ''),
-                                        (gb.infoboook[cnst.translation]['Mmenu4_sub3_2'], ''),
-                                        (gb.infoboook[cnst.translation]['Mmenu4_sub3_3'], ''),
+                                        (gb.infoboook[cnst.translation]['Mmenu4_sub3_1'], cnst.action_volume * 10),
+                                        (gb.infoboook[cnst.translation]['Mmenu4_sub3_2'], cnst.sfx_volume * 10),
+                                        (gb.infoboook[cnst.translation]['Mmenu4_sub3_3'], cnst.bckg_volume * 10),
                                         (gb.infoboook[cnst.translation]['return'], '')
                                     ]
 
@@ -300,15 +292,18 @@ def main_menu():
                                                     print("Given input is not 'int' type. Please try again.")
 
                                             new_volume = new_volume / 10  # divide by 10 to get value between 0 and 1
+
                                             # dialogs
                                             if choice_sound_settings == gb.infoboook[cnst.translation][
                                                 'Mmenu4_sub3_1']:
                                                 cnst.action_volume = new_volume
+                                                func.dub_play("opened", "adam", True, False)
 
                                             # effects
                                             elif choice_sound_settings == gb.infoboook[cnst.translation][
                                                 'Mmenu4_sub3_2']:
                                                 cnst.sfx_volume = new_volume
+                                                func.dub_play("click_snd", "fx", True, False)
 
                                             # background music
                                             elif choice_sound_settings == gb.infoboook[cnst.translation][
@@ -320,6 +315,7 @@ def main_menu():
                                                 main_menu()
 
                                             func.get_music(update=True)
+
 
                                 elif choice_settings == gb.infoboook[cnst.translation]['Mmenu4_sub4']:  # Name setting
 
@@ -367,7 +363,7 @@ def main_menu():
                     func.error_message('', 'NotImplementedError')
                     # code for opening documentation file
 
-                elif choice_main_menu == f'{cnst.special_txt_clr}restore default{cnst.def_txt_clr}':
+                elif choice_main_menu == f'{cnst.special_txt_clr}restore default setup file{cnst.def_txt_clr}':
                     func.clear_terminal()
                     func.update_setup_file(backup=True)
 
@@ -375,7 +371,7 @@ def main_menu():
 """
 ADDITIONAL INFO FOR DEVELOPER MODE
 If the dev_mode variable is set to True, some useful information is displayed,
-including the setup parameters file name, documentation path.
+including the setup parameters file name at the beggining, documentation path, debug messages and so on.
 """
 if cnst.dev_mode:
     print(f"\

@@ -27,7 +27,7 @@ gameboook = {
 
             "closed": "closed",
 
-            "elxr_chc": f"{cnst.special_txt_clr}Choose elixir:\
+            "elxr_chc": "Choose elixir:\
                 \n1. Dexterity\
                 \n2. Endurance\
                 \n3. Luck",
@@ -762,7 +762,7 @@ gameboook = {
 
             "closed": "zamknięte",
 
-            "elxr_chc": f"{cnst.special_txt_clr}Wybierz eliksir:\
+            "elxr_chc": "Wybierz eliksir:\
                 \n1. Zręczności\
                 \n2. Wytrzymałości\
                 \n3. Szczęścia",
@@ -1843,7 +1843,7 @@ gameboook = {
         {
             "xxx": "",
 
-            "elxr_chc": f"{cnst.special_txt_clr}Elige una poción:\
+            "elxr_chc": "Elige una poción:\
                 \n1. Destreza\
                 \n2. Resistencia\
                 \n3. Suerte",
@@ -1871,7 +1871,7 @@ gameboook = {
         {
             "xxx": "",
 
-            "elxr_chc": f"{cnst.special_txt_clr}Choisissez une potion:\
+            "elxr_chc": "Choisissez une potion:\
                 \n1. Dextérité\
                 \n2. Endurance\
                 \n3. Chance",
@@ -1899,7 +1899,7 @@ gameboook = {
         {
             "xxx": "",
 
-            "elxr_chc": f"{cnst.special_txt_clr}Scegli un'elisir:\
+            "elxr_chc": "Scegli un'elisir:\
                 \n1. Destrezza\
                 \n2. Resistenza\
                 \n3. Fortuna",

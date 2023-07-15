@@ -52,16 +52,13 @@ def _00():
             func.clear_terminal()
             print(cnst.special_txt_clr, gb.gameboook[cnst.translation]['wrong_input'])
 
-    func.loading(1)
-    func.clear_terminal()
-    time.sleep(1)
-
-    func.get_music('main')  # loading background music
-
+    func.update_setup_file()
     func.get_game_state('s', new_game=True)
 
+    func.loading(2)
     func.clear_terminal()
-    func.update_setup_file()
+    func.get_music('main', 1400)  # loading background music with fadeout
+
     func.dub_play('00b', 'adam')
     path_strings = [f'Ruszaj {cnst.input_sign}']
     actions = ['prg._01()']
@@ -69,7 +66,6 @@ def _00():
 
 
 def _01():
-    input(cnst.entity_hit_mult)
     func.dub_play('01', 'adam')
     path_strings = []
     actions = ['prg._25()']
@@ -456,8 +452,8 @@ def _82():
 
 def _89():
     func.dub_play('89a', 'adam', False)
-    func.stats_change('Szczęscie', cnst.s_count, 2, cnst.s_init)
-    func.stats_change('Złoto', cnst.gold_amount, 3)
+    cnst.s_count = func.stats_change('Szczęscie', cnst.s_count, 2, cnst.s_init)
+    cnst.gold_amount = func.stats_change('Złoto', cnst.gold_amount, 3)
     func.dub_play('89b', 'adam')
     path_strings = []
     actions = ['prg._120()']
@@ -527,7 +523,7 @@ def _107():
 
 
 def _112():
-    value = random.randint(4, 48) # 4 dice auto randomizing
+    value = random.randint(4, 48)  # 4 dice auto randomizing
     if value >= 18:
         print('Szczęście ci sprzyja')
         _28()
@@ -567,9 +563,7 @@ def _115():
             print("Nieprawidłowy wybór.")
 
     cnst.main_eq.append(usr_input)
-
     func.eq_change(usr_input)
-
     eval(cnst.choices_115[usr_input])
 
 

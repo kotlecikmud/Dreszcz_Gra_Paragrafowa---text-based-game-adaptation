@@ -83,7 +83,6 @@ def dub_play(string_id, category=None, skippable=True, with_text=True):
 
     try:
         current_sound = pygame.mixer.Sound(audio_file_id)
-        debug_message(f'Now playing: {audio_file_id}')
 
     except FileNotFoundError:
         error_message('FileNotFoundError', f'Could not find: {audio_file_id}')
@@ -112,22 +111,15 @@ def dub_play(string_id, category=None, skippable=True, with_text=True):
             channel.play(pygame.mixer.Sound(f'{cnst.assets_audio_effects_pth}/audiobook_click_snd.mp3'))
             error_message('KeyError', f'Could not find string: {string_id}')
 
-    # play sound on found channel
-    channel.play(current_sound)
+    if skippable:
+        if cnst.dubbing:
+            debug_message('audio dialog skipped')
+            input(f"continue {cnst.input_sign}")
 
-    if pygame.mixer.music.get_busy():
-        if skippable:
-            if cnst.allow_dialog_skipping:
-                debug_message('dialog skipped automatically')
-
-            else:
-                # press any button to skip dialogue or wait for sound to finish for automatic skipping
-                print("Press any key to skip the dialog.")
-                while True:
-                    if pygame.key.get_pressed():
-                        # Gracz nacisnął klawisz, można pominąć dialog
-                        print("Dialog skipped by player.")
-                        break
+        else:
+            # play sound on found channel
+            channel.play(current_sound)
+            debug_message(f'Now playing: {audio_file_id}')
 
 
 pygame.mixer.music.stop()
@@ -188,10 +180,13 @@ def update_setup_file(manual=False, backup=False):
             "use_dummy",
             "show_start_sequence",
             "manual_battle",
-            "allow_dialog_skipping",
+            "dubbing",
             "get_music",
             "ver_num",
-            "difficulty"
+            "difficulty",
+            "action_volume",
+            "sfx_volume",
+            "bckg_volume"
         ]
 
         for field in fields:
@@ -202,12 +197,14 @@ def update_setup_file(manual=False, backup=False):
                 availableLocales = list(gb.gameboook.keys())
                 print(", ".join(availableLocales))
             elif field in ["dev_mode", "use_dummy", "show_start_sequence", "manual_battle",
-                           "allow_dialog_skipping", "get_music"]:
+                           "dubbing", "get_music"]:
                 print('(True/False)')
             elif field == "ver_num":
                 print('int, float, or string')
             elif field == "difficulty":
                 print('(1, 1.3, 1.6)')
+            elif field in ["action_volume", "sfx_volume", "bckg_volume"]:
+                print('int from 0.1 to 1.0')
 
             value = input(f"{field}: ")
 
@@ -219,6 +216,10 @@ def update_setup_file(manual=False, backup=False):
 
                 if value is True or value is False or value is None:
                     setup_data[field] = value
+
+                elif isinstance(value, int):
+                    setup_data[field] = int(value)
+
                 else:
                     setup_data[field] = str(value)
             else:
@@ -233,10 +234,13 @@ def update_setup_file(manual=False, backup=False):
             "use_dummy": True,
             "show_start_sequence": False,
             "manual_battle": False,
-            "allow_dialog_skipping": True,
-            "get_music": True,
+            "dubbing": True,
+            "get_music": False,
             "ver_num": None,
-            "difficulty": 1
+            "difficulty": 1,
+            "action_volume": 1,
+            "sfx_volume": 0.8,
+            "bckg_volume": 0.8
         }
         debug_message('backup data loaded')
 
@@ -249,10 +253,12 @@ def update_setup_file(manual=False, backup=False):
             "use_dummy": cnst.use_dummy,
             "show_start_sequence": cnst.show_start_sequence,
             "manual_battle": cnst.manual_battle,
-            "allow_dialog_skipping": cnst.allow_dialog_skipping,
+            "dubbing": cnst.dubbing,
             "get_music": cnst.get_music,
             "ver_num": cnst.ver_num,
-            "difficulty": cnst.difficulty
+            "action_volume": cnst.action_volume,
+            "sfx_volume": cnst.sfx_volume,
+            "bckg_volume": cnst.bckg_volume
         }
 
     with open(cnst.setup_name, 'w') as json_file:  # Save the setup data to a JSON file
@@ -260,7 +266,7 @@ def update_setup_file(manual=False, backup=False):
     debug_message("setup.json has been updated")
 
     if manual:
-        input(f"{cnst.special_txt_clr}Restart game to apply changes\
+        input(f"{cnst.special_txt_clr}Some changes needs restarting the game to take effect.\
         \n{cnst.input_sign}{cnst.def_txt_clr}")
 
 
@@ -283,7 +289,7 @@ def get_game_state(action, last_paragraph='prg.00', new_game=None):
     else:
         if not cnst.use_dummy:
             os.makedirs(folder_path)
-            debug_message(f'Created dir: {folder_path}')
+            debug_message(f'Directory {folder_path} created')
 
     if action == 's':
         if new_game:
@@ -397,7 +403,41 @@ def get_game_state(action, last_paragraph='prg.00', new_game=None):
             cnst.game_state_exists = True
 
         else:
-            cnst.game_state_exists = False
+            if cnst.use_dummy:
+                game_state = {
+                    "last_paragraph": "prg._01()",
+                    "player_name": "dummy_player",
+                    "difficulty": 1,
+                    "s_count": 20,
+                    "w_count": 20,
+                    "z_count": 20,
+                    "s_init": 20,
+                    "w_init": 20,
+                    "z_init": 20,
+                    "equipment": {
+                        "plecak na Prowiant": "",
+                        "prowiant": 8,
+                        "tarcza": "",
+                        "miecz": ""
+                    },
+                    "potion": "w",
+                    "potion_count": 2,
+                    "eatables_count": 8,
+                    "gold_amount": 0
+                }
+
+                cnst.active_gameplay = "dreszcz_dummy.json"
+
+                # Saving dummy game state if one doesn't exist
+                with open(cnst.active_gameplay, "w") as f:
+                    json.dump(game_state, f)
+
+                debug_message(f"Restored dummy game_state to: {cnst.active_gameplay}")
+
+                cnst.game_state_exists = True
+
+            else:
+                cnst.game_state_exists = False
 
         return cnst.game_state_exists
 
@@ -415,19 +455,21 @@ def pth_selector(path_strings=None, actions=None, visit_check=False, room_id=Non
                 f"{gb.gameboook[cnst.translation]['door']} {cnst.special_txt_clr}{room_id.room_num}{cnst.def_txt_clr} {gb.gameboook[cnst.translation]['are']} {cnst.special_txt_clr}{gb.gameboook[cnst.translation]['opened']}{cnst.def_txt_clr}.")
             dub_play('opened', 'adam', False)
 
-            if not room_id.visit_count - 1 >= room_id.max_visit_count:  # Player is visiting the room more times than the allowed number.
+            # Player is visiting the room more times than the allowed number.
+            if not room_id.visit_count - 1 >= room_id.max_visit_count:
                 if room_id.visit_count == 1:  # Player first time in room
                     debug_message(f'eval: {actions[1]}')
                     get_game_state('s', actions[1])
                     eval(actions[1])
 
-                elif room_id.visit_count >= 2:  # Player has already visited the room before, but did not exceed the allowed number of visits.
+                # Player has already visited the room before, but did not exceed the allowed number of visits.
+                elif room_id.visit_count >= 2:
                     debug_message(f'eval: {actions[0]}')
                     get_game_state('s', actions[0])
                     eval(actions[0])
 
             else:
-                print("Nie masz tu czego szukać")
+                print("Nothing to find here")
 
         else:  # if closed
             try:
@@ -457,7 +499,7 @@ def pth_selector(path_strings=None, actions=None, visit_check=False, room_id=Non
                         break
 
                 except ValueError:
-                    print(f'/!/ {cnst.special_txt_clr}Wybierz numer z listy.{cnst.def_txt_clr}')
+                    print(f'/!/ {cnst.special_txt_clr}Choose number from list{cnst.def_txt_clr}')
 
             clear_terminal()
             pygame.mixer.stop()  # abort any dubbing currently playing
@@ -466,9 +508,8 @@ def pth_selector(path_strings=None, actions=None, visit_check=False, room_id=Non
 
         else:  # if there is only one path, continue automatically
             clear_terminal()
-            odp = 1
-            get_game_state('s', actions[odp - 1])
-            eval(actions[odp - 1])
+            get_game_state('s', actions[0])
+            eval(actions[0])
 
 
 def kill():
@@ -503,12 +544,12 @@ def check_for_luck():
     return cnst.p_luck, cnst.s_count
 
 
-def check_for_gold_amount(true_path, false_path, req_amount):
+def check_for_gold_amount(req_amount):
     if cnst.gold_amount >= req_amount:
-        eval(true_path)
+        return True
     else:
-        print("Nie masz wystarczającej ilości złota.")  # You don't have enough gold.
-        eval(false_path)
+        print("You don't have enough gold.")
+        return False
 
 
 def eatables():
@@ -576,8 +617,8 @@ def stats_change(attribute_name, parameter, amount, limit=None):
     else:  # for attributes that can be increased above limit
         updated_parameter = parameter + amount
 
-    print(
-        f'{cnst.special_txt_clr}/// {attribute_name}({parameter}) {inter} {amount} {constants.input_sign}{updated_parameter}{cnst.def_txt_clr}')
+    if parameter != limit:
+        print(f'{cnst.special_txt_clr}/// {attribute_name}({parameter}) {inter} {amount} {constants.input_sign}{updated_parameter}{cnst.def_txt_clr}')
 
     return updated_parameter
 

@@ -82,9 +82,6 @@ for category in music_categories:
 
 pygame.mixer.init(frequency=44100, size=-16, channels=1,
                   buffer=2 ** 12)  # Initialize the mixer module with the specified settings
-action_volume = 1  # Default volume for action sounds
-sfx_volume = 0.8  # Default volume for sound effects
-bckg_volume = 0.8  # Default volume for background music
 
 # /// equipment list
 
@@ -164,16 +161,20 @@ debug_msg = loaded_setup.get("debug_msg")
 use_dummy = loaded_setup.get("use_dummy")
 show_start_sequence = loaded_setup.get("show_start_sequence")
 manual_battle = loaded_setup.get("manual_battle")
-allow_dialog_skipping = loaded_setup.get("allow_dialog_skipping")
+dubbing = loaded_setup.get("dubbing")
 get_music = loaded_setup.get("get_music")
 ver_num = loaded_setup.get("ver_num")
 difficulty = loaded_setup.get("difficulty")
+action_volume = loaded_setup.get("action_volume")  # Default volume for action sounds
+sfx_volume = loaded_setup.get("sfx_volume")  # Default volume for sound effects
+bckg_volume = loaded_setup.get("bckg_volume")  # Default volume for background music
 
 # further auto config:
 if use_dummy:
     game_state_exists = True  # enables 'Continue' and 'Load game' options in main menu
 else:
-    game_state_exists = False # disables the above
+    game_state_exists = False  # disables the above
+
 if dev_mode:
     template = "({}) {} - {}"  # - version with enabled annotations
 else:

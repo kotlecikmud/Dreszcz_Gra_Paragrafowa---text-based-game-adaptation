@@ -2,19 +2,10 @@ import os, shutil
 from colorama import Fore, Style
 from datetime import datetime as dt
 
-def format_files_as_string(file_list):
-    return " ".join(file_list)
+import os
 
-# Specify the directory path to scan
-directory_path = "./"  # Replace with your desired directory path
-
-# Get the .py files in the directory
-py_files = []
-for file_name in os.listdir(directory_path):
-    if file_name.endswith(".py"):
-        py_files.append(file_name)
-
-formatted_files = format_files_as_string(py_files)
+# format files as string
+formatted_files = " ".join([file_name for file_name in os.listdir("./") if file_name.endswith(".py")])
 
 version = dt.now().strftime("%d%m%y.%H%M%S")  # generate version number based on timestamp
 os.system(
