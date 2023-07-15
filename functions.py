@@ -398,14 +398,15 @@ def get_game_state(action, last_paragraph='prg.00', new_game=None):
 
             update_setup_file()  # dump all setup to json file
 
-    elif action == 'init':  # check if any game states exist
+    elif action == 'init':
         if len(json_files) > 0:
             cnst.game_state_exists = True
 
         else:
-            if cnst.use_dummy:
+            if cnst.use_dummy and cnst.active_gameplay is None:
+                cnst.active_gameplay = "dreszcz_dummy.json"
                 game_state = {
-                    "last_paragraph": "prg._01()",
+                    "last_paragraph": "prg._25()",
                     "player_name": "dummy_player",
                     "difficulty": 1,
                     "s_count": 20,
@@ -425,23 +426,14 @@ def get_game_state(action, last_paragraph='prg.00', new_game=None):
                     "eatables_count": 8,
                     "gold_amount": 0
                 }
-
-                cnst.active_gameplay = "dreszcz_dummy.json"
-
-                # Saving dummy game state if one doesn't exist
                 with open(cnst.active_gameplay, "w") as f:
                     json.dump(game_state, f)
-
                 debug_message(f"Restored dummy game_state to: {cnst.active_gameplay}")
-
                 cnst.game_state_exists = True
-
             else:
                 cnst.game_state_exists = False
 
-        return cnst.game_state_exists
-
-    return last_paragraph
+    return last_paragraph, cnst.game_state_exists
 
 
 def pth_selector(path_strings=None, actions=None, visit_check=False, room_id=None):
