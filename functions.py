@@ -220,7 +220,10 @@ def update_setup_file(manual=False, backup=False):
                 elif isinstance(value, int):
                     setup_data[field] = int(value)
 
-                else:
+                elif isinstance(value, float):
+                    setup_data[field] = float(value)
+
+                elif isinstance(value, str):
                     setup_data[field] = str(value)
             else:
                 setup_data[field] = cnst.__dict__[field]

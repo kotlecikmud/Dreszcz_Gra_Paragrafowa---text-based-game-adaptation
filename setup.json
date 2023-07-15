@@ -1,15 +1,1 @@
-{
-  "active_gameplay": "dreszcz_dummy.json",
-  "translation": "pl",
-  "dev_mode": false,
-  "debug_msg": true,
-  "use_dummy": false,
-  "show_start_sequence": false,
-  "manual_battle": false,
-  "dubbing": true,
-  "get_music": true,
-  "ver_num": null,
-  "action_volume": 1,
-  "sfx_volume": 0.8,
-  "bckg_volume": 0.8
-}
+{"active_gameplay": "dreszcz_dummy.json", "translation": "pl", "dev_mode": false, "use_dummy": false, "show_start_sequence": false, "manual_battle": false, "dubbing": true, "get_music": true, "ver_num": null, "difficulty": 1, "action_volume": 1, "sfx_volume": 0.8, "bckg_volume": 0.8}
