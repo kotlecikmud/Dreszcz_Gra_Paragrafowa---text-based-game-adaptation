@@ -174,59 +174,51 @@ def update_setup_file(manual=False, backup=False):
         print("Leave empty for no changes:")
         setup_data = {}
         fields = [
-            "active_gameplay",
-            "translation",
-            "dev_mode",
-            "use_dummy",
-            "show_start_sequence",
-            "manual_battle",
-            "dubbing",
-            "get_music",
-            "ver_num",
-            "difficulty",
-            "action_volume",
-            "sfx_volume",
-            "bckg_volume"
+            ("active_gameplay", "(path)"),
+            ("translation", ", ".join(list(gb.gameboook.keys()))),
+            ("dev_mode", "(True/False)"),
+            ("use_dummy", "(True/False)"),
+            ("show_start_sequence", "(True/False)"),
+            ("manual_battle", "(True/False)"),
+            ("dubbing", "(True/False)"),
+            ("get_music", "(True/False)"),
+            ("ver_num", "int, float, or string"),
+            ("difficulty", "(1, 1.3, 1.6)"),
+            ("action_volume", "int from 0.1 to 1.0"),
+            ("sfx_volume", "int from 0.1 to 1.0"),
+            ("bckg_volume", "int from 0.1 to 1.0")
         ]
 
-        for field in fields:
+        for field, prompt in fields:
             print()
-            if field == "active_gameplay":
-                print('(path)')
-            elif field == "translation":
-                availableLocales = list(gb.gameboook.keys())
-                print(", ".join(availableLocales))
-            elif field in ["dev_mode", "use_dummy", "show_start_sequence", "manual_battle",
-                           "dubbing", "get_music"]:
-                print('(True/False)')
-            elif field == "ver_num":
-                print('int, float, or string')
-            elif field == "difficulty":
-                print('(1, 1.3, 1.6)')
-            elif field in ["action_volume", "sfx_volume", "bckg_volume"]:
-                print('int from 0.1 to 1.0')
+            print(prompt)
+            value = input(f"{field}: ").strip()
 
-            value = input(f"{field}: ")
+            if value:
+                if field == "ver_num":
+                    try:
+                        value = eval(value)
+                    except:
+                        value = str(value)
+                elif field == "difficulty":
+                    try:
+                        value = float(value)
+                    except:
+                        value = cnst.__dict__[field]
+                elif field in ["action_volume", "sfx_volume", "bckg_volume"]:
+                    try:
+                        value = float(value)
+                        if not 0.1 <= value <= 1.0:
+                            value = cnst.__dict__[field]
+                    except:
+                        value = cnst.__dict__[field]
+                elif field in ["dev_mode", "use_dummy", "show_start_sequence", "manual_battle", "dubbing", "get_music"]:
+                    value = value.lower() == "true"
 
-            if value != '':
-                try:
-                    value = eval(value)
-                except:
-                    pass
-
-                if value is True or value is False or value is None:
-                    setup_data[field] = value
-
-                elif isinstance(value, int):
-                    setup_data[field] = int(value)
-
-                elif isinstance(value, float):
-                    setup_data[field] = float(value)
-
-                elif isinstance(value, str):
-                    setup_data[field] = str(value)
+                setup_data[field] = value
             else:
                 setup_data[field] = cnst.__dict__[field]
+
 
     elif backup:
         setup_data = {
@@ -237,7 +229,7 @@ def update_setup_file(manual=False, backup=False):
             "use_dummy": True,
             "show_start_sequence": False,
             "manual_battle": False,
-            "dubbing": True,
+            "dubbing": False,
             "get_music": False,
             "ver_num": None,
             "difficulty": 1,
@@ -355,6 +347,7 @@ def get_game_state(action, last_paragraph='prg.00', new_game=None):
                     debug_message("Incorrect file number provided.")
 
             # Assigning the loaded data back to variables.
+            input(last_paragraph)
             last_paragraph = game_state.get("last_paragraph")
             cnst.player_name = game_state.get("player_name")
             cnst.difficulty = game_state.get("difficulty")
@@ -436,7 +429,7 @@ def get_game_state(action, last_paragraph='prg.00', new_game=None):
             else:
                 cnst.game_state_exists = False
 
-    return last_paragraph, cnst.game_state_exists
+    return last_paragraph
 
 
 def pth_selector(path_strings=None, actions=None, visit_check=False, room_id=None):
@@ -477,7 +470,7 @@ def pth_selector(path_strings=None, actions=None, visit_check=False, room_id=Non
             eval(actions[1])
 
     else:
-        debug_message(f'evaluating action: {actions}')
+        debug_message(f'pth_selector(): evaluating action: {actions}')
 
         if len(actions) != 1:  # if there is more than one path, display choice menu
             for i, path in enumerate(path_strings):
