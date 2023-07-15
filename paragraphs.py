@@ -560,7 +560,7 @@ def _115():
         if usr_input in cnst.choices_115:
             break
         else:
-            print("Nieprawidłowy wybór.")
+            print("Wrong input")
 
     cnst.main_eq.append(usr_input)
     func.eq_change(usr_input)
