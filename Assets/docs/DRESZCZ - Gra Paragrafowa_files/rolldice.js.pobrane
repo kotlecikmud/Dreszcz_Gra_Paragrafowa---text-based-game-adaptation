@@ -1,0 +1,45 @@
+
+var r1, r2;
+var ctr=0;
+
+var images=new Array();
+for(i=0;i<=6;i++){
+images[i]=new Image(); images[i].src='dice'+i+'.png';
+}
+
+function roll(){
+	playsound();
+	rolldice_two();
+}
+
+function rolldice_two(){
+
+if(ctr<6){
+showdice_two();
+ctr++;
+setTimeout('rolldice_two()',150);
+}else{
+ctr=0;
+
+showdice_two();
+
+document.f.r1message.value=r1+r2;
+
+}
+
+
+
+}
+
+function showdice_two(){
+r1=Math.floor(Math.random()*6+1);
+r2=Math.floor(Math.random()*6+1);
+document.images['r1'].src='images/dice'+r1+'.png';
+document.images['r2'].src='images/dice'+r2+'.png';
+}
+
+function playsound() {
+    var audio = new Audio('shake_dice.mp3');
+    audio.loop = false;
+    audio.play(); 
+}

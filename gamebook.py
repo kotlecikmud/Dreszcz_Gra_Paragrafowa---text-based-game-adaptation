@@ -1,5 +1,5 @@
 import entities as ent
-import functions as fun
+import functions as func
 import constants as cnst
 
 gameboook = {
@@ -2599,7 +2599,7 @@ infoboook = {
 
 def get_translation(translation):
     if not translation in gameboook:  # if not available, set to english
-        fun.debug_message('not available, language defaulted to english')
+        func.debug_message('not available, language defaulted to english')
         translation = 'en'
     cnst.translation = translation
     return gameboook[translation], infoboook[translation], cnst.translation

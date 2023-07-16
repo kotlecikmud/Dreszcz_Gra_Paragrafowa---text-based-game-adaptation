@@ -1,0 +1,27 @@
+$(function () {
+    $("[data-role=header],[data-role=footer]").toolbar().enhanceWithin();
+    $("[data-role=panel]").panel().enhanceWithin();
+});
+
+$(document).on("pagecreate", function () {
+    $("[data-role=panel]").one("panelbeforeopen", function () {
+        var height = $.mobile.pageContainer.pagecontainer("getActivePage").outerHeight();
+        $(".ui-panel-wrapper").css("height", height + 1);
+    });
+});
+
+function recandcontrolpanel() {
+    if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+        // do nothing
+        alert('mobile detected');
+    } else {
+        // 1.update panel settings, 2.update layout and 3.open panel
+        alert('desktop detected');
+        $( "#globalpanel" ).panel( "open" , optionsHash );
+    }
+}
+
+$("#run").dblclick(function(){   
+    alert('run executed');
+    recandcontrolpanel();
+});
