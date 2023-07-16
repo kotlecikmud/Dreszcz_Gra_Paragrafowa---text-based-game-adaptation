@@ -101,6 +101,7 @@ choices_115 = {'Miecz': '_232()',
                'Młot': '_324()',
                }
 
+difficulty = 1  # default value
 difficulty_levels = {"easy": 1, "medium": 1.3, "hard": 1.6}
 
 setup_params = {param: None for param in [

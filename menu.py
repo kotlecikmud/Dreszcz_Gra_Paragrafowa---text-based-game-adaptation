@@ -28,12 +28,30 @@ def ask_for_user_input(message=None):
 
 
 def main_menu():
+    """Displays the main menu of the game and handles user input.
+
+    Description:
+        The main menu provides several options for the player to interact with the game:
+
+        1. Start a new game: Allows the player to begin a new game from the beginning.
+        2. Load a saved game: Provides the ability to continue a previously saved game.
+        3. Access game rules: Displays the rules and instructions for playing the game.
+        4. Adjust game settings: Allows the player to modify various game settings, such as language, difficulty, audio, etc.
+        5. Exit the game: Terminates the game and returns to the operating system.
+
+        The function continuously loops, displaying the main menu and prompting the player for input. It handles the user's input
+        and performs different actions based on the selected menu option.
+
+    Returns:
+        None
+    """
+
     while True:
         if cnst.setup_params['ver_num']:
             print(f"ver.{cnst.debug_txt_clr}{cnst.setup_params['ver_num']}")
             time.sleep(2)
 
-        func.clear_terminal()  # clearing terminal
+        func.clear_terminal()
         if cnst.player_name:
             print(f"{cnst.def_txt_clr}{gb.infoboook[cnst.setup_params['translation']]['Mmenu_h']} {cnst.player_name}!")
         print(
@@ -46,13 +64,18 @@ def main_menu():
             (gb.infoboook[cnst.setup_params['translation']]['Mmenu5'], '')  # exit
         ]
 
-        if cnst.game_state_exists:  # if any game state exists, display corresponding menu options
+        # if any game state exists, display corresponding menu options
+        if cnst.game_state_exists:
+            # continue last gameplay
             choices_main_menu.insert(0, (
                 gb.infoboook[cnst.setup_params['translation']]['Mmenu0'],
-                cnst.setup_params['active_gameplay']))  # continue last gameplay
-            choices_main_menu.insert(2, (gb.infoboook[cnst.setup_params['translation']]['Mmenu2'], ''))  # load game
+                cnst.setup_params['active_gameplay']))
 
-        if cnst.setup_params['dev_mode']:  # append developer mode options to main menu list
+            # load game
+            choices_main_menu.insert(2, (gb.infoboook[cnst.setup_params['translation']]['Mmenu2'], ''))
+
+        # append developer mode options to main menu list
+        if cnst.setup_params['dev_mode']:
             choices_main_menu.append(
                 (f'{cnst.special_txt_clr}test_paragraph{cnst.def_txt_clr}',
                  f'bypass to any paragraph'))
@@ -67,12 +90,12 @@ def main_menu():
             choices_main_menu.append(
                 (f'{cnst.special_txt_clr}restore default setup file{cnst.def_txt_clr}', 'ALL CHANGES WILL BE LOST!!!'))
 
-        for i, (choice_main_menu, description) in enumerate(choices_main_menu, 1):  # displaying list in main menu
+        # displaying list in main menu
+        for i, (choice_main_menu, description) in enumerate(choices_main_menu, 1):
             print(template.format(i, choice_main_menu, description))
 
         usr_input = ask_for_user_input()
 
-        # temporarily enable/disable dev_mode
         if usr_input == 'rayman':  # temporarily enable dev_mode
             cnst.setup_params['dev_mode'] = True
             cnst.template = "({}) {} - {}"
@@ -80,12 +103,12 @@ def main_menu():
             cnst.setup_params['dev_mode'] = False
             cnst.template = "({}) {}"
 
-        if usr_input.isdigit():  # is digit
+        if usr_input.isdigit():
             index = int(usr_input) - 1
             if 0 <= index < len(choices_main_menu):  # is digit in range
                 usr_input = choices_main_menu[index][0]
 
-        for choice_main_menu, description in choices_main_menu:  # displaying list
+        for choice_main_menu, description in choices_main_menu:
             if usr_input == choice_main_menu:
 
                 # continue last gameplay
@@ -147,7 +170,8 @@ def main_menu():
                                 if choice_rules == gb.infoboook[cnst.setup_params['translation']]['Mmenu3_sub1']:
                                     print(gb.infoboook[cnst.setup_params['translation']]['Mmenu3_sub1_1a'])
 
-                                    func.show_equipment_list()  # show equipment list
+                                    # show equipment list
+                                    func.show_equipment_list()
 
                                     print(gb.infoboook[cnst.setup_params['translation']]['Mmenu3_sub1_1b'])
 
@@ -189,7 +213,7 @@ def main_menu():
                         choices_settings = [
                             (gb.infoboook[cnst.setup_params['translation']]['Mmenu4_sub1'], ''),
                             (gb.infoboook[cnst.setup_params['translation']]['Mmenu4_sub2'], ''),
-                            (gb.infoboook[cnst.setup_params['translation']]['Mmenu4_sub3'], ''),  # currently unfinished
+                            (gb.infoboook[cnst.setup_params['translation']]['Mmenu4_sub3'], ''),
                             (gb.infoboook[cnst.setup_params['translation']]['Mmenu4_sub4'], ''),
                             (gb.infoboook[cnst.setup_params['translation']]['Mmenu4_sub5'], ''),
                             (gb.infoboook[cnst.setup_params['translation']]['return'], '')
@@ -208,21 +232,29 @@ def main_menu():
                         for choice_settings, description in choices_settings:
                             if usr_input == choice_settings:
 
+                                # Language settings
                                 if choice_settings == gb.infoboook[cnst.setup_params['translation']][
-                                    'Mmenu4_sub1']:  # Language settings
+                                    'Mmenu4_sub1']:
+
+                                    # initialize list of Locales in gamebook
                                     availableLocales = []
+
                                     for key in gb.gameboook:
                                         availableLocales.append(key)
 
                                     translation = str(input(
                                         f"{cnst.def_txt_clr}{gb.infoboook[cnst.setup_params['translation']]['Mmenu4_sub1_1']} {availableLocales}\
                                     \n{cnst.input_sign}")).lower()
-                                    gb.get_translation(translation)  # get localization dictionaries from gamebook
+
+                                    # get localization dictionaries from gamebook
+                                    gb.get_translation(translation)
+
                                     func.debug_message(
                                         f"{gb.infoboook[cnst.setup_params['translation']]['Mmenu4_sub1_2']}: {cnst.setup_params['translation']}")
 
+                                # Difficulty level settings
                                 if choice_settings == gb.infoboook[cnst.setup_params['translation']][
-                                    'Mmenu4_sub2']:  # Difficulty level settings
+                                    'Mmenu4_sub2']:
                                     func.clear_terminal()
                                     print(f"{cnst.special_txt_clr}// {choice_settings}{cnst.def_txt_clr}")
 
@@ -242,7 +274,7 @@ def main_menu():
                                         if 0 <= index < len(choices_difficulty_lvl):
                                             usr_input = choices_difficulty_lvl[index][0]
 
-                                    dif_lvl_choice = None  # initialize parameter
+                                    dif_lvl_choice = None
                                     for choice_difficulty_lvl, description in choices_difficulty_lvl:
                                         if usr_input == choice_difficulty_lvl:
                                             if choice_difficulty_lvl == gb.infoboook[cnst.setup_params['translation']][
@@ -261,20 +293,20 @@ def main_menu():
 
                                             cnst.entity_hit_mult = dif_lvl_choice
 
-
+                                # Audio settings
                                 elif choice_settings == gb.infoboook[cnst.setup_params['translation']][
-                                    'Mmenu4_sub3']:  # Audio settings
+                                    'Mmenu4_sub3']:
 
                                     func.clear_terminal()
                                     print(f"{cnst.special_txt_clr}// {choice_settings}{cnst.def_txt_clr}")
 
                                     choices_sound_settings = [
                                         (gb.infoboook[cnst.setup_params['translation']]['Mmenu4_sub3_1'],
-                                         cnst.setup_params['action_volume'] * 10),
+                                         str(int(cnst.setup_params['action_volume'] * 10)) + "/10"),
                                         (gb.infoboook[cnst.setup_params['translation']]['Mmenu4_sub3_2'],
-                                         cnst.setup_params['sfx_volume'] * 10),
+                                         str(int(cnst.setup_params['sfx_volume'] * 10)) + "/10"),
                                         (gb.infoboook[cnst.setup_params['translation']]['Mmenu4_sub3_3'],
-                                         cnst.setup_params['bckg_volume'] * 10),
+                                         str(int(cnst.setup_params['bckg_volume'] * 10)) + "/10"),
                                         (gb.infoboook[cnst.setup_params['translation']]['return'], '')
                                     ]
 
@@ -292,8 +324,9 @@ def main_menu():
 
                                         if usr_input == choice_sound_settings:
                                             while True:
+                                                # 1-10 because it's easier to input whole numbers than float
                                                 try:
-                                                    # 1-10 because it's easier to input whole numbers than float
+
                                                     new_volume = int(
                                                         input(gb.infoboook[cnst.setup_params['translation']][
                                                                   'Mmenu4_sub3_a']))
@@ -307,7 +340,8 @@ def main_menu():
                                                     print(
                                                         gb.infoboook[cnst.setup_params['translation']]['Mmenu4_sub3_c'])
 
-                                            new_volume = new_volume / 10  # divide by 10 to get value between 0 and 1
+                                            # divide by 10 to get value between 0 and 1
+                                            new_volume = new_volume / 10
 
                                             # dialogs
                                             if choice_sound_settings == gb.infoboook[cnst.setup_params['translation']][
@@ -335,24 +369,27 @@ def main_menu():
 
                                             func.get_music(update=True)
 
-
+                                # Name setting
                                 elif choice_settings == gb.infoboook[cnst.setup_params['translation']][
-                                    'Mmenu4_sub4']:  # Name setting
+                                    'Mmenu4_sub4']:
 
                                     name = input(
                                         f"{gb.infoboook[cnst.setup_params['translation']]['Mmenu4_sub4_1']}{cnst.input_sign}")
                                     cnst.player_name = f"{Fore.LIGHTYELLOW_EX}{name}{cnst.def_txt_clr}"
 
+                                    # Randomize if name is empty
                                     if name == '':
                                         func.name_randomizer()
 
+                                # Randomize atributes
                                 elif choice_settings == gb.infoboook[cnst.setup_params['translation']][
-                                    'Mmenu4_sub5']:  # Randomize atributes
+                                    'Mmenu4_sub5']:
 
                                     print(gb.infoboook[cnst.setup_params['translation']][
                                               'Mmenu4_sub5_1'])
+
                                     func.loading(2)
-                                    func.get_player_par()
+                                    func.get_player_par()  # get new randomized player stats
                                     func.show_player_stats()
                                     input(f'\r{cnst.input_sign}')
 
@@ -400,7 +437,9 @@ If the dev_mode variable is set to True, some useful information is displayed,
 including the setup parameters file name at the beggining, documentation path, debug messages and so on.
 """
 if cnst.setup_params['dev_mode']:
-    template = "({}) {} - {}"  # Version with enabled annotations
+    # Version with enabled annotations
+    template = "({}) {} - {}"
+
     print(
         f"\n{Fore.LIGHTBLUE_EX}Code is running in developer mode.\
         \nTo deactivate the dev_mode temporarily toggle in the main menu, enter 'rayman'-ON or 'mario'-OFF.\
@@ -419,9 +458,11 @@ if cnst.setup_params['dev_mode']:
     input(f"\ncontinue to the main menu {cnst.input_sign}")
 
 else:
-    template = "({}) {}"  # Version without enabled annotations
+    # Version without enabled annotations
+    template = "({}) {}"
 
-if cnst.setup_params['start_sequence']:  # time: 23.1 seconds
+# time for start sequence: 23.1 seconds
+if cnst.setup_params['start_sequence']:
     # loading background music
     func.get_music('menu')
 

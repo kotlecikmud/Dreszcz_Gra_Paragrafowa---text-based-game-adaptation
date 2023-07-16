@@ -1,11 +1,11 @@
-import random
-import time
-import pygame
 import os
-import subprocess
+import time
 import json
+import pygame
+import random
 import datetime
 import constants
+import subprocess
 import gamebook as gb
 import constants as cnst
 # paragraphs must be imported
@@ -57,7 +57,7 @@ def get_music(category=None, fadeout=None, update=None):
     Returns:
         None
 
-    Functionality:
+    Description:
         - If update is True, sets the music volume to the default background volume.
         - Otherwise, if get_music is enabled:
             - If the category is 'main', 'combat', or 'menu', selects a random track from the corresponding category list.
@@ -69,28 +69,25 @@ def get_music(category=None, fadeout=None, update=None):
     """
 
     if update:
-        pygame.mixer.music.set_volume(cnst.bckg_volume)
-    else:
-        if constants.get_music:
-            if category == 'main' or category == 'combat' or category == 'menu':
-                random_track = random.choice(cnst.music_tracks[category])
+        pygame.mixer.music.set_volume(cnst.setup_params["bckg_volume"])
 
-                if fadeout:
-                    pygame.mixer.music.fadeout(fadeout)
+    elif cnst.setup_params["get_music"]:
+        if category in ['main', 'combat', 'menu']:
+            random_track = random.choice(cnst.music_tracks[category])
 
-                debug_message(f"Playing {category}: {random_track}")
+            if fadeout:
+                pygame.mixer.music.fadeout(fadeout)
 
-                pygame.mixer.music.load(random_track)
-                pygame.mixer.music.set_volume(cnst.bckg_volume)
+            debug_message(f"Playing {category}: {random_track}")
 
-                if pygame.mixer.music.get_busy() == 0:
-                    pygame.mixer.music.play(-1)  # play in loop --> (-1)
-            else:
-                if constants.dev_mode:
-                    debug_message("Playing: No music was selected")
-        else:
-            if constants.dev_mode:
-                debug_message("if dev_mode; get_music() is disabled")
+            pygame.mixer.music.load(random_track)
+            pygame.mixer.music.set_volume(cnst.setup_params["bckg_volume"])
+
+            if not pygame.mixer.music.get_busy():
+                pygame.mixer.music.play(-1)  # play in loop --> (-1)
+
+    elif cnst.setup_params["dev_mode"]:
+        debug_message("get_music() is disabled")
 
 
 def dub_play(string_id, category=None, skippable=True, with_text=True):
@@ -121,7 +118,7 @@ def dub_play(string_id, category=None, skippable=True, with_text=True):
 
     if category and category.lower() == 'adam':
         audio_path = f'{cnst.assets_audio_pth}/Adam'
-        audio_file_id = f'{audio_path}/{cnst.translation}/audiobook_{category.lower()}_{cnst.translation}_{string_id}{cnst.audio_ext}'
+        audio_file_id = f'{audio_path}/{cnst.setup_params["translation"]}/audiobook_{category.lower()}_{cnst.setup_params["translation"]}_{string_id}{cnst.audio_ext}'
 
     elif category and category.lower() == 'fx':
         audio_file_id = f'{cnst.assets_audio_effects_pth}/audiobook_{string_id}{cnst.audio_ext}'
@@ -134,7 +131,7 @@ def dub_play(string_id, category=None, skippable=True, with_text=True):
         current_sound = pygame.mixer.Sound(f'{cnst.assets_audio_effects_pth}/audiobook_click_snd.mp3')
 
     pygame.mixer.stop()  # stop any sound currently being played
-    current_sound.set_volume(cnst.action_volume)  # ensure that volume is on default
+    current_sound.set_volume(cnst.setup_params["action_volume"])  # ensure that volume is on default
 
     # find empty channel
     channel = None
@@ -150,7 +147,7 @@ def dub_play(string_id, category=None, skippable=True, with_text=True):
     if with_text:  # display currently selected gamebook identifier as text
         try:
             if len(string_id) > 0:
-                print(gb.gameboook[cnst.translation][string_id])
+                print(gb.gameboook[cnst.setup_params["translation"]][string_id])
 
         except KeyError:
             channel.play(pygame.mixer.Sound(f'{cnst.assets_audio_effects_pth}/audiobook_click_snd.mp3'))
@@ -362,31 +359,32 @@ def get_game_state(action, last_paragraph='prg.00', new_game=None):
         - The game state includes various variables such as player name, difficulty level, item counts, and gold amount.
     """
 
-    if cnst.use_dummy:
-        # use game states saved in project location
-        folder_path = os.path.dirname(os.path.abspath(__file__))
-    else:
-        # use local 'documents' folder path for saving json file
-        folder_path = os.path.join(os.path.expanduser("~/Documents"), cnst.game_state_dir_name)
-
     json_files = []  # list of json files in folder_path
 
+    if cnst.setup_params['use_dummy']:
+        debug_message(f"Looking for game states in project location")
+        folder_path = os.path.dirname(os.path.abspath(__file__))
+
+        cnst.setup_params['active_gameplay'] = "dreszcz_dummy.json"
+    else:
+        debug_message(f"Looking for game states in '~/Documents' folder path for saving json file")
+        folder_path = os.path.join(os.path.expanduser('~/Documents'), cnst.game_state_dir_name)
+
     if os.path.exists(folder_path):
-        json_files = [file for file in os.listdir(folder_path) if file.endswith(".json") and file != "setup.json"]
+        json_files = [file for file in os.listdir(folder_path) if file.endswith('.json') and file != 'setup.json']
 
         for file_name in json_files:
-            if not file_name.startswith("dreszcz_") or not file_name.endswith(".json"):
+            if not file_name.startswith('dreszcz_') or not file_name.endswith(".json"):
                 debug_message(f"{file_name} is not a valid game state file")
     else:
-        if not cnst.use_dummy:
-            os.makedirs(folder_path)
-            debug_message(f'Directory {folder_path} created')
+        os.makedirs(folder_path)
+        debug_message(f'Directory {folder_path} created')
 
     if action == 's':
         if new_game:
             # Create new file path and update active gameplay file_path
-            cnst.active_gameplay = os.path.join(folder_path,
-                                                f"dreszcz_{datetime.datetime.now().strftime('%y-%m-%d_%S')}.json")
+            cnst.setup_params['active_gameplay'] = os.path.join(folder_path,
+                                                                f"dreszcz_{datetime.datetime.now().strftime('%y-%m-%d_%S')}.json")
 
         # Save game state to variable
         game_state = {
@@ -407,10 +405,9 @@ def get_game_state(action, last_paragraph='prg.00', new_game=None):
         }
 
         # Saving game state as json file
-        with open(cnst.active_gameplay, "w") as f:
+        with open(cnst.setup_params['active_gameplay'], "w") as f:
             json.dump(game_state, f)
-        debug_message(f'Game saved to: {cnst.active_gameplay}')
-        update_setup_file()
+        debug_message(f'Game saved to: {cnst.setup_params["active_gameplay"]}')
 
     elif action == 'l':
         if len(json_files) > 0:
@@ -431,8 +428,8 @@ def get_game_state(action, last_paragraph='prg.00', new_game=None):
 
                     if 1 <= file_number <= len(json_files):
                         selected_file = json_files[file_number - 1]
-                        cnst.active_gameplay = os.path.join(folder_path, selected_file)
-                        with open(cnst.active_gameplay, "r") as f:
+                        cnst.setup_params['active_gameplay'] = os.path.join(folder_path, selected_file)
+                        with open(cnst.setup_params['active_gameplay'], "r") as f:
                             game_state = json.load(f)
                         debug_message(f'Game state loaded from: {selected_file}')
                         break
@@ -463,10 +460,10 @@ def get_game_state(action, last_paragraph='prg.00', new_game=None):
             debug_message("No saved game states found.")
 
     elif action == 'c':  # continue
-        with open(cnst.active_gameplay, "r") as f:
+        with open(cnst.setup_params["active_gameplay"], "r") as f:
             game_state = json.load(f)
 
-            debug_message(f'Game state loaded from: {cnst.active_gameplay}')
+            debug_message(f'Game state loaded from: {cnst.setup_params["active_gameplay"]}')
 
             # Assigning the loaded data back to variables.
             last_paragraph = game_state.get("last_paragraph")
@@ -489,7 +486,7 @@ def get_game_state(action, last_paragraph='prg.00', new_game=None):
             cnst.game_state_exists = True
 
         else:
-            if cnst.use_dummy:
+            if cnst.setup_params['use_dummy']:
                 game_state = {
                     "last_paragraph": "prg._01()",
                     "player_name": "dummy_player",
@@ -512,13 +509,11 @@ def get_game_state(action, last_paragraph='prg.00', new_game=None):
                     "gold_amount": 0
                 }
 
-                cnst.active_gameplay = "dreszcz_dummy.json"
-
                 # Saving dummy game state if one doesn't exist
-                with open(cnst.active_gameplay, "w") as f:
+                with open(cnst.setup_params['active_gameplay'], "w") as f:
                     json.dump(game_state, f)
 
-                debug_message(f"Restored dummy game_state to: {cnst.active_gameplay}")
+                debug_message(f"Restored dummy game_state to: {cnst.setup_params['active_gameplay']}")
 
                 cnst.game_state_exists = True
 
@@ -575,7 +570,7 @@ def pth_selector(path_strings=None, actions=None, visit_check=False, room_id=Non
     if visit_check:
         if room_id.room_state:  # if open
             print(
-                f"{gb.gameboook[cnst.translation]['door']} {cnst.special_txt_clr}{room_id.room_num}{cnst.def_txt_clr} {gb.gameboook[cnst.translation]['are']} {cnst.special_txt_clr}{gb.gameboook[cnst.translation]['opened']}{cnst.def_txt_clr}.")
+                f"{gb.gameboook[cnst.setup_params['translation']]['door']} {cnst.special_txt_clr}{room_id.room_num}{cnst.def_txt_clr} {gb.gameboook[cnst.setup_params['translation']]['are']} {cnst.special_txt_clr}{gb.gameboook[cnst.setup_params['translation']]['opened']}{cnst.def_txt_clr}.")
             dub_play('opened', 'adam', False, False)
 
             # Player is visiting the room more times than the allowed number.
@@ -597,9 +592,9 @@ def pth_selector(path_strings=None, actions=None, visit_check=False, room_id=Non
         else:  # if closed
             try:
                 print(
-                    f"{gb.gameboook[cnst.translation]['door']} {cnst.special_txt_clr}{room_id.room_num}{cnst.def_txt_clr} {gb.gameboook[cnst.translation]['are']} {cnst.special_txt_clr}{gb.gameboook[cnst.translation]['closed']}{cnst.def_txt_clr}.")
+                    f"{gb.gameboook[cnst.setup_params['translation']]['door']} {cnst.special_txt_clr}{room_id.room_num}{cnst.def_txt_clr} {gb.gameboook[cnst.setup_params['translation']]['are']} {cnst.special_txt_clr}{gb.gameboook[cnst.setup_params['translation']]['closed']}{cnst.def_txt_clr}.")
             except KeyError:
-                debug_message(f"this line does not exist in gamebook[{cnst.translation}]")
+                debug_message(f"this line does not exist in gamebook[{cnst.setup_params['translation']}]")
             dub_play('closed', 'adam', False, False)
             debug_message(f'eval: {actions[1]}')
             eval(actions[1])
@@ -845,7 +840,7 @@ def combat_main(entity, state, esc_possible, escape_id, stay_id, win_path):
     show_player_stats()
     show_entity_stats(entity)
 
-    input(f"\n{cnst.combat_txt_clr}{gb.gameboook[cnst.translation]['combat_init']} {cnst.input_sign}")
+    input(f"\n{cnst.combat_txt_clr}{gb.gameboook[cnst.setup_params['translation']]['combat_init']} {cnst.input_sign}")
 
     while True:
 
@@ -858,12 +853,12 @@ def combat_main(entity, state, esc_possible, escape_id, stay_id, win_path):
             print(f"\n{cnst.combat_txt_clr}Round: {cnst.round_count}{cnst.combat_txt_clr}")  # display round ID
 
             # randomize audio clips
-            variation = 1, 5
-            combat_true_id = f'combat_true{random.randint(variation)}'
-            combat_false_id = f'combat_false{random.randint(variation)}'
-            round_none_id = f'round_none{random.randint(variation)}'
-            round_true_id = f'round_true{random.randint(variation)}'
-            round_false_id = f'round_false{random.randint(variation)}'
+            variation = 1  # number of variations of audio snippets
+            combat_true_id = f'combat_true{random.randint(1, variation)}'
+            combat_false_id = f'combat_false{random.randint(1, variation)}'
+            round_none_id = f'round_none{random.randint(1, variation)}'
+            round_true_id = f'round_true{random.randint(1, variation)}'
+            round_false_id = f'round_false{random.randint(1, variation)}'
 
             if cnst.setup_params["manual_battle"]:
                 a = input(f"Enter the value of 'a' by rolling two dice{cnst.input_sign}")

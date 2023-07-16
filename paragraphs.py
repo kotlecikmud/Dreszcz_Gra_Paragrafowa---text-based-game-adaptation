@@ -1,5 +1,4 @@
 import random
-import os
 import gamebook as gb
 import entities as ent
 import functions as func
@@ -8,9 +7,6 @@ import constants as cnst
 
 # placeholder
 def _xx():
-    if cnst.active_gameplay == None:
-        cnst.active_gameplay = os.path.join(os.path.dirname(os.path.abspath(__file__)), "dummy.json")
-        func.debug_message('no game state found - loading dummy game state')
     while True:
         func.debug_message("--placeholder function--")
         odp = input(f"{cnst.def_txt_clr}\
@@ -49,9 +45,8 @@ def _00():
             break
         else:
             func.clear_terminal()
-            print(cnst.special_txt_clr, gb.gameboook[cnst.translation]['wrong_input'])
+            print(cnst.special_txt_clr, gb.gameboook[cnst.setup_params["translation"]]['wrong_input'])
 
-    func.update_setup_file()
     func.get_game_state('s', new_game=True)
 
     func.loading(1.4)
