@@ -48,25 +48,32 @@ def loading(duration=1, message=None):
 
 def get_music(category=None, fadeout=None, update=None):
     """
-    Plays background music based on the provided category.
+    Play music based on the provided category.
 
-    Params:
-        - category (str, optional): The category of the background music. Default is None.
-        - fadeout (int, optional): The fadeout time in milliseconds. Default is None.
-        - update (bool, optional): If True, updates the music volume to the default background volume. Default is None.
+    Args:
+        category (str, optional): The category of music to play. Valid values are 'main', 'combat', or 'menu'.
+                                 If not provided or set to None, no music will be played. Defaults to None.
+        fadeout (int, optional): The duration in milliseconds for the fadeout effect before playing the new music.
+                                 If not provided or set to None, no fadeout effect will be applied. Defaults to None.
+        update (bool, optional): If True, update the background music volume to the value specified in cnst.setup_params["bckg_volume"].
+                                 If False or not provided, the volume will not be updated. Defaults to None.
 
     Returns:
         None
 
-    Description:
-        - If update is True, sets the music volume to the default background volume.
-        - Otherwise, if get_music is enabled:
-            - If the category is 'main', 'combat', or 'menu', selects a random track from the corresponding category list.
-            - If fadeout is provided, fades out the currently playing music with the specified time.
-            - Loads and sets the volume of the selected track.
-            - If the music is not currently playing, starts playing it in a loop.
-            - If the category is not one of the supported categories and dev_mode is enabled, displays a debug message.
-        - If get_music is disabled and dev_mode is enabled, displays a debug message indicating that get_music is disabled.
+    Raises:
+        None
+
+    Note:
+        - The function requires the Pygame library to be imported and initialized before calling this function.
+        - The music tracks for each category should be defined in the cnst.music_tracks dictionary.
+
+    Example usage:
+        # Play main music with a fadeout effect
+        get_music(category='main', fadeout=1000)
+
+        # Update the background music volume
+        get_music(update=True)
     """
 
     if update:
@@ -92,6 +99,28 @@ def get_music(category=None, fadeout=None, update=None):
 
 
 def dub_play(string_id, category=None, skippable=True, with_text=True, r_robin=None):
+    """
+    Play an audio file associated with the provided string identifier.
+
+    Args:
+        string_id (str): The identifier of the audio file to be played.
+        category (str, optional): The category of the audio file. Defaults to None.
+        skippable (bool, optional): Indicates whether the audio file can be skipped. Defaults to True.
+        with_text (bool, optional): Indicates whether to display the associated gamebook identifier as text. Defaults to True.
+        r_robin (int, optional): An additional parameter for modifying the audio file identifier. Defaults to None.
+
+    Returns:
+        None
+
+    Raises:
+        FileNotFoundError: If the specified audio file is not found.
+        KeyError: If the string identifier is not found in the gamebook.
+
+    Notes:
+        - This function plays audio files using the Pygame library.
+        - The audio file path is constructed based on the provided parameters.
+        - If dubbing is disabled, the user is prompted to continue with a specific input sign.
+    """
     if r_robin:
         r_robin = "_" + str(random.randint(1, r_robin))
 
@@ -250,25 +279,34 @@ def update_setup_file(manual=False, backup=False):
 
         for field in fields:
             print()
+
             if field == "active_gameplay":
                 print('(path)')
+
             elif field == "translation":
-                availablelocales = list(gb.gameboook.keys())
-                print(", ".join(availablelocales))
+                # list all the availale locales
+                print(", ".join(list(gb.gameboook.keys())))
+
             elif field in ["dev_mode", "use_dummy", "start_sequence", "manual_battle",
                            "dubbing", "get_music"]:
                 print('(True/False)')
+
             elif field == "ver_num":
                 print('int, float, or string')
+
             elif field == "difficulty":
                 print('(1, 1.3, 1.6)')
+
             elif field in ["action_volume", "sfx_volume", "bckg_volume"]:
                 print('int from 0.1 to 1.0')
 
             value = input(f"{field}: ")
 
             if value != '':
-                value = eval(value)
+                try:
+                    value = eval(value)
+                except:
+                    value = str(value)
 
                 if value is True or value is False or value is None:
                     setup_data[field] = value
@@ -350,7 +388,13 @@ def get_game_state(action, last_paragraph='prg.00', new_game=None):
         - The 'init' action checks if any game states exist. If none exist and the 'cnst.use_dummy' flag is True,
           it initializes a dummy game state and saves it to a JSON file.
         - The game state includes various variables such as player name, difficulty level, item counts, and gold amount.
+
+    Raises:
+        ValueError: If an incorrect file number is provided during the 'l' action.
+
     """
+    # list of json files in folder_path
+    json_files = []
 
     if cnst.setup_params['use_dummy']:
         debug_message(f"Looking for game states in project location")
@@ -358,9 +402,6 @@ def get_game_state(action, last_paragraph='prg.00', new_game=None):
 
         cnst.setup_params['active_gameplay'] = "dreszcz_dummy.json"
     else:
-        # list of json files in folder_path
-        json_files = []
-
         debug_message(f"Looking for game states in '~/Documents' folder path for saving json file")
         folder_path = os.path.join(os.path.expanduser('~/Documents'), cnst.game_state_dir_name)
 
@@ -523,41 +564,39 @@ def get_game_state(action, last_paragraph='prg.00', new_game=None):
 
 def pth_selector(path_strings=None, actions=None, visit_check=False, room_id=None):
     """
-        Selects and executes actions based on the given parameters.
+    Parameters:
+        path_strings (list[str], optional): A list of strings representing path descriptions.
+        actions (list[str], optional): A list of strings representing actions to be executed.
+        visit_check (bool, optional): A boolean flag indicating whether to perform a visit check.
+        room_id (object, optional): An object representing the current room.
 
-        Parameters:
-            path_strings (list[str], optional): A list of strings representing path descriptions.
-            actions (list[str], optional): A list of strings representing actions to be executed.
-            visit_check (bool, optional): A boolean flag indicating whether to perform a visit check.
-            room_id (object, optional): An object representing the current room.
+    Returns:
+        None
 
-        Returns:
-            None
+    Raises:
+        None
 
-        Raises:
-            None
+    Description:
+        This function takes several parameters and performs different actions based on the conditions specified.
 
-        Description:
-            This function takes several parameters and performs different actions based on the conditions specified.
+        If a `room_id` is provided, the function updates the `visit_count` variable of the room
+        by incrementing it by 1.
 
-            If a `room_id` is provided, the function updates the `visit_count` variable of the room
-            by incrementing it by 1.
+        If `visit_check` is True, the function checks the state of the room. If the room is open,
+        it prints a message indicating that the room is open. Based on the number of visits
+        and the maximum allowed visits,
+        it evaluates and executes the appropriate action from the `actions` list.
 
-            If `visit_check` is True, the function checks the state of the room. If the room is open,
-            it prints a message indicating that the room is open. Based on the number of visits
-            and the maximum allowed visits,
-            it evaluates and executes the appropriate action from the `actions` list.
+        If the room is closed, it prints a message indicating that the room is closed and
+        executes the second action from the `actions` list.
 
-            If the room is closed, it prints a message indicating that the room is closed and
-            executes the second action from the `actions` list.
+        If `visit_check` is False, the function directly evaluates and executes the action(s) from the `actions` list.
+        If there is more than one action, it displays a choice menu and waits for the user to input a valid choice.
+        Once a valid choice is made, it executes the corresponding action. If there is only one action,
+        it executes it automatically.
 
-            If `visit_check` is False, the function directly evaluates and executes the action(s) from the `actions` list.
-            If there is more than one action, it displays a choice menu and waits for the user to input a valid choice.
-            Once a valid choice is made, it executes the corresponding action. If there is only one action,
-            it executes it automatically.
-
-            The function does not return any value.
-        """
+        The function does not return any value.
+    """
 
     if room_id:  # add visit count if room number was given
         room_id.visit_count = update_variable(room_id.visit_count, 1)
@@ -665,17 +704,37 @@ def check_for_gold_amount(req_amount):
 
 def eatables():
     """
-    Manages the consumption of eatables.
-
     Description:
-        This function checks the eatables count and allows the player to consume them to increase their stamina (w_count).
-        If the eatables count is not zero and the player confirms their intention to consume eatables,
-        the function updates the stamina and eatables count accordingly.
+        Interacts with the user to consume or save food supplies based on certain conditions.
+
+        This function checks the value of `cnst.eatables_count`, which represents the available
+        count of eatables (food supplies).
+        If the `eatables_count` is not zero, the function enters a loop to interact with the user until
+        a valid response is provided.
+
+        During the interaction, the function displays the current status of the user's endurance (`cnst.w_count`)
+        and the available eatables count (`cnst.eatables_count`).
+        The user is prompted to respond with either 'yes' or 'no' to indicate whether they want to consume the eatables
+        or save them for later.
+
+        If the user responds positively, the function updates the variables `cnst.eatables_count` and `cnst.w_count`
+        based on predefined rules.
+        The function subtracts 1 from `eatables_count` and increases the `w_count` (endurance) by a calculated value,
+        which is the minimum between `cnst.eatable_W_load`
+        and the remaining endurance needed to reach the initial endurance value (`cnst.w_init`).
+
+        After performing the updates, the function prints the changes in endurance and the updated status of the
+        endurance and eatables count.
+
+        If the user responds negatively or provides an invalid response, the function prints appropriate messages and
+        exits the loop.
+
+    Params:
+        None
 
     Returns:
-        Tuple[int, int]: A tuple containing the updated stamina count (w_count) and eatables count after consumption.
+        None
     """
-
     if cnst.eatables_count != 0:
         while True:
             if cnst.w_count != cnst.w_init:
