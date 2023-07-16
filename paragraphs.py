@@ -55,9 +55,8 @@ def _00():
     func.update_setup_file()
     func.get_game_state('s', new_game=True)
 
-    func.loading(2)
+    func.loading(1.4)
     func.clear_terminal()
-    func.get_music('main', 1400)  # loading background music with fadeout
 
     func.dub_play('00b', 'adam')
     path_strings = [f'Ruszaj {cnst.input_sign}']
@@ -916,14 +915,16 @@ def _265():
 
 def _268():
     func.dub_play('268', 'adam')
-    func.pth_selector(ent.room_310, ent.room_310, 'prg._317a()', 'prg._102()')
+    path_strings = ["Jeśli jeszcze za nimi nie byłeś, możesz wejść.", "Wolisz zawrócić"]
+    actions = ['prg._317a()', 'prg._102()']
+    func.pth_selector(path_strings, actions)
 
 
 def _269():
     func.dub_play('269', 'adam')
     func.stats_change('Wytrzymałosć', cnst.w_count, -2)
-    path_strings = ['Zapłać według taryfy(przynajmniej 10 sztuk złota)', 'Podejdź do mostu',
-                    'Spróbuj przeskoczyć przez rozpadlinę(przynajmniej 18W i 9Z)', 'Ponów próbę z liną']
+    path_strings = ["Zapłać według taryfy(przynajmniej 10 sztuk złota)", "Podejdź do mostu",
+                    "Spróbuj przeskoczyć przez rozpadlinę(przynajmniej 18W i 9Z)", 'Ponów próbę z liną']
     actions = ['check_for_gold_amount((_35(), pass, _10()', '_110()', '_358()']
     func.pth_selector(path_strings, actions)
 
@@ -1091,10 +1092,8 @@ def _358():
 
 
 def _364():
-    func.debug_message(f'ent.room_364.visit_count = {ent.room_364.visit_count}')
-
+    # change door state to "open"
     ent.room_364.room_state = func.update_variable(ent.room_364.room_state, True)
-    func.debug_message(f'ent.room_364.room_state = {ent.room_364.room_state}')
 
     func.dub_play('364', 'adam', False)
     path_strings = ['Próbujesz zabrać ukradkiem pudełko', 'Decydujesz się podjąć walkę']

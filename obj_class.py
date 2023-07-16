@@ -1,5 +1,5 @@
 # / OBJECTS
-import pygame
+import functions as func
 
 
 # // entity builder
@@ -16,6 +16,7 @@ class Entity:
     # /// die action
     def die(self):
         print(f"{self.name} został zabity!")
+        func.dub_play()
         # # find empty channel
         # channel = None
         # for i in range(pygame.mixer.get_num_channels()):

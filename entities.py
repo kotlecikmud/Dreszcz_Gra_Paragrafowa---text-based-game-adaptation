@@ -2,6 +2,7 @@ import obj_class
 import constants as cnst
 
 # /// declare entities
+# self, name, entity_z_init, entity_z_count, entity_w_init, entity_w_count, state, esc_possible
 # - - - - - - - - -
 # - - - - - - - - -
 # /// 002:
@@ -137,9 +138,8 @@ entity_344_w_init = entity_344_w_count = entity_344.entity_w_count
 # - - - - - - - - -
 # - - - - - - - - -
 
-
-# self, room_id, room_state, visit_in_turn)
 # /// declare rooms
+# self, room_id, room_state, visit_in_turn)
 # - - - - - - - - -
 # - - - - - - - - -
 # - - - - - - - - -

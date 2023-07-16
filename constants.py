@@ -34,7 +34,7 @@ input_sign = '>>> '  # sign indicating that the user should provide an input
 delay = 0.2  # time delay in seconds between printing each character in text
 entity_hit_mult = 1  # multiplier for entity level (default level is '1')
 p_mult = 1  # player multiplier for damage calculation
-p_hit_val_ = -2 * entity_hit_mult - 100  # player hit value
+p_hit_val_ = -2 * entity_hit_mult - 100  # player hit value (-100 for development only)
 e_hit_val_ = -2 * entity_hit_mult  # enemy hit value
 def_txt_clr = Fore.LIGHTWHITE_EX  # default text color
 entity_txt_clr = Fore.LIGHTRED_EX  # color for entities
@@ -43,7 +43,7 @@ combat_txt_clr = Fore.LIGHTCYAN_EX  # color for combat text
 debug_txt_clr = Fore.LIGHTBLACK_EX  # color for debug messages
 error_txt_clr = Fore.RED  # color for error messages
 
-"""
+paths_doc = """
 /// PATHS
 This section contains path definitions and lists of audio files used in the game.
 
@@ -60,11 +60,11 @@ Music Lists:
 - music_menu: List of menu music tracks.
 """
 
-assets_audio_pth = 'Assets/Audio'  # Path to audio files
-assets_audio_effects_pth = 'Assets/Audio/fx'  # Path to sound effects
-assets_audio_music_pth = 'Assets/Audio/music'  # Path to music
+assets_audio_pth = 'Assets\Audio'  # Path to audio files
+assets_audio_effects_pth = r'Assets\Audio\fx'  # Path to sound effects
+assets_audio_music_pth = 'Assets\Audio\music'  # Path to music
 game_state_dir_name = "Dreszcz_saves"
-setup_name = "setup.json"  # Get the setup script's name and or location
+setup_name = "_json_\setup.json"  # Get the setup script's name and or location
 
 music_categories = ['menu', 'main', 'combat']
 music_tracks = {}
@@ -103,79 +103,84 @@ choices_115 = {'Miecz': '_232()',
 
 difficulty_levels = {"easy": 1, "medium": 1.3, "hard": 1.6}
 
-"""
-/// SETUP ///
+setup_params = {param: None for param in [
+    "active_gameplay",
+    "translation",
+    "dev_mode",
+    "debug_msg",
+    "use_dummy",
+    "start_sequence",
+    "manual_battle",
+    "dubbing",
+    "get_music",
+    "ver_num",
+    "difficulty",
+    "action_volume",
+    "sfx_volume",
+    "bckg_volume"
+]}
 
-The code defines and loads various setup parameters for a game from a JSON file.
 
-The loaded parameters include:
+def setup():
+    """
+    /// SETUP ///
 
-active_gameplay: bool
-    Stores the localization of the active game state file.
+    The code defines and loads various setup parameters for a game from a JSON file.
 
-translation: str
-    Stores the translation setting.
+    The loaded parameters include:
 
-dev_mode: bool
-    Enables exclusive mechanics while playing and additional debug information.
+    active_gameplay: bool
+        Stores the localization of the active game state file.
 
-debug_msg: bool
-    Enables debug messages in between gameplay.
+    translation: str
+        Stores the translation setting.
 
-use_dummy: bool
-    Enables the use of dummy player and dummy data for testing purposes.
+    dev_mode: bool
+        Enables exclusive mechanics while playing and additional debug information.
 
-show_start_sequence: bool
-    Determines if the start sequence should be shown.
+    debug_msg: bool
+        Enables debug messages in between gameplay.
 
-manual_battle: bool
-    If False, allows input of "a" and "b" values during combat round.
+    use_dummy: bool
+        Enables the use of dummy player and dummy data for testing purposes.
 
-category: str
-    Stores the category information.
+    start_sequence: bool
+        Determines if the start sequence should be shown.
 
-allow_dialog_skipping: bool
-    Determines whether dubbing will be skipped.
+    manual_battle: bool
+        If False, allows input of "a" and "b" values during combat round.
 
-get_music: bool
-    Determines whether music playing is enabled.
+    category: str
+        Stores the category information.
 
-ver_num: str
-    Stores the version number.
+    allow_dialog_skipping: bool
+        Determines whether dubbing will be skipped.
 
-difficulty: str
-    Placeholder for difficulty setting (currently not implemented).
+    get_music: bool
+        Determines whether music playing is enabled.
 
-The setup data is loaded from the JSON file specified by the setup_name variable located in the ///PATHS section above.
-The values are assigned to their respective variables using the get() method of the loaded_setup dictionary.
-"""
+    ver_num: str
+        Stores the version number.
 
-# load setup data from json file
-with open(setup_name, "r") as f:
-    loaded_setup = json.load(f)
+    difficulty: str
+        Holds value used in combat mechanics as enemy hit multiplyer
 
-active_gameplay = loaded_setup.get("active_gameplay")
-translation = loaded_setup.get("translation")
-dev_mode = loaded_setup.get("dev_mode")
-debug_msg = loaded_setup.get("debug_msg")
-use_dummy = loaded_setup.get("use_dummy")
-show_start_sequence = loaded_setup.get("show_start_sequence")
-manual_battle = loaded_setup.get("manual_battle")
-dubbing = loaded_setup.get("dubbing")
-get_music = loaded_setup.get("get_music")
-ver_num = loaded_setup.get("ver_num")
-difficulty = loaded_setup.get("difficulty")
-action_volume = loaded_setup.get("action_volume")  # Default volume for action sounds
-sfx_volume = loaded_setup.get("sfx_volume")  # Default volume for sound effects
-bckg_volume = loaded_setup.get("bckg_volume")  # Default volume for background music
+    The setup data is loaded from the JSON file specified by the setup_name variable located in the ///PATHS section above.
+    The values are assigned to their respective variables using the get() method of the loaded_setup dictionary.
+    """
 
-# further auto config:
-if use_dummy:
-    game_state_exists = True  # enables 'Continue' and 'Load game' options in main menu
-else:
-    game_state_exists = False  # disables the above
+    # load setup data from json file
+    with open(setup_name, "r") as f:
+        loaded_setup = json.load(f)
 
-if dev_mode:
-    template = "({}) {} - {}"  # - version with enabled annotations
-else:
-    template = "({}) {}"  # template for list printing (if dev_mode: explainer lines)
+    # assign values from loaded_setup to setup_params dictionary
+    for param in setup_params:
+        setup_params[param] = loaded_setup.get(param)
+
+    # unpack setup_params dictionary into individual variables (optional)
+    globals().update(setup_params)
+
+    return loaded_setup
+
+
+loaded_setup = setup()

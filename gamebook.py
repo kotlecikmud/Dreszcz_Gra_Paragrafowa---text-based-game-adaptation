@@ -1960,6 +1960,12 @@ infoboook = {
 
             "Mmenu4_sub3": "Sound",
 
+            "Mmenu4_sub3_a": f"New volume level (1-10) {cnst.input_sign}",
+
+            "Mmenu4_sub3_b": "Volume level must be between 1 and 10.",
+
+            "Mmenu4_sub3_c": "Given input is not 'int' type. Please try again.",
+
             "Mmenu4_sub3_1": "Dialogs",
 
             "Mmenu4_sub3_2": "Effects",
@@ -2087,6 +2093,12 @@ infoboook = {
 
             "Mmenu4_sub3": "Dźwięk",
 
+            "Mmenu4_sub3_a": f"Nowy poziom głośności (1-10) {cnst.input_sign}",
+
+            "Mmenu4_sub3_b": "Poziom głośności musi być wzakresie 1-10",
+
+            "Mmenu4_sub3_c": "Wprowadzona wartość nie jest liczbą całkowitą. Spróbuj ponownie.",
+
             "Mmenu4_sub3_1": "Dialogi",
 
             "Mmenu4_sub3_2": "Efekty",
@@ -2213,6 +2225,12 @@ infoboook = {
             "Mmenu4_sub2": "Nivel de dificultad",
 
             "Mmenu4_sub3": "Sonido",
+
+            "Mmenu4_sub3_a": f"Nuevo nivel de volumen (1-10) {cnst.input_sign}",
+
+            "Mmenu4_sub3_b": "El nivel de volumen debe estar en el rango de 1 a 10",
+
+            "Mmenu4_sub3_c": "El valor introducido no es un número entero. Inténtelo de nuevo.",
 
             "Mmenu4_sub3_1": "Diálogos",
 
@@ -2343,6 +2361,12 @@ infoboook = {
 
             "Mmenu4_sub3": "Son",
 
+            "Mmenu4_sub3_a": f"Nouveau niveau de volume (1-10) {cnst.input_sign}",
+
+            "Mmenu4_sub3_b": "Le niveau de volume doit être compris entre 1 et 10",
+
+            "Mmenu4_sub3_c": "La valeur saisie n'est pas un nombre entier. Veuillez réessayer.",
+
             "Mmenu4_sub3_1": "Dialogues",
 
             "Mmenu4_sub3_2": "Effets",
@@ -2469,6 +2493,12 @@ infoboook = {
             "Mmenu4_sub2": "Livello di difficoltà",
 
             "Mmenu4_sub3": "Audio",
+
+            "Mmenu4_sub3_a": f"Livello del volume (1-10) {cnst.input_sign}",
+
+            "Mmenu4_sub3_b": "Il livello del volume deve essere compreso tra 1 e 10",
+
+            "Mmenu4_sub3_c": "Il valore inserito non è un numero intero. Riprova.",
 
             "Mmenu4_sub3_1": "Dialoghi",
 
