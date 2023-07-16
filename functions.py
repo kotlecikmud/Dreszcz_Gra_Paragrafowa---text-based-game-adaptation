@@ -176,6 +176,7 @@ def dub_play(string_id, category=None, skippable=True, with_text=True, r_robin=N
                 if msvcrt.kbhit():
                     break
 
+            time.sleep(0.1)  # safety measure
     else:
         debug_message("dubbing is disabled")
         input(f"continue {cnst.input_sign}")
@@ -316,7 +317,7 @@ def update_setup_file(manual=False, backup=False):
             "sfx_volume": 0.7,
             "bckg_volume": 0.6
         }
-        debug_message('backup data loaded')
+        debug_message('backup setup data loaded')
 
     else:
         setup_data = {
@@ -371,14 +372,15 @@ def get_game_state(action, last_paragraph='prg.00', new_game=None):
         - The game state includes various variables such as player name, difficulty level, item counts, and gold amount.
     """
 
-    json_files = []  # list of json files in folder_path
-
     if cnst.setup_params['use_dummy']:
         debug_message(f"Looking for game states in project location")
         folder_path = os.path.dirname(os.path.abspath(__file__))
 
         cnst.setup_params['active_gameplay'] = "dreszcz_dummy.json"
     else:
+        # list of json files in folder_path
+        json_files = []
+
         debug_message(f"Looking for game states in '~/Documents' folder path for saving json file")
         folder_path = os.path.join(os.path.expanduser('~/Documents'), cnst.game_state_dir_name)
 
