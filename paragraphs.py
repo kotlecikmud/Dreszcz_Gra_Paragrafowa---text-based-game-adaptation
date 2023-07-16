@@ -176,7 +176,7 @@ def _15():
 def _16a():
     func.dub_play('16a', 'adam')
     func.eatables()
-    print(gb.gameboook[cnst.translation]['16b'])
+    print(gb.gameboook[cnst.setup_params["translation"]]['16b'])
     path_strings = []
     actions = ['prg._80()']
     func.pth_selector(path_strings, actions)
@@ -746,7 +746,7 @@ def _186():
 
 
 def _187():
-    print(gb.gameboook[cnst.translation]['187'])
+    print(gb.gameboook[cnst.setup_params["translation"]]['187'])
     _xx()
 
 
@@ -766,17 +766,17 @@ def _192():
 
 
 def _197():
-    print(gb.gameboook[cnst.translation]['197'])
+    print(gb.gameboook[cnst.setup_params["translation"]]['197'])
     _xx()
 
 
 def _198():
-    print(gb.gameboook[cnst.translation]['198'])
+    print(gb.gameboook[cnst.setup_params["translation"]]['198'])
     _xx()
 
 
 def _199():
-    print(gb.gameboook[cnst.translation]['199'])
+    print(gb.gameboook[cnst.setup_params["translation"]]['199'])
     _xx()
 
 
@@ -788,7 +788,7 @@ def _200():
 
 
 def _210():
-    print(gb.gameboook[cnst.translation]['210'])
+    print(gb.gameboook[cnst.setup_params["translation"]]['210'])
     _xx()
 
 
@@ -800,7 +800,7 @@ def _212():
 
 
 def _220():
-    print(gb.gameboook[cnst.translation]['220'])
+    print(gb.gameboook[cnst.setup_params["translation"]]['220'])
     _xx()
 
 

@@ -10,7 +10,6 @@ count = 0  # Counter
 potion_count = 2  # num of potions
 choice_count = 0  # num of choices (universal)
 gold_amount = 0  # initial gold amount
-p_luck = None  # Player's luck
 player_name = None  # Player's name
 init_round_count = 0  # Initial num of rounds
 round_count = 0  # Round counter

@@ -30,7 +30,7 @@ def clear_terminal():
     subprocess.call('cls' if os.name == 'nt' else 'clear', shell=True)
 
 
-def loading(duration, message=None):
+def loading(duration=1, message=None):
     animation_signs = ['|', '/', '-', '\\']
     end_time = time.time() + duration
     sign_index = 0
@@ -160,20 +160,25 @@ def dub_play(string_id, category=None, skippable=True, with_text=True, r_robin=N
             channel.play(pygame.mixer.Sound(f'{cnst.assets_audio_effects_pth}/audiobook_click_snd.mp3'))
             error_message('KeyError', f'Could not find string: {string_id}')
 
+    # if dubbing is enabled
     if cnst.setup_params["dubbing"]:
-        # play sound on found channel
-        debug_message(f'Now playing: {audio_file_id}')
+        # play the sound on the found channel
         channel.play(current_sound)
-        while channel.get_busy():
-            if msvcrt.kbhit():
-                print(msvcrt.kbhit())
-                msvcrt.getch()
-                break
+        debug_message(f'Now playing: {audio_file_id}')
+
+        if skippable:
+            # print a message indicating that we're skipping the input sign
+            print(f"skip {cnst.input_sign}")
+
+            # continue looping while the channel is busy playing a sound
+            while channel.get_busy():
+                # check if any key is pressed
+                if msvcrt.kbhit():
+                    break
 
     else:
-        if skippable:
-            debug_message('audio dialog skipped')
-            input(f"continue {cnst.input_sign}")
+        debug_message("dubbing is disabled")
+        input(f"continue {cnst.input_sign}")
 
 
 def name_randomizer():
@@ -210,7 +215,7 @@ def update_variable(variable, change):
         # Handling other variable types
         new_variable = variable
 
-    debug_message(f'{variable} + {change} = {new_variable}')
+    debug_message(f'update_variable: {variable} + {change} = {new_variable}')
 
     return new_variable
 
@@ -267,8 +272,8 @@ def update_setup_file(manual=False, backup=False):
             if field == "active_gameplay":
                 print('(path)')
             elif field == "translation":
-                availableLocales = list(gb.gameboook.keys())
-                print(", ".join(availableLocales))
+                availablelocales = list(gb.gameboook.keys())
+                print(", ".join(availablelocales))
             elif field in ["dev_mode", "use_dummy", "start_sequence", "manual_battle",
                            "dubbing", "get_music"]:
                 print('(True/False)')
@@ -282,10 +287,7 @@ def update_setup_file(manual=False, backup=False):
             value = input(f"{field}: ")
 
             if value != '':
-                try:
-                    value = eval(value)
-                except:
-                    pass
+                value = eval(value)
 
                 if value is True or value is False or value is None:
                     setup_data[field] = value
@@ -457,9 +459,9 @@ def get_game_state(action, last_paragraph='prg.00', new_game=None):
             cnst.s_count = game_state.get("s_count")
             cnst.w_count = game_state.get("w_count")
             cnst.z_count = game_state.get("z_count")
-            cnst.s_count = game_state.get("s_init")
-            cnst.w_count = game_state.get("w_init")
-            cnst.z_count = game_state.get("z_init")
+            cnst.s_init = game_state.get("s_init")
+            cnst.w_init = game_state.get("w_init")
+            cnst.z_init = game_state.get("z_init")
             cnst.main_eq = game_state.get("equipment")
             cnst.potion = game_state.get("potion")
             cnst.potion_count = game_state.get("potion_count")
@@ -482,9 +484,9 @@ def get_game_state(action, last_paragraph='prg.00', new_game=None):
             cnst.s_count = game_state.get("s_count")
             cnst.w_count = game_state.get("w_count")
             cnst.z_count = game_state.get("z_count")
-            cnst.s_count = game_state.get("s_init")
-            cnst.w_count = game_state.get("w_init")
-            cnst.z_count = game_state.get("z_init")
+            cnst.s_init = game_state.get("s_init")
+            cnst.w_init = game_state.get("w_init")
+            cnst.z_init = game_state.get("z_init")
             cnst.main_eq = game_state.get("equipment")
             cnst.potion = game_state.get("potion")
             cnst.potion_count = game_state.get("potion_count")
@@ -653,23 +655,20 @@ def win():
 
 
 def check_for_luck():
+    update_variable(cnst.s_count, -1)
+
     print(f'{cnst.special_txt_clr}Sprawdzam czy masz szczęście:')
-    loading(2)
+    loading()
     cfl_val = random.randint(2, 12)
 
     if cfl_val <= cnst.s_count:
         print('\rUff, masz szczęscie.\
         \n')
-        cnst.p_luck = True
+        return True
     elif cfl_val > cnst.s_count:
         print('\rNie masz szczęścia!\
         \n')
-        cnst.p_luck = False
-
-    cnst.s_count -= 1
-    time.sleep(1)
-
-    return cnst.p_luck, cnst.s_count
+        return False
 
 
 def check_for_gold_amount(req_amount):
@@ -700,7 +699,7 @@ def eatables():
                 print(f"/// Wytrzymałość: {cnst.w_count}/{cnst.w_init}")
                 print(f"/// Prowiant: {cnst.eatables_count}/{cnst.init_eatables_count}")
                 odp = input(f"{cnst.input_sign}")
-                loading(1)
+                loading()
                 if odp.lower() in {'tak', 't', 'y', 'yes'}:
                     if cnst.w_count < cnst.w_init:
                         cnst.eatables_count -= 1
@@ -899,7 +898,7 @@ def combat_main(entity, state, esc_possible, escape_id, stay_id, win_path):
 
             debug_message(f"enemy:{entity.entity_w_count}, player: {cnst.w_count}")
 
-            loading(1)
+            loading()
 
             if entity.entity_w_count <= 0:  # if the enemy is dead
                 break
@@ -915,7 +914,7 @@ def combat_main(entity, state, esc_possible, escape_id, stay_id, win_path):
     get_music('main')
 
     print(
-        f"\n{cnst.combat_txt_clr}{gb.gameboook[[cnst.setup_params['translation']]]['combat_win_info']} {Fore.LIGHTRED_EX}{entity.name}{cnst.combat_txt_clr}!")
+        f"\n{cnst.combat_txt_clr}{gb.gameboook[cnst.setup_params['translation']]['combat_win_info']} {Fore.LIGHTRED_EX}{entity.name}{cnst.combat_txt_clr}!")
 
     dub_play("combat_true", 'adam', False, False, r_robin=5)
     show_player_stats()

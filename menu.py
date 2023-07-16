@@ -120,7 +120,7 @@ def main_menu():
                 elif choice_main_menu == gb.infoboook[cnst.setup_params['translation']]['Mmenu1']:
                     func.clear_terminal()
                     print(f"/ {choice_main_menu}{cnst.def_txt_clr}")
-                    func.loading(1)
+                    func.loading()
                     prg._00()
 
                 # load game
@@ -388,7 +388,7 @@ def main_menu():
                                     print(gb.infoboook[cnst.setup_params['translation']][
                                               'Mmenu4_sub5_1'])
 
-                                    func.loading(2)
+                                    func.loading()
                                     func.get_player_par()  # get new randomized player stats
                                     func.show_player_stats()
                                     input(f'\r{cnst.input_sign}')
@@ -402,7 +402,7 @@ def main_menu():
                     if choice2.lower() == "y":
                         pygame.mixer.music.fadeout(600)
                         func.clear_terminal()
-                        func.loading(1)
+                        func.loading()
                         exit()
 
                 # ADDITIONAL DEV FUNCTIONALITY
@@ -467,7 +467,7 @@ if cnst.setup_params['start_sequence']:
     func.get_music('menu')
 
     # start sequence
-    func.loading(1.4)
+    func.loading()
     messages = ['Jacek Ciesielski\r', 'Filip Pawłowski', 'presents...', 'DRESZCZ - GRA PARAGRAFOWA']
     for message in messages:
         print(message)
