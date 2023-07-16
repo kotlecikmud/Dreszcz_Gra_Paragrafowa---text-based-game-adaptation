@@ -205,7 +205,7 @@ def _19():
 
 
 def _20():
-    func.dub_play('20', 'adam', False)
+    func.dub_play('20', 'adam')
     path_strings = []
     actions = ['prg._238a()']
     func.pth_selector(path_strings, actions)
@@ -233,7 +233,7 @@ def _24():
 
 
 def _25():
-    func.dub_play('25', 'adam', False)
+    func.dub_play('25', 'adam')
     path_strings = ['Idziesz na zachód', 'Wybierasz drogę prowadzącą na wschód']
     actions = ['prg._200()', 'prg._44()']
     func.pth_selector(path_strings, actions)
@@ -315,7 +315,7 @@ def _38():
 
 
 def _39():
-    func.dub_play('39', 'adam', False)
+    func.dub_play('39', 'adam')
     path_strings = ['zachód', 'północ', 'południe']
     actions = ['prg._331()', 'prg._228()', 'prg._146()']
     func.pth_selector(path_strings, actions)
@@ -384,7 +384,7 @@ def _59():
 
 
 def _64():
-    func.dub_play('64', 'adam', False)
+    func.dub_play('64', 'adam')
     path_strings = ['zachód', 'północ', 'wschód', 'południe']
     actions = ['prg._296()', 'prg._264()', 'prg._284()', 'prg._224()']
     func.pth_selector(path_strings, actions)
@@ -444,7 +444,7 @@ def _82():
 
 
 def _89():
-    func.dub_play('89a', 'adam', False)
+    func.dub_play('89a', 'adam')
     cnst.s_count = func.stats_change('Szczęscie', cnst.s_count, 2, cnst.s_init)
     cnst.gold_amount = func.stats_change('Złoto', cnst.gold_amount, 3)
     func.dub_play('89b', 'adam')
@@ -567,7 +567,7 @@ def _116a():
 
 
 def _116b():
-    func.dub_play('116b', 'adam', False)
+    func.dub_play('116b', 'adam')
     path_strings = ['Rozejrzyj się', 'Opuść pieczarę']
     actions = ['prg._89()', 'prg._120()']
     func.pth_selector(path_strings, actions)
@@ -781,7 +781,7 @@ def _199():
 
 
 def _200():
-    func.dub_play('200', 'adam', False)
+    func.dub_play('200', 'adam')
     path_strings = []
     actions = ['prg._120()', 'prg._301()']
     func.pth_selector(path_strings, actions, True, ent.room_364)
@@ -1089,7 +1089,7 @@ def _364():
     # change door state to "open"
     ent.room_364.room_state = func.update_variable(ent.room_364.room_state, True)
 
-    func.dub_play('364', 'adam', False)
+    func.dub_play('364', 'adam')
     path_strings = ['Próbujesz zabrać ukradkiem pudełko', 'Decydujesz się podjąć walkę']
     actions = ['prg._29()', 'prg._116a()']
     func.pth_selector(path_strings, actions, '', ent.room_364)

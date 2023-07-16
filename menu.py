@@ -58,11 +58,12 @@ def main_menu():
             f"{cnst.special_txt_clr}{gb.infoboook[cnst.setup_params['translation']]['Mmenu_headline']}{cnst.def_txt_clr}")
 
         choices_main_menu = [
-            (gb.infoboook[cnst.setup_params['translation']]['Mmenu1'], ''),  # new game
             (gb.infoboook[cnst.setup_params['translation']]['Mmenu3'], ''),  # rules
             (gb.infoboook[cnst.setup_params['translation']]['Mmenu4'], ''),  # settings
             (gb.infoboook[cnst.setup_params['translation']]['Mmenu5'], '')  # exit
         ]
+        if cnst.setup_params['use_dummy']:
+            choices_main_menu.insert(1, (gb.infoboook[cnst.setup_params['translation']]['Mmenu1'], ''))  # new game
 
         # if any game state exists, display corresponding menu options
         if cnst.game_state_exists:

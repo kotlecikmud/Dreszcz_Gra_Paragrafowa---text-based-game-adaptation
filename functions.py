@@ -88,31 +88,10 @@ def get_music(category=None, fadeout=None, update=None):
                 pygame.mixer.music.play(-1)  # play in loop --> (-1)
 
     elif cnst.setup_params["dev_mode"]:
-        debug_message("get_music() is disabled")
+        debug_message(f"get_music() disabled - wanted to play: {category}")
 
 
 def dub_play(string_id, category=None, skippable=True, with_text=True, r_robin=None):
-    """
-    Plays an audio file based on the provided string identifier and category.
-
-    Params:
-        - string_id (str): The identifier of the audio file to be played.
-        - category (str, optional): The category of the audio file. Default is None.
-        - skippable (bool, optional): If True, allows the audio to be skipped. Default is True.
-        - with_text (bool, optional): If True, displays the gamebook identifier as text. Default is True.
-
-    Returns:
-        None
-
-    Description:
-        - Determines the audio file path and file ID based on the provided category and string identifier.
-        - Attempts to load the sound file using pygame.mixer.Sound.
-        - If the file is not found, an error message is displayed, and a default sound file is loaded.
-        - Stops any currently playing sound and sets the volume to the default action volume.
-        - Finds an empty sound channel to play the sound.
-        - If with_text is True, displays the corresponding gamebook identifier as text.
-    """
-
     if r_robin:
         r_robin = "_" + str(random.randint(1, r_robin))
 
@@ -180,6 +159,7 @@ def dub_play(string_id, category=None, skippable=True, with_text=True, r_robin=N
     else:
         debug_message("dubbing is disabled")
         input(f"continue {cnst.input_sign}")
+        time.sleep(0.5)
 
 
 def name_randomizer():
@@ -704,9 +684,9 @@ def eatables():
                 loading()
                 if odp.lower() in {'tak', 't', 'y', 'yes'}:
                     if cnst.w_count < cnst.w_init:
-                        cnst.eatables_count -= 1
+                        update_variable(cnst.eatables_count, -1)
                         wzrost_wytrzymalosci = min(cnst.eatable_W_load, cnst.w_init - cnst.w_count)
-                        cnst.w_count += wzrost_wytrzymalosci
+                        update_variable(cnst.w_count, wzrost_wytrzymalosci)
                         print(f"Wytrzymałość + {wzrost_wytrzymalosci}")
                         print(f"/// Wytrzymałość: {cnst.w_count}/{cnst.w_init}")
                         print(f"/// Prowiant: {cnst.eatables_count}/{cnst.init_eatables_count}{cnst.def_txt_clr}")
@@ -720,8 +700,6 @@ def eatables():
 
                 else:
                     print("Wpisz tak/nie")
-
-                return cnst.w_count, cnst.eatables_count
 
 
 def show_equipment_list():
@@ -875,7 +853,7 @@ def combat_main(entity, state, esc_possible, escape_id, stay_id, win_path):
                 if cnst.w_count > 0:
                     cnst.w_count += cnst.e_hit_val_
 
-                    dub_play("round_false_", 'adam', False, False, r_robin=5)
+                    dub_play("round_false", 'adam', False, False, r_robin=5)
                     cnst.w_count = max(cnst.w_count, 0)
                     print(f"{Fore.LIGHTRED_EX}{entity.name}{cnst.combat_txt_clr} landed a hit!")
 
@@ -897,8 +875,6 @@ def combat_main(entity, state, esc_possible, escape_id, stay_id, win_path):
                 f"\
                 \n{Fore.LIGHTYELLOW_EX}{cnst.player_name}{cnst.special_txt_clr}: {cnst.w_count}/{cnst.w_init}\
                 \n{Fore.LIGHTRED_EX}{entity.name}{cnst.special_txt_clr}: {entity.entity_w_count}/{entity.entity_w_init}")
-
-            debug_message(f"enemy:{entity.entity_w_count}, player: {cnst.w_count}")
 
             loading()
 
