@@ -31,7 +31,7 @@ def _00():
     func.dub_play('00a', 'adam')
 
     while True:  # elixir choice menu
-        func.dub_play('elxr_chc', 'adam', False)
+        func.dub_play('elxr_chc', 'adam', False, r_robin=5)
         choice = input(f'{cnst.input_sign}{cnst.def_txt_clr}')
 
         if choice == '1':

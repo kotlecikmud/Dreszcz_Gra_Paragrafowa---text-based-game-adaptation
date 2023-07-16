@@ -48,7 +48,6 @@ paths_doc = """
 This section contains path definitions and lists of audio files used in the game.
 
 Paths:
-- assets_audio_pth: Path to the directory containing audio files.
 - assets_audio_effects_pth: Path to the directory containing sound effects.
 - assets_audio_music_pth: Path to the directory containing music files.
 - game_state_dir_name: Name of the directory used for game state saves.
@@ -60,7 +59,7 @@ Music Lists:
 - music_menu: List of menu music tracks.
 """
 
-assets_audio_pth = 'Assets\Audio'  # Path to audio files
+assets_audio_voice_pth = 'Assets\Audio\Voice'  # Path to voice lines audio files
 assets_audio_effects_pth = r'Assets\Audio\fx'  # Path to sound effects
 assets_audio_music_pth = 'Assets\Audio\music'  # Path to music
 game_state_dir_name = "Dreszcz_saves"

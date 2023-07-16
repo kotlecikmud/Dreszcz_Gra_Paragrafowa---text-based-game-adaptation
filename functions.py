@@ -1,6 +1,7 @@
 import os
 import time
 import json
+import msvcrt
 import pygame
 import random
 import datetime
@@ -90,7 +91,7 @@ def get_music(category=None, fadeout=None, update=None):
         debug_message("get_music() is disabled")
 
 
-def dub_play(string_id, category=None, skippable=True, with_text=True):
+def dub_play(string_id, category=None, skippable=True, with_text=True, r_robin=None):
     """
     Plays an audio file based on the provided string identifier and category.
 
@@ -110,18 +111,24 @@ def dub_play(string_id, category=None, skippable=True, with_text=True):
         - Stops any currently playing sound and sets the volume to the default action volume.
         - Finds an empty sound channel to play the sound.
         - If with_text is True, displays the corresponding gamebook identifier as text.
-        - If the audio is skippable and dubbing is enabled, plays the sound on the available channel.
-        - If the audio is not skippable or dubbing is disabled, skips the audio or prompts the user to continue.
     """
+
+    if r_robin:
+        r_robin = "_" + str(random.randint(1, r_robin))
+
+    else:
+        r_robin = '_'
 
     audio_file_id = None
 
-    if category and category.lower() == 'adam':
-        audio_path = f'{cnst.assets_audio_pth}/Adam'
-        audio_file_id = f'{audio_path}/{cnst.setup_params["translation"]}/audiobook_{category.lower()}_{cnst.setup_params["translation"]}_{string_id}{cnst.audio_ext}'
+    if category:
+        category = category.lower()
+        if category == 'adam' or category == 'dub':
+            audio_path = f'{cnst.assets_audio_voice_pth}/Adam'
 
-    elif category and category.lower() == 'fx':
-        audio_file_id = f'{cnst.assets_audio_effects_pth}/audiobook_{string_id}{cnst.audio_ext}'
+            audio_file_id = f'{audio_path}/{cnst.setup_params["translation"]}/audiobook_{category}_{cnst.setup_params["translation"]}_{string_id}{r_robin}{cnst.audio_ext}'
+        elif category == 'fx':
+            audio_file_id = f'{cnst.assets_audio_effects_pth}/audiobook_{string_id}{r_robin}{cnst.audio_ext}'
 
     try:
         current_sound = pygame.mixer.Sound(audio_file_id)
@@ -158,7 +165,10 @@ def dub_play(string_id, category=None, skippable=True, with_text=True):
         debug_message(f'Now playing: {audio_file_id}')
         channel.play(current_sound)
         while channel.get_busy():
-            continue
+            if msvcrt.kbhit():
+                print(msvcrt.kbhit())
+                msvcrt.getch()
+                break
 
     else:
         if skippable:
@@ -852,14 +862,6 @@ def combat_main(entity, state, esc_possible, escape_id, stay_id, win_path):
 
             print(f"\n{cnst.combat_txt_clr}Round: {cnst.round_count}{cnst.combat_txt_clr}")  # display round ID
 
-            # randomize audio clips
-            variation = 1  # number of variations of audio snippets
-            combat_true_id = f'combat_true{random.randint(1, variation)}'
-            combat_false_id = f'combat_false{random.randint(1, variation)}'
-            round_none_id = f'round_none{random.randint(1, variation)}'
-            round_true_id = f'round_true{random.randint(1, variation)}'
-            round_false_id = f'round_false{random.randint(1, variation)}'
-
             if cnst.setup_params["manual_battle"]:
                 a = input(f"Enter the value of 'a' by rolling two dice{cnst.input_sign}")
                 b = input(f"Enter the value of 'b' by rolling two dice{cnst.input_sign}")
@@ -872,7 +874,7 @@ def combat_main(entity, state, esc_possible, escape_id, stay_id, win_path):
                 if cnst.w_count > 0:
                     cnst.w_count += cnst.e_hit_val_
 
-                    dub_play(round_false_id, 'adam', False, False)
+                    dub_play("round_false_", 'adam', False, False, r_robin=5)
                     cnst.w_count = max(cnst.w_count, 0)
                     print(f"{Fore.LIGHTRED_EX}{entity.name}{cnst.combat_txt_clr} landed a hit!")
 
@@ -880,7 +882,7 @@ def combat_main(entity, state, esc_possible, escape_id, stay_id, win_path):
                 if entity.entity_w_count > 0:
                     entity.entity_w_count += cnst.p_hit_val_
 
-                    dub_play(round_true_id, 'adam', False, False)
+                    dub_play("round_true", 'adam', False, False, r_robin=5)
                     entity.entity_w_count = max(entity.entity_w_count, 0)
                     print(f"{Fore.LIGHTYELLOW_EX}{cnst.player_name}{cnst.combat_txt_clr} landed a hit!")
 
@@ -888,7 +890,7 @@ def combat_main(entity, state, esc_possible, escape_id, stay_id, win_path):
                 print(f'{cnst.special_txt_clr}Draw!\
                 \nNobody got hurt!')
 
-                dub_play(round_none_id, 'adam', False, False)
+                dub_play("round_none", 'adam', False, False, r_robin=5)
 
             print(
                 f"\
@@ -906,7 +908,7 @@ def combat_main(entity, state, esc_possible, escape_id, stay_id, win_path):
                 print(
                     f"\n{gb.gameboook[cnst.setup_params['translation']]['combat_dead_info']} {Fore.LIGHTRED_EX}{entity.name}{cnst.combat_txt_clr}!")
 
-                dub_play(combat_false_id, 'adam', False, False)
+                dub_play("combat_false", 'adam', False, False, r_robin=5)
                 kill()
 
     pygame.mixer.music.fadeout(1500)
@@ -915,7 +917,7 @@ def combat_main(entity, state, esc_possible, escape_id, stay_id, win_path):
     print(
         f"\n{cnst.combat_txt_clr}{gb.gameboook[[cnst.setup_params['translation']]]['combat_win_info']} {Fore.LIGHTRED_EX}{entity.name}{cnst.combat_txt_clr}!")
 
-    dub_play(combat_true_id, 'adam', False, False)
+    dub_play("combat_true", 'adam', False, False, r_robin=5)
     show_player_stats()
     if esc_possible:
         escape_opt = f"{escape_id})"
