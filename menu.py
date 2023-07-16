@@ -58,12 +58,11 @@ def main_menu():
             f"{cnst.special_txt_clr}{gb.infoboook[cnst.setup_params['translation']]['Mmenu_headline']}{cnst.def_txt_clr}")
 
         choices_main_menu = [
+            (gb.infoboook[cnst.setup_params['translation']]['Mmenu1'], ''),  # new game
             (gb.infoboook[cnst.setup_params['translation']]['Mmenu3'], ''),  # rules
             (gb.infoboook[cnst.setup_params['translation']]['Mmenu4'], ''),  # settings
             (gb.infoboook[cnst.setup_params['translation']]['Mmenu5'], '')  # exit
         ]
-        if cnst.setup_params['use_dummy']:
-            choices_main_menu.insert(1, (gb.infoboook[cnst.setup_params['translation']]['Mmenu1'], ''))  # new game
 
         # if any game state exists, display corresponding menu options
         if cnst.game_state_exists:
@@ -75,7 +74,7 @@ def main_menu():
             # load game
             choices_main_menu.insert(2, (gb.infoboook[cnst.setup_params['translation']]['Mmenu2'], ''))
 
-        # append developer mode options to main menu list
+        # append developer mode options at the end of main menu list
         if cnst.setup_params['dev_mode']:
             choices_main_menu.append(
                 (f'{cnst.special_txt_clr}test_paragraph{cnst.def_txt_clr}',
@@ -90,6 +89,10 @@ def main_menu():
 
             choices_main_menu.append(
                 (f'{cnst.special_txt_clr}restore default setup file{cnst.def_txt_clr}', 'ALL CHANGES WILL BE LOST!!!'))
+
+        if cnst.setup_params['use_dummy']:  # disable 'new game' and 'load game' option when using dummy
+            choices_main_menu.remove(choices_main_menu[2])
+            choices_main_menu.remove(choices_main_menu[1])
 
         # displaying list in main menu
         for i, (choice_main_menu, description) in enumerate(choices_main_menu, 1):

@@ -514,6 +514,8 @@ def get_game_state(action, last_paragraph='prg.00', new_game=None):
             else:
                 cnst.game_state_exists = False
 
+        return
+
     update_setup_file()  # dump all setup to json file
 
     return last_paragraph
