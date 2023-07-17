@@ -4,7 +4,7 @@
 **Adaptation developer**: Filip Pawłowski (2023) - filippawlowski2012@gmail.com
 
 GitHub
-Repository: [https://github.com/kotlecikmud/Dreszcz_Gra_Paragrafowa.git](https://github.com/kotlecikmud/Dreszcz_Gra_Paragrafowa.git)
+Repository: https://github.com/kotlecikmud/Dreszcz_Gra_Paragrafowa---text-based-game-adaptation.git
 
 ## Description
 
