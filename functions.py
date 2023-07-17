@@ -184,7 +184,7 @@ def dub_play(string_id, category=None, skippable=True, with_text=True, r_robin=N
                 if msvcrt.kbhit():
                     break
 
-            time.sleep(0.1)  # safety measure
+            time.sleep(0.2)  # safety measure
     else:
         debug_message("dubbing is disabled")
         input(f"continue {cnst.input_sign}")
@@ -627,10 +627,10 @@ def pth_selector(path_strings=None, actions=None, visit_check=False, room_id=Non
         else:  # if closed
             try:
                 print(
-                    f"{gb.gameboook[cnst.setup_params['translation']]['door']} {cnst.special_txt_clr}{room_id.room_num}{cnst.def_txt_clr} {gb.gameboook[cnst.setup_params['translation']]['are']} {cnst.special_txt_clr}{gb.gameboook[cnst.setup_params['translation']]['closed']}{cnst.def_txt_clr}.")
+                    f"{gb.gameboook[cnst.setup_params['translation']]['door']} {cnst.special_txt_clr}{room_id.room_num}{cnst.def_txt_clr} {gb.gameboook[cnst.setup_params['translation']]['are']} {gb.gameboook[cnst.setup_params['translation']]['closed']}{cnst.def_txt_clr}.")
             except KeyError:
                 debug_message(f"this line does not exist in gamebook[{cnst.setup_params['translation']}]")
-            dub_play('closed', 'adam', False, False)
+            dub_play('closed', 'adam', False, False, r_robin = 1)
             debug_message(f'eval: {actions[1]}')
             eval(actions[1])
 

@@ -4,71 +4,6 @@
 Author: Jacek Ciesielski (1987)
 Developer: Filip Pawłowski (2023) - filippawlowski2012@gmail.com
 GitHub Repository: https://github.com/kotlecikmud/Dreszcz_Gra_Paragrafowa---text-based-game-adaptation.git
-
-Description:
-"DRESZCZ" is a text-based adventure game developed in Python. It offers an immersive gameplay experience
-through a captivating story presented in a choose-your-own-adventure style. Players make choices that
-determine the outcome of the game, encountering various challenges, puzzles, and branching storylines along the way.
-The game features a main menu with multiple options, including starting a new game, loading a saved game,
-accessing game rules, adjusting game settings, and exiting the game. The main menu loop continuously prompts the player
-for input and performs actions based on the selected menu option.
-
-Additional functionality is available in developer mode, allowing developers to access test paragraphs,
-configure setup files, view project documentation, and restore default setup files.
-The game incorporates various modules and files, including gamebook.py (containing the main storybook),
-paragraphs.py (containing paragraph-specific logic), functions.py (containing utility functions),
-constants.py (containing game constants), and the colorama library for colored text output.
-
-The code is organized into functions, each serving a specific purpose such as displaying menus, handling user input,
-managing game state, and performing game actions. Docstrings are provided for key functions
-to describe their functionality, parameters, and return values.
-The game also includes a start sequence with introductory messages and background music,
-which can be toggled in the setup parameters.
-
-Developer Mode:
-Developer mode provides additional features and information for developers working on the game.
-It can be activated temporarily by entering 'rayman' in the main menu to enable developer mode or 'mario' to disable it.
-In developer mode, useful information such as setup parameters, documentation path, and debug messages are displayed.
-
-Setup Parameters:
-The game utilizes a setup file (setup.json) to store and retrieve various game parameters and settings.
-Developers can modify the setup file manually to customize the game behavior,
-or configure it using the main menu configuration option file.
-The loaded setup parameters are displayed in developer mode.
-
-Documentation:
-The project documentation includes a PDF scan of the original book and an HTML
-adaptation also available at http://www.dudziarz.net. The documentation can be accessed through the
-'project documentation' option in the main menu, which simply opens the directory with documentation files.
-
-Dependencies:
-- Python 3.x
-- pygame
-- colorama
-
-Usage:
-Run play.bat file to ensure that the dependencies are installed and the game can be launched successfully.
-
-This batch script, `play.bat`, automates the setup process for running the game. It performs the following steps:
-
-1. Turns off command echoing.
-2. Checks the Python version using `python --version`.
-3. Checks for updates by executing `git pull`.
-4. Ensures that pip is installed and up to date using `python.exe -m pip install --upgrade pip`.
-5. Installs the required libraries specified in `Assets/requirements.txt` with `pip install -r Assets/requirements.txt`.
-6. Prompts the user to press any key to continue using the "pause" command.
-7. Launches the game by running `python menu.py`.
-
-To use:
-1. Double-click on the `play.bat` file.
-2. Review the output of the previous commands.
-3. The game will be launched automatically.
-
-Make sure that you have Python installed and available in your system's PATH environment variable.
-
-Note: The code may require additional setup and configuration depending on the environment and platform.
-
-Enjoy playing "DRESZCZ" - GRA PARAGRAFOWA!
 """
 
 import os
@@ -507,20 +442,24 @@ if cnst.setup_params['dev_mode']:
     # Version with enabled annotations
     template = "({}) {} - {}"
 
+    print(f"\n{cnst.special_txt_clr}Setup parameters loaded from file: {Fore.YELLOW}{cnst.setup_name}{Style.RESET_ALL}")
+
+    # Find the length of the longest value in cnst.loaded_setup
+    max_value_length = max(len(str(key)) for key in cnst.loaded_setup.keys())
+
+    # Print the key-value pairs with variable length formatting
+    for key, value in cnst.loaded_setup.items():
+        print(f"- {key.ljust(max_value_length)} - {value}")
+
     print(
         f"\n{Fore.LIGHTBLUE_EX}Code is running in developer mode.\
         \nTo deactivate the dev_mode temporarily toggle in the main menu, enter 'rayman'-ON or 'mario'-OFF.\
         \nAlso, you can change the setup parameters in the setup file manually.{cnst.def_txt_clr}\
+        \n\
         \nuseful stuff:\
         \nsetup parameters {cnst.input_sign}{cnst.setup_name}\
-        \ndocumentation {cnst.input_sign}Assets/PDF&HTML/\
-        \n{cnst.input_sign}"
+        \ndocumentation {cnst.input_sign}Assets/PDF&HTML/"
     )
-
-    print(f"\n{cnst.special_txt_clr}Setup parameters loaded from file: {Fore.YELLOW}{cnst.setup_name}{Style.RESET_ALL}")
-
-    for key, value in cnst.loaded_setup.items():
-        print(f"- {key.ljust(22)} - {value}")
 
     input(f"\ncontinue to the main menu {cnst.input_sign}")
 
