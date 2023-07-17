@@ -959,7 +959,7 @@ def _291():
 
 
 def _296():
-    func.dub_play('296a', 'adam', False)
+    func.dub_play('296a', 'adam')
     func.eatables()
     func.dub_play('296b', 'adam')
     path_strings = []
@@ -976,7 +976,7 @@ def _298():
 
 
 def _301():
-    func.dub_play('301', 'adam', False)
+    func.dub_play('301', 'adam')
     path_strings = ['Spróbuj otworzyć drzwi', 'Zawróć']
     actions = ['prg._364()', 'prg._120()']
     func.pth_selector(path_strings, actions)

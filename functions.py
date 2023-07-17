@@ -11,7 +11,7 @@ import gamebook as gb
 import constants as cnst
 # paragraphs must be imported
 import paragraphs as prg
-from colorama import Fore
+from colorama import Fore, Style
 
 
 def debug_message(msg):
@@ -182,6 +182,7 @@ def dub_play(string_id, category=None, skippable=True, with_text=True, r_robin=N
             while channel.get_busy():
                 # check if any key is pressed
                 if msvcrt.kbhit():
+                    pygame.mixer.stop()  # stop any sound currently being played
                     break
 
             time.sleep(0.2)  # safety measure
@@ -558,6 +559,7 @@ def get_game_state(action, last_paragraph='prg.00', new_game=None):
         return
 
     update_setup_file()  # dump all setup to json file
+    print(cnst.def_txt_clr)  # reset text color
 
     return last_paragraph
 
@@ -630,38 +632,38 @@ def pth_selector(path_strings=None, actions=None, visit_check=False, room_id=Non
                     f"{gb.gameboook[cnst.setup_params['translation']]['door']} {cnst.special_txt_clr}{room_id.room_num}{cnst.def_txt_clr} {gb.gameboook[cnst.setup_params['translation']]['are']} {gb.gameboook[cnst.setup_params['translation']]['closed']}{cnst.def_txt_clr}.")
             except KeyError:
                 debug_message(f"this line does not exist in gamebook[{cnst.setup_params['translation']}]")
-            dub_play('closed', 'adam', False, False, r_robin = 1)
+            dub_play('closed', 'adam', False, False, r_robin=1)
             debug_message(f'eval: {actions[1]}')
             eval(actions[1])
 
     else:
         debug_message(f'evaluating action: {actions}')
 
-        if len(actions) != 1:  # if there is more than one path, display choice menu
+        if len(actions) > 1:  # If there is more than one path, display the choice menu
             for i, path in enumerate(path_strings):
                 print(f'{i + 1} · {path}')
                 time.sleep(cnst.delay)
 
             while True:
-                odp = input(f'{cnst.input_sign}')
+                usr_input = input(f'{cnst.input_sign}')
 
                 try:
-                    odp = int(odp)
+                    usr_input = int(usr_input)
 
-                    if 0 < odp <= len(path_strings):
+                    if 0 < usr_input <= len(path_strings):
                         break
 
                 except ValueError:
                     print(f'/!/ {cnst.special_txt_clr}Choose number from list{cnst.def_txt_clr}')
 
             clear_terminal()
-            pygame.mixer.stop()  # abort any dubbing currently playing
-            get_game_state('s', actions[odp - 1])
-            eval(actions[odp - 1])
+            pygame.mixer.stop()  # Abort any dubbing currently being played
+            get_game_state('s', actions[usr_input - 1])  # Save game_state to active one
+            eval(actions[usr_input - 1])
 
-        else:  # if there is only one path, continue automatically
+        else:  # If there is only one path, continue automatically
             clear_terminal()
-            get_game_state('s', actions[0])
+            get_game_state('s', actions[0])  # Save game_state to active one
             eval(actions[0])
 
 
