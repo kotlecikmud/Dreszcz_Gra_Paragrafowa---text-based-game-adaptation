@@ -209,11 +209,9 @@ Enjoy playing "DRESZCZ" - GRA PARAGRAFOWA!
 
 **Note:**
 
-The description above was generated using GPT-3.5, a text generation tool. GPT-3.5 utilizes advanced artificial
+The description above was mostly generated using GPT-3.5, a text generation tool. GPT-3.5 utilizes advanced artificial
 intelligence to generate coherent texts based on input data. It is important to note that the information contained in
-the description may not be 100% accurate and requires verification. GPT-3.5 is an example of a powerful artificial
-intelligence-based tool that can aid in text creation, but its outputs should always be carefully evaluated and adjusted
-to meet individual project needs and context.
+the description may not be 100% accurate and requires verification.
 
 In addition to the description provided above, please note that the
 documentation is also available in .py files as doc_strings.
