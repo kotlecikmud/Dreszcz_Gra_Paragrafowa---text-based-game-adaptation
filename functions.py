@@ -217,7 +217,7 @@ def name_randomizer():
     return cnst.player_name
 
 
-def update_variable(variable, change):
+def update_variable(variable, change, par_name=None):
     if isinstance(variable, bool):
         new_variable = change
     elif isinstance(variable, int) or isinstance(variable, float):
@@ -226,7 +226,10 @@ def update_variable(variable, change):
         # Handling other variable types
         new_variable = variable
 
-    debug_message(f'update_variable: {variable} + {change} = {new_variable}')
+    if par_name:
+        print(f"{par_name}: {variable} + {change} = {new_variable}")
+    else:
+        debug_message(f'update_variable: {variable} + {change} = {new_variable}')
 
     return new_variable
 
@@ -682,17 +685,17 @@ def win():
 def check_for_luck():
     update_variable(cnst.s_count, -1)
 
-    print(f'{cnst.special_txt_clr}Sprawdzam czy masz szczęście:')
+    print(f'{cnst.special_txt_clr}Sprawdzam czy masz szczęście:')  # Checking if you're lucky
     loading()
+
+    # cfl - check for luck
     cfl_val = random.randint(2, 12)
 
     if cfl_val <= cnst.s_count:
-        print('\rUff, masz szczęscie.\
-        \n')
+        print('Uff, masz szczęście.')  # Phew, you're lucky.
         return True
-    elif cfl_val > cnst.s_count:
-        print('\rNie masz szczęścia!\
-        \n')
+    else:
+        print('Nie masz szczęścia!')  # No luck for you!
         return False
 
 
@@ -737,22 +740,25 @@ def eatables():
     Returns:
         None
     """
+    msg_1 = f"/// Wytrzymałość: {cnst.w_count}/{cnst.w_init}"
+    msg_2 = f"/// Prowiant: {cnst.eatables_count}/{cnst.init_eatables_count}"
+
     if cnst.eatables_count != 0:
         while True:
             if cnst.w_count != cnst.w_init:
                 dub_play("eatables", "adam", False)
-                print(f"/// Wytrzymałość: {cnst.w_count}/{cnst.w_init}")
-                print(f"/// Prowiant: {cnst.eatables_count}/{cnst.init_eatables_count}")
+
+                print(msg_1)
+                print(msg_2)
                 odp = input(f"{cnst.input_sign}")
                 loading()
                 if odp.lower() in {'tak', 't', 'y', 'yes'}:
                     if cnst.w_count < cnst.w_init:
                         update_variable(cnst.eatables_count, -1)
-                        wzrost_wytrzymalosci = min(cnst.eatable_W_load, cnst.w_init - cnst.w_count)
-                        update_variable(cnst.w_count, wzrost_wytrzymalosci)
-                        print(f"Wytrzymałość + {wzrost_wytrzymalosci}")
-                        print(f"/// Wytrzymałość: {cnst.w_count}/{cnst.w_init}")
-                        print(f"/// Prowiant: {cnst.eatables_count}/{cnst.init_eatables_count}{cnst.def_txt_clr}")
+                        inc_stamina = min(cnst.eatable_W_load, cnst.w_init - cnst.w_count)
+                        update_variable(cnst.w_count, inc_stamina, "Wytrzymałość")
+                        print(msg_1)
+                        print(msg_2)
                         print(f"{cnst.def_txt_clr}")
                         break
 
