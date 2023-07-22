@@ -42,42 +42,7 @@ combat_txt_clr = Fore.LIGHTCYAN_EX  # color for combat text
 debug_txt_clr = Fore.LIGHTBLACK_EX  # color for debug messages
 error_txt_clr = Fore.RED  # color for error messages
 
-paths_doc = """
-/// PATHS
-This section contains path definitions and lists of audio files used in the game.
-
-Paths:
-- assets_audio_effects_pth: Path to the directory containing sound effects.
-- assets_audio_music_pth: Path to the directory containing music files.
-- game_state_dir_name: Name of the directory used for game state saves.
-- setup_name: Name of the setup script file.
-
-/// Music Lists
-- music_combat: List of music tracks used in combat.
-- music_main: List of main music tracks.
-- music_menu: List of menu music tracks.
-"""
-
-assets_audio_voice_pth = 'Assets\Audio\Voice'  # Path to voice lines audio files
-assets_audio_effects_pth = r'Assets\Audio\fx'  # Path to sound effects
-assets_audio_music_pth = 'Assets\Audio\music'  # Path to music
-game_state_dir_name = "Dreszcz_saves"
 setup_name = "_json_\setup.json"  # Get the setup script's name and or location
-audio_ext = '.mp3'  # extension of voice and fx files
-
-# /// music lists
-# create lists of existing files within given categories
-music_categories = ['menu', 'main', 'combat']
-music_tracks = {}
-
-for category in music_categories:
-    category_path = os.path.join(assets_audio_music_pth, category)
-    music_tracks[category] = []
-
-    for filename in os.listdir(category_path):
-        file_path = os.path.join(category_path, filename)
-        if os.path.isfile(file_path):
-            music_tracks[category].append(file_path)
 
 # /// pygame mixer setup
 # Initialize the mixer module with the specified settings
@@ -186,3 +151,41 @@ def setup():
 
 
 loaded_setup = setup()
+
+paths_doc = """
+/// PATHS
+This section contains path definitions and lists of audio files used in the game.
+
+Paths:
+- assets_audio_effects_pth: Path to the directory containing sound effects.
+- assets_audio_music_pth: Path to the directory containing music files.
+- game_state_dir_name: Name of the directory used for game state saves.
+- setup_name: Name of the setup script file.
+
+/// Music Lists
+- music_combat: List of music tracks used in combat.
+- music_main: List of main music tracks.
+- music_menu: List of menu music tracks.
+"""
+
+assets_audio_voice_pth = 'Assets\Audio\Voice'  # Path to voice lines audio files
+assets_audio_effects_pth = r'Assets\Audio\fx'  # Path to sound effects
+assets_audio_music_pth = 'Assets\Audio\music'  # Path to music
+game_state_dir_name = "Dreszcz_saves"
+
+audio_ext = '.mp3'  # extension of voice and fx files
+
+# /// music lists
+# create lists of existing files within given categories
+music_categories = ['menu', 'main', 'combat']
+music_tracks = {}
+
+if setup_params['get_music']:
+    for category in music_categories:
+        category_path = os.path.join(assets_audio_music_pth, category)
+        music_tracks[category] = []
+
+        for filename in os.listdir(category_path):
+            file_path = os.path.join(category_path, filename)
+            if os.path.isfile(file_path):
+                music_tracks[category].append(file_path)
