@@ -935,9 +935,9 @@ def _271():
 
 def _284():
     func.dub_play('284', 'adam')
-    func.check_for_luck()
+    p_luck = func.check_for_luck()
 
-    if not cnst.p_luck:
+    if not p_luck:
         func.stats_change('Wytrzymałość', cnst.w_count, -2)
 
     path_strings = []

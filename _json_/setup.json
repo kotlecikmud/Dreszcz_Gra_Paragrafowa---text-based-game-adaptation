@@ -10,7 +10,7 @@
   "start_sequence": false,
   "manual_battle": false,
   "dubbing": true,
-  "get_music": false,
+  "get_music": true,
   "ver_num": null,
-  "logging": true
+  "logging": false
 }

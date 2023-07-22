@@ -699,23 +699,27 @@ def check_for_luck():
     print(f'{cnst.special_txt_clr}Sprawdzam czy masz szczęście:')  # Checking if you're lucky
     loading()
 
-    # cfl - check for luck
-    cfl_val = random.randint(2, 12)
-
-    if cfl_val <= cnst.s_count:
+    if random.randint(2, 12) <= cnst.s_count:
         print('Uff, masz szczęście.')  # Phew, you're lucky.
-        return True
+        p_luck = True
+        
     else:
         print('Nie masz szczęścia!')  # No luck for you!
-        return False
+        p_luck = False
+        
+    time.sleep(1)
+    
+    return p_luck
 
 
 def check_for_gold_amount(req_amount):
     if cnst.gold_amount >= req_amount:
-        return True
+        gold_state = True
     else:
         print("You don't have enough gold.")
-        return False
+        gold_state = False
+
+    return gold_state
 
 
 def eatables():
