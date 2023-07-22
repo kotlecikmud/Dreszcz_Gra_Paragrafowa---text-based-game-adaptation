@@ -53,7 +53,7 @@ Paths:
 - setup_name: Name of the setup script file.
 
 /// Music Lists
-- music_combat: List of music tracks used in combat .
+- music_combat: List of music tracks used in combat.
 - music_main: List of main music tracks.
 - music_menu: List of menu music tracks.
 """
@@ -107,6 +107,10 @@ difficulty_levels = {"easy": 1, "medium": 1.3, "hard": 1.6}
 setup_params = {param: None for param in [
     "active_gameplay",
     "translation",
+    "difficulty",
+    "action_volume",
+    "sfx_volume",
+    "bckg_volume",
     "dev_mode",
     "debug_msg",
     "use_dummy",
@@ -115,10 +119,7 @@ setup_params = {param: None for param in [
     "dubbing",
     "get_music",
     "ver_num",
-    "difficulty",
-    "action_volume",
-    "sfx_volume",
-    "bckg_volume"
+    "logging"
 ]}
 
 

@@ -16,7 +16,11 @@ from colorama import Fore, Style
 
 def debug_message(msg):
     if cnst.setup_params['debug_msg']:
-        print(f'{cnst.debug_txt_clr}DEBUG: {msg}{cnst.def_txt_clr}')
+        print(f"{cnst.debug_txt_clr}DEBUG: {msg}{cnst.def_txt_clr}")
+        if cnst.logging:
+            with open("logging.log", 'a') as f:
+                # zapisanie wartości zmiennych do pliku konfiguracyjnego
+                f.write(f"\nDEBUG: {msg}")
 
 
 def error_message(error_name, msg):
@@ -24,6 +28,10 @@ def error_message(error_name, msg):
         if error_name == '':
             error_name = 'ERROR'
         print(f'{cnst.error_txt_clr}{error_name}{cnst.debug_txt_clr} || {msg}{cnst.def_txt_clr}')
+    if cnst.logging:
+        with open("logging.log", 'a') as f:
+            # zapisanie wartości zmiennych do pliku konfiguracyjnego
+            f.write(f"\n{error_name}||{msg}")
 
 
 def clear_terminal():
@@ -268,6 +276,9 @@ def update_setup_file(manual=False, backup=False):
         fields = [
             "active_gameplay",
             "translation",
+            "action_volume",
+            "sfx_volume",
+            "bckg_volume",
             "dev_mode",
             "use_dummy",
             "start_sequence",
@@ -276,9 +287,7 @@ def update_setup_file(manual=False, backup=False):
             "get_music",
             "ver_num",
             "difficulty",
-            "action_volume",
-            "sfx_volume",
-            "bckg_volume"
+            "logging"
         ]
 
         for field in fields:
@@ -292,7 +301,7 @@ def update_setup_file(manual=False, backup=False):
                 print(", ".join(list(gb.gameboook.keys())))
 
             elif field in ["dev_mode", "use_dummy", "start_sequence", "manual_battle",
-                           "dubbing", "get_music"]:
+                           "dubbing", "get_music", "logging"]:
                 print('(True/False)')
 
             elif field == "ver_num":
@@ -327,6 +336,9 @@ def update_setup_file(manual=False, backup=False):
         setup_data = {
             "active_gameplay": "dreszcz_dummy.json",
             "translation": "en",
+            "action_volume": 1,
+            "sfx_volume": 0.7,
+            "bckg_volume": 0.6,
             "dev_mode": False,
             "debug_msg": True,
             "use_dummy": True,
@@ -335,9 +347,7 @@ def update_setup_file(manual=False, backup=False):
             "dubbing": True,
             "get_music": True,
             "ver_num": None,
-            "action_volume": 1,
-            "sfx_volume": 0.7,
-            "bckg_volume": 0.6
+            "logging": True
         }
         debug_message('backup setup data loaded')
 
@@ -345,6 +355,9 @@ def update_setup_file(manual=False, backup=False):
         setup_data = {
             "active_gameplay": cnst.setup_params["active_gameplay"],
             "translation": cnst.setup_params["translation"],
+            "action_volume": cnst.setup_params["action_volume"],
+            "sfx_volume": cnst.setup_params["sfx_volume"],
+            "bckg_volume": cnst.setup_params["bckg_volume"],
             "dev_mode": cnst.setup_params["dev_mode"],
             "debug_msg": cnst.setup_params['debug_msg'],
             "use_dummy": cnst.setup_params["use_dummy"],
@@ -353,9 +366,7 @@ def update_setup_file(manual=False, backup=False):
             "dubbing": cnst.setup_params["dubbing"],
             "get_music": cnst.setup_params["get_music"],
             "ver_num": cnst.setup_params["ver_num"],
-            "action_volume": cnst.setup_params["action_volume"],
-            "sfx_volume": cnst.setup_params["sfx_volume"],
-            "bckg_volume": cnst.setup_params["bckg_volume"]
+            "logging": cnst.setup_params["logging"],
         }
 
     with open(cnst.setup_name, 'w') as json_file:  # Save the setup data to a JSON file
