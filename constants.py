@@ -69,23 +69,26 @@ choices_115 = {'Miecz': '_232()',
 difficulty = 1  # default value
 difficulty_levels = {"easy": 1, "medium": 1.3, "hard": 1.6}
 
-setup_params = {param: None for param in [
-    "active_gameplay",
-    "translation",
-    "difficulty",
-    "action_volume",
-    "sfx_volume",
-    "bckg_volume",
-    "dev_mode",
-    "debug_msg",
-    "use_dummy",
-    "start_sequence",
-    "manual_battle",
-    "dubbing",
-    "get_music",
-    "ver_num",
-    "logging"
-]}
+# declare empty params
+setup_params = {
+    param: None for param in [
+        "active_gameplay",
+        "translation",
+        "difficulty",
+        "action_volume",
+        "sfx_volume",
+        "bckg_volume",
+        "dev_mode",
+        "debug_msg",
+        "use_dummy",
+        "start_sequence",
+        "manual_battle",
+        "dubbing",
+        "get_music",
+        "ver_num",
+        "logging"
+    ]
+}
 
 
 def setup():
@@ -168,9 +171,9 @@ Paths:
 - music_menu: List of menu music tracks.
 """
 
-assets_audio_voice_pth = 'Assets\Audio\Voice'  # Path to voice lines audio files
-assets_audio_effects_pth = r'Assets\Audio\fx'  # Path to sound effects
-assets_audio_music_pth = 'Assets\Audio\music'  # Path to music
+assets_audio_voice_pth = 'Assets/Audio/Voice'  # Path to voice lines audio files
+assets_audio_effects_pth = 'Assets/Audio/fx'  # Path to sound effects
+assets_audio_music_pth = 'Assets/Audio/music'  # Path to music
 game_state_dir_name = "Dreszcz_saves"
 
 audio_ext = '.mp3'  # extension of voice and fx files

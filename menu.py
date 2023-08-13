@@ -56,21 +56,23 @@ def main_menu():
             f"{cnst.special_txt_clr}{gb.infoboook[cnst.setup_params['translation']]['Mmenu_headline']}{cnst.def_txt_clr}")
 
         choices_main_menu = [
+            # continue
+            (gb.infoboook[cnst.setup_params['translation']]['Mmenu0'], cnst.setup_params['active_gameplay']),
             (gb.infoboook[cnst.setup_params['translation']]['Mmenu1'], ''),  # new game
+            (gb.infoboook[cnst.setup_params['translation']]['Mmenu2'], ''),  # load game
             (gb.infoboook[cnst.setup_params['translation']]['Mmenu3'], ''),  # rules
             (gb.infoboook[cnst.setup_params['translation']]['Mmenu4'], ''),  # settings
             (gb.infoboook[cnst.setup_params['translation']]['Mmenu5'], '')  # exit
         ]
 
         # if any game state exists, display corresponding menu options
-        if cnst.game_state_exists:
+        if not cnst.game_state_exists:
             # continue last gameplay
-            choices_main_menu.insert(0, (
-                gb.infoboook[cnst.setup_params['translation']]['Mmenu0'],
-                cnst.setup_params['active_gameplay']))
+            choices_main_menu.remove(
+                (gb.infoboook[cnst.setup_params['translation']]['Mmenu0'], cnst.setup_params['active_gameplay']))
 
             # load game
-            choices_main_menu.insert(2, (gb.infoboook[cnst.setup_params['translation']]['Mmenu2'], ''))
+            choices_main_menu.remove((gb.infoboook[cnst.setup_params['translation']]['Mmenu2'], ''))
 
         # append developer mode options at the end of main menu list
         if cnst.setup_params['dev_mode']:
@@ -89,8 +91,8 @@ def main_menu():
                 (f'{cnst.special_txt_clr}restore default setup file{cnst.def_txt_clr}', 'ALL CHANGES WILL BE LOST!!!'))
 
         if cnst.setup_params['use_dummy']:  # disable 'new game' and 'load game' option when using dummy
-            choices_main_menu.remove(choices_main_menu[2])
-            choices_main_menu.remove(choices_main_menu[1])
+            choices_main_menu.remove((gb.infoboook[cnst.setup_params['translation']]['Mmenu1'], ''))  # new game
+            choices_main_menu.remove((gb.infoboook[cnst.setup_params['translation']]['Mmenu2'], ''))  # load game
 
         # displaying list in main menu
         for i, (choice_main_menu, description) in enumerate(choices_main_menu, 1):
@@ -235,12 +237,12 @@ def main_menu():
                             if usr_input == choice_settings:
 
                                 # Language settings
-                                if choice_settings == gb.infoboook[cnst.setup_params['translation']][
-                                    'Mmenu4_sub1']:
+                                if choice_settings == gb.infoboook[cnst.setup_params['translation']]['Mmenu4_sub1']:
 
                                     # initialize list of Locales in gamebook
                                     availablelocales = []
 
+                                    # print available languages
                                     for key in gb.gameboook:
                                         availablelocales.append(key)
 

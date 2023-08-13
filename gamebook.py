@@ -2601,5 +2601,5 @@ def get_translation(translation):
     if not translation in gameboook:  # if not available, set to english
         func.debug_message('not available, language defaulted to english')
         translation = 'en'
-    cnst.translation = translation
-    return gameboook[translation], infoboook[translation], cnst.translation
+    cnst.setup_params['translation'] = translation
+    return gameboook[translation], infoboook[translation], cnst.setup_params['translation']
