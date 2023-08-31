@@ -139,7 +139,7 @@ entity_344_w_init = entity_344_w_count = entity_344.entity_w_count
 # - - - - - - - - -
 
 # /// declare rooms
-# self, room_id, room_state, visit_in_turn)
+# self, room_id, room_state, visit_in_turn
 # - - - - - - - - -
 # - - - - - - - - -
 # - - - - - - - - -

@@ -133,7 +133,7 @@ def dub_play(string_id, category=None, skippable=True, with_text=True, r_robin=N
         r_robin = "_" + str(random.randint(1, r_robin))
 
     else:
-        r_robin = '_'
+        r_robin = "_"
 
     audio_file_id = None
 
