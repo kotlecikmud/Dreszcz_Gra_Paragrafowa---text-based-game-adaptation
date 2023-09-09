@@ -14,28 +14,25 @@ import paragraphs as prg
 from colorama import Fore, Style
 
 
-def debug_message(msg):
-    if cnst.setup_params['debug_msg']:
-        print(f"{cnst.debug_txt_clr}DEBUG: {msg}{cnst.def_txt_clr}")
-        if cnst.logging:
-            with open("logging.log", 'a') as f:
-                # zapisanie wartości zmiennych do pliku konfiguracyjnego
-                f.write(f"\nDEBUG: {msg}")
-
-
-def error_message(error_name, msg):
-    if cnst.setup_params['dev_mode']:
-        if error_name == '':
-            error_name = 'ERROR'
-        print(f'{cnst.error_txt_clr}{error_name}{cnst.debug_txt_clr} || {msg}{cnst.def_txt_clr}')
-    if cnst.logging:
-        with open("logging.log", 'a') as f:
-            # zapisanie wartości zmiennych do pliku konfiguracyjnego
-            f.write(f"\n{error_name}||{msg}")
-
-
-def clear_terminal():
-    subprocess.call('cls' if os.name == 'nt' else 'clear', shell=True)
+# class LoadingAnimation:
+#     def __init__(self):
+#         self.animation_signs = ['|', '/', '-', '\\']
+#         self.sign_index = 0
+#         self.finished = False
+#
+#     def start(self):
+#         import threading
+#         self.finished = False
+#         threading.Thread(target=self._animate).start()
+#
+#     def stop(self):
+#         self.finished = True
+#
+#     def _animate(self):
+#         while not self.finished:
+#             print('- ' + self.animation_signs[self.sign_index % len(self.animation_signs)] + ' -', end='\r')
+#             time.sleep(0.1)
+#             self.sign_index += 1
 
 
 def loading(duration=1, message=None):
@@ -52,6 +49,33 @@ def loading(duration=1, message=None):
         time.sleep(0.1)
         sign_index += 1
     print(cnst.def_txt_clr)
+
+
+def write_new_log_entry(entry):
+    if cnst.logging:
+        current_user = os.getlogin()
+        time_stamp = datetime.datetime.now().strftime('[%y-%m-%d %H:%M:%S]')
+        with open("logging.log", 'a') as f:
+            f.write(f"{time_stamp} - {current_user} : {entry}\n")  # write to log file
+
+
+def debug_message(msg):
+    if cnst.setup_params['debug_msg']:
+        print(f"{cnst.debug_txt_clr}DEBUG: {msg}{cnst.def_txt_clr}")
+        write_new_log_entry(msg)
+
+
+def error_message(error_name, msg):
+    if cnst.setup_params['dev_mode']:
+        if error_name == '':
+            error_name = 'ERROR'
+        print(f'{cnst.error_txt_clr}{error_name}{cnst.debug_txt_clr} || {msg}{cnst.def_txt_clr}')
+        log_entry = error_name + msg
+        write_new_log_entry(log_entry)
+
+
+def clear_terminal():
+    subprocess.call('cls' if os.name == 'nt' else 'clear', shell=True)
 
 
 def get_music(category=None, fadeout=None, update=None):
@@ -191,9 +215,10 @@ def dub_play(string_id, category=None, skippable=True, with_text=True, r_robin=N
                 # check if any key is pressed
                 if msvcrt.kbhit():
                     pygame.mixer.stop()  # stop any sound currently being played
+                    time.sleep(0.1)  # padding for debouncing enter
                     break
 
-            time.sleep(0.2)  # safety measure
+            time.sleep(0.2)  # delayed for safety measure
     else:
         debug_message("dubbing is disabled")
         input(f"continue {cnst.input_sign}")
@@ -201,6 +226,7 @@ def dub_play(string_id, category=None, skippable=True, with_text=True, r_robin=N
 
 
 def name_randomizer():
+    # These parts will be changed for future translation versions. They must be implemented first as a sub-dictionary in gamebook.py for the variable gamebook={}
     first_parts = ['Bogdan', 'Dobrosław', 'Jarosław', 'Grzesiu', 'Mścisław', 'Radosław', 'Sławomir',
                    'Zbyszko z Bogdańca', 'Władysław', 'Zbigniew', 'Stanisław']
     last_parts = ['z Levygradu', 'Mądry', 'Odważny', 'z Małomorza', 'Prawy', 'Sprawiedliwy', 'Słomka', 'Wielki',
@@ -237,7 +263,7 @@ def update_variable(variable, change, par_name=None):
     if par_name:
         print(f"{par_name}: {variable} + {change} = {new_variable}")
     else:
-        debug_message(f'update_variable: {variable} + {change} = {new_variable}')
+        debug_message(f"no par_name; update_variable: {variable} + {change} = {new_variable}")
 
     return new_variable
 
@@ -417,8 +443,8 @@ def get_game_state(action, last_paragraph='prg.00', new_game=None):
 
         cnst.setup_params['active_gameplay'] = "dreszcz_dummy.json"
     else:
-        debug_message(f"Looking for game states in '~/Documents' folder path for saving json file")
-        folder_path = os.path.join(os.path.expanduser('~/Documents'), cnst.game_state_dir_name)
+        debug_message(f"Looking for game states in '~\\Documents' folder path for saving json file")
+        folder_path = os.path.join(os.path.expanduser('~\\Documents'), cnst.game_state_dir_name)
 
     if os.path.exists(folder_path):
         json_files = [file for file in os.listdir(folder_path) if file.endswith('.json') and file != 'setup.json']
@@ -651,7 +677,7 @@ def pth_selector(path_strings=None, actions=None, visit_check=False, room_id=Non
             eval(actions[1])
 
     else:
-        debug_message(f'evaluating action: {actions}')
+        debug_message(f'list of available actions: {actions}')
 
         if len(actions) > 1:  # If there is more than one path, display the choice menu
             for i, path in enumerate(path_strings):
@@ -673,11 +699,13 @@ def pth_selector(path_strings=None, actions=None, visit_check=False, room_id=Non
             clear_terminal()
             pygame.mixer.stop()  # Abort any dubbing currently being played
             get_game_state('s', actions[usr_input - 1])  # Save game_state to active one
+            debug_message(f'evaluated: {actions[usr_input - 1]}')
             eval(actions[usr_input - 1])
 
         else:  # If there is only one path, continue automatically
             clear_terminal()
             get_game_state('s', actions[0])  # Save game_state to active one
+            debug_message(f'evaluated: {actions[0]}')
             eval(actions[0])
 
 
@@ -702,13 +730,13 @@ def check_for_luck():
     if random.randint(2, 12) <= cnst.s_count:
         print('Uff, masz szczęście.')  # Phew, you're lucky.
         p_luck = True
-        
+
     else:
         print('Nie masz szczęścia!')  # No luck for you!
         p_luck = False
-        
+
     time.sleep(1)
-    
+
     return p_luck
 
 

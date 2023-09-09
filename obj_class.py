@@ -16,19 +16,24 @@ class Entity:
     # /// die action
     def die(self):
         print(f"{self.name} został zabity!")
-        func.dub_play()
-        # # find empty channel
-        # channel = None
-        # for i in range(pygame.mixer.get_num_channels()):
-        #     if not pygame.mixer.Channel(i).get_busy():
-        #         channel = pygame.mixer.Channel(i)
-        #         break
-        # if channel is None:
-        #     print("DEBUG: Nie znaleziono wolnego kanału.")
-        #     return
+        """func.dub_play()
+        # find empty channel
+        channel = None
+        for i in range(pygame.mixer.get_num_channels()):
+            if not pygame.mixer.Channel(i).get_busy():
+                channel = pygame.mixer.Channel(i)
+                break
+        if channel is None:
+            print("DEBUG: Nie znaleziono wolnego kanału.")
+            return
 
-        # play sound on found channel
-        # channel.play(f'{cnst.assets_audio_effects_pth}/{self.name}_kill_sound.mp3')
+        play sound on found channel
+        channel.play(f'{cnst.assets_audio_effects_pth}/{self.name}_kill_sound.mp3')"""
+
+        # For some weird reason, this code is not functioning correctly.
+        # It appears that the issue may be connected to its placement within a class instance.
+        # However, in an ideal scenario, it should work seamlessly, just as it does in other modules (ex. functions.py).
+
         self.state = False
 
 

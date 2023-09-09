@@ -1,0 +1,7 @@
+name: dreszcz
+dependencies:
+  - python=3.11
+  - colorama
+  - pygame
+  - numpy
+  - pip

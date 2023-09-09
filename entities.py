@@ -1,6 +1,11 @@
 import obj_class
 import constants as cnst
 
+"""
+Maybe it would be better to convert this module to dictionary as in gamebook.py?
+Only problem is tha this operation requires a lot of time.
+"""
+
 # /// declare entities
 # self, name, entity_z_init, entity_z_count, entity_w_init, entity_w_count, state, esc_possible
 # - - - - - - - - -
@@ -153,4 +158,4 @@ room_336 = obj_class.Room('336')
 # - - - - - - - - -
 room_364 = obj_class.Room('364', False, 2)
 # - - - - - - - - -
-room_xxx = obj_class.Room('xxx')  # placeholder room
+room_xxx = obj_class.Room('xxx')  # placeholder room for testing

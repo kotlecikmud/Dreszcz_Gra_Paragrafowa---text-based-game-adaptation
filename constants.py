@@ -41,8 +41,9 @@ special_txt_clr = Fore.LIGHTMAGENTA_EX  # color for headlines and particular spe
 combat_txt_clr = Fore.LIGHTCYAN_EX  # color for combat text
 debug_txt_clr = Fore.LIGHTBLACK_EX  # color for debug messages
 error_txt_clr = Fore.RED  # color for error messages
+root_dir = "Assets\\"
 
-setup_name = "_json_\setup.json"  # Get the setup script's name and or location
+setup_name = rf"{root_dir}\_json_\setup.json"  # Get the setup script's name and or location
 
 # /// pygame mixer setup
 # Initialize the mixer module with the specified settings
@@ -171,10 +172,10 @@ Paths:
 - music_menu: List of menu music tracks.
 """
 
-assets_audio_voice_pth = 'Assets/Audio/Voice'  # Path to voice lines audio files
-assets_audio_effects_pth = 'Assets/Audio/fx'  # Path to sound effects
-assets_audio_music_pth = 'Assets/Audio/music'  # Path to music
-game_state_dir_name = "Dreszcz_saves"
+assets_audio_voice_pth = rf"{root_dir}Audio\Voice"  # Path to voice lines audio files
+assets_audio_effects_pth = rf"{root_dir}Audio\fx"  # Path to sound effects
+assets_audio_music_pth = fr"{root_dir}Audio\music"  # Path to music
+game_state_dir_name = "dreszcz\\saves"  # Path to game_states/saves
 
 audio_ext = '.mp3'  # extension of voice and fx files
 
@@ -182,6 +183,13 @@ audio_ext = '.mp3'  # extension of voice and fx files
 # create lists of existing files within given categories
 music_categories = ['menu', 'main', 'combat']
 music_tracks = {}
+
+"""
+If 'get_music' is set to True in 'setup_params', this code initializes a dictionary called 'music_tracks'.
+It then iterates through 'music_categories' and, for each category, finds and stores the file paths of music tracks
+located in the corresponding category folder within the 'assets_audio_music_pth' directory.
+The music tracks are organized by category in the 'music_tracks' dictionary.
+"""
 
 if setup_params['get_music']:
     for category in music_categories:

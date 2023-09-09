@@ -9,13 +9,14 @@ GitHub Repository: https://github.com/kotlecikmud/Dreszcz_Gra_Paragrafowa---text
 import os
 import time
 import pygame
-import platform
 import subprocess
 import gamebook as gb
 import paragraphs as prg
 import functions as func
 import constants as cnst
 from colorama import Fore, Style
+
+func.write_new_log_entry("program start")
 
 
 def ask_for_user_input(message=None):
@@ -46,8 +47,7 @@ def main_menu():
 
     while True:
         if cnst.setup_params['ver_num']:
-            print(f"ver.{cnst.debug_txt_clr}{cnst.setup_params['ver_num']}")
-            time.sleep(2)
+            print(f"{cnst.debug_txt_clr}ver.{cnst.setup_params['ver_num']}\n")
 
         func.clear_terminal()
         if cnst.player_name:
@@ -56,13 +56,13 @@ def main_menu():
             f"{cnst.special_txt_clr}{gb.infoboook[cnst.setup_params['translation']]['Mmenu_headline']}{cnst.def_txt_clr}")
 
         choices_main_menu = [
-            # continue
             (gb.infoboook[cnst.setup_params['translation']]['Mmenu0'], cnst.setup_params['active_gameplay']),
+            # continue
             (gb.infoboook[cnst.setup_params['translation']]['Mmenu1'], ''),  # new game
             (gb.infoboook[cnst.setup_params['translation']]['Mmenu2'], ''),  # load game
             (gb.infoboook[cnst.setup_params['translation']]['Mmenu3'], ''),  # rules
             (gb.infoboook[cnst.setup_params['translation']]['Mmenu4'], ''),  # settings
-            (gb.infoboook[cnst.setup_params['translation']]['Mmenu5'], '')  # exit
+            (gb.infoboook[cnst.setup_params['translation']]['Mmenu5'], ''),  # exit
         ]
 
         # if any game state exists, display corresponding menu options
@@ -423,12 +423,7 @@ def main_menu():
                     func.clear_terminal()
                     documentation_path = os.path.join(os.path.abspath('.'), 'Assets', 'docs', "doc_dummy.txt")
 
-                    if platform.system() == "Windows":
-                        subprocess.Popen(f'explorer /select,"{documentation_path}"', shell=True)
-                    elif platform.system() == "Linux":
-                        subprocess.Popen(['xdg-open', documentation_path])
-                    elif platform.system() == "Darwin":
-                        subprocess.Popen(['open', documentation_path])
+                    subprocess.Popen(f'explorer /select,"{documentation_path}"', shell=True)
 
                 elif choice_main_menu == f'{cnst.special_txt_clr}restore default setup file{cnst.def_txt_clr}':
                     func.clear_terminal()
@@ -436,7 +431,7 @@ def main_menu():
 
 
 """
-ADDITIONAL LOGIC DEVELOPER MODE
+ADDITIONAL LOGIC for DEVELOPER MODE
 If the dev_mode variable is set to True, some useful information is displayed,
 including the setup parameters file name at the beggining, documentation path, debug messages and so on.
 """
@@ -463,7 +458,7 @@ if cnst.setup_params['dev_mode']:
         \ndocumentation {cnst.input_sign}Assets/PDF&HTML/"
     )
 
-    input(f"\ncontinue to the main menu {cnst.input_sign}")
+    input(f"\ncontinue by pressing enter {cnst.input_sign}")
 
 else:
     # Version without enabled annotations
@@ -489,5 +484,5 @@ func.get_player_par()
 # hide the "continue" and "load game" options in the menu if no game states are found
 func.get_game_state('init')
 
-# --- --- --- --- entry point
-main_menu()
+if __name__ == '__main__':
+    main_menu()
