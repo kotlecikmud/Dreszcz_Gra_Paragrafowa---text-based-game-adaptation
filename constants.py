@@ -86,7 +86,7 @@ setup_params = {
         "manual_battle",
         "dubbing",
         "get_music",
-        "ver_num",
+        "__version__",
         "logging"
     ]
 }

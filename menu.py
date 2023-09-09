@@ -46,8 +46,8 @@ def main_menu():
     """
 
     while True:
-        if cnst.setup_params['ver_num']:
-            print(f"{cnst.debug_txt_clr}ver.{cnst.setup_params['ver_num']}\n")
+        if cnst.setup_params['__version__']:
+            print(f"{cnst.debug_txt_clr}ver.{cnst.setup_params['__version__']}\n")
 
         func.clear_terminal()
         if cnst.player_name:
