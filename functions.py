@@ -54,8 +54,8 @@ def loading(duration=1, message=None):
 def write_new_log_entry(entry):
     if cnst.logging:
         current_user = os.getlogin()
-        time_stamp = datetime.datetime.now().strftime('[%y-%m-%d %H:%M:%S]')
-        with open("logging.log", 'a') as f:
+        time_stamp = datetime.datetime.now().strftime('[%d-%m-%y %H:%M:%S]')
+        with open(cnst.logfile_name, 'a') as f:
             f.write(f"{time_stamp} - {current_user} : {entry}\n")  # write to log file
 
 
@@ -218,7 +218,7 @@ def dub_play(string_id, category=None, skippable=True, with_text=True, r_robin=N
                     time.sleep(0.1)  # padding for debouncing enter
                     break
 
-            time.sleep(0.2)  # delayed for safety measure
+            time.sleep(0.1)  # delayed for safety measure
     else:
         debug_message("dubbing is disabled")
         input(f"continue {cnst.input_sign}")
@@ -311,7 +311,7 @@ def update_setup_file(manual=False, backup=False):
             "manual_battle",
             "dubbing",
             "get_music",
-            "ver_num",
+            "__version__",
             "difficulty",
             "logging"
         ]
@@ -330,7 +330,7 @@ def update_setup_file(manual=False, backup=False):
                            "dubbing", "get_music", "logging"]:
                 print('(True/False)')
 
-            elif field == "ver_num":
+            elif field == "__version__":
                 print('int, float, or string')
 
             elif field == "difficulty":
@@ -372,10 +372,10 @@ def update_setup_file(manual=False, backup=False):
             "manual_battle": False,
             "dubbing": True,
             "get_music": True,
-            "ver_num": None,
+            "__version__": None,
             "logging": True
         }
-        debug_message('backup setup data loaded')
+        debug_message('restored backup setup')
 
     else:
         setup_data = {
@@ -391,7 +391,7 @@ def update_setup_file(manual=False, backup=False):
             "manual_battle": cnst.setup_params["manual_battle"],
             "dubbing": cnst.setup_params["dubbing"],
             "get_music": cnst.setup_params["get_music"],
-            "ver_num": cnst.setup_params["ver_num"],
+            "__version__": cnst.setup_params["__version__"],
             "logging": cnst.setup_params["logging"],
         }
 
@@ -419,7 +419,7 @@ def get_game_state(action, last_paragraph='prg.00', new_game=None):
     Actions:
         - 's': Saves the current game state to a JSON file.
         - 'l': Loads a game state from a JSON file.
-        - 'c': Continues the game from the last saved state.
+        - 'c': Continues the game from the last saved state saved in setup.json.
         - 'init': Checks if any game states exist and optionally initializes a dummy game state.
 
     Notes:
@@ -826,17 +826,18 @@ def eq_change(new_item_name):
 
 
 def show_player_stats():
-    print(f'{cnst.def_txt_clr}\
+    print(f"\
+    \n{cnst.def_txt_clr}Gracz:\
     \nWytrzymałość: {cnst.w_count}/{cnst.w_init} \
     \nZręczność: {cnst.z_count}/{cnst.z_init} \
-    \nSzczęście: {cnst.s_count}/{cnst.s_init}')
+    \nSzczęście: {cnst.s_count}/{cnst.s_init}")
 
 
 def show_entity_stats(entity):
-    print(f'{cnst.def_txt_clr}\
-    \nStatystyki {entity.name}:\
+    print(f"\
+    \n{cnst.def_txt_clr}{entity.name}:\
     \nWytrzymałość: {entity.entity_w_count}/{entity.entity_w_init}\
-    \nZręczność: {entity.entity_z_count}/{entity.entity_z_init}')
+    \nZręczność: {entity.entity_z_count}/{entity.entity_z_init}")
 
 
 def stats_change(attribute_name, parameter, amount, limit=None):

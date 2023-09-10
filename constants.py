@@ -42,7 +42,7 @@ combat_txt_clr = Fore.LIGHTCYAN_EX  # color for combat text
 debug_txt_clr = Fore.LIGHTBLACK_EX  # color for debug messages
 error_txt_clr = Fore.RED  # color for error messages
 root_dir = "Assets\\"
-
+logfile_name = "logging.log"
 setup_name = rf"{root_dir}\_json_\setup.json"  # Get the setup script's name and or location
 
 # /// pygame mixer setup
@@ -67,7 +67,6 @@ choices_115 = {'Miecz': '_232()',
                'Młot': '_324()',
                }
 
-difficulty = 1  # default value
 difficulty_levels = {"easy": 1, "medium": 1.3, "hard": 1.6}
 
 # declare empty params
@@ -175,7 +174,7 @@ Paths:
 assets_audio_voice_pth = rf"{root_dir}Audio\Voice"  # Path to voice lines audio files
 assets_audio_effects_pth = rf"{root_dir}Audio\fx"  # Path to sound effects
 assets_audio_music_pth = fr"{root_dir}Audio\music"  # Path to music
-game_state_dir_name = "dreszcz\\saves"  # Path to game_states/saves
+game_state_dir_name = "Jacek Ciesielski - Dreszcz\\saves"  # Path to game_states/saves
 
 audio_ext = '.mp3'  # extension of voice and fx files
 
