@@ -56,7 +56,8 @@ def write_new_log_entry(entry):
         current_user = os.getlogin()
         time_stamp = datetime.datetime.now().strftime('[%d-%m-%y %H:%M:%S]')
         with open(cnst.logfile_name, 'a') as f:
-            f.write(f"{time_stamp} - {current_user} : {entry}\n")  # write to log file
+            f.write(
+                f"{time_stamp} | user:{current_user} | v.{cnst.__version__} |> {entry}\n")  # write to log file
 
 
 def debug_message(msg):
@@ -360,7 +361,7 @@ def update_setup_file(manual=False, backup=False):
 
     elif backup:
         setup_data = {
-            "active_gameplay": "dreszcz_dummy.json",
+            "active_gameplay": r"\Assets\game_files\dreszcz_dummy.json",
             "translation": "en",
             "action_volume": 1,
             "sfx_volume": 0.7,
@@ -439,9 +440,9 @@ def get_game_state(action, last_paragraph='prg.00', new_game=None):
 
     if cnst.setup_params['use_dummy']:
         debug_message(f"Looking for game states in project location")
-        folder_path = os.path.dirname(os.path.abspath(__file__))
+        folder_path = cnst.game_files_dir  # os.path.dirname(os.path.abspath(__file__)) # locate dummy_state in scripts location
 
-        cnst.setup_params['active_gameplay'] = "dreszcz_dummy.json"
+        cnst.setup_params['active_gameplay'] = cnst.dummy_state
     else:
         debug_message(f"Looking for game states in '~\\Documents' folder path for saving json file")
         folder_path = os.path.join(os.path.expanduser('~\\Documents'), cnst.game_state_dir_name)

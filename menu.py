@@ -26,20 +26,29 @@ def ask_for_user_input(message=None):
 
 
 def main_menu():
-    """Displays the main menu of the game and handles user input.
+    """Displays the main menu of the game and handles user input. Menu is not accesible druing gameplay (for now, becasue I don't know how top implement it with subprocess)
 
     Description:
-        The main menu provides several options for the player to interact with the game:
-
-        1. Start a new game: Allows the player to begin a new game from the beginning.
-        2. Load a saved game: Provides the ability to continue a previously saved game.
-        3. Access game rules: Displays the rules and instructions for playing the game.
-        4. Adjust game settings: Allows the player to modify various game settings,
+        Provides several options for the player to interact with the game:\n
+        1. Continue - Provides the ability to continue a previously saved game.
+        2. New game - Allows the player to begin a new game from the beginning.
+        3. Load game: Provides the ability to load saved game.
+        4. Game rules: Displays the submenu for rules and instructions for playing the game.
+        5. Settings: Displays the submenu for several in-game settings. Allows the player to modify various game settings,
            such as language, difficulty, audio, etc.
-        5. Exit the game: Terminates the game and returns to the operating system.
+        6. Exit the game: Terminates the game.
 
+    Notes:
         The function continuously loops, displaying the main menu and prompting the player for input.
         It handles the user's input and performs different actions based on the selected menu option.
+        Menu options can be temporairly disabled by simply commenting out desired position.
+        Menu titles are retrioved from dictiopnary named infobook located in gamebook.py module.
+        Game automatically displays text in right language, which can be changed in settings under language option, if player wishes so.
+
+        There are some additional developer options, that provide user with easy testing capabilities.
+        Type in main menu:
+        rayman - to enable and show additional options
+        mario - to disable and hide additional options
 
     Returns:
         None
@@ -242,7 +251,7 @@ def main_menu():
                                     # initialize list of Locales in gamebook
                                     availablelocales = []
 
-                                    # print available languages
+                                    # prepare available languages and append to list
                                     for key in gb.gameboook:
                                         availablelocales.append(key)
 
@@ -297,7 +306,7 @@ def main_menu():
 
                                             cnst.entity_hit_mult = dif_lvl_choice
 
-                                # Audio settings
+                                # Audio settings -> capped range -> (0,10)
                                 elif choice_settings == gb.infoboook[cnst.setup_params['translation']][
                                     'Mmenu4_sub3']:
 
@@ -436,7 +445,7 @@ If the dev_mode variable is set to True, some useful information is displayed,
 including the setup parameters file name at the beggining, documentation path, debug messages and so on.
 """
 if cnst.setup_params['dev_mode']:
-    # Version with enabled annotations
+    # Version of menu with enabled annotations
     template = "({}) {} - {}"
 
     print(f"\n{cnst.special_txt_clr}Setup parameters loaded from file: {Fore.YELLOW}{cnst.setup_name}{Style.RESET_ALL}")
@@ -461,7 +470,7 @@ if cnst.setup_params['dev_mode']:
     input(f"\ncontinue by pressing enter {cnst.input_sign}")
 
 else:
-    # Version without enabled annotations
+    # Version of menu without enabled annotations
     template = "({}) {}"
 
 # time for start sequence: 23.1 seconds

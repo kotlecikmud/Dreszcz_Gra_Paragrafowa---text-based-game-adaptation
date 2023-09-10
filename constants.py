@@ -25,7 +25,7 @@ and_his_name_is = '''
               Z     B     B      YYY   YYY     S                  Z       K    K     O     O    
              Z      B     B       YYY YYY       SSS              Z        K   K     O       O    
             Z       BBBBBB         YYYYY             S          Z          KKK      O       O    
-          Z         B     B         YYY            SSSS        Z          K   K     O       O    
+          Z         B     B         YYY             SSS        Z          K   K     O       O    
          Z          B     B         YYY              S        Z           K    K     O     O    
         ZZZZZZZ    BBBBBB           YYY        SSSSSS        ZZZZZZZZ     K     K     OOOOO     
         '''
@@ -41,9 +41,12 @@ special_txt_clr = Fore.LIGHTMAGENTA_EX  # color for headlines and particular spe
 combat_txt_clr = Fore.LIGHTCYAN_EX  # color for combat text
 debug_txt_clr = Fore.LIGHTBLACK_EX  # color for debug messages
 error_txt_clr = Fore.RED  # color for error messages
-root_dir = "Assets\\"
-logfile_name = "logging.log"
-setup_name = rf"{root_dir}\_json_\setup.json"  # Get the setup script's name and or location
+
+root_dir = "Assets"
+game_files_dir = rf"{root_dir}\game_files"
+logfile_name = rf"{game_files_dir}\logging.log"
+setup_name = rf"{game_files_dir}\setup.json"  # Get the setup script's name and or location
+dummy_state = rf"{game_files_dir}\dreszcz_dummy.json"
 
 # /// pygame mixer setup
 # Initialize the mixer module with the specified settings
@@ -171,10 +174,10 @@ Paths:
 - music_menu: List of menu music tracks.
 """
 
-assets_audio_voice_pth = rf"{root_dir}Audio\Voice"  # Path to voice lines audio files
-assets_audio_effects_pth = rf"{root_dir}Audio\fx"  # Path to sound effects
-assets_audio_music_pth = fr"{root_dir}Audio\music"  # Path to music
-game_state_dir_name = "Jacek Ciesielski - Dreszcz\\saves"  # Path to game_states/saves
+assets_audio_voice_pth = rf"{root_dir}\Audio\Voice"  # Path to voice lines audio files
+assets_audio_effects_pth = rf"{root_dir}\Audio\fx"  # Path to sound effects
+assets_audio_music_pth = rf"{root_dir}\Audio\music"  # Path to music
+game_state_dir_name = r"Jacek Ciesielski - Dreszcz\saves"  # Path to game_states/saves
 
 audio_ext = '.mp3'  # extension of voice and fx files
 
