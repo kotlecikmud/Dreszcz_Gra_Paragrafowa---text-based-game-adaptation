@@ -51,7 +51,7 @@ def loading(duration=1, message=None):
     print(cnst.def_txt_clr)
 
 
-def write_new_log_entry(entry):
+def new_log(entry):
     if cnst.logging:
         current_user = os.getlogin()
         time_stamp = datetime.datetime.now().strftime('[%d-%m-%y %H:%M:%S]')
@@ -63,7 +63,7 @@ def write_new_log_entry(entry):
 def debug_message(msg):
     if cnst.setup_params['debug_msg']:
         print(f"{cnst.debug_txt_clr}DEBUG: {msg}{cnst.def_txt_clr}")
-        write_new_log_entry(msg)
+        new_log(msg)
 
 
 def error_message(error_name, msg):
@@ -72,7 +72,7 @@ def error_message(error_name, msg):
             error_name = 'ERROR'
         print(f'{cnst.error_txt_clr}{error_name}{cnst.debug_txt_clr} || {msg}{cnst.def_txt_clr}')
         log_entry = error_name + msg
-        write_new_log_entry(log_entry)
+        new_log(log_entry)
 
 
 def clear_terminal():

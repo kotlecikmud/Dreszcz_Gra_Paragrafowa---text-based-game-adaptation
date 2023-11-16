@@ -16,7 +16,7 @@ import functions as func
 import constants as cnst
 from colorama import Fore, Style
 
-func.write_new_log_entry("program start")
+func.new_log("program start")
 
 
 def ask_for_user_input(message=None):
