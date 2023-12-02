@@ -56,8 +56,8 @@ documentation' option in the main menu, which simply opens the directory with do
 
 ## Usage
 
-1. Run `play.bat` file to ensure that the dependencies are installed and the game can be launched successfully.
-2. Double-click on the `play.bat` file.
+1. (only first use) Run `play_w_setup.bat` file to ensure that the dependencies are installed and the game can be launched successfully.
+2. (every next use) Double-click on the `play.bat` file.
 3. Review the output of the previous commands.
 4. The game will be launched automatically.
 
