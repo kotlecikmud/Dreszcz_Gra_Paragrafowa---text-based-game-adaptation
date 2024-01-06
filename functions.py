@@ -9,8 +9,7 @@ import constants
 import subprocess
 import gamebook as gb
 import constants as cnst
-# paragraphs must be imported
-import paragraphs as prg
+import paragraphs as prg  # paragraphs must be imported
 from colorama import Fore, Style
 
 
@@ -19,15 +18,15 @@ from colorama import Fore, Style
 #         self.animation_signs = ['|', '/', '-', '\\']
 #         self.sign_index = 0
 #         self.finished = False
-#
+# 
 #     def start(self):
 #         import threading
 #         self.finished = False
 #         threading.Thread(target=self._animate).start()
-#
+# 
 #     def stop(self):
 #         self.finished = True
-#
+# 
 #     def _animate(self):
 #         while not self.finished:
 #             print('- ' + self.animation_signs[self.sign_index % len(self.animation_signs)] + ' -', end='\r')
@@ -35,48 +34,34 @@ from colorama import Fore, Style
 #             self.sign_index += 1
 
 
-def loading(duration=1, message=None):
-    animation_signs = ['|', '/', '-', '\\']
-    end_time = time.time() + duration
-    sign_index = 0
-
-    if message:
-        print(message, end='')  # Display message if one is given
-
-    print(Fore.YELLOW, end='\r')
-    while time.time() < end_time:
-        print('- ' + animation_signs[sign_index % len(animation_signs)] + ' -', end='\r')
-        time.sleep(0.1)
-        sign_index += 1
-    print(cnst.def_txt_clr)
-
-
-def new_log(entry):
-    if cnst.logging:
+def log_event(entry):
+    if cnst.setup_params['logging']:
         current_user = os.getlogin()
-        time_stamp = datetime.datetime.now().strftime('[%d-%m-%y %H:%M:%S]')
-        with open(cnst.logfile_name, 'a') as f:
+        time_stamp = datetime.datetime.now().strftime('[%d-%m-%y %H:%M:%S.%f]')
+
+        with open(cnst.LOG_NAME, 'a') as f:
             f.write(
-                f"{time_stamp} | user:{current_user} | v.{cnst.__version__} |> {entry}\n")  # write to log file
+                f"{time_stamp} | v.{cnst.__version__}| user:{current_user} |> {entry}\n")  # write to log file
 
 
 def debug_message(msg):
     if cnst.setup_params['debug_msg']:
-        print(f"{cnst.debug_txt_clr}DEBUG: {msg}{cnst.def_txt_clr}")
-        new_log(msg)
+        print(f"{cnst.DEBUG_COLOR}DEBUG: {msg}{cnst.DEFAULT_COLOR}")
+        log_event(msg)
 
 
 def error_message(error_name, msg):
     if cnst.setup_params['dev_mode']:
         if error_name == '':
             error_name = 'ERROR'
-        print(f'{cnst.error_txt_clr}{error_name}{cnst.debug_txt_clr} || {msg}{cnst.def_txt_clr}')
+        print(f'{cnst.ERR_COLOR}{error_name}{cnst.DEBUG_COLOR} || {msg}{cnst.DEFAULT_COLOR}')
         log_entry = error_name + msg
-        new_log(log_entry)
+        log_event(log_entry)
 
 
 def clear_terminal():
-    subprocess.call('cls' if os.name == 'nt' else 'clear', shell=True)
+    if not cnst.setup_params['debug_msg']:
+        subprocess.call('cls' if os.name == 'nt' else 'clear', shell=True)
 
 
 def get_music(category=None, fadeout=None, update=None):
@@ -165,18 +150,18 @@ def dub_play(string_id, category=None, skippable=True, with_text=True, r_robin=N
     if category:
         category = category.lower()
         if category == 'adam' or category == 'dub':
-            audio_path = f'{cnst.assets_audio_voice_pth}/Adam'
+            audio_path = f'{cnst.AUDIO_VOICE_DIR}\\Adam'
 
-            audio_file_id = f'{audio_path}/{cnst.setup_params["translation"]}/audiobook_{category}_{cnst.setup_params["translation"]}_{string_id}{r_robin}{cnst.audio_ext}'
+            audio_file_id = f'{audio_path}\\{cnst.setup_params["translation"]}\\audiobook_{category}_{cnst.setup_params["translation"]}_{string_id}{r_robin}{cnst.AUDIO_EXTENSION}'
         elif category == 'fx':
-            audio_file_id = f'{cnst.assets_audio_effects_pth}/audiobook_{string_id}{r_robin}{cnst.audio_ext}'
+            audio_file_id = f'{cnst.AUDIO_FX_DIR}\\audiobook_{string_id}{r_robin}{cnst.AUDIO_EXTENSION}'
 
     try:
         current_sound = pygame.mixer.Sound(audio_file_id)
 
     except FileNotFoundError:
-        error_message('FileNotFoundError', f'Could not find: {audio_file_id}')
-        current_sound = pygame.mixer.Sound(f'{cnst.assets_audio_effects_pth}/audiobook_click_snd.mp3')
+        error_message('FileNotFoundError ', f'Could not find: {audio_file_id}')
+        current_sound = pygame.mixer.Sound(f'{cnst.AUDIO_FX_DIR}\\audiobook_click_snd.mp3')
 
     pygame.mixer.stop()  # stop any sound currently being played
     current_sound.set_volume(cnst.setup_params["action_volume"])  # ensure that volume is on default
@@ -198,7 +183,7 @@ def dub_play(string_id, category=None, skippable=True, with_text=True, r_robin=N
                 print(gb.gameboook[cnst.setup_params["translation"]][string_id])
 
         except KeyError:
-            channel.play(pygame.mixer.Sound(f'{cnst.assets_audio_effects_pth}/audiobook_click_snd.mp3'))
+            channel.play(pygame.mixer.Sound(f'{cnst.AUDIO_FX_DIR}\\audiobook_click_snd.mp3'))
             error_message('KeyError', f'Could not find string: {string_id}')
 
     # if dubbing is enabled
@@ -209,20 +194,18 @@ def dub_play(string_id, category=None, skippable=True, with_text=True, r_robin=N
 
         if skippable:
             # print a message indicating that we're skipping the input sign
-            print(f"skip {cnst.input_sign}")
+            print(f"skip {cnst.INPUT_SIGN}")
 
             # continue looping while the channel is busy playing a sound
             while channel.get_busy():
                 # check if any key is pressed
                 if msvcrt.kbhit():
                     pygame.mixer.stop()  # stop any sound currently being played
-                    time.sleep(0.1)  # padding for debouncing enter
                     break
 
-            time.sleep(0.1)  # delayed for safety measure
     else:
-        debug_message("dubbing is disabled")
-        input(f"continue {cnst.input_sign}")
+        debug_message(f"dubbing disabled in {cnst.CFG_NAME}")
+        input(f"continue {cnst.INPUT_SIGN}")
         time.sleep(0.5)
 
 
@@ -245,7 +228,7 @@ def name_randomizer():
         time.sleep(5.6)
     else:
         last_name = random.choice(last_parts)
-    player_name = f'{Fore.LIGHTYELLOW_EX}{first_name} {last_name}{cnst.def_txt_clr}'
+    player_name = f'{Fore.LIGHTYELLOW_EX}{first_name} {last_name}{cnst.DEFAULT_COLOR}'
     print(player_name)
     time.sleep(1)
     cnst.player_name = player_name
@@ -276,20 +259,20 @@ def get_player_par():
     return cnst.z_init, cnst.z_count, cnst.w_init, cnst.w_count, cnst.s_init, cnst.s_count
 
 
-def update_setup_file(manual=False, backup=False):
+def update_config_file(manual=False, backup=False):
     """
     Updates the setup file with user-defined or default values.
 
     Params:
-        - manual (bool): If True, prompts the user to input new values for specific fields.
+        - manual (bool): If True, prompts the user to input new values for specific keys.
         - backup (bool): If True, uses a predefined backup data dictionary to update the setup file.
 
     Returns:
         None
 
     Description:
-        - If manual is True, prompts the user to enter values for different fields.
-        It displays the field name and expected input format.
+        - If manual is True, prompts the user to enter values for different keys.
+        It displays the key name and expected input format.
         - If backup is True, uses a predefined backup data dictionary to update the setup file.
         - If both manual and backup are False, initializes the setup data dictionary with default values.
         - Saves the setup data dictionary to a JSON file named 'cnst.setup_name'.
@@ -300,7 +283,7 @@ def update_setup_file(manual=False, backup=False):
     if manual:
         print("Leave empty for no changes:")
         setup_data = {}
-        fields = [
+        keys_list = [
             "active_gameplay",
             "translation",
             "action_volume",
@@ -313,34 +296,30 @@ def update_setup_file(manual=False, backup=False):
             "dubbing",
             "get_music",
             "__version__",
-            "difficulty",
             "logging"
         ]
 
-        for field in fields:
+        for key in keys_list:
             print()
 
-            if field == "active_gameplay":
+            if key == "active_gameplay":
                 print('(path)')
 
-            elif field == "translation":
+            elif key == "translation":
                 # list all the availale locales
                 print(", ".join(list(gb.gameboook.keys())))
 
-            elif field in ["dev_mode", "use_dummy", "start_sequence", "manual_battle",
-                           "dubbing", "get_music", "logging"]:
+            elif key in ["dev_mode", "use_dummy", "start_sequence", "manual_battle",
+                         "dubbing", "get_music", "logging"]:
                 print('(True/False)')
 
-            elif field == "__version__":
+            elif key == "__version__":
                 print('int, float, or string')
 
-            elif field == "difficulty":
-                print('(1, 1.3, 1.6)')
-
-            elif field in ["action_volume", "sfx_volume", "bckg_volume"]:
+            elif key in ["action_volume", "sfx_volume", "bckg_volume"]:
                 print('int from 0.1 to 1.0')
 
-            value = input(f"{field}: ")
+            value = input(f"{key}: ")
 
             if value != '':
                 try:
@@ -349,17 +328,18 @@ def update_setup_file(manual=False, backup=False):
                     value = str(value)
 
                 if value is True or value is False or value is None:
-                    setup_data[field] = value
+                    setup_data[key] = value
 
                 elif isinstance(value, int):
-                    setup_data[field] = int(value)
+                    setup_data[key] = int(value)
 
                 else:
-                    setup_data[field] = str(value)
+                    setup_data[key] = str(value)
             else:
-                setup_data[field] = cnst.__dict__[field]
+                setup_data[key] = cnst.__dict__[key]
 
     elif backup:
+        _ver = cnst.setup_params['__version__']
         setup_data = {
             "active_gameplay": r"\Assets\game_files\dreszcz_dummy.json",
             "translation": "en",
@@ -373,7 +353,7 @@ def update_setup_file(manual=False, backup=False):
             "manual_battle": False,
             "dubbing": True,
             "get_music": True,
-            "__version__": None,
+            "__version__": _ver,
             "logging": True
         }
         debug_message('restored backup setup')
@@ -396,16 +376,21 @@ def update_setup_file(manual=False, backup=False):
             "logging": cnst.setup_params["logging"],
         }
 
-    with open(cnst.setup_name, 'w') as json_file:  # Save the setup data to a JSON file
+    # Save the setup data to a JSON file
+    with open(cnst.CFG_NAME, 'w') as json_file:
         json.dump(setup_data, json_file)
     debug_message("setup.json has been updated")
 
+    if backup:
+        input(f"{cnst.SPECIAL_COLOR}Please restart the game for the changes to take effect.\
+                \n{cnst.INPUT_SIGN}{cnst.DEFAULT_COLOR}")
+
     if manual:
-        input(f"{cnst.special_txt_clr}Some changes needs restarting the game to take effect.\
-        \n{cnst.input_sign}{cnst.def_txt_clr}")
+        input(f"{cnst.SPECIAL_COLOR}Please restart the game for the changes to take effect.\
+        \n{cnst.INPUT_SIGN}{cnst.DEFAULT_COLOR}")
 
 
-def get_game_state(action, last_paragraph='prg.00', new_game=None):
+def get_game_state(action, last_paragraph='00', new_game=None):
     """
     Retrieves or initializes the game state based on the specified action.
 
@@ -440,12 +425,12 @@ def get_game_state(action, last_paragraph='prg.00', new_game=None):
 
     if cnst.setup_params['use_dummy']:
         debug_message(f"Looking for game states in project location")
-        folder_path = cnst.game_files_dir  # os.path.dirname(os.path.abspath(__file__)) # locate dummy_state in scripts location
+        folder_path = cnst.GAME_FILES_DIR  # os.path.dirname(os.path.abspath(__file__)) # locate DUMMY_GAMESTATE_NAME in scripts location
 
-        cnst.setup_params['active_gameplay'] = cnst.dummy_state
+        cnst.setup_params['active_gameplay'] = cnst.DUMMY_GAMESTATE_NAME
     else:
         debug_message(f"Looking for game states in '~\\Documents' folder path for saving json file")
-        folder_path = os.path.join(os.path.expanduser('~\\Documents'), cnst.game_state_dir_name)
+        folder_path = os.path.join(os.path.expanduser('~\\Documents'), cnst.GAMESTATES_DIR)
 
     if os.path.exists(folder_path):
         json_files = [file for file in os.listdir(folder_path) if file.endswith('.json') and file != 'setup.json']
@@ -462,12 +447,11 @@ def get_game_state(action, last_paragraph='prg.00', new_game=None):
             # Create new file path and update active gameplay file_path
             cnst.setup_params['active_gameplay'] = os.path.join(folder_path,
                                                                 f"dreszcz_{datetime.datetime.now().strftime('%y-%m-%d_%S')}.json")
-
-        # Save game state to variable
+        # Load game state to variables
         game_state = {
             "last_paragraph": last_paragraph,
             "player_name": cnst.player_name,
-            "difficulty": cnst.difficulty,
+            "difficulty": cnst.DIFFICULTY,
             "s_count": cnst.s_count,
             "w_count": cnst.w_count,
             "z_count": cnst.z_count,
@@ -477,7 +461,7 @@ def get_game_state(action, last_paragraph='prg.00', new_game=None):
             "equipment": cnst.main_eq,
             "potion": cnst.potion,
             "potion_count": cnst.potion_count,
-            "eatables_count": cnst.eatables_count,
+            "meal_count": cnst.meal_count,
             "gold_amount": cnst.gold_amount
         }
 
@@ -495,10 +479,10 @@ def get_game_state(action, last_paragraph='prg.00', new_game=None):
 
             while True:
                 file_number = input(f"\nChoose game state to load (leave empty to return to main menu)\
-                \n{cnst.input_sign}")
+                \n{cnst.INPUT_SIGN}")
 
-                if file_number == '':
-                    break
+                if not file_number.isdigit():
+                    return  # Return to main menu if input is not a number
 
                 try:
                     file_number = int(file_number)
@@ -530,7 +514,7 @@ def get_game_state(action, last_paragraph='prg.00', new_game=None):
             cnst.main_eq = game_state.get("equipment")
             cnst.potion = game_state.get("potion")
             cnst.potion_count = game_state.get("potion_count")
-            cnst.eatables_count = game_state.get("eatables_count")
+            cnst.meal_count = game_state.get("meal_count")
             cnst.gold_amount = game_state.get("gold_amount")
 
         else:
@@ -555,7 +539,7 @@ def get_game_state(action, last_paragraph='prg.00', new_game=None):
             cnst.main_eq = game_state.get("equipment")
             cnst.potion = game_state.get("potion")
             cnst.potion_count = game_state.get("potion_count")
-            cnst.eatables_count = game_state.get("eatables_count")
+            cnst.meal_count = game_state.get("meal_count")
             cnst.gold_amount = game_state.get("gold_amount")
 
     elif action == 'init':  # check if any game states exist
@@ -565,7 +549,7 @@ def get_game_state(action, last_paragraph='prg.00', new_game=None):
         else:
             if cnst.setup_params['use_dummy']:
                 game_state = {
-                    "last_paragraph": "prg._01()",
+                    "last_paragraph": "01",
                     "player_name": "dummy_player",
                     "difficulty": 1,
                     "s_count": 20,
@@ -577,12 +561,12 @@ def get_game_state(action, last_paragraph='prg.00', new_game=None):
                     "equipment": {
                         "plecak na Prowiant": "",
                         "prowiant": 8,
-                        "tarcza": "",
-                        "miecz": ""
+                        "tarcza": True,
+                        "miecz": True
                     },
                     "potion": "w",
                     "potion_count": 2,
-                    "eatables_count": 8,
+                    "meal_count": 8,
                     "gold_amount": 0
                 }
 
@@ -599,8 +583,8 @@ def get_game_state(action, last_paragraph='prg.00', new_game=None):
 
         return
 
-    update_setup_file()  # dump all setup to json file
-    print(cnst.def_txt_clr)  # reset text color
+    update_config_file()  # dump all setup to json file
+    print(cnst.DEFAULT_COLOR)  # reset text color
 
     return last_paragraph
 
@@ -641,6 +625,9 @@ def pth_selector(path_strings=None, actions=None, visit_check=False, room_id=Non
         The function does not return any value.
     """
 
+    if path_strings is None:
+        path_strings = []
+
     if room_id:  # add visit count if room number was given
         room_id.visit_count = update_variable(room_id.visit_count, 1)
         debug_message(f'added visit: visit count of room number {room_id.room_num} = {room_id.visit_count}')
@@ -648,21 +635,23 @@ def pth_selector(path_strings=None, actions=None, visit_check=False, room_id=Non
     if visit_check:
         if room_id.room_state:  # if open
             print(
-                f"{gb.gameboook[cnst.setup_params['translation']]['door']} {cnst.special_txt_clr}{room_id.room_num}{cnst.def_txt_clr} {gb.gameboook[cnst.setup_params['translation']]['are']} {cnst.special_txt_clr}{gb.gameboook[cnst.setup_params['translation']]['opened']}{cnst.def_txt_clr}.")
+                f"{gb.gameboook[cnst.setup_params['translation']]['door']} {cnst.SPECIAL_COLOR}{room_id.room_num}{cnst.DEFAULT_COLOR} {gb.gameboook[cnst.setup_params['translation']]['are']} {cnst.SPECIAL_COLOR}{gb.gameboook[cnst.setup_params['translation']]['opened']}{cnst.DEFAULT_COLOR}.")
             dub_play('opened', 'adam', False, False)
 
             # Player is visiting the room more times than the allowed number.
             if not room_id.visit_count - 1 >= room_id.max_visit_count:
                 if room_id.visit_count == 1:  # Player first time in room
-                    debug_message(f'eval: {actions[1]}')
                     get_game_state('s', actions[1])
-                    eval(actions[1])
+
+                    debug_message(f'eval: {actions[1]}')
+                    eval("prg._" + actions[1] + "()")
 
                 # Player has already visited the room before, but did not exceed the allowed number of visits.
                 elif room_id.visit_count >= 2:
-                    debug_message(f'eval: {actions[0]}')
                     get_game_state('s', actions[0])
-                    eval(actions[0])
+
+                    debug_message(f'eval: {actions[0]}')
+                    eval("prg._" + actions[0] + "()")
 
             else:
                 print("Nothing to find here")
@@ -670,12 +659,13 @@ def pth_selector(path_strings=None, actions=None, visit_check=False, room_id=Non
         else:  # if closed
             try:
                 print(
-                    f"{gb.gameboook[cnst.setup_params['translation']]['door']} {cnst.special_txt_clr}{room_id.room_num}{cnst.def_txt_clr} {gb.gameboook[cnst.setup_params['translation']]['are']} {gb.gameboook[cnst.setup_params['translation']]['closed']}{cnst.def_txt_clr}.")
+                    f"{gb.gameboook[cnst.setup_params['translation']]['door']} {cnst.SPECIAL_COLOR}{room_id.room_num}{cnst.DEFAULT_COLOR} {gb.gameboook[cnst.setup_params['translation']]['are']} {gb.gameboook[cnst.setup_params['translation']]['closed']}{cnst.DEFAULT_COLOR}.")
             except KeyError:
                 debug_message(f"this line does not exist in gamebook[{cnst.setup_params['translation']}]")
             dub_play('closed', 'adam', False, False, r_robin=1)
+
             debug_message(f'eval: {actions[1]}')
-            eval(actions[1])
+            eval("prg._" + actions[1] + "()")
 
     else:
         debug_message(f'list of available actions: {actions}')
@@ -683,10 +673,10 @@ def pth_selector(path_strings=None, actions=None, visit_check=False, room_id=Non
         if len(actions) > 1:  # If there is more than one path, display the choice menu
             for i, path in enumerate(path_strings):
                 print(f'{i + 1} · {path}')
-                time.sleep(cnst.delay)
+                time.sleep(cnst.TIME_DELAY)
 
             while True:
-                usr_input = input(f'{cnst.input_sign}')
+                usr_input = input(f'{cnst.INPUT_SIGN}')
 
                 try:
                     usr_input = int(usr_input)
@@ -695,19 +685,21 @@ def pth_selector(path_strings=None, actions=None, visit_check=False, room_id=Non
                         break
 
                 except ValueError:
-                    print(f'/!/ {cnst.special_txt_clr}Choose number from list{cnst.def_txt_clr}')
+                    print(f'/!/ {cnst.SPECIAL_COLOR}Choose number from list{cnst.DEFAULT_COLOR}')
 
             clear_terminal()
             pygame.mixer.stop()  # Abort any dubbing currently being played
             get_game_state('s', actions[usr_input - 1])  # Save game_state to active one
+
             debug_message(f'evaluated: {actions[usr_input - 1]}')
-            eval(actions[usr_input - 1])
+            eval("prg._" + actions[usr_input - 1] + "()")
 
         else:  # If there is only one path, continue automatically
             clear_terminal()
             get_game_state('s', actions[0])  # Save game_state to active one
+
             debug_message(f'evaluated: {actions[0]}')
-            eval(actions[0])
+            eval("prg._" + actions[0] + "()")
 
 
 def kill():
@@ -725,8 +717,8 @@ def win():
 def check_for_luck():
     update_variable(cnst.s_count, -1)
 
-    print(f'{cnst.special_txt_clr}Sprawdzam czy masz szczęście:')  # Checking if you're lucky
-    loading()
+    print(f'{cnst.SPECIAL_COLOR}Sprawdzam czy masz szczęście:')  # Checking if you're lucky
+    time.sleep(1)
 
     if random.randint(2, 12) <= cnst.s_count:
         print('Uff, masz szczęście.')  # Phew, you're lucky.
@@ -736,19 +728,7 @@ def check_for_luck():
         print('Nie masz szczęścia!')  # No luck for you!
         p_luck = False
 
-    time.sleep(1)
-
     return p_luck
-
-
-def check_for_gold_amount(req_amount):
-    if cnst.gold_amount >= req_amount:
-        gold_state = True
-    else:
-        print("You don't have enough gold.")
-        gold_state = False
-
-    return gold_state
 
 
 def eatables():
@@ -756,20 +736,20 @@ def eatables():
     Description:
         Interacts with the user to consume or save food supplies based on certain conditions.
 
-        This function checks the value of `cnst.eatables_count`, which represents the available
+        This function checks the value of `cnst.meal_count`, which represents the available
         count of eatables (food supplies).
-        If the `eatables_count` is not zero, the function enters a loop to interact with the user until
+        If the `meal_count` is not zero, the function enters a loop to interact with the user until
         a valid response is provided.
 
         During the interaction, the function displays the current status of the user's endurance (`cnst.w_count`)
-        and the available eatables count (`cnst.eatables_count`).
+        and the available eatables count (`cnst.meal_count`).
         The user is prompted to respond with either 'yes' or 'no' to indicate whether they want to consume the eatables
         or save them for later.
 
-        If the user responds positively, the function updates the variables `cnst.eatables_count` and `cnst.w_count`
+        If the user responds positively, the function updates the variables `cnst.meal_count` and `cnst.w_count`
         based on predefined rules.
-        The function subtracts 1 from `eatables_count` and increases the `w_count` (endurance) by a calculated value,
-        which is the minimum between `cnst.eatable_W_load`
+        The function subtracts 1 from `meal_count` and increases the `w_count` (endurance) by a calculated value,
+        which is the minimum between `cnst.STAMINA_PER_MEAL`
         and the remaining endurance needed to reach the initial endurance value (`cnst.w_init`).
 
         After performing the updates, the function prints the changes in endurance and the updated status of the
@@ -785,30 +765,29 @@ def eatables():
         None
     """
     msg_1 = f"/// Wytrzymałość: {cnst.w_count}/{cnst.w_init}"
-    msg_2 = f"/// Prowiant: {cnst.eatables_count}/{cnst.init_eatables_count}"
+    msg_2 = f"/// Prowiant: {cnst.meal_count}/{cnst.INIT_MEAL_COUNT}"
 
-    if cnst.eatables_count != 0:
+    if cnst.meal_count != 0:
         while True:
             if cnst.w_count != cnst.w_init:
                 dub_play("eatables", "adam", False)
 
                 print(msg_1)
                 print(msg_2)
-                odp = input(f"{cnst.input_sign}")
-                loading()
+                odp = input(f"{cnst.INPUT_SIGN}")
                 if odp.lower() in {'tak', 't', 'y', 'yes'}:
                     if cnst.w_count < cnst.w_init:
-                        update_variable(cnst.eatables_count, -1)
-                        inc_stamina = min(cnst.eatable_W_load, cnst.w_init - cnst.w_count)
+                        update_variable(cnst.meal_count, -1)
+                        inc_stamina = min(cnst.STAMINA_PER_MEAL, cnst.w_init - cnst.w_count)
                         update_variable(cnst.w_count, inc_stamina, "Wytrzymałość")
                         print(msg_1)
                         print(msg_2)
-                        print(f"{cnst.def_txt_clr}")
+                        print(f"{cnst.DEFAULT_COLOR}")
                         break
 
                 elif odp.lower() in {'nie', 'n', 'no'}:
                     print("Zostawiasz prowiant na później")
-                    print(f"{cnst.def_txt_clr}")
+                    print(f"{cnst.DEFAULT_COLOR}")
                     break
 
                 else:
@@ -818,17 +797,26 @@ def eatables():
 def show_equipment_list():
     for i in cnst.main_eq:
         print(f'- {i}')
-    input(f"{cnst.input_sign} ")
+    input(f"{cnst.INPUT_SIGN} ")
 
 
 def eq_change(new_item_name):
-    input(f"/// {cnst.special_txt_clr}Zdobyto nowy przedmiot: {new_item_name}{cnst.def_txt_clr}\
-    \n{cnst.input_sign}")
+    input(f"/// {cnst.SPECIAL_COLOR}Zdobyto nowy przedmiot: {new_item_name}{cnst.DEFAULT_COLOR}\
+    \n{cnst.INPUT_SIGN}")
+
+
+def get_state(req_amount, variable):
+    if variable >= req_amount:
+        state = True
+    else:
+        state = False
+
+    return state
 
 
 def show_player_stats():
     print(f"\
-    \n{cnst.def_txt_clr}Gracz:\
+    \n{cnst.DEFAULT_COLOR}Gracz:\
     \nWytrzymałość: {cnst.w_count}/{cnst.w_init} \
     \nZręczność: {cnst.z_count}/{cnst.z_init} \
     \nSzczęście: {cnst.s_count}/{cnst.s_init}")
@@ -836,7 +824,7 @@ def show_player_stats():
 
 def show_entity_stats(entity):
     print(f"\
-    \n{cnst.def_txt_clr}{entity.name}:\
+    \n{cnst.DEFAULT_COLOR}{entity.name}:\
     \nWytrzymałość: {entity.entity_w_count}/{entity.entity_w_init}\
     \nZręczność: {entity.entity_z_count}/{entity.entity_z_init}")
 
@@ -852,7 +840,7 @@ def stats_change(attribute_name, parameter, amount, limit=None):
 
     if parameter != limit:
         print(
-            f'{cnst.special_txt_clr}/// {attribute_name}({parameter}) {inter} {amount} {constants.input_sign}{updated_parameter}{cnst.def_txt_clr}')
+            f'{cnst.SPECIAL_COLOR}/// {attribute_name}({parameter}) {inter} {amount} {constants.INPUT_SIGN}{updated_parameter}{cnst.DEFAULT_COLOR}')
 
     return updated_parameter
 
@@ -913,7 +901,7 @@ def combat_main(entity, state, esc_possible, escape_id, stay_id, win_path):
         Depending on the values of 'a' and 'b', the function determines whether the enemy or the player lands a hit.
         If the enemy is stronger, the player's weapon count is reduced and a hit message is displayed. If the player
         is stronger, the enemy's weapon count is reduced and a hit message is displayed. If it's a draw, a message
-        indicating a draw is printed.
+        indicating a draw is printed to the console.
 
         After each round, the function displays the updated weapon counts for the player and entity, shows debug
         messages, and introduces a brief delay.
@@ -934,93 +922,98 @@ def combat_main(entity, state, esc_possible, escape_id, stay_id, win_path):
         If escape is not possible, the win path is evaluated directly.
         """
 
-    # loading background music
-    get_music('combat', 1500)
+    if state:
+        # loading background music
+        get_music('combat', 1500)
 
-    # setting up the combat
-    cnst.round_count = 0
+        # set round number to 0
+        round_count = 0
 
-    show_player_stats()
-    show_entity_stats(entity)
+        show_player_stats()
+        show_entity_stats(entity)
 
-    input(f"\n{cnst.combat_txt_clr}{gb.gameboook[cnst.setup_params['translation']]['combat_init']} {cnst.input_sign}")
+        # press enter to start combat
+        input(f"\n{cnst.COMBAT_COLOR}{gb.gameboook[cnst.setup_params['translation']]['combat_init']} {cnst.INPUT_SIGN}")
 
-    while True:
+        while True:
+            if state:  # if enemy is alive begin new round
+                # preparing next round
+                clear_terminal()
+                round_count += 1
 
-        if state:  # if enemy is alive begin new round
+                print(f"\n{cnst.COMBAT_COLOR}Round: {round_count}{cnst.COMBAT_COLOR}")  # display round ID
 
-            # preparing next round
-            clear_terminal()
-            cnst.round_count += 1
+                if cnst.setup_params["manual_battle"]:
+                    a = input(f"Enter the value of 'a' by rolling two dice{cnst.INPUT_SIGN}")
+                    b = input(f"Enter the value of 'b' by rolling two dice{cnst.INPUT_SIGN}")
 
-            print(f"\n{cnst.combat_txt_clr}Round: {cnst.round_count}{cnst.combat_txt_clr}")  # display round ID
+                else:
+                    a = random.randint(2, 12) + entity.entity_z_count * cnst.entity_hit_mult  # value of enemy power
+                    b = random.randint(2, 12) + cnst.z_count  # value of player power
 
-            if cnst.setup_params["manual_battle"]:
-                a = input(f"Enter the value of 'a' by rolling two dice{cnst.input_sign}")
-                b = input(f"Enter the value of 'b' by rolling two dice{cnst.input_sign}")
+                ###########################
 
-            else:
-                a = random.randint(2, 12) + entity.entity_z_count * cnst.entity_hit_mult  # value of enemy power
-                b = random.randint(2, 12) + cnst.z_count  # value of player power
+                if a > b:  # if the enemy is stronger
+                    if cnst.w_count > 0:
+                        cnst.w_count += cnst.e_hit_val_
 
-            if a > b:  # if the enemy is stronger
-                if cnst.w_count > 0:
-                    cnst.w_count += cnst.e_hit_val_
+                        dub_play("round_false", 'adam', False, False, r_robin=5)
+                        cnst.w_count = max(cnst.w_count, 0)
+                        print(f"{Fore.LIGHTRED_EX}{entity.name}{cnst.COMBAT_COLOR} landed a hit!")
 
-                    dub_play("round_false", 'adam', False, False, r_robin=5)
-                    cnst.w_count = max(cnst.w_count, 0)
-                    print(f"{Fore.LIGHTRED_EX}{entity.name}{cnst.combat_txt_clr} landed a hit!")
+                elif a < b:  # if the player is stronger
+                    if entity.entity_w_count > 0:
+                        entity.entity_w_count += cnst.p_hit_val_
 
-            elif a < b:  # if the player is stronger
-                if entity.entity_w_count > 0:
-                    entity.entity_w_count += cnst.p_hit_val_
+                        dub_play("round_true", 'adam', False, False, r_robin=5)
+                        entity.entity_w_count = max(entity.entity_w_count, 0)
+                        print(f"{Fore.LIGHTYELLOW_EX}{cnst.player_name}{cnst.COMBAT_COLOR} landed a hit!")
 
-                    dub_play("round_true", 'adam', False, False, r_robin=5)
-                    entity.entity_w_count = max(entity.entity_w_count, 0)
-                    print(f"{Fore.LIGHTYELLOW_EX}{cnst.player_name}{cnst.combat_txt_clr} landed a hit!")
+                else:  # if it's a draw
+                    print(f'{cnst.SPECIAL_COLOR}Draw!\
+                        \nNobody got hurt!')
 
-            else:  # if it's a draw
-                print(f'{cnst.special_txt_clr}Draw!\
-                \nNobody got hurt!')
+                    dub_play("round_none", 'adam', False, False, r_robin=5)
 
-                dub_play("round_none", 'adam', False, False, r_robin=5)
+                time.sleep(1.5)  # time for dubbing
 
-            print(
-                f"\
-                \n{Fore.LIGHTYELLOW_EX}{cnst.player_name}{cnst.special_txt_clr}: {cnst.w_count}/{cnst.w_init}\
-                \n{Fore.LIGHTRED_EX}{entity.name}{cnst.special_txt_clr}: {entity.entity_w_count}/{entity.entity_w_init}")
+                ###########################
 
-            loading()
-
-            if entity.entity_w_count <= 0:  # if the enemy is dead
-                break
-
-            elif cnst.w_count <= 0:  # if the player is dead
                 print(
-                    f"\n{gb.gameboook[cnst.setup_params['translation']]['combat_dead_info']} {Fore.LIGHTRED_EX}{entity.name}{cnst.combat_txt_clr}!")
+                    f"\
+                        \n{Fore.LIGHTYELLOW_EX}{cnst.player_name}{cnst.SPECIAL_COLOR}: {cnst.w_count}/{cnst.w_init}\
+                        \n{Fore.LIGHTRED_EX}{entity.name}{cnst.SPECIAL_COLOR}: {entity.entity_w_count}/{entity.entity_w_init}")
 
-                dub_play("combat_false", 'adam', False, False, r_robin=5)
-                kill()
+                if entity.entity_w_count <= 0:  # if the enemy is dead
+                    break
 
-    pygame.mixer.music.fadeout(1500)
-    get_music('main')
+                elif cnst.w_count <= 0:  # if the player is dead
+                    print(
+                        f"\n{gb.gameboook[cnst.setup_params['translation']]['combat_dead_info']} {Fore.LIGHTRED_EX}{entity.name}{cnst.COMBAT_COLOR}!")
 
-    print(
-        f"\n{cnst.combat_txt_clr}{gb.gameboook[cnst.setup_params['translation']]['combat_win_info']} {Fore.LIGHTRED_EX}{entity.name}{cnst.combat_txt_clr}!")
+                    dub_play("combat_false", 'adam', False, False, r_robin=5)
+                    kill()
 
-    dub_play("combat_true", 'adam', False, False, r_robin=5)
-    show_player_stats()
-    if esc_possible:
-        escape_opt = f"{escape_id})"
-        stay_opt = f"{stay_id})"
-        print(gb.gameboook[[cnst.setup_params['translation']]]['esc_choice'])
-        odp = input(cnst.input_sign)
-        if len(odp) == 0:
-            print(
-                f"{cnst.special_txt_clr}Wytrzymałość: {cnst.w_count} {cnst.input_sign} {cnst.w_count - 2}{cnst.def_txt_clr}")
-            cnst.w_count -= 2
-            eval(escape_opt)
-        elif len(odp) > 0:
-            eval(stay_opt)
-    else:
-        eval(win_path)
+        pygame.mixer.music.fadeout(1500)
+        get_music('main')
+
+        print(
+            f"\n{cnst.COMBAT_COLOR}{gb.gameboook[cnst.setup_params['translation']]['combat_win_info']} {Fore.LIGHTRED_EX}{entity.name}{cnst.COMBAT_COLOR}!")
+
+        dub_play("combat_true", 'adam', False, False, r_robin=5)
+        show_player_stats()
+
+        ###########################
+
+        if esc_possible:
+            print(gb.gameboook[[cnst.setup_params['translation']]]['esc_choice'])
+            odp = input(cnst.INPUT_SIGN)
+            if len(odp) == 0:
+                print(
+                    f"{cnst.SPECIAL_COLOR}Wytrzymałość: {cnst.w_count} {cnst.INPUT_SIGN} {cnst.w_count - 2}{cnst.DEFAULT_COLOR}")
+                cnst.w_count -= 2
+                eval("prg._" + escape_id + "()")
+            elif len(odp) > 0:
+                eval("prg._" + stay_id + "()")
+        else:
+            eval("prg._" + win_path + "()")

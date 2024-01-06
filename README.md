@@ -56,10 +56,8 @@ documentation' option in the main menu, which simply opens the directory with do
 
 ## Usage
 
-1. (only first use) Run `play_w_setup.bat` file to ensure that the dependencies are installed and the game can be launched successfully.
-2. (every next use) Double-click on the `play.bat` file.
-3. Review the output of the previous commands.
-4. The game will be launched automatically.
+1. (only first use) Run `setup.bat` file to ensure that the dependencies are installed.
+2. (every next use) Double-click on the `play.bat` file. The game will be launched automatically
 
 Make sure that you have Python installed and available in your system's PATH environment variable.
 
@@ -137,10 +135,6 @@ Attributes:
 - `state`: Current state of the entity (alive or dead).
 - `esc_possible`: Boolean indicating if escape is possible for the entity.
 
-Methods:
-
-- `die()`: Perform the die action for the entity.
-
 ### Room Class
 
 #### `Room`
@@ -204,8 +198,6 @@ Each entity has initial and current action points for luck and stamina, a state,
 ## Contact
 
 For any questions or suggestions, please feel free to contact me via email at filippawlowski2012@gmail.com.
-
-Enjoy playing "DRESZCZ" - GRA PARAGRAFOWA!
 
 **Note:**
 

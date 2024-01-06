@@ -16,14 +16,6 @@ import functions as func
 import constants as cnst
 from colorama import Fore, Style
 
-func.new_log("program start")
-
-
-def ask_for_user_input(message=None):
-    input_message = message or ''
-    choice = input(f'{input_message.strip()}{cnst.input_sign}{cnst.special_txt_clr}').strip()
-    return choice
-
 
 def main_menu():
     """Displays the main menu of the game and handles user input. Menu is not accesible druing gameplay (for now, becasue I don't know how top implement it with subprocess)
@@ -54,15 +46,17 @@ def main_menu():
         None
     """
 
+    func.log_event("main.py ENTRY POINT")
     while True:
         if cnst.setup_params['__version__']:
-            print(f"{cnst.debug_txt_clr}ver.{cnst.setup_params['__version__']}\n")
+            print(f"{cnst.DEBUG_COLOR}ver.{cnst.setup_params['__version__']}\n")
 
         func.clear_terminal()
         if cnst.player_name:
-            print(f"{cnst.def_txt_clr}{gb.infoboook[cnst.setup_params['translation']]['Mmenu_h']} {cnst.player_name}!")
+            print(
+                f"{cnst.DEFAULT_COLOR}{gb.infoboook[cnst.setup_params['translation']]['Mmenu_h']} {cnst.player_name}!")
         print(
-            f"{cnst.special_txt_clr}{gb.infoboook[cnst.setup_params['translation']]['Mmenu_headline']}{cnst.def_txt_clr}")
+            f"{cnst.SPECIAL_COLOR}{gb.infoboook[cnst.setup_params['translation']]['Mmenu_headline']}{cnst.DEFAULT_COLOR}")
 
         choices_main_menu = [
             (gb.infoboook[cnst.setup_params['translation']]['Mmenu0'], cnst.setup_params['active_gameplay']),
@@ -86,18 +80,18 @@ def main_menu():
         # append developer mode options at the end of main menu list
         if cnst.setup_params['dev_mode']:
             choices_main_menu.append(
-                (f'{cnst.special_txt_clr}test_paragraph{cnst.def_txt_clr}',
+                (f'{cnst.SPECIAL_COLOR}test_paragraph{cnst.DEFAULT_COLOR}',
                  f'bypass to any paragraph'))
 
             choices_main_menu.append(
-                (f'{cnst.special_txt_clr}configure setup file{cnst.def_txt_clr}', 'basic config wizard'))
+                (f'{cnst.SPECIAL_COLOR}configure setup file{cnst.DEFAULT_COLOR}', 'basic config wizard'))
 
             choices_main_menu.append(
-                (f'{cnst.special_txt_clr}project documentation{cnst.def_txt_clr}',
+                (f'{cnst.SPECIAL_COLOR}project documentation{cnst.DEFAULT_COLOR}',
                  'pdf scan of original book, HTML adaptation from http://www.dudziarz.net'))
 
             choices_main_menu.append(
-                (f'{cnst.special_txt_clr}restore default setup file{cnst.def_txt_clr}', 'ALL CHANGES WILL BE LOST!!!'))
+                (f'{cnst.SPECIAL_COLOR}restore default config{cnst.DEFAULT_COLOR}', 'ALL CHANGES WILL BE LOST!!!'))
 
         if cnst.setup_params['use_dummy']:  # disable 'new game' and 'load game' option when using dummy
             choices_main_menu.remove((gb.infoboook[cnst.setup_params['translation']]['Mmenu1'], ''))  # new game
@@ -107,7 +101,7 @@ def main_menu():
         for i, (choice_main_menu, description) in enumerate(choices_main_menu, 1):
             print(template.format(i, choice_main_menu, description))
 
-        usr_input = ask_for_user_input()
+        usr_input = input(f'{cnst.INPUT_SIGN}').strip()
 
         if usr_input == 'rayman':  # temporarily enable dev_mode
             cnst.setup_params['dev_mode'] = True
@@ -132,18 +126,17 @@ def main_menu():
                 # new game
                 elif choice_main_menu == gb.infoboook[cnst.setup_params['translation']]['Mmenu1']:
                     func.clear_terminal()
-                    print(f"/ {choice_main_menu}{cnst.def_txt_clr}")
-                    func.loading()
+                    print(f"/ {choice_main_menu}{cnst.DEFAULT_COLOR}")
                     prg._00()
 
                 # load game
                 elif choice_main_menu == gb.infoboook[cnst.setup_params['translation']]['Mmenu2']:
                     func.clear_terminal()
-                    print(f"/ {choice_main_menu}{cnst.def_txt_clr}")
+                    print(f"/ {choice_main_menu}{cnst.DEFAULT_COLOR}")
 
                     last_paragraph = func.get_game_state('l')
 
-                    if not last_paragraph == 'prg.00':
+                    if not last_paragraph == '00':
                         func.pth_selector([], [f'{last_paragraph}'])
 
 
@@ -151,7 +144,7 @@ def main_menu():
                 elif choice_main_menu == choice_main_menu == gb.infoboook[cnst.setup_params['translation']]['Mmenu3']:
                     while True:
                         func.clear_terminal()
-                        print(f"{cnst.special_txt_clr}/ {choice_main_menu}{cnst.def_txt_clr}")
+                        print(f"{cnst.SPECIAL_COLOR}/ {choice_main_menu}{cnst.DEFAULT_COLOR}")
 
                         choices_rules = [
                             (gb.infoboook[cnst.setup_params['translation']]['Mmenu3_sub1'], ''),
@@ -167,7 +160,7 @@ def main_menu():
                         for i, (choice_rules, description) in enumerate(choices_rules, 1):
                             print(template.format(i, choice_rules, description))
 
-                        usr_input = ask_for_user_input()
+                        usr_input = input(f'{cnst.INPUT_SIGN}').strip()
 
                         if usr_input.isdigit():
                             index = int(usr_input) - 1
@@ -177,7 +170,7 @@ def main_menu():
                         for choice_rules, description in choices_rules:
                             if usr_input == choice_rules:
                                 func.clear_terminal()
-                                print(f"{cnst.special_txt_clr}// {choice_rules}{cnst.def_txt_clr}")
+                                print(f"{cnst.SPECIAL_COLOR}// {choice_rules}{cnst.DEFAULT_COLOR}")
 
                                 # Equipment and attributes
                                 if choice_rules == gb.infoboook[cnst.setup_params['translation']]['Mmenu3_sub1']:
@@ -215,13 +208,13 @@ def main_menu():
                                 elif choice_rules == gb.infoboook[cnst.setup_params['translation']]['return']:
                                     main_menu()
 
-                                input(f'{cnst.input_sign}')
+                                input(f'{cnst.INPUT_SIGN}')
 
                 # Settings
                 elif choice_main_menu == gb.infoboook[cnst.setup_params['translation']]['Mmenu4']:
                     while True:
                         func.clear_terminal()
-                        print(f"{cnst.special_txt_clr}/ {choice_main_menu}{cnst.def_txt_clr}")
+                        print(f"{cnst.SPECIAL_COLOR}/ {choice_main_menu}{cnst.DEFAULT_COLOR}")
 
                         choices_settings = [
                             (gb.infoboook[cnst.setup_params['translation']]['Mmenu4_sub1'], ''),
@@ -235,7 +228,7 @@ def main_menu():
                         for i, (choice_settings, description) in enumerate(choices_settings, 1):
                             print(template.format(i, choice_settings, description))
 
-                        usr_input = ask_for_user_input()
+                        usr_input = input(f'{cnst.INPUT_SIGN}').strip()
 
                         if usr_input.isdigit():
                             index = int(usr_input) - 1
@@ -256,8 +249,8 @@ def main_menu():
                                         availablelocales.append(key)
 
                                     translation = str(input(
-                                        f"{cnst.def_txt_clr}{gb.infoboook[cnst.setup_params['translation']]['Mmenu4_sub1_1']} {availablelocales}\
-                                    \n{cnst.input_sign}")).lower()
+                                        f"{cnst.DEFAULT_COLOR}{gb.infoboook[cnst.setup_params['translation']]['Mmenu4_sub1_1']} {availablelocales}\
+                                    \n{cnst.INPUT_SIGN}")).lower()
 
                                     # get localization dictionaries from gamebook
                                     gb.get_translation(translation)
@@ -269,7 +262,7 @@ def main_menu():
                                 if choice_settings == gb.infoboook[cnst.setup_params['translation']][
                                     'Mmenu4_sub2']:
                                     func.clear_terminal()
-                                    print(f"{cnst.special_txt_clr}// {choice_settings}{cnst.def_txt_clr}")
+                                    print(f"{cnst.SPECIAL_COLOR}// {choice_settings}{cnst.DEFAULT_COLOR}")
 
                                     choices_difficulty_lvl = [
                                         (gb.infoboook[cnst.setup_params['translation']]['Mmenu4_sub1_3'], ''),
@@ -280,7 +273,7 @@ def main_menu():
                                     for i, (choice_difficulty_lvl, description) in enumerate(choices_difficulty_lvl, 1):
                                         print(template.format(i, choice_difficulty_lvl, description))
 
-                                    usr_input = ask_for_user_input()
+                                    usr_input = input(f'{cnst.INPUT_SIGN}').strip()
 
                                     if usr_input.isdigit():
                                         index = int(usr_input) - 1
@@ -311,7 +304,7 @@ def main_menu():
                                     'Mmenu4_sub3']:
 
                                     func.clear_terminal()
-                                    print(f"{cnst.special_txt_clr}// {choice_settings}{cnst.def_txt_clr}")
+                                    print(f"{cnst.SPECIAL_COLOR}// {choice_settings}{cnst.DEFAULT_COLOR}")
 
                                     choices_sound_settings = [
                                         (gb.infoboook[cnst.setup_params['translation']]['Mmenu4_sub3_1'],
@@ -326,7 +319,7 @@ def main_menu():
                                     for i, (choice_sound_settings, description) in enumerate(choices_sound_settings, 1):
                                         print(template.format(i, choice_sound_settings, description))
 
-                                    usr_input = ask_for_user_input()
+                                    usr_input = input(f'{cnst.INPUT_SIGN}').strip()
 
                                     if usr_input.isdigit():
                                         index = int(usr_input) - 1
@@ -387,8 +380,8 @@ def main_menu():
                                     'Mmenu4_sub4']:
 
                                     name = input(
-                                        f"{gb.infoboook[cnst.setup_params['translation']]['Mmenu4_sub4_1']}{cnst.input_sign}")
-                                    cnst.player_name = f"{Fore.LIGHTYELLOW_EX}{name}{cnst.def_txt_clr}"
+                                        f"{gb.infoboook[cnst.setup_params['translation']]['Mmenu4_sub4_1']}{cnst.INPUT_SIGN}")
+                                    cnst.player_name = f"{Fore.LIGHTYELLOW_EX}{name}{cnst.DEFAULT_COLOR}"
 
                                     # Randomize if name is empty
                                     if name == '':
@@ -401,10 +394,9 @@ def main_menu():
                                     print(gb.infoboook[cnst.setup_params['translation']][
                                               'Mmenu4_sub5_1'])
 
-                                    func.loading()
                                     func.get_player_par()  # get new randomized player stats
                                     func.show_player_stats()
-                                    input(f'\r{cnst.input_sign}')
+                                    input(f'\r{cnst.INPUT_SIGN}')
 
                                 elif choice_settings == gb.infoboook[cnst.setup_params['translation']]['return']:
                                     main_menu()
@@ -415,83 +407,82 @@ def main_menu():
                     if choice2.lower() == "y":
                         pygame.mixer.music.fadeout(600)
                         func.clear_terminal()
-                        func.loading()
                         exit()
 
                 # ADDITIONAL DEV FUNCTIONALITY
                 # evaluating functions in paragraphs.py
-                elif choice_main_menu == f'{cnst.special_txt_clr}test_paragraph{cnst.def_txt_clr}':
+                elif choice_main_menu == f'{cnst.SPECIAL_COLOR}test_paragraph{cnst.DEFAULT_COLOR}':
                     prg._xx()  # calling placeholder function
 
                 # configuring setup.json file
-                elif choice_main_menu == f'{cnst.special_txt_clr}configure setup file{cnst.def_txt_clr}':
+                elif choice_main_menu == f'{cnst.SPECIAL_COLOR}configure setup file{cnst.DEFAULT_COLOR}':
                     func.clear_terminal()
-                    func.update_setup_file(True)
+                    func.update_config_file(True)
 
-                elif choice_main_menu == f'{cnst.special_txt_clr}project documentation{cnst.def_txt_clr}':
+                # open documentation dir
+                elif choice_main_menu == f'{cnst.SPECIAL_COLOR}project documentation{cnst.DEFAULT_COLOR}':
                     func.clear_terminal()
                     documentation_path = os.path.join(os.path.abspath('.'), 'Assets', 'docs', "doc_dummy.txt")
 
                     subprocess.Popen(f'explorer /select,"{documentation_path}"', shell=True)
 
-                elif choice_main_menu == f'{cnst.special_txt_clr}restore default setup file{cnst.def_txt_clr}':
+                # restore default config
+                elif choice_main_menu == f'{cnst.SPECIAL_COLOR}restore default config{cnst.DEFAULT_COLOR}':
                     func.clear_terminal()
-                    func.update_setup_file(backup=True)
+                    func.update_config_file(backup=True)
 
-
-"""
-ADDITIONAL LOGIC for DEVELOPER MODE
-If the dev_mode variable is set to True, some useful information is displayed,
-including the setup parameters file name at the beggining, documentation path, debug messages and so on.
-"""
-if cnst.setup_params['dev_mode']:
-    # Version of menu with enabled annotations
-    template = "({}) {} - {}"
-
-    print(f"\n{cnst.special_txt_clr}Setup parameters loaded from file: {Fore.YELLOW}{cnst.setup_name}{Style.RESET_ALL}")
-
-    # Find the length of the longest value in cnst.loaded_setup
-    max_value_length = max(len(str(key)) for key in cnst.loaded_setup.keys())
-
-    # Print the key-value pairs with variable length formatting
-    for key, value in cnst.loaded_setup.items():
-        print(f"- {key.ljust(max_value_length)} - {value}")
-
-    print(
-        f"\n{Fore.LIGHTBLUE_EX}Code is running in developer mode.\
-        \nTo deactivate the dev_mode temporarily toggle in the main menu, enter 'rayman'-ON or 'mario'-OFF.\
-        \nAlso, you can change the setup parameters in the setup file manually.{cnst.def_txt_clr}\
-        \n\
-        \nuseful stuff:\
-        \nsetup parameters {cnst.input_sign}{cnst.setup_name}\
-        \ndocumentation {cnst.input_sign}Assets/PDF&HTML/"
-    )
-
-    input(f"\ncontinue by pressing enter {cnst.input_sign}")
-
-else:
-    # Version of menu without enabled annotations
-    template = "({}) {}"
-
-# time for start sequence: 23.1 seconds
-if cnst.setup_params['start_sequence']:
-    # loading background music
-    func.get_music('menu')
-
-    # start sequence
-    func.loading(1.4)
-    messages = ['Jacek Ciesielski\r', 'Filip Pawłowski', 'presents...', 'DRESZCZ - GRA PARAGRAFOWA']
-    for message in messages:
-        print(message)
-        time.sleep(5.4)
-else:
-    func.get_music('main')
-
-# randomize new player parameters
-func.get_player_par()
-
-# hide the "continue" and "load game" options in the menu if no game states are found
-func.get_game_state('init')
 
 if __name__ == '__main__':
+    """
+    ADDITIONAL LOGIC for DEVELOPER MODE
+    If the dev_mode variable is set to True, some useful information is displayed,
+    including the setup parameters file name at the beggining, documentation path, debug messages and so on.
+    """
+    if cnst.setup_params['dev_mode']:
+        # Version of menu with enabled annotations
+        template = "({}) {} - {}"
+
+        print(f"\n{cnst.SPECIAL_COLOR}Setup parameters loaded from file: {Fore.YELLOW}{cnst.CFG_NAME}{Style.RESET_ALL}")
+
+        # Print the key-value pairs with variable length formatting
+        for key, value in cnst.setup_params.items():
+            print(f"- {key.ljust(max(len(str(key)) for key in cnst.setup_params.keys()))} - {value}")
+
+        print(
+            f"\n{Fore.LIGHTBLUE_EX}Code is running in developer mode.\
+            \nTo deactivate the dev_mode temporarily toggle in the main menu, enter 'rayman'-ON or 'mario'-OFF.\
+            \nAlso, you can change the setup parameters in the setup file manually.{cnst.DEFAULT_COLOR}\
+            \n\
+            \nuseful stuff:\
+            \nsetup parameters {cnst.INPUT_SIGN}{cnst.CFG_NAME}\
+            \ndocumentation {cnst.INPUT_SIGN}Assets/PDF&HTML/"
+        )
+
+        input(f"\ncontinue by pressing enter {cnst.INPUT_SIGN}")
+
+    else:
+        # Version of menu without enabled annotations
+        template = "({}) {}"
+
+    # time for start sequence: 23.1 seconds
+    if cnst.setup_params['start_sequence']:
+        # loading background music
+        func.get_music('menu')
+
+        # start sequence
+        time.sleep(1.4)
+        messages = ['Jacek Ciesielski\r', 'Filip Pawłowski', 'presents...', 'DRESZCZ - GRA PARAGRAFOWA']
+        for message in messages:
+            print(message)
+            time.sleep(5.4)
+    else:
+        func.get_music('main')
+
+    # randomize new player parameters
+    func.get_player_par()
+
+    # hide the "continue" and "load game" options in the menu if no game states are found
+    func.get_game_state('init')
+
+    # enter main menu loop
     main_menu()

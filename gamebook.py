@@ -7,13 +7,13 @@ gameboook = {
         {
             "xxx": "",
 
-            "eatables": "Would you like to eat provisions? (+4 Stamina) (Y/N)",
+            "meals": "Would you like to eat provisions? (+4 Stamina) (Y/N)",
 
             "combat_init": "Begin the fight!",
 
             "combat_dead_info": "You have been killed by",
 
-            "esc_choice": f"{cnst.def_txt_clr}Do you escape or stay and continue fighting? {cnst.special_txt_clr}/Stamina - 2/{cnst.def_txt_clr}:\
+            "esc_choice": f"{cnst.DEFAULT_COLOR}Do you escape or stay and continue fighting? {cnst.SPECIAL_COLOR}/Stamina - 2/{cnst.DEFAULT_COLOR}:\
               \nescape          = <enter>\
               \ncontinue fighting = type anything",
 
@@ -34,7 +34,7 @@ gameboook = {
 
             "wrong_input": "Wrong input",
 
-            "00a": f"\r{cnst.def_txt_clr}While wandering through the underground, you will find different types of weapons and items.\
+            "00a": f"\r{cnst.DEFAULT_COLOR}While wandering through the underground, you will find different types of weapons and items.\
                 \nRemember that - except for the sword - each weapon can be used only once.\
                 \nSimilarly, the found items are for single use.\
                 \nYou can take one bottle of elixir with you.",
@@ -742,13 +742,13 @@ gameboook = {
         {
             "xxx": "",
 
-            "eatables": "Czy chcesz zjeść prowiant? (+4 Wytrzymałość) (Y/N)",
+            "meals": "Czy chcesz zjeść prowiant? (+4 Wytrzymałość) (Y/N)",
 
             "combat_init": "Rozpocznij walkę!",
 
             "combat_dead_info": "Zostałeś zabity przez",
 
-            "esc_choice": f"{cnst.def_txt_clr}Uciekasz czy zostajesz i walczczysz dalej? {cnst.special_txt_clr}/Wytrzymałość - 2/{cnst.def_txt_clr}:\
+            "esc_choice": f"{cnst.DEFAULT_COLOR}Uciekasz czy zostajesz i walczczysz dalej? {cnst.SPECIAL_COLOR}/Wytrzymałość - 2/{cnst.DEFAULT_COLOR}:\
               \nuciekasz        = <enter>\
               \nwalczysz dalej  = wpisz cokolwiek",
 
@@ -769,7 +769,7 @@ gameboook = {
 
             "wrong_input": "Niepoprawny wybór",
 
-            "00a": f"\r{cnst.def_txt_clr}Wędrując po podziemiach będziesz znajdował inne rodzaje broni i przedmioty.\
+            "00a": f"\r{cnst.DEFAULT_COLOR}Wędrując po podziemiach będziesz znajdował inne rodzaje broni i przedmioty.\
                 \nPamiętaj, że - poza mieczem - każda broń może być wykorzystana tylko raz.\
                 \nPodobnie, znajdowane przedmioty są jednorazowego użytku.\
                 \nMożesz zabrać ze sobą jedną butelkę eliksiru.",
@@ -1904,7 +1904,7 @@ gameboook = {
                 \n2. Resistenza\
                 \n3. Fortuna",
 
-            "00a": f"\r{cnst.def_txt_clr}Mentre esplori i sotterranei, troverai diversi tipi di armi e oggetti.\
+            "00a": f"\r{cnst.DEFAULT_COLOR}Mentre esplori i sotterranei, troverai diversi tipi di armi e oggetti.\
                 \nRicorda che, a parte la spada, ogni arma può essere utilizzata solo una volta.\
                 \nAllo stesso modo, gli oggetti trovati sono ad uso singolo.\
                 \nPuoi portare con te una sola pozione dell'elisir.",
@@ -1960,7 +1960,7 @@ infoboook = {
 
             "Mmenu4_sub3": "Sound",
 
-            "Mmenu4_sub3_a": f"New volume level (1-10) {cnst.input_sign}",
+            "Mmenu4_sub3_a": f"New volume level (1-10) {cnst.INPUT_SIGN}",
 
             "Mmenu4_sub3_b": "Volume level must be between 1 and 10.",
 
@@ -2006,9 +2006,9 @@ infoboook = {
                 \nRemember that - except for the sword - each weapon can only be used once.\
                 \nSimilarly, the found items are single-use.\
                 \nYou can take one bottle of elixir with you.\
-                \nYou can choose among the elixirs: {cnst.special_txt_clr}AGILITY{cnst.def_txt_clr}, {cnst.special_txt_clr}ENDURANCE{cnst.def_txt_clr}, and {cnst.special_txt_clr}LUCK{cnst.def_txt_clr}.\
+                \nYou can choose among the elixirs: {cnst.SPECIAL_COLOR}AGILITY{cnst.DEFAULT_COLOR}, {cnst.SPECIAL_COLOR}ENDURANCE{cnst.DEFAULT_COLOR}, and {cnst.SPECIAL_COLOR}LUCK{cnst.DEFAULT_COLOR}.\
                 \nYou can drink it at any time, but only twice during the adventure.\
-                \n{cnst.def_txt_clr}Your attributes are: AGILITY, ENDURANCE, and LUCK.\
+                \n{cnst.DEFAULT_COLOR}Your attributes are: AGILITY, ENDURANCE, and LUCK.\
                 \nBefore descending into the dungeons, the initial levels of these attributes are randomly determined.\
                 \nTheir level will constantly change during your journey,\
                 \nbut it cannot exceed the initial level.",
@@ -2042,15 +2042,15 @@ infoboook = {
                 \n- enchanted weapon increases SKILL\
                 \n- ELIXIR OF SKILL restores the initial level\
                 \n2. STAMINA - constantly changing\
-                \n- each meal (you have {cnst.eatables_count} of them at the start) adds {cnst.eatable_W_load} points\
+                \n- each meal (you have {cnst.meal_count} of them at the start) adds {cnst.STAMINA_PER_MEAL} points\
                 \n- ELIXIR OF STAMINA restores the initial level\
                 \n3. LUCK\
                 \n- successful adventures add points\
                 \n- ELIXIR OF LUCK restores the initial level and even raises it by 1.\
                 \nExcept for that case, SKILL, STAMINA, and LUCK cannot exceed the initial level.",
 
-            "Mmenu3_sub1_6": f"In your backpack, you have Provisions, which are enough for {cnst.eatables_count} meals. You can only eat a meal when the text allows it.\
-                \nYou can eat only one meal at a time. After consuming a meal, you gain {cnst.eatable_W_load} to your STAMINA.",
+            "Mmenu3_sub1_6": f"In your backpack, you have Provisions, which are enough for {cnst.meal_count} meals. You can only eat a meal when the text allows it.\
+                \nYou can eat only one meal at a time. After consuming a meal, you gain {cnst.STAMINA_PER_MEAL} to your STAMINA.",
 
             "Mmenu3_sub1_7": "Your goal is to reach the treasure chamber. You will wander through a maze of corridors.\
                 \nYou will visit many chambers inhabited by different creatures. You will encounter various surprises.\
@@ -2093,7 +2093,7 @@ infoboook = {
 
             "Mmenu4_sub3": "Dźwięk",
 
-            "Mmenu4_sub3_a": f"Nowy poziom głośności (1-10) {cnst.input_sign}",
+            "Mmenu4_sub3_a": f"Nowy poziom głośności (1-10) {cnst.INPUT_SIGN}",
 
             "Mmenu4_sub3_b": "Poziom głośności musi być wzakresie 1-10",
 
@@ -2139,9 +2139,9 @@ infoboook = {
                 \nPamiętaj, że - poza mieczem - każda broń może być wykorzystana tylko raz.\
                 \nPodobnie, znajdowane przedmioty są jednorazowego użytku.\
                 \nMożesz zabrać ze sobą jedną butelkę eliksiru.\
-                \nWybierasz spośród eliksirów: {cnst.special_txt_clr}ZRĘCZNOŚCI{cnst.def_txt_clr}, {cnst.special_txt_clr}WYTRZYMAŁOŚCI{cnst.def_txt_clr} i {cnst.special_txt_clr}SZCZĘŚCIA{cnst.def_txt_clr}.\
+                \nWybierasz spośród eliksirów: {cnst.SPECIAL_COLOR}ZRĘCZNOŚCI{cnst.DEFAULT_COLOR}, {cnst.SPECIAL_COLOR}WYTRZYMAŁOŚCI{cnst.DEFAULT_COLOR} i {cnst.SPECIAL_COLOR}SZCZĘŚCIA{cnst.DEFAULT_COLOR}.\
                 \nMożna wypić go w dowolnym momencie, ale tylko dwukrotnie podczas przygody.\
-                \n{cnst.def_txt_clr}Twoje cechy to: ZRĘCZNOŚĆ, WYTRZYMAŁOŚĆ i SZCZĘŚCIE.\
+                \n{cnst.DEFAULT_COLOR}Twoje cechy to: ZRĘCZNOŚĆ, WYTRZYMAŁOŚĆ i SZCZĘŚCIE.\
                 \nPrzed zejściem do podziemi losowane są początkowe poziomy tych cech.\
                 \nIch poziom będzie się nieustannie zmieniał podczas wędrówki,\
                 \nale nie może przekroczyć poziomu początkowego.",
@@ -2175,15 +2175,15 @@ infoboook = {
                 \n- zaczarowana broń podwyższa ZRĘCZNOŚĆ\
                 \n- eliksir ZRĘCZNOŚCI przywraca poziom początkowy\
                 \n2. WYTRZYMAŁOŚĆ - nieustannie się zmienia\
-                \n- każdy posiłek (masz ich na starcie {cnst.eatables_count}) dodaje {cnst.eatable_W_load} punkty\
+                \n- każdy posiłek (masz ich na starcie {cnst.meal_count}) dodaje {cnst.STAMINA_PER_MEAL} punkty\
                 \n- eliksir WYTRZYMAŁOŚCI przywraca poziom początkowy\
                 \n3. SZCZĘŚCIE\
                 \n- udane przygody dodają punkty\
                 \n- eliksir SZCZĘŚCIA przywraca poziom początkowy, a nawet podnosi go o 1.\
                 \nPoza tym przypadkiem, ZRĘCZNOŚĆ, WYTRZYMAŁOŚĆ i SZCZĘŚCIE nie mogą przekroczyć poziomu początkowego.",
 
-            "Mmenu3_sub1_6": f"W plecaku masz Prowiant, który wystarcza na {cnst.eatables_count} posiłków. Posiłek można zjeść TYLKO wówczas, gdy przewiduje to tekst.\
-                \nZa jednym razem można zjeść tylko jeden posiłek. Spożywszy posiłek, dostajesz {cnst.eatable_W_load} do swojej WYTRZYMAŁOŚCI.",
+            "Mmenu3_sub1_6": f"W plecaku masz Prowiant, który wystarcza na {cnst.meal_count} posiłków. Posiłek można zjeść TYLKO wówczas, gdy przewiduje to tekst.\
+                \nZa jednym razem można zjeść tylko jeden posiłek. Spożywszy posiłek, dostajesz {cnst.STAMINA_PER_MEAL} do swojej WYTRZYMAŁOŚCI.",
 
             "Mmenu3_sub1_7": "Twoim celem jest dotarcie do skarbca. Będziesz wędrował przez labirynt korytarzy.\
                 \nOdwiedzisz wiele komnat, w których żyją różne istoty. Spotkają cię rozmaite niespodzianki.\
@@ -2226,7 +2226,7 @@ infoboook = {
 
             "Mmenu4_sub3": "Sonido",
 
-            "Mmenu4_sub3_a": f"Nuevo nivel de volumen (1-10) {cnst.input_sign}",
+            "Mmenu4_sub3_a": f"Nuevo nivel de volumen (1-10) {cnst.INPUT_SIGN}",
 
             "Mmenu4_sub3_b": "El nivel de volumen debe estar en el rango de 1 a 10",
 
@@ -2272,9 +2272,9 @@ infoboook = {
                 \nRecuerda que, excepto por la espada, cada arma solo se puede usar una vez.\
                 \nDel mismo modo, los objetos encontrados son de un solo uso.\
                 \nPuedes llevar contigo una botella de elixir.\
-                \nPuedes elegir entre los elixires de {cnst.special_txt_clr}DESTREZA{cnst.def_txt_clr}, {cnst.special_txt_clr}RESISTENCIA{cnst.def_txt_clr} y {cnst.special_txt_clr}SUERTE{cnst.def_txt_clr}.\
+                \nPuedes elegir entre los elixires de {cnst.SPECIAL_COLOR}DESTREZA{cnst.DEFAULT_COLOR}, {cnst.SPECIAL_COLOR}RESISTENCIA{cnst.DEFAULT_COLOR} y {cnst.SPECIAL_COLOR}SUERTE{cnst.DEFAULT_COLOR}.\
                 \nPuedes beberlo en cualquier momento, pero solo dos veces durante la aventura.\
-                \n{cnst.def_txt_clr}Tus habilidades son: DESTREZA, RESISTENCIA y SUERTE.\
+                \n{cnst.DEFAULT_COLOR}Tus habilidades son: DESTREZA, RESISTENCIA y SUERTE.\
                 \nAntes de descender a las mazmorras, se generan niveles iniciales aleatorios para estas habilidades.\
                 \nSus niveles cambiarán constantemente durante tu viaje,\
                 \npero no pueden superar el nivel inicial.",
@@ -2308,16 +2308,16 @@ infoboook = {
                 \n- las armas encantadas aumentan tu DESTREZA\
                 \n- el elixir de DESTREZA restablece tu nivel inicial\
                 \n2. RESISTENCIA: cambia constantemente\
-                \n- cada comida (tienes {cnst.eatables_count} al comienzo) agrega {cnst.eatable_W_load} puntos\
+                \n- cada comida (tienes {cnst.meal_count} al comienzo) agrega {cnst.STAMINA_PER_MEAL} puntos\
                 \n- el elixir de RESISTENCIA restablece tu nivel inicial\
                 \n3. SUERTE\
                 \n- las aventuras exitosas suman puntos\
                 \n- el elixir de SUERTE restablece tu nivel inicial e incluso lo incrementa en 1.\
                 \nExcepto en el caso mencionado, DESTREZA, RESISTENCIA y SUERTE no pueden superar el nivel inicial.",
 
-            "Mmenu3_sub1_6": f"Tienes provisiones en tu mochila, suficientes para {cnst.eatables_count} comidas. Solo puedes comer una comida\
+            "Mmenu3_sub1_6": f"Tienes provisiones en tu mochila, suficientes para {cnst.meal_count} comidas. Solo puedes comer una comida\
                 \nen los momentos indicados por el texto.\
-                \nSolo puedes comer una comida a la vez. Después de comer, se suman {cnst.eatable_W_load} puntos a tu RESISTENCIA.",
+                \nSolo puedes comer una comida a la vez. Después de comer, se suman {cnst.STAMINA_PER_MEAL} puntos a tu RESISTENCIA.",
 
             "Mmenu3_sub1_7": "Tu objetivo es llegar a la cámara del tesoro. Viajarás a través de un laberinto de pasillos.\
                 \nVisitarás muchas habitaciones donde habitan diferentes criaturas. Encontrarás diversas sorpresas.\
@@ -2361,7 +2361,7 @@ infoboook = {
 
             "Mmenu4_sub3": "Son",
 
-            "Mmenu4_sub3_a": f"Nouveau niveau de volume (1-10) {cnst.input_sign}",
+            "Mmenu4_sub3_a": f"Nouveau niveau de volume (1-10) {cnst.INPUT_SIGN}",
 
             "Mmenu4_sub3_b": "Le niveau de volume doit être compris entre 1 et 10",
 
@@ -2407,9 +2407,9 @@ infoboook = {
                 \nVeuillez noter que, à l'exception de l'épée, chaque arme ne peut être utilisée qu'une seule fois.\
                 \nDe même, les objets trouvés sont à usage unique.\
                 \nVous pouvez emporter une seule fiole d'élixir avec vous.\
-                \nVous pouvez choisir parmi les élixirs suivants : {cnst.special_txt_clr}AGILITÉ{cnst.def_txt_clr}, {cnst.special_txt_clr}ENDURANCE{cnst.def_txt_clr} et {cnst.special_txt_clr}CHANCE{cnst.def_txt_clr}.\
+                \nVous pouvez choisir parmi les élixirs suivants : {cnst.SPECIAL_COLOR}AGILITÉ{cnst.DEFAULT_COLOR}, {cnst.SPECIAL_COLOR}ENDURANCE{cnst.DEFAULT_COLOR} et {cnst.SPECIAL_COLOR}CHANCE{cnst.DEFAULT_COLOR}.\
                 \nVous pouvez le boire à tout moment, mais seulement deux fois au cours de l'aventure.\
-                \n{cnst.def_txt_clr}Vos caractéristiques sont : AGILITÉ, ENDURANCE et CHANCE.\
+                \n{cnst.DEFAULT_COLOR}Vos caractéristiques sont : AGILITÉ, ENDURANCE et CHANCE.\
                 \nLes niveaux initiaux de ces caractéristiques sont générés aléatoirement avant d'entrer dans les souterrains,\
                 \net ils peuvent évoluer tout au long de votre périple, mais ne peuvent pas dépasser le niveau initial.",
 
@@ -2442,16 +2442,16 @@ infoboook = {
                 \n- les armes enchantées augmentent l'AGILITÉ\
                 \n- l'élixir d'AGILITÉ ramène le niveau à sa valeur initiale\
                 \n2. ENDURANCE - change constamment\
-                \n- chaque repas (vous en avez {cnst.eatables_count} au départ) ajoute {cnst.eatable_W_load} points\
+                \n- chaque repas (vous en avez {cnst.meal_count} au départ) ajoute {cnst.STAMINA_PER_MEAL} points\
                 \n- l'élixir d'ENDURANCE ramène le niveau à sa valeur initiale\
                 \n3. CHANCE\
                 \n- les aventures réussies ajoutent des points\
                 \n- l'élixir de CHANCE ramène le niveau à sa valeur initiale, voire l'augmente de 1.\
                 \nEn dehors de cette situation, l'AGILITÉ, l'ENDURANCE et la CHANCE ne peuvent pas dépasser leur niveau initial.",
 
-            "Mmenu3_sub1_6": f"Dans votre sac à dos, vous avez des provisions qui suffisent pour {cnst.eatables_count} repas.\
+            "Mmenu3_sub1_6": f"Dans votre sac à dos, vous avez des provisions qui suffisent pour {cnst.meal_count} repas.\
                 \nVous ne pouvez manger un repas QUE si le texte le permet.\
-                \nVous ne pouvez manger qu'un repas à la fois. En mangeant un repas, vous récupérez {cnst.eatable_W_load} points d'ENDURANCE.",
+                \nVous ne pouvez manger qu'un repas à la fois. En mangeant un repas, vous récupérez {cnst.STAMINA_PER_MEAL} points d'ENDURANCE.",
 
             "Mmenu3_sub1_7": "Votre objectif est d'atteindre le trésor. Vous vous aventurerez à travers le labyrinthe de couloirs.\
                 \nVous visiterez de nombreuses pièces où vivent différentes créatures. Vous ferez face à diverses surprises.\
@@ -2494,7 +2494,7 @@ infoboook = {
 
             "Mmenu4_sub3": "Audio",
 
-            "Mmenu4_sub3_a": f"Livello del volume (1-10) {cnst.input_sign}",
+            "Mmenu4_sub3_a": f"Livello del volume (1-10) {cnst.INPUT_SIGN}",
 
             "Mmenu4_sub3_b": "Il livello del volume deve essere compreso tra 1 e 10",
 
@@ -2540,9 +2540,9 @@ infoboook = {
                 \nRicorda che - a parte la spada - ogni arma può essere utilizzata solo una volta.\
                 \nAllo stesso modo, gli oggetti trovati possono essere utilizzati una sola volta.\
                 \nPuoi portare con te una sola bottiglia di elisir.\
-                \nPuoi scegliere tra gli elisir: {cnst.special_txt_clr}DESTREZZA{cnst.def_txt_clr}, {cnst.special_txt_clr}RESISTENZA{cnst.def_txt_clr} e {cnst.special_txt_clr}FORTUNA{cnst.def_txt_clr}.\
+                \nPuoi scegliere tra gli elisir: {cnst.SPECIAL_COLOR}DESTREZZA{cnst.DEFAULT_COLOR}, {cnst.SPECIAL_COLOR}RESISTENZA{cnst.DEFAULT_COLOR} e {cnst.SPECIAL_COLOR}FORTUNA{cnst.DEFAULT_COLOR}.\
                 \nPuoi berlo in qualsiasi momento, ma solo due volte durante l'avventura.\
-                \n{cnst.def_txt_clr}I tuoi attributi sono: DESTREZZA, RESISTENZA e FORTUNA.\
+                \n{cnst.DEFAULT_COLOR}I tuoi attributi sono: DESTREZZA, RESISTENZA e FORTUNA.\
                 \nPrima di scendere nei sotterranei, vengono generate casualmente i livelli iniziali di questi attributi.\
                 \nI loro livelli cambieranno costantemente durante il tuo viaggio,\
                 \nma non possono superare il livello iniziale.",
@@ -2576,15 +2576,15 @@ infoboook = {
                 \n- le armi incantate aumentano la DESTREZZA\
                 \n- l'elisir di DESTREZZA ripristina il livello iniziale\
                 \n2. RESISTENZA - cambia costantemente\
-                \n- ogni pasto (hai {cnst.eatables_count} pasti all'inizio) aggiunge {cnst.eatable_W_load} punti\
+                \n- ogni pasto (hai {cnst.meal_count} pasti all'inizio) aggiunge {cnst.STAMINA_PER_MEAL} punti\
                 \n- l'elisir di RESISTENZA ripristina il livello iniziale\
                 \n3. FORTUNA\
                 \n- le avventure fortunate aggiungono punti\
                 \n- l'elisir di FORTUNA ripristina il livello iniziale e può aumentarlo di 1.\
                 \nOltre a questo caso, DESTREZZA, RESISTENZA e FORTUNA non possono superare il livello iniziale.",
 
-            "Mmenu3_sub1_6": f"Nello zaino hai del Cibo, che è sufficiente per {cnst.eatables_count} pasti. Puoi mangiare il Cibo SOLO quando previsto dal testo.\
-                \nPuoi mangiare solo un pasto alla volta. Dopo aver mangiato il pasto, ricevi {cnst.eatable_W_load} punti nella tua RESISTENZA.",
+            "Mmenu3_sub1_6": f"Nello zaino hai del Cibo, che è sufficiente per {cnst.meal_count} pasti. Puoi mangiare il Cibo SOLO quando previsto dal testo.\
+                \nPuoi mangiare solo un pasto alla volta. Dopo aver mangiato il pasto, ricevi {cnst.STAMINA_PER_MEAL} punti nella tua RESISTENZA.",
 
             "Mmenu3_sub1_7": "Il tuo obiettivo è raggiungere la camera del tesoro. Camminerai attraverso il labirinto dei corridoi.\
                 \nVisiterai molte stanze in cui vivono diverse creature. Incontrerai molte sorprese.\

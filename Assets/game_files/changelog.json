@@ -1,0 +1,36 @@
+[
+  {
+    "version": "v0.10",
+    "date": "Nov 16 2023",
+    "changes": [
+      "- small changes, changed version naming scheme to simpler (vx.x not like xxxxxx.x)"
+    ]
+  },
+  {
+    "version": "v0.11",
+    "date": "Jan 07 2024",
+    "changes": [
+      "menu.py",
+      "- cosmetic changes",
+      "constants.py",
+      "- renamed constants",
+      "- new load_config() functions",
+      "functions.py",
+      "- removed loading_animation entirely",
+      "- added milliseconds to logging timestamp",
+      "- added conditioning in clear_terminal()",
+      "- version number will now be retained after restoring config file",
+      "- changed paragraphs evaluation method (new formatting)",
+      "- new function get_state() for checking if required value",
+      "- corrected formatting in path_string (replaced \"/\" with \"\\\")",
+      "obj_class.py",
+      "- removed unnecessary code",
+      "- simplified Entity __init__ code",
+      "paragraphs.py",
+      "- added functional logic for paragraph 269",
+      "- removed empty action lists because they are not needed now",
+      "- simplified passing paragraph number (just number instead of _number())",
+      "- included paragraph numbers as functions that were previously missing."
+    ]
+  }
+]

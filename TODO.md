@@ -1,6 +1,6 @@
 # Project To-Do List
 
-Write x in square brackets when entry completed: <b>[x]</b>
+Put 'x' in square brackets when entry completed: <b>[x]</b>
 
 # `GLOBAL:`
 
