@@ -121,7 +121,7 @@ def main_menu():
                 # continue last gameplay
                 if choice_main_menu == gb.infoboook[cnst.setup_params['translation']]['Mmenu0']:
                     last_paragraph = func.get_game_state('c')
-                    func.pth_selector([], [f'{last_paragraph}'])
+                    func.pth_selector(actions=[f'{last_paragraph}'])
 
                 # new game
                 elif choice_main_menu == gb.infoboook[cnst.setup_params['translation']]['Mmenu1']:

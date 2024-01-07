@@ -1258,7 +1258,7 @@ def _200():
     func.dub_play('200', 'adam')
 
     actions = ['120', '301']
-    func.pth_selector(actions, True, ent.room_364)
+    func.pth_selector(actions = actions, visit_check=True, room_id=ent.room_364)
 
 
 def _201():
@@ -1382,7 +1382,7 @@ def _224():
     func.dub_play('224', 'adam')
 
     actions = ['180', '301']
-    func.pth_selector(actions, True, ent.room_364)
+    func.pth_selector(actions=actions, visit_check=True, room_id=ent.room_364)
 
 
 def _225():
@@ -1407,16 +1407,6 @@ def _228():
 
     actions = ['102']
     func.pth_selector(actions=actions)
-
-
-def _227():
-    func.dub_play('227', 'adam')
-    _xx()
-
-
-def _228():
-    func.dub_play('228', 'adam')
-    _xx()
 
 
 def _229():
@@ -1813,11 +1803,6 @@ def _291():
     func.pth_selector(actions=actions)
 
 
-def _291():
-    func.dub_play('291', 'adam')
-    _xx()
-
-
 def _292():
     func.dub_play('292', 'adam')
     _xx()
@@ -1923,7 +1908,7 @@ def _310():
     func.dub_play('310', 'adam')
 
     actions = ['67', '17']
-    func.pth_selector(actions, True, ent.room_310)
+    func.pth_selector(actions=actions, visit_check=True, room_id=ent.room_310)
 
 
 def _311():
@@ -2045,7 +2030,7 @@ def _331():
     func.dub_play('331', 'adam')
 
     actions = ['59', '11']
-    func.pth_selector(actions, True, ent.room_331)
+    func.pth_selector(actions=actions, visit_check=True, room_id=ent.room_331)
 
 
 def _332():
@@ -2074,7 +2059,7 @@ def _336():
     func.dub_play('336', 'adam')
 
     actions = ['06b', '21']
-    func.pth_selector(actions, True, ent.room_336)
+    func.pth_selector(actions=actions, visit_check=True, room_id=ent.room_336)
 
 
 def _337():
