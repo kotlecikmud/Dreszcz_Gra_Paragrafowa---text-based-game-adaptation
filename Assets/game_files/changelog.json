@@ -32,5 +32,13 @@
       "- simplified passing paragraph number (just number instead of _number())",
       "- included paragraph numbers as functions that were previously missing."
     ]
+  },
+  {
+    "version": "v0.11hotfix01",
+    "date": "Jan 07 2024",
+    "changes": [
+      "hotfix for pth_selector()",
+      "updated _TODO"
+    ]
   }
 ]

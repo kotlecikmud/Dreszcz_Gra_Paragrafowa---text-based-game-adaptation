@@ -22,7 +22,8 @@ Put 'x' in square brackets when entry completed: <b>[x]</b>
 
 ### `functions.py`
 
-- [ ] implement LoadingAnimation class to be used inetad of functions.loading()
+- [ ] implement LoadingAnimation class to be used instead of functions.loading()
+- [ ] fix bounciness of pth_selector skipping and combat_main problem that was probably caused by removing loading()
 
 ### `constants.py`
 
