@@ -1,7 +1,7 @@
-import pygame
-import json
 import os
-from colorama import Fore
+import json
+import pygame
+from colorama import Fore, Style
 
 """
 /// PATHS
@@ -31,7 +31,7 @@ AUDIO_FX_DIR = rf"{ROOT_DIR}\Audio\fx"  # Path to sound effects
 AUDIO_MUSIC_DIR = rf"{ROOT_DIR}\Audio\music"  # Path to music
 GAMESTATES_DIR = r"Jacek Ciesielski - Dreszcz\saves"  # Path to game_states/saves
 
-AUDIO_EXTENSION = '.mp3'  # extension of voice and fx files
+AUDIO_EXTENSION = '.mp3'  # extension of voice and fx files, other will be ignored
 
 
 def load_config():
@@ -113,7 +113,14 @@ ERR_COLOR = Fore.RED  # color for error messages
 
 # /// pygame mixer setup
 # Initialize the mixer module with the specified settings
-pygame.mixer.init(frequency=44100, size=-16, channels=1, buffer=2 ** 12)
+try:
+    pygame.mixer.init(frequency=44100, size=-16, channels=1, buffer=2 ** 12)
+except Exception as e:
+    input(f"\
+    \n{DEBUG_COLOR}Exception while initializing pygame mixer\
+    \n{ERR_COLOR} - {str(e)}\
+    \n{DEBUG_COLOR}exit {INPUT_SIGN}")
+    exit()
 
 # /// equipment list
 
