@@ -22,6 +22,8 @@ Put 'x' in square brackets when entry completed: <b>[x]</b>
 
 ### `functions.py`
 
+- [ ] implement mechanism for checking if active gameplay file saved in setup still exists, if not, disable option "
+  Continue"
 - [ ] implement LoadingAnimation class to be used instead of functions.loading()
 - [ ] fix bounciness of pth_selector skipping and combat_main problem that was probably caused by removing loading()
 

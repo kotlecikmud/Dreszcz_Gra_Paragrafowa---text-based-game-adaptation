@@ -7,10 +7,10 @@
   "dev_mode": false,
   "debug_msg": true,
   "use_dummy": true,
+  "logging": true,
   "start_sequence": false,
   "manual_battle": false,
   "dubbing": true,
   "get_music": true,
-  "__version__": "0.11hotfix02",
-  "logging": true
+  "__version__": "0.11hotfix03"
 }

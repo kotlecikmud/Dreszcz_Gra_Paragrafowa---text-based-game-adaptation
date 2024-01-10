@@ -24,7 +24,8 @@ ROOT_DIR = "Assets"
 
 GAME_FILES_DIR = rf"{ROOT_DIR}\game_files"
 LOG_NAME = rf"{GAME_FILES_DIR}\logging.log"
-CFG_NAME = rf"{GAME_FILES_DIR}\setup.json"  # Get the setup script's name and or location
+CFG_NAME = rf"{GAME_FILES_DIR}\setup.json"
+CHLOG_NAME = rf"{GAME_FILES_DIR}\changelog.json"
 DUMMY_GAMESTATE_NAME = rf"{GAME_FILES_DIR}\dreszcz_dummy.json"
 AUDIO_VOICE_DIR = rf"{ROOT_DIR}\Audio\Voice"  # Path to voice lines audio files
 AUDIO_FX_DIR = rf"{ROOT_DIR}\Audio\fx"  # Path to sound effects
@@ -45,12 +46,12 @@ def load_config():
         "dev_mode",
         "debug_msg",
         "use_dummy",
+        "logging",
         "start_sequence",
         "manual_battle",
         "dubbing",
         "get_music",
-        "__version__",
-        "logging"
+        "__version__"
     ]
 
     empty_config = {param: None for param in keys_list}

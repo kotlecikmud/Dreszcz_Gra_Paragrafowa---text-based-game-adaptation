@@ -371,6 +371,7 @@ def main_menu():
 
                                             elif choice_sound_settings == \
                                                     gb.infoboook[cnst.setup_params['translation']]['return']:
+                                                func.update_config_file()  # dump settings to setup file
                                                 main_menu()
 
                                             func.get_music(update=True)
