@@ -190,6 +190,14 @@ Each entity has initial and current action points for luck and stamina, a state,
 - `room_364`: Room with the ID '364' and a maximum visit count of 2.
 - `room_xxx`: Placeholder room with the ID 'xxx'.
 
+## Version naming scheme
+
+- '00.00.00.00' -> release.increment.hotfix.small
+- release - fully working version of game with tested behaviour, ready to use by player
+- increment - incremental number indicating progress of work
+- hotfix - quick updates that fixes game breaking bugs
+- small - small updates, typo fixes etc.
+
 ## Credits
 
 - Jacek Ciesielski: original author

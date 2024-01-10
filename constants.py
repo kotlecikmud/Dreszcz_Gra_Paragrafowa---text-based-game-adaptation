@@ -34,6 +34,14 @@ GAMESTATES_DIR = r"Jacek Ciesielski - Dreszcz\saves"  # Path to game_states/save
 
 AUDIO_EXTENSION = '.mp3'  # extension of voice and fx files, other will be ignored
 
+"""
+- version naming scheme: '00.00.00.00' -> release.increment.hotfix.small
+- release - fully working version of game with tested behaviour, ready to use by player
+- increment - incremental number indicating progress of work
+- hotfix - quick updates that fixes game breaking bugs
+- small - small updates, typo fixes etc.
+"""
+
 
 def load_config():
     # declare empty params

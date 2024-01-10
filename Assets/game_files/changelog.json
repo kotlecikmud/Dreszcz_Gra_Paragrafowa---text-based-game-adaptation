@@ -40,5 +40,34 @@
       "hotfix for pth_selector()",
       "updated _TODO"
     ]
+  },
+  {
+    "version": "v0.11hotfix02",
+    "date": "Jan 09 2024",
+    "changes": [
+      "small update: handling pygame audio mixer init exception"
+    ]
+  },
+  {
+    "version": "v0.11hotfix03",
+    "date": "Jan 10 2024",
+    "changes": [
+      "functions:",
+      "changed position of 'logging' setup parameters",
+      "new constant for changelog file: CHLOG_NAME",
+      "various code optimization,"
+    ]
+  },
+  {
+    "version": "00.11.01.00",
+    "date": "Jan 10 2024",
+    "changes": [
+      "setup.json",
+      "changed version naming scheme: '00.00.00.00' -> release.increment.hotfix.small",
+      "release - fully working version of game with tested behaviour, ready to use by player",
+      "increment - incremental number indicating progress of work",
+      "hotfix - quick updates that fixes game breaking bugs",
+      "small - small updates, typo fixes etc."
+    ]
   }
 ]
