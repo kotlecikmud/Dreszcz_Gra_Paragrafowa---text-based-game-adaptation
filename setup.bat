@@ -11,8 +11,3 @@ python.exe -m pip install --upgrade pip
 
 REM Install required libraries
 pip install -r Assets/requirements.txt
-
-pause
-
-REM Run game
-python menu.py
