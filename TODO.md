@@ -15,9 +15,8 @@ Put 'x' in square brackets when entry completed: <b>[x]</b>
 
 ### `paragraphs.py`
 
-- [ ] Address a bug where the game becomes unresponsive when a player accesses prg.296(). Although the music continues
-  to play, the game cannot progress beyond this point. Maybe it has to do something with argument 'skippable'
-  dub_play()?
+- [x] Address a bug where the game becomes unresponsive when a player accesses prg.296(). Although the music continues
+  to play, the game cannot progress beyond this point. (solved: missing else:break in eatables())
 - [ ] fix room_364 visit counting (1 additional not needed when deciding if user wants to enter)
 
 ### `functions.py`

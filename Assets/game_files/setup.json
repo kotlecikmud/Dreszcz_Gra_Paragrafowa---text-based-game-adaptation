@@ -1,16 +1,16 @@
 {
-  "active_gameplay": "\\Assets\\game_files\\dreszcz_dummy.json",
-  "translation": "en",
+  "active_gameplay": null,
+  "translation": "pl",
   "action_volume": 1,
   "sfx_volume": 0.7,
   "bckg_volume": 0.6,
-  "dev_mode": false,
+  "dev_mode": true,
   "debug_msg": true,
-  "use_dummy": true,
+  "use_dummy": false,
   "logging": true,
   "start_sequence": false,
   "manual_battle": false,
   "dubbing": true,
   "get_music": true,
-  "__version__": "00.11.01.00"
+  "__version__": "00.11.02.00"
 }

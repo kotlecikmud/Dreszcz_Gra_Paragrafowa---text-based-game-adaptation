@@ -86,7 +86,7 @@ def _04():
 
 
 def _05():
-    func.dub_play('05', 'adam')
+    func.dub_play('05', 'dunmer')
     path_strings = ['tak', 'nie']
     actions = ['312', '140']
     func.pth_selector(path_strings, actions)
@@ -133,7 +133,7 @@ def _10():
 
 
 def _11():
-    func.dub_play('11', 'adam')
+    func.dub_play('11', 'dunmer')
     path_strings = ['idziesz od razu po wodę', 'dobierasz się do stwora']
     actions = ['45', '192']
     func.pth_selector(path_strings, actions)
@@ -1258,7 +1258,7 @@ def _200():
     func.dub_play('200', 'adam')
 
     actions = ['120', '301']
-    func.pth_selector(actions = actions, visit_check=True, room_id=ent.room_364)
+    func.pth_selector(actions=actions, visit_check=True, room_id=ent.room_364)
 
 
 def _201():
@@ -1824,9 +1824,9 @@ def _295():
 
 
 def _296():
-    func.dub_play('296a', 'adam')
+    func.dub_play('296a', 'dunmer')
     func.eatables()
-    func.dub_play('296b', 'adam')
+    func.dub_play('296b', 'dunmer')
 
     actions = ['39']
     func.pth_selector(actions=actions)

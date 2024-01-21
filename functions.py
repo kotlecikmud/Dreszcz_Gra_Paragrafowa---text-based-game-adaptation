@@ -145,16 +145,25 @@ def dub_play(string_id, category=None, skippable=True, with_text=True, r_robin=N
     else:
         r_robin = "_"
 
+    is_voice = None
+    audio_path = None
     audio_file_id = None
 
     if category:
         category = category.lower()
         if category == 'adam' or category == 'dub':
             audio_path = f'{cnst.AUDIO_VOICE_DIR}\\Adam'
+            is_voice = True
 
-            audio_file_id = f'{audio_path}\\{cnst.setup_params["translation"]}\\audiobook_{category}_{cnst.setup_params["translation"]}_{string_id}{r_robin}{cnst.AUDIO_EXTENSION}'
+        elif category == 'dunmer' or category == 'dub':
+            audio_path = f'{cnst.AUDIO_VOICE_DIR}\\Dunmer'
+            is_voice = True
+
         elif category == 'fx':
             audio_file_id = f'{cnst.AUDIO_FX_DIR}\\audiobook_{string_id}{r_robin}{cnst.AUDIO_EXTENSION}'
+
+        if is_voice:
+            audio_file_id = f'{audio_path}\\{cnst.setup_params["translation"]}\\audiobook_{category}_{cnst.setup_params["translation"]}_{string_id}{r_robin}{cnst.AUDIO_EXTENSION}'
 
     try:
         current_sound = pygame.mixer.Sound(audio_file_id)
@@ -340,7 +349,7 @@ def update_config_file(manual=False, backup=False):
 
     elif backup:
         setup_data = {
-            "active_gameplay": r"\Assets\game_files\dreszcz_dummy.json",
+            "active_gameplay": None,
             "translation": "en",
             "action_volume": 1,
             "sfx_volume": 0.7,
@@ -551,7 +560,7 @@ def get_game_state(action, last_paragraph='00', new_game=None):
         else:
             if cnst.setup_params['use_dummy']:
                 game_state = {
-                    "last_paragraph": "01",
+                    "last_paragraph": "xx",
                     "player_name": "dummy_player",
                     "difficulty": 1,
                     "s_count": 20,
@@ -794,6 +803,8 @@ def eatables():
 
                 else:
                     print("Wpisz tak/nie")
+            else:
+                break
 
 
 def show_equipment_list():

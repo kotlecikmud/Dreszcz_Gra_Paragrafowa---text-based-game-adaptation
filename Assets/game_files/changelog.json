@@ -55,7 +55,7 @@
       "functions:",
       "changed position of 'logging' setup parameters",
       "new constant for changelog file: CHLOG_NAME",
-      "various code optimization,"
+      "various code optimization"
     ]
   },
   {
@@ -68,6 +68,15 @@
       "increment - incremental number indicating progress of work",
       "hotfix - quick updates that fixes game breaking bugs",
       "small - small updates, typo fixes etc."
+    ]
+  },
+  {
+    "version": "00.11.02.00",
+    "date": "Jan 21 2024",
+    "changes": [
+      "solved bug in _296() -> missing else:break in eatables()",
+      "restored Dunmer voice library and implemented in some missing paragraphs",
+      "misc"
     ]
   }
 ]
