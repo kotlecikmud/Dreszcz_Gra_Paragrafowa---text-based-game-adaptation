@@ -78,5 +78,29 @@
       "restored Dunmer voice library and implemented in some missing paragraphs",
       "misc"
     ]
+  },
+  {
+    "version": "00.11.03.00",
+    "date": "Jan 26 2024",
+    "changes": [
+      "global",
+      "- renamed setup.json to config.json",
+      "- config.json is excluded from git repo, allowing for easier push/pull without conflicts between commits and still providing essential functionality for storing and loading data",
+      "- game version is now stored in separate file called '.version'",
+      "- version number is now loaded directly to dunder __version__",
+      "- implemented self healing dreszcz_dummy.json and config.json",
+      "constants.py",
+      "- code reorganization",
+      "- improved error message in load_config()",
+      "- introduced new constant 'VER_FILE' representing path to file that is storing version number",
+      "functions.py",
+      "- introduced new check_for_update() function",
+      "gamebook.py",
+      "- new strings in infobook for update functionality",
+      "menu.py",
+      "- implemented automatic config.json restore when program haven't found it in assets",
+      "- moved debug_message about version bellow 'MAIN MENU' string",
+      "- new setting menu option: (git pull)"
+    ]
   }
 ]

@@ -1980,6 +1980,12 @@ infoboook = {
 
             "Mmenu4_sub5_1": "Generating initial character statistics through randomization",
 
+            "Mmenu4_sub6": "Check for updates",
+
+            "Mmenu4_sub6_1": "Game has been updated. Restart to see changes",
+
+            "Mmenu4_sub6_2": "Game is up to date",
+
             "Mmenu5": "Exit the game",
 
             "Mmenu5_sub1_1": "Are you sure?",
@@ -2113,6 +2119,12 @@ infoboook = {
 
             "Mmenu4_sub5_1": "Losowanie początkowych statystyk bohatera",
 
+            "Mmenu4_sub6": "Sprawdź aktualizacje",
+
+            "Mmenu4_sub6_1": "Gra została zaktualizowana. Restartuj aby zobaczyć zmiany",
+
+            "Mmenu4_sub6_2": "Gra jest aktualna",
+
             "Mmenu5": "Wyjdź z gry",
 
             "Mmenu5_sub1_1": "Czy na pewno?",
@@ -2245,6 +2257,12 @@ infoboook = {
             "Mmenu4_sub5": "Generar nuevos atributos para el personaje",
 
             "Mmenu4_sub5_1": "Generando estadísticas iniciales del héroe",
+
+            "Mmenu4_sub6": "Buscar actualizaciones",
+
+            "Mmenu4_sub6_1": "El juego ha sido actualizado. Reiniciar para ver los cambios",
+
+            "Mmenu4_sub6_2": "El juego está actualizado.",
 
             "Mmenu5": "Salir del juego",
 
@@ -2381,6 +2399,12 @@ infoboook = {
 
             "Mmenu4_sub5_1": "Génération des statistiques initiales du héros",
 
+            "Mmenu4_sub6": "Vérifier les mises à jour",
+
+            "Mmenu4_sub6_1": "Le jeu a été mis à jour. Redémarrez pour voir les changements",
+
+            "Mmenu4_sub6_2": "Le jeu est à jour",
+
             "Mmenu5": "Quitter le jeu",
 
             "Mmenu5_sub1_1": "Êtes-vous sûre ?",
@@ -2514,6 +2538,12 @@ infoboook = {
 
             "Mmenu4_sub5_1": "Generazione iniziale delle statistiche del protagonista",
 
+            "Mmenu4_sub6": "Controlla gli aggiornamenti",
+
+            "Mmenu4_sub6_1": "Il gioco è stato aggiornato. Riavvia per vedere le modifiche",
+
+            "Mmenu4_sub6_2": "Il gioco è aggiornato",
+
             "Mmenu5": "Esci dal gioco",
 
             "Mmenu5_sub1_1": "Sei sicuro?",
@@ -2598,7 +2628,7 @@ infoboook = {
 
 
 def get_translation(translation):
-    if not translation in gameboook:  # if not available, set to english
+    if not translation in gameboook:  # if translation given by user is not available, defoult to english
         func.debug_message('not available, language defaulted to english')
         translation = 'en'
     cnst.setup_params['translation'] = translation

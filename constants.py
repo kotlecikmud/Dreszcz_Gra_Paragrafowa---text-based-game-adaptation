@@ -23,8 +23,9 @@ Paths:
 ROOT_DIR = "Assets"
 
 GAME_FILES_DIR = rf"{ROOT_DIR}\game_files"
-LOG_NAME = rf"{GAME_FILES_DIR}\logging.log"
-CFG_NAME = rf"{GAME_FILES_DIR}\setup.json"
+LOG_NAME = rf"{GAME_FILES_DIR}\.log"
+CFG_NAME = rf"{GAME_FILES_DIR}\config.json"
+VER_FILE = rf"{GAME_FILES_DIR}\version.store"
 CHLOG_NAME = rf"{GAME_FILES_DIR}\changelog.json"
 DUMMY_GAMESTATE_NAME = rf"{GAME_FILES_DIR}\dreszcz_dummy.json"
 AUDIO_VOICE_DIR = rf"{ROOT_DIR}\Audio\Voice"  # Path to voice lines audio files
@@ -34,6 +35,18 @@ GAMESTATES_DIR = r"Jacek Ciesielski - Dreszcz\saves"  # Path to game_states/save
 
 AUDIO_EXTENSION = '.mp3'  # extension of voice and fx files, other will be ignored
 
+INPUT_SIGN = '>>> '  # sign indicating that the user should provide an input
+TIME_DELAY = .15  # time delay in seconds between printing each character in text
+DEFAULT_COLOR = Fore.LIGHTWHITE_EX  # default text color
+ENTITY_COLOR = Fore.LIGHTRED_EX  # color for entities
+SPECIAL_COLOR = Fore.LIGHTMAGENTA_EX  # color for headlines and particular special texts
+COMBAT_COLOR = Fore.LIGHTCYAN_EX  # color for combat text
+DEBUG_COLOR = Fore.LIGHTBLACK_EX  # color for debug messages
+ERR_COLOR = Fore.RED  # color for error messages
+
+DIFFICULTY = 1  # defoult difficulty level
+INIT_MEAL_COUNT = meal_count = 8  # Initial number of meals
+STAMINA_PER_MEAL = 4  # How many load of stamina in one meal
 """
 - version naming scheme: '00.00.00.00' -> release.increment.hotfix.small
 - release - fully working version of game with tested behaviour, ready to use by player
@@ -41,6 +54,9 @@ AUDIO_EXTENSION = '.mp3'  # extension of voice and fx files, other will be ignor
 - hotfix - quick updates that fixes game breaking bugs
 - small - small updates, typo fixes etc.
 """
+# read version number
+with open(VER_FILE, 'r') as ver_f:
+    __version__ = ver_f.readline()
 
 
 def load_config():
@@ -59,7 +75,6 @@ def load_config():
         "manual_battle",
         "dubbing",
         "get_music",
-        "__version__"
     ]
 
     empty_config = {param: None for param in keys_list}
@@ -77,7 +92,7 @@ def load_config():
         globals().update(empty_config)
 
     except Exception as e:
-        print(str(e))
+        print(f"Error while loading config.json {str(e)}")
 
     return empty_config
 
@@ -96,9 +111,6 @@ init_round_count = 0  # Initial num of rounds
 s_count = s_init = 0  # Action points counter: luck
 w_count = w_init = 0  # Action points counter: stamina
 z_count = z_init = 0  # Action points counter: dexterity
-DIFFICULTY = 1  # defoult difficulty level
-INIT_MEAL_COUNT = meal_count = 8  # Initial number of meals
-STAMINA_PER_MEAL = 4  # How many load of stamina in one meal
 and_his_name_is = '''
         ZZZZZZZ    BBBBBB       YYY     YYY     SSSSSS      ZZZZZZZZ      K     K     OOOOO     
               Z     B     B      YYY   YYY     S                  Z       K    K     O     O    
@@ -108,17 +120,10 @@ and_his_name_is = '''
          Z          B     B         YYY              S        Z           K    K     O     O    
         ZZZZZZZ    BBBBBB           YYY        SSSSSS        ZZZZZZZZ     K     K     OOOOO     
         '''
-INPUT_SIGN = '>>> '  # sign indicating that the user should provide an input
-TIME_DELAY = 0.2  # time delay in seconds between printing each character in text
+
 entity_hit_mult = 1  # multiplier for entity level
-p_hit_val_ = -2 * entity_hit_mult  # - 100  # player hit value (-100 for development only)
+p_hit_val_ = -2 * entity_hit_mult  # - 1000  # player hit value (-1000 to always win in one shot, for development only)
 e_hit_val_ = -2 * entity_hit_mult  # enemy hit value
-DEFAULT_COLOR = Fore.LIGHTWHITE_EX  # default text color
-ENTITY_COLOR = Fore.LIGHTRED_EX  # color for entities
-SPECIAL_COLOR = Fore.LIGHTMAGENTA_EX  # color for headlines and particular special texts
-COMBAT_COLOR = Fore.LIGHTCYAN_EX  # color for combat text
-DEBUG_COLOR = Fore.LIGHTBLACK_EX  # color for debug messages
-ERR_COLOR = Fore.RED  # color for error messages
 
 # /// pygame mixer setup
 # Initialize the mixer module with the specified settings

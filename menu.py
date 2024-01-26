@@ -48,15 +48,16 @@ def main_menu():
 
     func.log_event("main.py ENTRY POINT")
     while True:
-        if cnst.setup_params['__version__']:
-            print(f"{cnst.DEBUG_COLOR}ver.{cnst.setup_params['__version__']}\n")
-
         func.clear_terminal()
+
         if cnst.player_name:
             print(
                 f"{cnst.DEFAULT_COLOR}{gb.infoboook[cnst.setup_params['translation']]['Mmenu_h']} {cnst.player_name}!")
         print(
             f"{cnst.SPECIAL_COLOR}{gb.infoboook[cnst.setup_params['translation']]['Mmenu_headline']}{cnst.DEFAULT_COLOR}")
+
+        if cnst.__version__:
+            print(f"{cnst.DEBUG_COLOR}ver.{cnst.__version__}{cnst.DEFAULT_COLOR}")
 
         choices_main_menu = [
             (gb.infoboook[cnst.setup_params['translation']]['Mmenu0'], cnst.setup_params['active_gameplay']),
@@ -95,7 +96,7 @@ def main_menu():
 
         if cnst.setup_params['use_dummy']:  # disable 'new game' and 'load game' option when using dummy
             choices_main_menu.remove((gb.infoboook[cnst.setup_params['translation']]['Mmenu1'], ''))  # new game
-            choices_main_menu.remove((gb.infoboook[cnst.setup_params['translation']]['Mmenu2'], ''))  # load game
+            # choices_main_menu.remove((gb.infoboook[cnst.setup_params['translation']]['Mmenu2'], ''))  # load game
 
         # displaying list in main menu
         for i, (choice_main_menu, description) in enumerate(choices_main_menu, 1):
@@ -217,11 +218,12 @@ def main_menu():
                         print(f"{cnst.SPECIAL_COLOR}/ {choice_main_menu}{cnst.DEFAULT_COLOR}")
 
                         choices_settings = [
-                            (gb.infoboook[cnst.setup_params['translation']]['Mmenu4_sub1'], ''),
-                            (gb.infoboook[cnst.setup_params['translation']]['Mmenu4_sub2'], ''),
-                            (gb.infoboook[cnst.setup_params['translation']]['Mmenu4_sub3'], ''),
-                            (gb.infoboook[cnst.setup_params['translation']]['Mmenu4_sub4'], ''),
-                            (gb.infoboook[cnst.setup_params['translation']]['Mmenu4_sub5'], ''),
+                            (gb.infoboook[cnst.setup_params['translation']]['Mmenu4_sub1'], ''),  # Language
+                            (gb.infoboook[cnst.setup_params['translation']]['Mmenu4_sub2'], ''),  # Difficulty level
+                            (gb.infoboook[cnst.setup_params['translation']]['Mmenu4_sub3'], ''),  # Sound
+                            (gb.infoboook[cnst.setup_params['translation']]['Mmenu4_sub4'], ''),  # Character name
+                            (gb.infoboook[cnst.setup_params['translation']]['Mmenu4_sub5'], ''),  # Randomize attributes
+                            (gb.infoboook[cnst.setup_params['translation']]['Mmenu4_sub6'], ''),  # Check for updates
                             (gb.infoboook[cnst.setup_params['translation']]['return'], '')
                         ]
 
@@ -389,8 +391,7 @@ def main_menu():
                                         func.name_randomizer()
 
                                 # Randomize atributes
-                                elif choice_settings == gb.infoboook[cnst.setup_params['translation']][
-                                    'Mmenu4_sub5']:
+                                elif choice_settings == gb.infoboook[cnst.setup_params['translation']]['Mmenu4_sub5']:
 
                                     print(gb.infoboook[cnst.setup_params['translation']][
                                               'Mmenu4_sub5_1'])
@@ -402,11 +403,24 @@ def main_menu():
                                 elif choice_settings == gb.infoboook[cnst.setup_params['translation']]['return']:
                                     main_menu()
 
+                                # Check for updates
+                                elif choice_settings == gb.infoboook[cnst.setup_params['translation']]['Mmenu4_sub6']:
+                                    update_state = func.check_for_update()
+                                    if update_state:
+                                        print(gb.infoboook[cnst.setup_params['translation']][
+                                                  'Mmenu4_sub6_1'])
+
+                                    elif not update_state:
+                                        print(gb.infoboook[cnst.setup_params['translation']][
+                                                  'Mmenu4_sub6_2'])
+
+                                    input(f'\r{cnst.INPUT_SIGN}')
+
                 # Exit game
                 elif choice_main_menu == gb.infoboook[cnst.setup_params['translation']]['Mmenu5']:
                     choice2 = input(f"{gb.infoboook[cnst.setup_params['translation']]['Mmenu5_sub1_1']} [Y/N]:").lower()
                     if choice2.lower() == "y":
-                        pygame.mixer.music.fadeout(600)
+                        pygame.mixer.music.fadeout(800)
                         func.clear_terminal()
                         exit()
 
@@ -415,7 +429,7 @@ def main_menu():
                 elif choice_main_menu == f'{cnst.SPECIAL_COLOR}test_paragraph{cnst.DEFAULT_COLOR}':
                     prg._xx()  # calling placeholder function
 
-                # configuring setup.json file
+                # configuring config.json file
                 elif choice_main_menu == f'{cnst.SPECIAL_COLOR}configure setup file{cnst.DEFAULT_COLOR}':
                     func.clear_terminal()
                     func.update_config_file(True)
@@ -484,6 +498,16 @@ if __name__ == '__main__':
 
     # hide the "continue" and "load game" options in the menu if no game states are found
     func.get_game_state('init')
+
+    # if config.json not found, restore backup
+    try:
+        with open(cnst.CFG_NAME, 'r') as json_file:
+            _ = json_file.readable()
+
+    except FileNotFoundError:
+        func.error_message("FileNotFoundError", f"An error occurred while updating the setup file")
+        func.debug_message("config.json not found, restoring...")
+        func.update_config_file(manual=False, backup=True)
 
     # enter main menu loop
     main_menu()

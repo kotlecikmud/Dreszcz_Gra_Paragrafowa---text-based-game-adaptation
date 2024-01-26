@@ -1,2 +1,4 @@
 /_pycache_
-/Assets/game_files/logging.log
+/Assets/game_files/.log
+/Assets/game_files/config.json
+/Assets/game_files/dreszcz_dummy.json

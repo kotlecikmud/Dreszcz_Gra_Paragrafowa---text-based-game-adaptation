@@ -50,7 +50,7 @@ def debug_message(msg):
         log_event(msg)
 
 
-def error_message(error_name, msg):
+def error_message(error_name="", msg=""):
     if cnst.setup_params['dev_mode']:
         if error_name == '':
             error_name = 'ERROR'
@@ -62,6 +62,25 @@ def error_message(error_name, msg):
 def clear_terminal():
     if not cnst.setup_params['debug_msg']:
         subprocess.call('cls' if os.name == 'nt' else 'clear', shell=True)
+
+
+def check_for_update():
+    try:
+        debug_message("checking for updates...")
+
+        pull_output = subprocess.check_output("git pull", shell=True, text=True).strip()
+        current_hash = subprocess.check_output("git rev-parse HEAD", shell=True, text=True).strip()
+        debug_message(f"Hash: {current_hash}")
+
+        if "Already up to date." in pull_output:
+            return False
+
+        else:
+            debug_message("Repo updated - Restart game to see the changes")
+            return True
+
+    except subprocess.CalledProcessError as e:
+        error_message(f"Error while checking for update {str(e)}")
 
 
 def get_music(category=None, fadeout=None, update=None):
@@ -300,12 +319,11 @@ def update_config_file(manual=False, backup=False):
             "bckg_volume",
             "dev_mode",
             "use_dummy",
+            "logging",
             "start_sequence",
             "manual_battle",
             "dubbing",
-            "get_music",
-            "__version__",
-            "logging"
+            "get_music"
         ]
 
         for key in keys_list:
@@ -318,12 +336,16 @@ def update_config_file(manual=False, backup=False):
                 # list all the availale locales
                 print(", ".join(list(gb.gameboook.keys())))
 
-            elif key in ["dev_mode", "use_dummy", "start_sequence", "manual_battle",
-                         "dubbing", "get_music", "logging"]:
-                print('(True/False)')
+            elif key in ["dev_mode",
+                         "debug_msg",
+                         "use_dummy",
+                         "logging",
+                         "start_sequence",
+                         "manual_battle",
+                         "dubbing",
+                         "get_music"]:
 
-            elif key == "__version__":
-                print('int, float, or string')
+                print('(True/False)')
 
             elif key in ["action_volume", "sfx_volume", "bckg_volume"]:
                 print('int from 0.1 to 1.0')
@@ -361,8 +383,7 @@ def update_config_file(manual=False, backup=False):
             "start_sequence": False,
             "manual_battle": False,
             "dubbing": True,
-            "get_music": True,
-            "__version__": cnst.setup_params['__version__']
+            "get_music": True
         }
         debug_message('restored backup setup')
 
@@ -380,14 +401,13 @@ def update_config_file(manual=False, backup=False):
             "start_sequence": cnst.setup_params["start_sequence"],
             "manual_battle": cnst.setup_params["manual_battle"],
             "dubbing": cnst.setup_params["dubbing"],
-            "get_music": cnst.setup_params["get_music"],
-            "__version__": cnst.setup_params["__version__"]
+            "get_music": cnst.setup_params["get_music"]
         }
 
     # Save the setup data to a JSON file
     with open(cnst.CFG_NAME, 'w') as json_file:
         json.dump(setup_data, json_file)
-    debug_message("setup.json has been updated")
+    debug_message("config.json has been updated")
 
     if backup or manual:
         input(
@@ -410,7 +430,7 @@ def get_game_state(action, last_paragraph='00', new_game=None):
     Actions:
         - 's': Saves the current game state to a JSON file.
         - 'l': Loads a game state from a JSON file.
-        - 'c': Continues the game from the last saved state saved in setup.json.
+        - 'c': Continues the game from the last saved state saved in config.json.
         - 'init': Checks if any game states exist and optionally initializes a dummy game state.
 
     Notes:
@@ -426,13 +446,12 @@ def get_game_state(action, last_paragraph='00', new_game=None):
 
     """
     # list of json files in folder_path
-    json_files = []
+    valid_json_files = []
 
     if cnst.setup_params['use_dummy']:
-        debug_message(f"Looking for game states in project location")
+        debug_message(f"Looking for dummy game states in project location")
         folder_path = cnst.GAME_FILES_DIR  # os.path.dirname(os.path.abspath(__file__)) # locate DUMMY_GAMESTATE_NAME in scripts location
 
-        cnst.setup_params['active_gameplay'] = cnst.DUMMY_GAMESTATE_NAME
     else:
         debug_message(f"Looking for game states in '~\\Documents' folder path for saving json file")
         folder_path = os.path.join(os.path.expanduser('~\\Documents'), cnst.GAMESTATES_DIR)
@@ -448,6 +467,7 @@ def get_game_state(action, last_paragraph='00', new_game=None):
                 debug_message(f"{file_name} is not a valid game state file")
             else:
                 debug_message(f"{file_name} is valid game state file")
+                valid_json_files.append(file_name)
     else:
         os.makedirs(folder_path)
         debug_message(f'Directory {folder_path} created')
@@ -473,7 +493,7 @@ def get_game_state(action, last_paragraph='00', new_game=None):
             "potion_count": cnst.potion_count,
             "meal_count": cnst.meal_count,
             "gold_amount": cnst.gold_amount,
-            "version": cnst.setup_params['__version__'],
+            "version": cnst.__version__,
             # save information abaut version number that game state was generated in
         }
 
@@ -484,10 +504,10 @@ def get_game_state(action, last_paragraph='00', new_game=None):
 
     elif action == 'l':
         # List of JSON files
-        if len(json_files) > 0:
+        if len(valid_json_files) > 0:
             print("Saved game states:")
 
-            for i, file in enumerate(json_files, start=1):
+            for i, file in enumerate(valid_json_files, start=1):
                 print(f"{i}. {file}")
 
             while True:
@@ -500,8 +520,8 @@ def get_game_state(action, last_paragraph='00', new_game=None):
                 try:
                     file_number = int(file_number)
 
-                    if 1 <= file_number <= len(json_files):
-                        selected_file = json_files[file_number - 1]
+                    if 1 <= file_number <= len(valid_json_files):
+                        selected_file = valid_json_files[file_number - 1]
                         cnst.setup_params['active_gameplay'] = os.path.join(folder_path, selected_file)
                         with open(cnst.setup_params['active_gameplay'], "r") as f:
                             game_state = json.load(f)
@@ -554,7 +574,7 @@ def get_game_state(action, last_paragraph='00', new_game=None):
         debug_message(f'Game state loaded from: {cnst.setup_params["active_gameplay"]}')
 
     elif action == 'init':  # check if any game states exist
-        if len(json_files) > 0:
+        if len(valid_json_files) != 0:
             cnst.game_state_exists = True
 
         else:
@@ -579,14 +599,18 @@ def get_game_state(action, last_paragraph='00', new_game=None):
                     "potion_count": 2,
                     "meal_count": 8,
                     "gold_amount": 0,
-                    "version": cnst.setup_params['__version__']
+                    "version": cnst.__version__
                 }
 
                 # Saving dummy game state if one doesn't exist
-                with open(cnst.setup_params['active_gameplay'], "w") as f:
+                with open(cnst.DUMMY_GAMESTATE_NAME, "w") as f:
                     json.dump(game_state, f)
 
+                cnst.setup_params["active_gameplay"] = str(cnst.DUMMY_GAMESTATE_NAME)
                 debug_message(f"Restored dummy game_state to: {cnst.setup_params['active_gameplay']}")
+
+                debug_message("active_gameplay has been updated")
+
                 cnst.game_state_exists = True
 
             else:
@@ -598,6 +622,9 @@ def get_game_state(action, last_paragraph='00', new_game=None):
     print(cnst.DEFAULT_COLOR)  # reset text color
 
     return last_paragraph
+
+
+# get_game_state("init")
 
 
 def pth_selector(path_strings=None, actions=None, visit_check=False, room_id=None):
