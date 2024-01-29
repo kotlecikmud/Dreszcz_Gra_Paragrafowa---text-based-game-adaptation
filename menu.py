@@ -2,7 +2,7 @@
 "DRESZCZ" - GRA PARAGRAFOWA
 
 Author: Jacek Ciesielski (1987)
-Developer: Filip Pawłowski (2023) - filippawlowski2012@gmail.com
+Developer: Filip Pawłowski (2024) - filippawlowski2012@gmail.com
 GitHub Repository: https://github.com/kotlecikmud/Dreszcz_Gra_Paragrafowa---text-based-game-adaptation.git
 """
 
@@ -18,7 +18,7 @@ from colorama import Fore, Style
 
 
 def main_menu():
-    """Displays the main menu of the game and handles user input. Menu is not accesible druing gameplay (for now, becasue I don't know how top implement it with subprocess)
+    """Displays the main menu of the game and handles user input. Menu is not accesible during gameplay (for now, becasue I don't know how top implement it with subprocess)
 
     Description:
         Provides several options for the player to interact with the game:\n
