@@ -1,1 +1,1 @@
-# for testing code snippets
+# test code snippets

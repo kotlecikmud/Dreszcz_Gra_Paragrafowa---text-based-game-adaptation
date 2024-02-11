@@ -5,10 +5,10 @@ import functions as func
 import constants as cnst
 
 
-# placeholder
+# jump paragraph
 def _xx():
     while True:
-        func.debug_message("--placeholder function--")
+        func.debug_message("--jump paragraph--")
         odp = input(f"{cnst.DEFAULT_COLOR}\
         \nenter number of a paragraph you want to jump to or type 'exit'\
         \n{cnst.INPUT_SIGN}{cnst.DEFAULT_COLOR}")

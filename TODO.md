@@ -15,14 +15,10 @@ Put 'x' in square brackets when entry completed: <b>[x]</b>
 
 ### `paragraphs.py`
 
-- [x] Address a bug where the game becomes unresponsive when a player accesses prg.296(). Although the music continues
-  to play, the game cannot progress beyond this point. (solved: missing else:break in eatables())
 - [ ] fix room_364 visit counting (1 additional not needed when deciding if user wants to enter)
 
 ### `functions.py`
 
-- [ ] implement mechanism for checking if active gameplay file saved in setup still exists, if not, disable option "
-  Continue"
 - [ ] implement LoadingAnimation class to be used instead of functions.loading()
 - [ ] fix bounciness of pth_selector skipping and combat_main problem that was probably caused by removing loading()
 
@@ -33,7 +29,7 @@ Put 'x' in square brackets when entry completed: <b>[x]</b>
 
 ### `obj_class.py`
 
-- [ ] Fix bad implementation problem with playing audio in obj_class.die()
+- [ ]
 
 ### `gamebook.py`
 

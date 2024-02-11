@@ -1,10 +1,8 @@
 import obj_class
 import constants as cnst
 
-"""
-Maybe it would be better to convert this module to dictionary as in gamebook.py?
-Only problem is tha this operation requires a lot of time.
-"""
+# Maybe it would be better to convert this module to dictionary as in gamebook.py?
+# Only problem is tha this operation requires a lot of time.
 
 # /// declare entities
 # self, name, entity_z_init, entity_z_count, entity_w_init, entity_w_count, state, esc_possible
