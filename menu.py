@@ -470,7 +470,7 @@ if __name__ == '__main__':
             \n\
             \nuseful stuff:\
             \nsetup parameters {cnst.INPUT_SIGN}{cnst.CFG_NAME}\
-            \ndocumentation {cnst.INPUT_SIGN}Assets/PDF&HTML/"
+            \ndocumentation {cnst.INPUT_SIGN}Assets\\docs\\"
         )
 
         input(f"\ncontinue by pressing enter {cnst.INPUT_SIGN}")

@@ -102,5 +102,16 @@
       "- moved debug_message about version bellow 'MAIN MENU' string",
       "- new setting menu option: (git pull)"
     ]
+  },
+  {
+    "version": "00.11.03.01",
+    "date": "Mar 16 2024",
+    "changes": [
+      "global",
+      "- changed tick boxes to points in ~TODO.md",
+      "gamebook.py",
+      "- added portugese(brazil) as next language",
+      "- changed key 'meals' to 'eatables'"
+    ]
   }
 ]

@@ -350,7 +350,7 @@ def update_config_file(manual=False, backup=False):
             elif key in ["action_volume", "sfx_volume", "bckg_volume"]:
                 print('int from 0.1 to 1.0')
 
-            value = input(f"{key}: ")
+            value = input(f"{key}: ")  # if user makes typo, config will get "None" value
 
             if value != '':
                 try:

@@ -7,7 +7,7 @@ gameboook = {
         {
             "xxx": "",
 
-            "meals": "Would you like to eat provisions? (+4 Stamina) (Y/N)",
+            "eatables": "Would you like to eat provisions? (+4 Stamina) (Y/N)",
 
             "combat_init": "Begin the fight!",
 
@@ -742,7 +742,7 @@ gameboook = {
         {
             "xxx": "",
 
-            "meals": "Czy chcesz zjeść prowiant? (+4 Wytrzymałość) (Y/N)",
+            "eatables": "Czy chcesz zjeść prowiant? (+4 Wytrzymałość) (Y/N)",
 
             "combat_init": "Rozpocznij walkę!",
 
@@ -1620,7 +1620,7 @@ gameboook = {
 
             "300": "",
 
-            "301": "Możesz spróbować otworzyć drzwi",
+            "301": "Możesz spróbować otworzyć drzwi.",
 
             "302": "",
 
@@ -1923,6 +1923,387 @@ gameboook = {
                 \nProsegue dritto verso nord. Presto raggiungi un incrocio.\
                 \nHa la forma della lettera T. Le diramazioni portano a ovest, est e sud (da dove sei venuto)."
         },
+    "ptbr":
+        {
+            "eatables": "Quer comer provisões? (+4 Resistência) (S/N)",
+
+            "combat_init": "Iniciar luta!",
+
+            "combat_dead_info": "Você foi morto por",
+
+            "esc_choice": f"{cnst.DEFAULT_COLOR}Você foge ou fica e continua a lutar? {cnst.SPECIAL_COLOR}/Resistência - 2/{cnst.DEFAULT_COLOR}:\
+              \nfugir        = <enter>\
+              \ncontinuar a lutar  = digite qualquer coisa",
+
+            "combat_win_info": "Você derrotou",
+
+            "door": "porta",
+
+            "are": "estão",
+
+            "opened": "abertas",
+
+            "closed": "fechadas",
+
+            "elxr_chc": "Escolha um elixir:\
+                \n1. Destreza\
+                \n2. Resistência\
+                \n3. Sorte",
+            "wrong_input": "Entrada inválida",
+
+            "00a": f"\r{cnst.DEFAULT_COLOR}Ao explorar os subterrâneos, você encontrará diferentes tipos de armas e itens.\
+                \nLembre-se de que - além da espada - cada arma só pode ser usada uma vez.\
+                \nDa mesma forma, os itens encontrados só podem ser usados uma vez.\
+                \nVocê pode levar consigo apenas uma garrafa de elixir.",
+
+            "00b": "Ei, Aventureiro!\
+                \n\
+                \nIsso é sobre você, aquele cujo sangue corre frio nas veias,\
+                \ne cujos músculos são de aço nobre?\
+                \nSe sim, olhe na direção do sol poente.\
+                \nLá, nos limites do reino de Almanhagor, os Subterrâneos inexplorados começam.\
+                \nSomente você pode arrancar seu Grande Segredo. Vá em frente!",
+
+            "01": 'A entrada para os subterrâneos é ampla, coberta de grama e arbustos exuberantes.\
+                \nVocê arruma suas roupas e equipamentos.\
+                \nAcenda a lanterna! Você entra no corredor. É alto, você não precisa se abaixar.\
+                \nEle leva diretamente para o norte. Logo você chega a uma encruzilhada.\
+                \nEla tem a forma da letra T. Os braços levam para o oeste, leste e sul (de onde você veio).',
+
+            "02": "Chute a porta. Ela se abre e bate na rocha.\
+                \nVocê entra com a espada pronta para dar um golpe.\
+                \nCertamente o monstro não está se escondendo em nenhum lugar. Ele se sente muito poderoso.\
+                \nSim, você o vê na sua frente. Ele está de pé com as pernas afastadas.\
+                \nEle também tem uma espada. A ponta está enterrada na areia. Ele apoia as mãos na empunhadura.\
+                \nEle espera. Você não espere! Se você tiver um capacete, use-o, ele lhe dará +3R durante esta luta.",
+
+            "03": "Sua paciência - e especialmente suas reservas de ouro - estão se esgotando.\
+                \nOu talvez seja diferente? Os antigos habitantes dos subterrâneos dizem que o Dragão tem seus pontos fracos.\
+                \nSua esquerda é particularmente fraca, onde ele carrega uma bolsa de dinheiro e ouro.\
+                \nQue tal tentar novamente, pagando uma taxa extra (13 peças de ouro)?",
+
+            "04": "OS ANÕES o levam até a mesa. Eles trazem em pratos uma salada verde limpa.\
+                \nEles colocam canecas. Você derrama a bebida. De relance, você percebe,\
+                \nque dois ANÕES saem da sala pelas portas leste.\
+                \nVocê solta o cinto, secretamente pega a espada e a coloca na mesa à sua frente.\
+                \nHá um silêncio. OS ANÕES o observam atentamente.\
+                \nVocê os encara nos olhos. O silêncio se estende",
+
+            "05": "Você gosta de lutar? Sim? Ótimo. Olhe bem.\
+                \nDa esquerda para a direita estão: ESQUELETO, ZUMBI e DEVORADOR. É suficiente?",
+
+            "06": "",
+
+            "07": "",
+
+            "08": "",
+
+            "09": "",
+
+            "10": "",
+
+            "11": "",
+            "12": "",
+            "13": "",
+            "14": "",
+            "15": "",
+            "16": "",
+            "17": "",
+            "18": "",
+            "19": "",
+            "20": "",
+            "21": "",
+            "22": "",
+            "23": "",
+            "24": "",
+
+            "25": "Um velho está sentado em uma pedra. Eu aconselho você a ir para o oeste, e depois vire à direita nos próximos cruzamentos.",
+
+            "26": "",
+            "27": "",
+            "28": "",
+            "29": "",
+            "30": "",
+            "31": "",
+            "32": "",
+            "33": "",
+            "34": "",
+            "35": "",
+            "36": "",
+            "37": "",
+            "38": "",
+            "39": "",
+            "40": "",
+            "41": "",
+            "42": "",
+            "43": "",
+            "44": "",
+            "45": "",
+            "46": "",
+            "47": "",
+            "48": "",
+            "49": "",
+            "50": "",
+            "51": "",
+            "52": "",
+            "53": "",
+            "54": "",
+            "55": "",
+            "56": "",
+            "57": "",
+            "58": "",
+            "59": "",
+            "60": "",
+            "61": "",
+            "62": "",
+            "63": "",
+            "64": "",
+            "65": "",
+            "66": "",
+            "67": "",
+            "68": "",
+            "69": "",
+            "70": "",
+            "71": "",
+            "72": "",
+            "73": "",
+            "74": "",
+            "75": "",
+            "76": "",
+            "77": "",
+            "78": "",
+            "79": "",
+            "80": "",
+            "81": "",
+            "82": "",
+            "83": "",
+            "84": "",
+            "85": "",
+            "86": "",
+            "87": "",
+            "88": "",
+            "89": "",
+            "90": "",
+            "91": "",
+            "92": "",
+            "93": "",
+            "94": "",
+            "95": "",
+            "96": "",
+            "97": "",
+            "98": "",
+            "99": "",
+            "100": "",
+            "101": "",
+            "102": "",
+            "103": "",
+            "104": "",
+            "105": "",
+            "106": "",
+            "107": "",
+            "108": "",
+            "109": "",
+            "110": "",
+            "111": "",
+            "112": "",
+            "113": "",
+            "114": "",
+            "115": "",
+            "116": "",
+            "117": "",
+            "118": "",
+            "119": "",
+            "120": "",
+            "121": "",
+            "122": "",
+            "123": "",
+            "124": "",
+            "125": "",
+            "126": "",
+            "127": "",
+            "128": "",
+            "129": "",
+            "130": "",
+            "131": "",
+            "132": "",
+            "133": "",
+            "134": "",
+            "135": "",
+            "136": "",
+            "137": "",
+            "138": "",
+            "139": "",
+            "140": "",
+            "141": "",
+            "142": "",
+            "143": "",
+            "144": "",
+            "145": "",
+            "146": "",
+            "147": "",
+            "148": "",
+            "149": "",
+            "150": "",
+            "151": "",
+            "152": "",
+            "153": "",
+            "154": "",
+            "155": "",
+            "156": "",
+            "157": "",
+            "158": "",
+            "159": "",
+            "160": "",
+            "161": "",
+            "162": "",
+            "163": "",
+            "164": "",
+            "165": "",
+            "166": "",
+            "167": "",
+            "168": "",
+            "169": "",
+            "170": "",
+            "171": "",
+            "172": "",
+            "173": "",
+            "174": "",
+            "175": "",
+            "176": "",
+            "177": "",
+            "178": "",
+            "179": "",
+            "180": "",
+            "181": "",
+            "182": "",
+            "183": "",
+            "184": "",
+            "185": "",
+            "186": "",
+            "187": "",
+            "188": "",
+            "189": "",
+            "190": "",
+            "191": "",
+            "192": "",
+            "193": "",
+            "194": "",
+            "195": "",
+            "196": "",
+            "197": "",
+            "198": "",
+            "199": "",
+
+            "200": "Depois de algum tempo, você percebe uma porta na parede sul.",
+
+            "201": "",
+            "202": "",
+            "203": "",
+            "204": "",
+            "205": "",
+            "206": "",
+            "207": "",
+            "208": "",
+            "209": "",
+            "210": "",
+            "211": "",
+            "212": "",
+            "213": "",
+            "214": "",
+            "215": "",
+            "216": "",
+            "217": "",
+            "218": "",
+            "219": "",
+            "220": "",
+            "221": "",
+            "222": "",
+            "223": "",
+            "224": "",
+            "225": "",
+            "226": "",
+            "227": "",
+            "228": "",
+            "229": "",
+            "230": "",
+            "231": "",
+            "232": "",
+            "233": "",
+            "234": "",
+            "235": "",
+            "236": "",
+            "237": "",
+            "238": "",
+            "239": "",
+            "240": "",
+            "241": "",
+            "242": "",
+            "243": "",
+            "244": "",
+            "245": "",
+            "246": "",
+            "247": "",
+            "248": "",
+            "249": "",
+            "250": "",
+            "251": "",
+            "252": "",
+            "253": "",
+            "254": "",
+            "255": "",
+            "256": "",
+            "257": "",
+            "258": "",
+            "259": "",
+            "260": "",
+            "261": "",
+            "262": "",
+            "263": "",
+            "264": "",
+            "265": "",
+            "266": "",
+            "267": "",
+            "268": "",
+            "269": "",
+            "270": "",
+            "271": "",
+            "272": "",
+            "273": "",
+            "274": "",
+            "275": "",
+            "276": "",
+            "277": "",
+            "278": "",
+            "279": "",
+            "280": "",
+            "281": "",
+            "282": "",
+            "283": "",
+            "284": "",
+            "285": "",
+            "286": "",
+            "287": "",
+            "288": "",
+            "289": "",
+            "290": "",
+            "291": "",
+            "292": "",
+            "293": "",
+            "294": "",
+            "295": "",
+            "296": "",
+            "297": "",
+            "298": "",
+            "299": "",
+            "300": "",
+
+            "364": f"Você empurra a porta, ela se abre. Um abismo escuro se abre.\
+            \nVocê entra com uma lanterna iluminando o caminho.\
+            \nVocê sente as pedras sob seus pés.\
+            \nVocê ouve um ronco suave vindo do outro lado da sala.\
+            \nUm {ent.entity_116.name} está dormindo no chão. Há uma caixa ao lado dele."
+
+        }
 }
 
 infoboook = {
@@ -1948,7 +2329,7 @@ infoboook = {
 
             "Mmenu4_sub1_1": "Choose language",
 
-            "Mmenu4_sub1_2": "You chose",
+            "Mmenu4_sub1_2": "Language changed to",
 
             "Mmenu4_sub1_3": "easy",
 
@@ -2087,7 +2468,7 @@ infoboook = {
 
             "Mmenu4_sub1_1": "Wybierz język",
 
-            "Mmenu4_sub1_2": "Wybrałeś",
+            "Mmenu4_sub1_2": "Zmiana języka na",
 
             "Mmenu4_sub1_3": "łatwy",
 
@@ -2226,7 +2607,7 @@ infoboook = {
 
             "Mmenu4_sub1_1": "Seleccionar idioma",
 
-            "Mmenu4_sub1_2": "Has seleccionado",
+            "Mmenu4_sub1_2": "cambiar idioma a",
 
             "Mmenu4_sub1_3": "fácil",
 
@@ -2367,7 +2748,7 @@ infoboook = {
 
             "Mmenu4_sub1_1": "Choisissez une langue",
 
-            "Mmenu4_sub1_2": "Vous avez sélectionné",
+            "Mmenu4_sub1_2": "Changer la langue en",
 
             "Mmenu4_sub1_3": "facile",
 
@@ -2506,7 +2887,7 @@ infoboook = {
 
             "Mmenu4_sub1_1": "Seleziona lingua",
 
-            "Mmenu4_sub1_2": "Hai selezionato",
+            "Mmenu4_sub1_2": "Cambia lingua in",
 
             "Mmenu4_sub1_3": "facile",
 
@@ -2623,6 +3004,145 @@ infoboook = {
                 \nProbabilmente dovrai intraprendere diverse spedizioni prima di riuscire a raggiungere l'obiettivo.\
                 \nDisegna una mappa del sottosuolo ogni volta. Ti sarà molto utile.",
         },
+    'ptbr':
+        {
+            "return": "retorna",
+
+            "Mmenu_headline": "MENU PRINCIPAL",
+
+            "Mmenu_h": "Bem-vindo",
+
+            "Mmenu0": "Continuar",
+
+            "Mmenu1": "Novo jogo",
+
+            "Mmenu2": "Carregar jogo",
+
+            "Mmenu3": "Regras do jogo",
+
+            "Mmenu4": "Configurações",
+
+            "Mmenu4_sub1": "Idioma",
+
+            "Mmenu4_sub1_1": "Selecionar idioma",
+
+            "Mmenu4_sub1_2": "Mudar idioma para",
+
+            "Mmenu4_sub1_3": "Fácil",
+
+            "Mmenu4_sub1_4": "Médio",
+
+            "Mmenu4_sub1_5": "Nível de dificuldade",
+
+            "Mmenu4_sub2": "Nível de dificuldade",
+
+            "Mmenu4_sub3": "Áudio",
+
+            "Mmenu4_sub3_a": "Nível de volume (1-10)",
+
+            "Mmenu4_sub3_b": "O nível de volume deve estar entre 1 e 10",
+
+            "Mmenu4_sub3_c": "O valor inserido não é um número inteiro. Tente novamente.",
+
+            "Mmenu4_sub3_1": "Diálogos",
+
+            "Mmenu4_sub3_2": "Efeitos",
+
+            "Mmenu4_sub3_3": "Música",
+
+            "Mmenu4_sub4": "Nome do personagem",
+
+            "Mmenu4_sub4_1": "Selecione o nome do protagonista (deixe este campo vazio para escolher um nome aleatório)",
+
+            "Mmenu4_sub5": "Gerar novas características do personagem",
+
+            "Mmenu4_sub5_1": "Geração inicial das estatísticas do protagonista",
+
+            "Mmenu4_sub6": "Verificar atualizações",
+
+            "Mmenu4_sub6_1": "O jogo foi atualizado. Reinicie para ver as mudanças.",
+
+            "Mmenu4_sub6_2": "O jogo está atualizado",
+
+            "Mmenu5": "Sair do jogo",
+
+            "Mmenu5_sub1_1": "Tem certeza?",
+
+            "Mmenu3_sub1": "Equipamento e atributos",
+
+            "Mmenu3_sub2": "Combate",
+
+            "Mmenu3_sub3": "Fuga",
+
+            "Mmenu3_sub4": "Sorte",
+
+            "Mmenu3_sub5": "Aumentar nível dos atributos",
+
+            "Mmenu3_sub6": "Provisões",
+
+            "Mmenu3_sub7": "Objetivo da aventura",
+
+            "Mmenu3_sub1_1a": "Você é um Corajoso.\
+            \n\
+            \nSeu equipamento inclui:",
+
+            "Mmenu3_sub1_1b": "Enquanto explora os subterrâneos, você encontrará diferentes tipos de armas e itens.\
+                \nLembre-se de que - além da espada - cada arma só pode ser usada uma vez.\
+                \nDa mesma forma, os itens encontrados só podem ser usados uma vez.\
+                \nVocê pode carregar apenas uma garrafa de elixir.\
+                \nVocê pode escolher entre os elixires: DESTREZA, RESISTÊNCIA e SORTE.\
+                \nVocê pode bebê-lo a qualquer momento, mas apenas duas vezes durante a aventura.\
+                \nSeus atributos são: DESTREZA, RESISTÊNCIA e SORTE.\
+                \nAntes de descer aos subterrâneos, os níveis iniciais desses atributos são gerados aleatoriamente.\
+                \nSeus níveis mudarão constantemente durante sua jornada,\
+                \nmas não podem exceder o nível inicial.",
+
+            "Mmenu3_sub1_2": "Você enfrentará monstros. Suas características (DESTREZA e RESISTÊNCIA) são individuais para cada inimigo.\
+                \nNa versão atual do jogo, os combates são realizados automaticamente. Não há interação durante o combate,\
+                \na menos que o texto preveja a possibilidade de fuga.",
+
+            "Mmenu3_sub1_3": "Quando estiver em perigo, você pode tentar fugir, desde que o texto permita.\
+                \nSe fugir, o monstro lhe infligirá uma ferida: subtraia 2 de sua RESISTÊNCIA.\
+                \nDurante a fuga (antes ou durante o combate), você pode usar o Procedimento de Salvação da Sorte (PSS) conforme descrito abaixo.",
+
+            "Mmenu3_sub1_4": "Durante sua jornada, você pode verificar se a sorte está a seu favor. Você pode fazer isso da seguinte maneira:\
+                \nJogue 2D. Se o resultado for igual ou menor que seu nível atual de SORTE, então você tem sorte.\
+                \nSe o resultado for maior, você não tem sorte.\
+                \nEste procedimento é chamado de Procedimento de Salvação da Sorte (PSS).\
+                \nApós cada PSS - independentemente do resultado - subtraia 1 do seu nível atual de SORTE.\
+                \nO PSS deve ser executado quando previsto pelo texto e também pode ser realizado durante o combate.\
+                \nDurante o combate, o PSS é executado no momento apropriado da rodada (veja acima), e seu resultado se aplica apenas a essa rodada.\
+                \nAqui está o que o PSS significa para o curso do combate:\
+                \n\
+                \n1. Quando você inflige uma ferida no monstro\
+                \n- se você tiver sorte, subtraia mais 2 da RESISTÊNCIA do monstro (total de -4).\
+                \n- se não tiver sorte, subtraia um total de 1.\
+                \n2. Quando o monstro lhe inflige uma ferida\
+                \n- se você tiver sorte, subtraia um total de 1 da sua RESISTÊNCIA\
+                \n- se não tiver sorte, subtraia um total de 3.",
+
+            "Mmenu3_sub1_5": "Durante sua jornada, graças às aventuras e aos combates, o nível de seus atributos mudará.\
+                \n1. DESTREZA - muda pouco\
+                \n- armas encantadas aumentam a DESTREZA\
+                \n- o elixir de DESTREZA restaura o nível inicial\
+                \n2. RESISTÊNCIA - muda constantemente\
+                \n- cada refeição (você tem algumas refeições no início) adiciona alguns pontos\
+                \n- o elixir de RESISTÊNCIA restaura o nível inicial\
+                \n3. SORTE\
+                \n- aventuras bem-sucedidas adicionam pontos\
+                \n- o elixir de SORTE restaura o nível inicial e pode aumentá-lo em 1.\
+                \nAlém desse caso, DESTREZA, RESISTÊNCIA e SORTE não podem exceder o nível inicial.",
+
+            "Mmenu3_sub1_6": "Você tem comida na mochila, suficiente para algumas refeições. Você só pode comer quando o texto permitir.\
+                \nVocê só pode comer uma refeição por vez. Após comer a refeição, você receberá alguns pontos em sua RESISTÊNCIA.",
+
+            "Mmenu3_sub1_7": "Seu objetivo é alcançar a câmara do tesouro. Você caminhará pelos corredores do labirinto.\
+                \nVocê visitará muitas salas onde diferentes criaturas vivem. Você encontrará muitas surpresas.\
+                \nProvavelmente você encontrará algumas armadilhas.\
+                \nEncontrar o caminho certo e derrotar os monstros não será fácil.\
+                \nProvavelmente você terá que fazer várias expedições antes de conseguir alcançar o objetivo.\
+                \nDesenhe um mapa do subsolo sempre que necessário. Isso será muito útil.",
+        }
 
 }
 
