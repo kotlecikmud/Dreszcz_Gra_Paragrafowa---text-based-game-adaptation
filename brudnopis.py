@@ -1,1 +1,1 @@
-# test code snippets
+# test snippets go here
