@@ -189,7 +189,11 @@ def dub_play(string_id, category=None, skippable=True, with_text=True, r_robin=N
 
     except FileNotFoundError:
         error_message('FileNotFoundError ', f'Could not find: {audio_file_id}')
-        current_sound = pygame.mixer.Sound(f'{cnst.AUDIO_FX_DIR}\\audiobook_click_snd.mp3')
+
+        if is_voice:
+            current_sound = pygame.mixer.Sound(f'{cnst.AUDIO_FX_DIR}\\bum_bum_bum.mp3')  # placeholder sound haha
+        else:
+            current_sound = pygame.mixer.Sound(f'{cnst.AUDIO_FX_DIR}\\audiobook_click_snd.mp3')
 
     pygame.mixer.stop()  # stop any sound currently being played
     current_sound.set_volume(cnst.setup_params["action_volume"])  # ensure that volume is on default

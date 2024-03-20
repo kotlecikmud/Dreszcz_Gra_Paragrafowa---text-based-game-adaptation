@@ -113,5 +113,13 @@
       "- added portugese(brazil) as next language",
       "- changed key 'meals' to 'eatables'"
     ]
+  },
+  {
+    "version": "00.11.03.02",
+    "date": "Mar 20 2024",
+    "changes": [
+      "functions.py",
+      "- changed placeholder dialog to 'bum_bum_bum.mp3'"
+    ]
   }
 ]
