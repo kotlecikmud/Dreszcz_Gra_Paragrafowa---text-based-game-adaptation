@@ -41,7 +41,7 @@ def log_event(entry):
 
         with open(cnst.LOG_NAME, 'a') as f:
             f.write(
-                f"{time_stamp} | v.{cnst.__version__}| user:{current_user} |> {entry}\n")  # write to log file
+                f"{time_stamp} | v.{cnst.__version__} | user:{current_user} |> {entry}\n")  # write to log file
 
 
 def debug_message(msg):
@@ -191,7 +191,7 @@ def dub_play(string_id, category=None, skippable=True, with_text=True, r_robin=N
         error_message('FileNotFoundError ', f'Could not find: {audio_file_id}')
 
         if is_voice:
-            current_sound = pygame.mixer.Sound(f'{cnst.AUDIO_FX_DIR}\\bum_bum_bum.mp3')  # placeholder sound haha
+            current_sound = pygame.mixer.Sound(f'{cnst.AUDIO_FX_DIR}\\dummy_dialog.mp3')
         else:
             current_sound = pygame.mixer.Sound(f'{cnst.AUDIO_FX_DIR}\\audiobook_click_snd.mp3')
 
@@ -580,6 +580,10 @@ def get_game_state(action, last_paragraph='00', new_game=None):
     elif action == 'init':  # check if any game states exist
         if len(valid_json_files) != 0:
             cnst.game_state_exists = True
+
+            if cnst.setup_params['use_dummy']:
+                cnst.setup_params["active_gameplay"] = str(cnst.DUMMY_GAMESTATE_NAME)
+                debug_message("active_gamplay set to dummy")
 
         else:
             if cnst.setup_params['use_dummy']:

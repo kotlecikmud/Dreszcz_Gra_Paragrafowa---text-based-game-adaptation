@@ -3,7 +3,7 @@
     "version": "v0.10",
     "date": "Nov 16 2023",
     "changes": [
-      "- small changes, changed version naming scheme to simpler (vx.x not like xxxxxx.x)"
+      "small changes, changed version naming scheme to simpler (vx.x not like xxxxxx.x)"
     ]
   },
   {
@@ -11,26 +11,26 @@
     "date": "Jan 07 2024",
     "changes": [
       "menu.py",
-      "- cosmetic changes",
+      "cosmetic changes",
       "constants.py",
-      "- renamed constants",
-      "- new load_config() functions",
+      "renamed constants",
+      "new load_config() functions",
       "functions.py",
-      "- removed loading_animation entirely",
-      "- added milliseconds to logging timestamp",
-      "- added conditioning in clear_terminal()",
-      "- version number will now be retained after restoring config file",
-      "- changed paragraphs evaluation method (new formatting)",
-      "- new function get_state() for checking if required value",
-      "- corrected formatting in path_string (replaced \"/\" with \"\\\")",
+      "removed loading_animation entirely",
+      "added milliseconds to logging timestamp",
+      "added conditioning in clear_terminal()",
+      "version number will now be retained after restoring config file",
+      "changed paragraphs evaluation method (new formatting)",
+      "new function get_state() for checking if required value",
+      "corrected formatting in path_string (replaced \"/\" with \"\\\")",
       "obj_class.py",
-      "- removed unnecessary code",
-      "- simplified Entity __init__ code",
+      "removed unnecessary code",
+      "simplified Entity __init__ code",
       "paragraphs.py",
-      "- added functional logic for paragraph 269",
-      "- removed empty action lists because they are not needed now",
-      "- simplified passing paragraph number (just number instead of _number())",
-      "- included paragraph numbers as functions that were previously missing."
+      "added functional logic for paragraph 269",
+      "removed empty action lists because they are not needed now",
+      "simplified passing paragraph number (just number instead of _number())",
+      "included paragraph numbers as functions that were previously missing."
     ]
   },
   {
@@ -84,23 +84,23 @@
     "date": "Jan 26 2024",
     "changes": [
       "global",
-      "- renamed setup.json to config.json",
-      "- config.json is excluded from git repo, allowing for easier push/pull without conflicts between commits and still providing essential functionality for storing and loading data",
-      "- game version is now stored in separate file called '.version'",
-      "- version number is now loaded directly to dunder __version__",
-      "- implemented self healing dreszcz_dummy.json and config.json",
+      "renamed setup.json to config.json",
+      "config.json is excluded from git repo, allowing for easier push/pull without conflicts between commits and still providing essential functionality for storing and loading data",
+      "game version is now stored in separate file called '.version'",
+      "version number is now loaded directly to dunder __version__",
+      "implemented self healing dreszcz_dummy.json and config.json",
       "constants.py",
-      "- code reorganization",
-      "- improved error message in load_config()",
-      "- introduced new constant 'VER_FILE' representing path to file that is storing version number",
+      "code reorganization",
+      "improved error message in load_config()",
+      "introduced new constant 'VER_FILE' representing path to file that is storing version number",
       "functions.py",
-      "- introduced new check_for_update() function",
+      "introduced new check_for_update() function",
       "gamebook.py",
-      "- new strings in infobook for update functionality",
+      "new strings in infobook for update functionality",
       "menu.py",
-      "- implemented automatic config.json restore when program haven't found it in assets",
-      "- moved debug_message about version bellow 'MAIN MENU' string",
-      "- new setting menu option: (git pull)"
+      "implemented automatic config.json restore when program haven't found it in assets",
+      "moved debug_message about version bellow 'MAIN MENU' string",
+      "new setting menu option: (git pull)"
     ]
   },
   {
@@ -108,10 +108,10 @@
     "date": "Mar 16 2024",
     "changes": [
       "global",
-      "- changed tick boxes to points in ~TODO.md",
+      "changed tick boxes to points in ~TODO.md",
       "gamebook.py",
-      "- added portugese(brazil) as next language",
-      "- changed key 'meals' to 'eatables'"
+      "added portugese(brazil) as next language",
+      "changed key 'meals' to 'eatables'"
     ]
   },
   {
@@ -119,7 +119,7 @@
     "date": "Mar 20 2024",
     "changes": [
       "functions.py",
-      "- changed placeholder dialog to 'bum_bum_bum.mp3'"
+      "changed placeholder dialog to 'bum_bum_bum.mp3'"
     ]
   },
   {
@@ -127,8 +127,18 @@
     "date": "Mar 20 2024",
     "changes": [
       "global",
-      "- new music fo main",
-      "- removed old combat music and imported own music"
+      "new music for main",
+      "removed old combat music and imported own music"
+    ]
+  },
+  {
+    "version": "00.11.04.03",
+    "date": "Apr 03 2024",
+    "changes": [
+      "functions.py",
+      "fix for crash when trying to load restored dummy",
+      "replaced bum_bum_bum.mp3 for dummy_dialog.mp3",
+      "misc"
     ]
   }
 ]
