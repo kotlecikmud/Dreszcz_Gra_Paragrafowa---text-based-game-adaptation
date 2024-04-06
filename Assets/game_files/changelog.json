@@ -140,5 +140,14 @@
       "replaced bum_bum_bum.mp3 for dummy_dialog.mp3",
       "misc"
     ]
+  },
+  {
+    "version": "00.11.04.04",
+    "date": "Apr 03 2024",
+    "changes": [
+      "global",
+      "restored archival versions",
+      "added new music, removed some"
+    ]
   }
 ]
