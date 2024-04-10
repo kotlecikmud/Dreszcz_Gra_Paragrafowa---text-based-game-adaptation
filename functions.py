@@ -332,7 +332,7 @@ def update_config_file(manual=False, backup=False):
         ]
 
         for key in keys_list:
-            print()  # spacing
+            print()  # spacing between options
 
             if key == "active_gameplay":
                 print('(path)')
