@@ -191,7 +191,7 @@ def dub_play(string_id, category=None, skippable=True, with_text=True, r_robin=N
         error_message('FileNotFoundError ', f'Could not find: {audio_file_id}')
 
         if is_voice:
-            current_sound = pygame.mixer.Sound(f'{cnst.AUDIO_FX_DIR}\\dummy_dialog.mp3')
+            current_sound = pygame.mixer.Sound(f'{cnst.AUDIO_FX_DIR}\\AudioFileUnavailable.mp3')
         else:
             current_sound = pygame.mixer.Sound(f'{cnst.AUDIO_FX_DIR}\\audiobook_click_snd.mp3')
 
@@ -322,6 +322,7 @@ def update_config_file(manual=False, backup=False):
             "sfx_volume",
             "bckg_volume",
             "dev_mode",
+            "debug_msg",
             "use_dummy",
             "logging",
             "start_sequence",
@@ -331,7 +332,7 @@ def update_config_file(manual=False, backup=False):
         ]
 
         for key in keys_list:
-            print()
+            print()  # spacing
 
             if key == "active_gameplay":
                 print('(path)')

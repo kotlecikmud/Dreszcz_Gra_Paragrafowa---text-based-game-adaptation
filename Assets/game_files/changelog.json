@@ -142,12 +142,16 @@
     ]
   },
   {
-    "version": "00.11.04.04",
-    "date": "Apr 03 2024",
+    "version": "00.11.04.05",
+    "date": "Apr 10 2024",
     "changes": [
       "global",
-      "restored archival versions",
-      "added new music, removed some"
+      "removed music_main_8.mp3",
+      "menu.py",
+      "added logic to developer menu option 'test_paragraph'",
+      "functions.py",
+      "replaced dummy_dialog.mp3 for AudioFileUnavailable.mp3",
+      "Fixed issue: when configuring the setup file from the dev menu option, the 'debug_msg' option was always saved with value of None"
     ]
   }
 ]

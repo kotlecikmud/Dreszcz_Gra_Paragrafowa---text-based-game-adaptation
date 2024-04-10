@@ -427,7 +427,16 @@ def main_menu():
                 # ADDITIONAL DEV FUNCTIONALITY
                 # evaluating functions in paragraphs.py
                 elif choice_main_menu == f'{cnst.SPECIAL_COLOR}test_paragraph{cnst.DEFAULT_COLOR}':
-                    prg._xx()  # calling placeholder function
+                    if os.path.exists(cnst.DUMMY_GAMESTATE_NAME):
+                        # set active gameplay to dummy file
+                        cnst.setup_params["active_gameplay"] = str(cnst.DUMMY_GAMESTATE_NAME)
+                        func.log_event(f"set active gameplay to {cnst.DUMMY_GAMESTATE_NAME}")
+
+                        prg._xx()  # calling placeholder function
+                    else:
+                        func.error_message('', f"Dummy gamestate file was not found. Enable 'use_dummy' in config.\
+                        \nPlease close game, modify {cnst.CFG_NAME} and try again.")
+                        input(cnst.INPUT_SIGN)
 
                 # configuring config.json file
                 elif choice_main_menu == f'{cnst.SPECIAL_COLOR}configure setup file{cnst.DEFAULT_COLOR}':
