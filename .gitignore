@@ -1,3 +1,5 @@
+*.spec
+*.exe
 /aws.xml
 /_pycache_
 /Assets/game_files/.log

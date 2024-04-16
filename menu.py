@@ -505,7 +505,7 @@ if __name__ == '__main__':
     # randomize new player parameters
     func.get_player_par()
 
-    # hide the "continue" and "load game" options in the menu if no game states are found
+    # if no game states are found hide the "continue" and "load game" options in the menu
     func.get_game_state('init')
 
     # if config.json not found, restore backup
@@ -513,8 +513,8 @@ if __name__ == '__main__':
         with open(cnst.CFG_NAME, 'r') as json_file:
             _ = json_file.readable()
 
-    except FileNotFoundError:
-        func.error_message("FileNotFoundError", f"An error occurred while updating the setup file")
+    except FileNotFoundError as e:
+        func.error_message(str(e), f"An error occurred while updating the setup file")
         func.debug_message("config.json not found, restoring...")
         func.update_config_file(manual=False, backup=True)
 
