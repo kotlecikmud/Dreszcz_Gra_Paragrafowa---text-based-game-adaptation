@@ -161,7 +161,7 @@
       "global",
       "improved compiler code",
       "added bash file for easier compiling",
-      "renamed and removed some of main music"
+      "renamed and removed some of main music",
       "menu.py",
       "added missing exit code in line 425"
     ]
