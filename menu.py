@@ -422,7 +422,7 @@ def main_menu():
                     if choice2.lower() == "y":
                         pygame.mixer.music.fadeout(800)
                         func.clear_terminal()
-                        exit()
+                        exit(0)
 
                 # ADDITIONAL DEV FUNCTIONALITY
                 # evaluating functions in paragraphs.py

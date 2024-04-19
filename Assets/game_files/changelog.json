@@ -153,5 +153,17 @@
       "replaced dummy_dialog.mp3 for AudioFileUnavailable.mp3",
       "Fixed issue: when configuring the setup file from the dev menu option, the 'debug_msg' option was always saved with value of None"
     ]
+  },
+  {
+    "version": "00.11.04.06",
+    "date": "Apr 19 2024",
+    "changes": [
+      "global",
+      "improved compiler code",
+      "added bash file for easier compiling",
+      "renamed and removed some of main music"
+      "menu.py",
+      "added missing exit code in line 425"
+    ]
   }
 ]
