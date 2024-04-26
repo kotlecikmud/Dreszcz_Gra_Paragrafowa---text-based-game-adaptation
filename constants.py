@@ -75,6 +75,7 @@ def load_config():
         "manual_battle",
         "dubbing",
         "get_music",
+        "enable_GUI"
     ]
 
     empty_config = {param: None for param in keys_list}

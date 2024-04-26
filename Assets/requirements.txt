@@ -1,3 +1,4 @@
-pyinstaller
-colorama
 pygame
+tkinter
+colorama
+pyinstaller

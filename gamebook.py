@@ -2,10 +2,49 @@ import entities as ent
 import functions as func
 import constants as cnst
 
+gui_specific = {
+    'en':
+        {
+            "___": "",
+
+            "gui_not_implemented": "GUI not implemented\n(press 'Return' to exit)"
+        },
+    'pl':
+        {
+            "___": "",
+
+            "gui_not_implemented": "interfejs graficzny nie zaimplementowny\n(naciśnij 'Enter' aby wyjść)"
+        },
+    'es':
+        {
+            "___": "",
+
+            "gui_not_implemented": "Interfaz gráfica no implementada aún\n(presione 'Enter' para salir)"
+        },
+    'fr':
+        {
+            "___": "",
+
+            "gui_not_implemented": "Interface graphique non implémentée\n(appuyez sur 'Entrée' pour quitter)"
+        },
+    'it':
+        {
+            "___": "",
+
+            "gui_not_implemented": "Interfaccia grafica non ancora implementata\n(premi 'Invio' per uscire)"
+        },
+    'ptbr':
+        {
+            "___": "",
+
+            "gui_not_implemented": "Interface gráfica não implementada ainda\n(aperte 'Enter' para sair)"
+        },
+}
+
 gameboook = {
     'en':
         {
-            "xxx": "",
+            "___": "",
 
             "eatables": "Would you like to eat provisions? (+4 Stamina) (Y/N)",
 
@@ -740,7 +779,7 @@ gameboook = {
         },
     'pl':
         {
-            "xxx": "",
+            "___": "",
 
             "eatables": "Czy chcesz zjeść prowiant? (+4 Wytrzymałość) (Y/N)",
 
@@ -1841,7 +1880,7 @@ gameboook = {
         },
     'es':
         {
-            "xxx": "",
+            "___": "",
 
             "elxr_chc": "Elige una poción:\
                 \n1. Destreza\
@@ -1869,7 +1908,7 @@ gameboook = {
         },
     'fr':
         {
-            "xxx": "",
+            "___": "",
 
             "elxr_chc": "Choisissez une potion:\
                 \n1. Dextérité\
@@ -1897,7 +1936,7 @@ gameboook = {
         },
     'it':
         {
-            "xxx": "",
+            "___": "",
 
             "elxr_chc": "Scegli un'elisir:\
                 \n1. Destrezza\

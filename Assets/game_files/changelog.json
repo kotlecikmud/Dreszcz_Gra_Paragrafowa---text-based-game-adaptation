@@ -165,5 +165,15 @@
       "menu.py",
       "added missing exit code in line 425"
     ]
+  },
+  {
+    "version": "00.11.04.06",
+    "date": "Apr 26 2024",
+    "changes": [
+      "added placeholder for GUI",
+      "added new config parameter",
+      "enable_GUI",
+      "added new dictionary in gamebook 'gui_specific'"
+    ]
   }
 ]

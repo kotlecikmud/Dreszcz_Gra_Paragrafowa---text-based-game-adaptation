@@ -328,7 +328,8 @@ def update_config_file(manual=False, backup=False):
             "start_sequence",
             "manual_battle",
             "dubbing",
-            "get_music"
+            "get_music",
+            "enable_GUI"
         ]
 
         for key in keys_list:
@@ -348,7 +349,8 @@ def update_config_file(manual=False, backup=False):
                          "start_sequence",
                          "manual_battle",
                          "dubbing",
-                         "get_music"]:
+                         "get_music",
+                         "enable_GUI"]:
 
                 print('(True/False)')
 
@@ -388,7 +390,8 @@ def update_config_file(manual=False, backup=False):
             "start_sequence": False,
             "manual_battle": False,
             "dubbing": True,
-            "get_music": True
+            "get_music": True,
+            "enable_GUI": False
         }
         debug_message('restored backup setup')
 
@@ -406,7 +409,8 @@ def update_config_file(manual=False, backup=False):
             "start_sequence": cnst.setup_params["start_sequence"],
             "manual_battle": cnst.setup_params["manual_battle"],
             "dubbing": cnst.setup_params["dubbing"],
-            "get_music": cnst.setup_params["get_music"]
+            "get_music": cnst.setup_params["get_music"],
+            "enable_GUI": cnst.setup_params["enable_GUI"]
         }
 
     # Save the setup data to a JSON file
