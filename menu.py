@@ -50,7 +50,7 @@ def main_menu():
     func.log_event("main.py ENTRY POINT")
 
     if cnst.setup_params["enable_GUI"]:
-        func.debug_message("gui code is not implemented, set 'enable_GUI' to 'false' or restore default config.json")
+        func.debug_message([cnst.setup_params['translation']]['gui_not_implemented'])
 
         def on_key_press(event):
             # Exit the program when 'space' or 'enter' key is pressed
@@ -64,10 +64,11 @@ def main_menu():
         root.attributes('-fullscreen', True)
 
         # Set the background color to white
-        root.configure(bg='white')
+        root.configure(bg='#ffffff')
 
         # Create a label with the black title on white background
-        label = tk.Label(root, text=gb.gui_specific[cnst.setup_params['translation']]['gui_not_implemented'], font=("Arial", 72),
+        label = tk.Label(root, text=gb.gui_specific[cnst.setup_params['translation']]['gui_not_implemented'],
+                         font=("Arial", 72),
                          bg='#ffffff', fg='#000000')
         label.pack(expand=True)  # Center the label in the window
 
