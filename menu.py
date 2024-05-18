@@ -10,7 +10,7 @@ import os
 import time
 import pygame
 import subprocess
-import tkinter as tk
+from tkinter import *
 import gamebook as gb
 import paragraphs as prg
 import functions as func
@@ -50,33 +50,92 @@ def main_menu():
     func.log_event("main.py ENTRY POINT")
 
     if cnst.setup_params["enable_GUI"]:
-        func.debug_message([cnst.setup_params['translation']]['gui_not_implemented'])
+        def center_window(window, width=512, height=512):
+            screen_width = window.winfo_screenwidth()
+            screen_height = window.winfo_screenheight()
+            x_coordinate = int((screen_width / 2) - (width / 2))
+            y_coordinate = int((screen_height / 2) - (height / 2))
+            window.geometry(f"{width}x{height}+{x_coordinate}+{y_coordinate}")
 
-        def on_key_press(event):
-            # Exit the program when 'space' or 'enter' key is pressed
-            if event.keysym in 'Return':
-                root.destroy()
+        def update_buttons_position(window, buttons, spacing=70):
+            window.update_idletasks()  # Update the window to ensure proper dimensions
+            for i, button in enumerate(buttons):
+                button.place(x=window.winfo_width() / 2 - button.winfo_reqwidth() / 2,
+                             y=window.winfo_height() / 2 - (len(buttons) * spacing / 2) + i * spacing)
 
-        # Create the main window
-        root = tk.Tk()
+        def new_game():
+            func.clear_terminal()
+            prg._00()
+            # print("New Game pressed")
 
-        # Set the window to fullscreen mode
-        root.attributes('-fullscreen', True)
+        def continue_game():
+            print("Continue pressed")
 
-        # Set the background color to white
-        root.configure(bg='#ffffff')
+        def load_game():
+            print("Load game pressed")
 
-        # Create a label with the black title on white background
-        label = tk.Label(root, text=gb.gui_specific[cnst.setup_params['translation']]['gui_not_implemented'],
-                         font=("Arial", 72),
-                         bg='#ffffff', fg='#000000')
-        label.pack(expand=True)  # Center the label in the window
+        def settings():
+            print("Settings pressed")
 
-        # Bind the key press event to the function on_key_press
-        root.bind('<KeyPress>', on_key_press)
+        def about():
+            print("About pressed")
 
-        # Start the main event loop
-        root.mainloop()
+        def exit_game():
+            exit(0)
+
+        window = Tk()
+        center_window(window)
+        window.title("Dreszcz")
+
+        icon = PhotoImage(
+            file="e:/PycharmProjects/Dreszcz_Gra_Paragrafowa---text-based-game-adaptation/_designs/simple.png")
+        window.iconphoto(True, icon)
+        window.config(background="#ac733c")
+
+        # Flags to enable or disable buttons
+        flags = {
+            "New Game": True,
+            "Continue": False,
+            "Load game": False,
+            "Settings": False,
+            "Abaut": False,
+            "Exit": True
+        }
+
+        # Create buttons with different texts, relief styles, and commands
+        buttons_data = [
+            ("New Game", new_game),
+            ("Continue", continue_game),
+            ("Load game", load_game),
+            ("Settings", settings),
+            ("Abaut", about),
+            ("Exit", exit_game)
+        ]
+
+        buttons = []
+        for text, command in buttons_data:
+            state = NORMAL if flags[text] else DISABLED
+            button = Button(window,
+                            text=text,
+                            font=("Arial", 24, "italic"),
+                            bg="#ac733c",
+                            fg="#bcbb8e",
+                            relief='raised',
+                            activebackground="#808080",
+                            command=command,
+                            state=state)
+            buttons.append(button)
+            button.place_forget()  # Hide the button initially
+
+        update_buttons_position(window, buttons, spacing=70)
+
+        # Add small, italic, gray text indicating dummy version
+        dummy_label = Label(window, text="*dummy GUI*", font=("Arial", 12, "italic"), bg="#ac733c", fg="#bcbcbc")
+        dummy_label.place(x=14, y=window.winfo_height() - 40)
+
+        # Ensure the window remains open
+        if __name__ == '__main__':
+            window.mainloop()
 
     else:
         while True:

@@ -175,5 +175,13 @@
       "enable_GUI",
       "added new dictionary in gamebook 'gui_specific'"
     ]
+  },
+  {
+    "version": "00.11.05.07",
+    "date": "May 18 2024",
+    "changes": [
+      "menu.py",
+      "added dummy gui"
+    ]
   }
 ]
