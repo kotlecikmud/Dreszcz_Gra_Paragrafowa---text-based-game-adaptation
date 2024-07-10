@@ -196,7 +196,7 @@ def main_menu():
                      f'bypass to any paragraph'))
 
                 choices_main_menu.append(
-                    (f'{cnst.SPECIAL_COLOR}configure setup file{cnst.DEFAULT_COLOR}', 'basic config wizard'))
+                    (f'{cnst.SPECIAL_COLOR}configure setup file{cnst.DEFAULT_COLOR}', 'config wizard'))
 
                 choices_main_menu.append(
                     (f'{cnst.SPECIAL_COLOR}project documentation{cnst.DEFAULT_COLOR}',
