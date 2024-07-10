@@ -1,8 +1,8 @@
 import os
 import timeit
+import subprocess
 from constants import VER_FILE
 from datetime import datetime as dt
-import subprocess
 
 ICON_FILE = r"_designs/face/icon.ico"
 

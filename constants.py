@@ -1,6 +1,7 @@
 import os
 import json
 import pygame
+import subprocess
 from colorama import Fore, Style
 
 """
@@ -8,7 +9,7 @@ from colorama import Fore, Style
 This section contains path definitions and lists of audio files used in the game.
 
 Paths:
-- ROOT_DIR: Main directory where assets and game files are stored.
+- ASSETS_DIR: Main directory where assets and game files are stored.
 - GAME_FILES_DIR: Directory for game-specific files within the root directory.
 - LOG_NAME: Path to the log file for recording game logs.
 - CFG_NAME: Path to the setup script file.
@@ -16,25 +17,42 @@ Paths:
 - AUDIO_VOICE_DIR: Directory containing voice lines audio files.
 - AUDIO_FX_DIR: Directory containing sound effects audio files.
 - AUDIO_MUSIC_DIR: Directory containing music audio files.
-- GAMESTATES_DIR: Directory for storing game state saves.
+- GAMESTATE_DIR: Directory for storing game state saves.
 - AUDIO_EXTENSION: Extension used for audio files.
 """
 
-ROOT_DIR = "Assets"
-
-GAME_FILES_DIR = rf"{ROOT_DIR}\game_files"
-LOG_NAME = rf"{GAME_FILES_DIR}\.log"
-CFG_NAME = rf"{GAME_FILES_DIR}\config.json"
-VER_FILE = rf"{GAME_FILES_DIR}\.version"
-CHLOG_NAME = rf"{GAME_FILES_DIR}\changelog.json"
-DUMMY_GAMESTATE_NAME = rf"{GAME_FILES_DIR}\dreszcz_dummy.json"
-AUDIO_VOICE_DIR = rf"{ROOT_DIR}\Audio\Voice"  # Path to voice lines audio files
-AUDIO_FX_DIR = rf"{ROOT_DIR}\Audio\fx"  # Path to sound effects
-AUDIO_MUSIC_DIR = rf"{ROOT_DIR}\Audio\music"  # Path to music
-GAMESTATES_DIR = r"Jacek Ciesielski - Dreszcz\saves"  # Path to game_states/saves
-
+# extensions
+GAMESTATE_EXTENSION = ".gmsf"
 AUDIO_EXTENSION = '.mp3'  # extension of voice and fx files, other will be ignored
 
+# directories
+ASSETS_DIR = "Assets"
+GAME_FILES_DIR = rf"{ASSETS_DIR}\game_files"
+AUDIO_ASSETS_DIR = rf"{ASSETS_DIR}\Audio"  # Path to audio assets
+GRAPHICS_ASSETS_DIR = rf"{ASSETS_DIR}\Graphics"  # Path to graphics assets
+GRAPHICS_MISC_DIR = rf"{GRAPHICS_ASSETS_DIR}\misc"  # Path to misc graphics like icons, buttons etc.
+GRAPHICS_PLATES_DIR = rf"{GRAPHICS_ASSETS_DIR}\plates"  # Path to background graphics
+AUDIO_VOICE_DIR = rf"{AUDIO_ASSETS_DIR}\voice"  # Path to voice lines audio files
+AUDIO_FX_DIR = rf"{AUDIO_ASSETS_DIR}\fx"  # Path to sound effects
+AUDIO_MUSIC_DIR = rf"{AUDIO_ASSETS_DIR}\music"  # Path to music
+DOCUMENTATION_DIR = rf"{ASSETS_DIR}\Documentation"  # Path to documentation of project
+GAMESTATE_DIR = os.path.join(os.path.expanduser('~\\Documents'),
+                             r"Jacek Ciesielski - Dreszcz\saves")  # Path for managings gamestate (gmsf) files
+
+# paths
+LOG_NAME = rf"{GAME_FILES_DIR}\.log"
+CFG_NAME = rf"{GAME_FILES_DIR}\config.json"
+VER_FILE = rf"{GAME_FILES_DIR}\.ver"
+CHLOG_NAME = rf"{GAME_FILES_DIR}\changelog.json"
+DUMMY_GAMESTATE_NAME = rf"{GAMESTATE_DIR}\dreszcz_dummy{GAMESTATE_EXTENSION}"
+
+# GUI settings
+GUI_BCKG_COLOR = "#ac733c"  # sepia
+GUI_MAIN_FONT = "Arial"
+GUI_WINDOW_WIDTH = 1280
+GUI_WINDOW_HEIGHT = 720
+
+###########
 INPUT_SIGN = '>>> '  # sign indicating that the user should provide an input
 TIME_DELAY = .15  # time delay in seconds between printing each character in text
 DEFAULT_COLOR = Fore.LIGHTWHITE_EX  # default text color
@@ -54,7 +72,7 @@ STAMINA_PER_MEAL = 4  # How many load of stamina in one meal
 - hotfix - quick updates that fixes game breaking bugs
 - small - small updates, typo fixes etc.
 """
-# read version number
+# load version number
 with open(VER_FILE, 'r') as ver_f:
     __version__ = ver_f.readline()
 
@@ -78,24 +96,25 @@ def load_config():
         "enable_GUI"
     ]
 
-    empty_config = {param: None for param in keys_list}
+    _config = {param: None for param in keys_list}
 
     try:
         # load setup data from json file
         with open(CFG_NAME, "r") as f:
             config_ = json.load(f)
 
-        # assign values from empty_config to setup_params dictionary
-        for param in empty_config:
-            empty_config[param] = config_.get(param)
+        # assign values from _config to setup_params dictionary
+        for param in _config:
+            _config[param] = config_.get(param)
 
         # unpack setup_params dictionary into individual variables
-        globals().update(empty_config)
+        globals().update(_config)
 
-    except Exception as e:
-        print(f"Error while loading config.json {str(e)}")
+    except Exception:
+        subprocess.call('cls' if os.name == 'nt' else 'clear', shell=True)  # to get rid of pygame init message
+        print(f"DIR not present: {CFG_NAME} restored")
 
-    return empty_config
+    return _config
 
 
 setup_params = load_config()
@@ -116,7 +135,7 @@ and_his_name_is = '''
         ZZZZZZZ    BBBBBB       YYY     YYY     SSSSSS      ZZZZZZZZ      K     K     OOOOO     
               Z     B     B      YYY   YYY     S                  Z       K    K     O     O    
              Z      B     B       YYY YYY       SSS              Z        K   K     O       O    
-            Z       BBBBBB         YYYYY             S          Z          KKK      O       O    
+            Z       BBBBBB         YYYYY            S           Z          KKK      O       O    
           Z         B     B         YYY             SSS        Z          K   K     O       O    
          Z          B     B         YYY              S        Z           K    K     O     O    
         ZZZZZZZ    BBBBBB           YYY        SSSSSS        ZZZZZZZZ     K     K     OOOOO     

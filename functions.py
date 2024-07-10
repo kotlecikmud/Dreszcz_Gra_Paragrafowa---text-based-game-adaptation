@@ -1,16 +1,17 @@
 import os
-import time
 import json
-import msvcrt
-import pygame
+import time
 import random
+import msvcrt
+import platform
 import datetime
-import constants
-import subprocess
+
+import pygame
+from colorama import Fore, Style
+
 import gamebook as gb
 import constants as cnst
 import paragraphs as prg  # paragraphs must be imported
-from colorama import Fore, Style
 
 
 # class LoadingAnimation:
@@ -30,7 +31,7 @@ from colorama import Fore, Style
 #     def _animate(self):
 #         while not self.finished:
 #             print('- ' + self.animation_signs[self.sign_index % len(self.animation_signs)] + ' -', end='\r')
-#             time.sleep(0.1)
+#             time.sleep(.1)
 #             self.sign_index += 1
 
 
@@ -236,9 +237,9 @@ def dub_play(string_id, category=None, skippable=True, with_text=True, r_robin=N
                     break
 
     else:
-        debug_message(f"dubbing disabled in {cnst.CFG_NAME}")
+        debug_message(f"dubbing disabled: {cnst.CFG_NAME}")
         input(f"continue {cnst.INPUT_SIGN}")
-        time.sleep(0.5)
+        time.sleep(.5)
 
 
 def name_randomizer():
@@ -289,6 +290,15 @@ def get_player_par():
     cnst.w_init = cnst.w_count = random.randint(2, 12) + 12
     cnst.s_init = cnst.s_count = random.randint(1, 6) + 6
     return cnst.z_init, cnst.z_count, cnst.w_init, cnst.w_count, cnst.s_init, cnst.s_count
+
+
+def open_dir(_path):
+    if platform.system() == 'Windows':
+        os.startfile(_path)
+    elif platform.system() == 'Darwin':  # macOS
+        subprocess.Popen(['open', _path])
+    else:  # Linux
+        subprocess.Popen(['xdg-open', _path])
 
 
 def update_config_file(manual=False, backup=False):
@@ -381,8 +391,8 @@ def update_config_file(manual=False, backup=False):
             "active_gameplay": None,
             "translation": "en",
             "action_volume": 1,
-            "sfx_volume": 0.7,
-            "bckg_volume": 0.6,
+            "sfx_volume": .7,
+            "bckg_volume": .6,
             "dev_mode": False,
             "debug_msg": True,
             "use_dummy": True,
@@ -457,35 +467,26 @@ def get_game_state(action, last_paragraph='00', new_game=None):
     # list of json files in folder_path
     valid_json_files = []
 
-    if cnst.setup_params['use_dummy']:
-        debug_message(f"Looking for dummy game states in project location")
-        folder_path = cnst.GAME_FILES_DIR  # os.path.dirname(os.path.abspath(__file__)) # locate DUMMY_GAMESTATE_NAME in scripts location
-
-    else:
-        debug_message(f"Looking for game states in '~\\Documents' folder path for saving json file")
-        folder_path = os.path.join(os.path.expanduser('~\\Documents'), cnst.GAMESTATES_DIR)
-
-    forbidden_jsons = [cnst.CFG_NAME, cnst.CHLOG_NAME]
-
-    if os.path.exists(folder_path):
-        json_files = [file for file in os.listdir(folder_path) if
-                      file.endswith('.json') and file not in forbidden_jsons]
+    debug_message(f"Looking for game states in '~\\Documents' folder path for saving json file")
+    if os.path.exists(cnst.GAMESTATE_DIR):
+        json_files = [file for file in os.listdir(cnst.GAMESTATE_DIR) if file.endswith(cnst.GAMESTATE_EXTENSION)]
 
         for file_name in json_files:
-            if not file_name.startswith('dreszcz_') or not file_name.endswith(".json"):
-                debug_message(f"{file_name} is not a valid game state file")
-            else:
+            if file_name.startswith('dreszcz_'):
                 debug_message(f"{file_name} is valid game state file")
                 valid_json_files.append(file_name)
+            else:
+                debug_message(f"{file_name} is not a valid game state file")
+
     else:
-        os.makedirs(folder_path)
-        debug_message(f'Directory {folder_path} created')
+        os.makedirs(cnst.GAMESTATE_DIR)
+        debug_message(f'Game_state directory not present, created new one: {cnst.GAMESTATE_DIR}')
 
     if action == 's':
         if new_game:
             # Create new file path and update active gameplay file_path
-            cnst.setup_params['active_gameplay'] = os.path.join(folder_path,
-                                                                f"dreszcz_{datetime.datetime.now().strftime('%y-%m-%d_%S')}.json")
+            cnst.setup_params['active_gameplay'] = os.path.join(cnst.GAMESTATE_DIR,
+                                                                f"dreszcz_{datetime.datetime.now().strftime('%y-%m-%d_%S')}{cnst.GAMESTATE_EXTENSION}")
         # Load game state to variables
         game_state = {
             "last_paragraph": last_paragraph,
@@ -531,7 +532,7 @@ def get_game_state(action, last_paragraph='00', new_game=None):
 
                     if 1 <= file_number <= len(valid_json_files):
                         selected_file = valid_json_files[file_number - 1]
-                        cnst.setup_params['active_gameplay'] = os.path.join(folder_path, selected_file)
+                        cnst.setup_params['active_gameplay'] = os.path.join(cnst.GAMESTATE_DIR, selected_file)
                         with open(cnst.setup_params['active_gameplay'], "r") as f:
                             game_state = json.load(f)
                         debug_message(f'Game state loaded from: {selected_file}')
@@ -583,12 +584,12 @@ def get_game_state(action, last_paragraph='00', new_game=None):
         debug_message(f'Game state loaded from: {cnst.setup_params["active_gameplay"]}')
 
     elif action == 'init':  # check if any game states exist
-        if len(valid_json_files) != 0:
+        if int(len(valid_json_files)) > 0:
             cnst.game_state_exists = True
 
             if cnst.setup_params['use_dummy']:
                 cnst.setup_params["active_gameplay"] = str(cnst.DUMMY_GAMESTATE_NAME)
-                debug_message("active_gamplay set to dummy")
+                debug_message("active_gameplay set to dummy")
 
         else:
             if cnst.setup_params['use_dummy']:
@@ -616,13 +617,12 @@ def get_game_state(action, last_paragraph='00', new_game=None):
                 }
 
                 # Saving dummy game state if one doesn't exist
-                with open(cnst.DUMMY_GAMESTATE_NAME, "w") as f:
+                with open(os.path.join(os.path.expanduser('~\\Documents'), cnst.DUMMY_GAMESTATE_NAME), "w") as f:
                     json.dump(game_state, f)
 
                 cnst.setup_params["active_gameplay"] = str(cnst.DUMMY_GAMESTATE_NAME)
-                debug_message(f"Restored dummy game_state to: {cnst.setup_params['active_gameplay']}")
-
-                debug_message("active_gameplay has been updated")
+                debug_message(f"Dummy game_state file restored")
+                debug_message(f"active_gameplay has been updated -> {cnst.setup_params['active_gameplay']}")
 
                 cnst.game_state_exists = True
 

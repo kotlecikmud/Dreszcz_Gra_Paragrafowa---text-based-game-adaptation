@@ -183,5 +183,31 @@
       "menu.py",
       "added dummy gui"
     ]
+  },
+  {
+    "version": "00.11.06.08",
+    "date": "Jul 10 2024",
+    "changes": [
+      "global",
+      "fixed game_state saving and loading system",
+      "added new folder for graphics assets",
+      "reorganization of files in repo",
+      "menu.py",
+      "changed path to icon photo in GUI section to dynamic one",
+      "uncommented remove command for 'load game' if 'use_dummy'",
+      "changed print to debug_message commands in GUI section",
+      "modified GUI code to have image in background instead of solid color",
+      "added hover action to buttons",
+      "functions.py",
+      "changed directory for dummy game_state to be in the same place as real ones",
+      "simplified printouts and misc",
+      "added new open_dir(_path) function",
+      "constants.py",
+      "changed extension of states to simplify process of finding valid files to '.gsf' (game state file)",
+      "restructured declarations to new order: extensions, dirs, paths",
+      "added cls command if config file is restored (pygame init was clogging stdout)",
+      "added some new constants for dirs and path regarding assets",
+      "added section for declaring GUI related settings"
+    ]
   }
 ]

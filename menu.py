@@ -11,6 +11,7 @@ import time
 import pygame
 import subprocess
 from tkinter import *
+from PIL import Image, ImageTk, ImageOps
 import gamebook as gb
 import paragraphs as prg
 import functions as func
@@ -50,6 +51,7 @@ def main_menu():
     func.log_event("main.py ENTRY POINT")
 
     if cnst.setup_params["enable_GUI"]:
+        # declare additional functions for GUI
         def center_window(window, width=512, height=512):
             screen_width = window.winfo_screenwidth()
             screen_height = window.winfo_screenheight()
@@ -66,39 +68,54 @@ def main_menu():
         def new_game():
             func.clear_terminal()
             prg._00()
-            # print("New Game pressed")
+            func.debug_message("New Game pressed")
 
         def continue_game():
-            print("Continue pressed")
+            func.debug_message("Continue pressed")
 
         def load_game():
-            print("Load game pressed")
+            func.debug_message("Load game pressed")
 
         def settings():
-            print("Settings pressed")
+            func.debug_message("Settings pressed")
 
         def about():
-            print("About pressed")
+            func.debug_message("About pressed")
 
         def exit_game():
+            func.debug_message("Exit pressed")
             exit(0)
 
+        def on_enter(event):
+            event.widget['background'] = '#d1d1d1'  # Change to light gray on hover
+
+        def on_leave(event):
+            event.widget['background'] = cnst.GUI_BCKG_COLOR  # Revert to original background color
+
         window = Tk()
-        center_window(window)
+        center_window(window, width=cnst.GUI_WINDOW_WIDTH, height=cnst.GUI_WINDOW_HEIGHT)
         window.title("Dreszcz")
 
-        icon = PhotoImage(
-            file="e:/PycharmProjects/Dreszcz_Gra_Paragrafowa---text-based-game-adaptation/_designs/simple.png")
+        icon = PhotoImage(file=f"{cnst.GRAPHICS_MISC_DIR}/simple.png")
         window.iconphoto(True, icon)
-        window.config(background="#ac733c")
+
+        # Load background image
+        background_image = Image.open(f"{cnst.GRAPHICS_PLATES_DIR}/menu_background.png")
+        background_image = background_image.resize((cnst.GUI_WINDOW_WIDTH, cnst.GUI_WINDOW_HEIGHT),
+                                                   Image.Resampling.LANCZOS)
+        background_photo = ImageTk.PhotoImage(background_image)
+
+        # Create a Label widget to hold the background image
+        background_label = Label(window, image=background_photo)
+        background_label.place(x=0, y=0, relwidth=1, relheight=1)
 
         # Flags to enable or disable buttons
-        flags = {
+        flags = {  # this dict is for dummy purposes, normally some other code would modify flags
             "New Game": True,
             "Continue": False,
             "Load game": False,
             "Settings": False,
-            "Abaut": False,
+            "About": False,
             "Exit": True
         }
 
@@ -108,7 +125,7 @@ def main_menu():
             ("Continue", continue_game),
             ("Load game", load_game),
             ("Settings", settings),
-            ("Abaut", about),
+            ("About", about),
             ("Exit", exit_game)
         ]
 
@@ -117,27 +134,30 @@ def main_menu():
             state = NORMAL if flags[text] else DISABLED
             button = Button(window,
                             text=text,
-                            font=("Arial", 24, "italic"),
-                            bg="#ac733c",
+                            font=(cnst.GUI_MAIN_FONT, 24, "italic"),
+                            bg=cnst.GUI_BCKG_COLOR,
                             fg="#bcbb8e",
                             relief='raised',
                             activebackground="#808080",
                             command=command,
                             state=state)
+            button.bind("<Enter>", on_enter)
+            button.bind("<Leave>", on_leave)
             buttons.append(button)
             button.place_forget()  # Hide the button initially
 
         update_buttons_position(window, buttons, spacing=70)
 
         # Add small, italic, gray text indicating dummy version
-        dummy_label = Label(window, text="*dummy GUI*", font=("Arial", 12, "italic"), bg="#ac733c", fg="#bcbcbc")
+        dummy_label = Label(window, text="*this is dummy GUI*", font=(cnst.GUI_MAIN_FONT, 12, "italic"),
+                            bg=cnst.GUI_BCKG_COLOR, fg="#bcbcbc")
         dummy_label.place(x=14, y=window.winfo_height() - 40)
 
         # Ensure the window remains open
         if __name__ == '__main__':
             window.mainloop()
 
-    else:
+    else:  # terminal based interface
         while True:
             func.clear_terminal()
 
@@ -183,11 +203,15 @@ def main_menu():
                      'pdf scan of original book, HTML adaptation from http://www.dudziarz.net'))
 
                 choices_main_menu.append(
+                    (f'{cnst.SPECIAL_COLOR}show gamestate directory{cnst.DEFAULT_COLOR}',
+                     'open directory that holds game_state files'))
+
+                choices_main_menu.append(
                     (f'{cnst.SPECIAL_COLOR}restore default config{cnst.DEFAULT_COLOR}', 'ALL CHANGES WILL BE LOST!!!'))
 
             if cnst.setup_params['use_dummy']:  # disable 'new game' and 'load game' option when using dummy
                 choices_main_menu.remove((gb.infoboook[cnst.setup_params['translation']]['Mmenu1'], ''))  # new game
-                # choices_main_menu.remove((gb.infoboook[cnst.setup_params['translation']]['Mmenu2'], ''))  # load game
+                choices_main_menu.remove((gb.infoboook[cnst.setup_params['translation']]['Mmenu2'], ''))  # load game
 
             # displaying list in main menu
             for i, (choice_main_menu, description) in enumerate(choices_main_menu, 1):
@@ -545,12 +569,15 @@ def main_menu():
                         func.clear_terminal()
                         func.update_config_file(True)
 
-                    # open documentation dir
+                    # open documentation directory
                     elif choice_main_menu == f'{cnst.SPECIAL_COLOR}project documentation{cnst.DEFAULT_COLOR}':
                         func.clear_terminal()
-                        documentation_path = os.path.join(os.path.abspath('.'), 'Assets', 'docs', "doc_dummy.txt")
+                        func.open_dir(cnst.DOCUMENTATION_DIR)
 
-                        subprocess.Popen(f'explorer /select,"{documentation_path}"', shell=True)
+                    # open gamestate directory
+                    elif choice_main_menu == f'{cnst.SPECIAL_COLOR}show gamestate directory{cnst.DEFAULT_COLOR}':
+                        func.clear_terminal()
+                        func.open_dir(cnst.GAMESTATE_DIR)
 
                     # restore default config
                     elif choice_main_menu == f'{cnst.SPECIAL_COLOR}restore default config{cnst.DEFAULT_COLOR}':
@@ -565,7 +592,7 @@ if __name__ == '__main__':
     including the setup parameters file name at the beggining, documentation path, debug messages and so on.
     """
     if cnst.setup_params['dev_mode']:
-        # Version of menu with enabled annotations
+        # Version of menu template with enabled annotations
         template = "({}) {} - {}"
 
         print(f"\n{cnst.SPECIAL_COLOR}Setup parameters loaded from file: {Fore.YELLOW}{cnst.CFG_NAME}{Style.RESET_ALL}")
