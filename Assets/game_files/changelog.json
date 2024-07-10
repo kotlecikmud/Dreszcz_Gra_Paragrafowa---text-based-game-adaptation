@@ -209,5 +209,13 @@
       "added some new constants for dirs and path regarding assets",
       "added section for declaring GUI related settings"
     ]
+  },
+  {
+    "version": "00.11.05.08",
+    "date": "Jul 10 2024",
+    "changes": [
+      "menu.py",
+      "fixed 'subprocess not imported' error in functions.py"
+    ]
   }
 ]

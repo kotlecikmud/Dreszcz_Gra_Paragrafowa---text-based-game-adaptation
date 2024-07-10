@@ -5,9 +5,10 @@ import random
 import msvcrt
 import platform
 import datetime
+import subprocess
 
 import pygame
-from colorama import Fore, Style
+from colorama import Fore
 
 import gamebook as gb
 import constants as cnst

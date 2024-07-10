@@ -2,7 +2,7 @@ import os
 import json
 import pygame
 import subprocess
-from colorama import Fore, Style
+from colorama import Fore
 
 """
 /// PATHS
@@ -112,7 +112,7 @@ def load_config():
 
     except Exception:
         subprocess.call('cls' if os.name == 'nt' else 'clear', shell=True)  # to get rid of pygame init message
-        print(f"DIR not present: {CFG_NAME} restored")
+        print(f"DIR not present: {CFG_NAME} has been restored.")
 
     return _config
 
