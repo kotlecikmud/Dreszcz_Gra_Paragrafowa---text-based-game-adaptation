@@ -894,7 +894,7 @@ def stats_change(attribute_name, parameter, amount, limit=None):
 
     if parameter != limit:
         print(
-            f'{cnst.SPECIAL_COLOR}/// {attribute_name}({parameter}) {inter} {amount} {constants.INPUT_SIGN}{updated_parameter}{cnst.DEFAULT_COLOR}')
+            f'{cnst.SPECIAL_COLOR}/// {attribute_name}({parameter}) {inter} {amount} {cnst.INPUT_SIGN}{updated_parameter}{cnst.DEFAULT_COLOR}')
 
     return updated_parameter
 

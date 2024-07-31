@@ -217,5 +217,13 @@
       "menu.py",
       "fixed 'subprocess not imported' error in functions.py"
     ]
+  },
+  {
+    "version": "00.11.05.10",
+    "date": "Aug 1 2024",
+    "changes": [
+      "functions.py",
+      "fixed small name error left after changing names of imports (constants. -> csnt.)"
+    ]
   }
 ]
