@@ -1,7 +1,7 @@
 # DRESZCZ
 
-**Original author**: Jacek Ciesielski  
-**Adaptation developer**: Filip Pawłowski (2023) - filippawlowski2012@gmail.com
+**Original author**: Jacek Ciesielski (1988)
+**Adaptation developer**: Filip Pawłowski (2024) - [filippawlowski2012@gmail.com](mailto:filippawlowski2012@gmail.com)
 
 GitHub
 Repository: https://github.com/kotlecikmud/Dreszcz_Gra_Paragrafowa---text-based-game-adaptation.git
@@ -30,6 +30,9 @@ managing game state, and performing game actions. Docstrings are provided for ke
 functionality, parameters, and return values. The game also includes a start sequence with introductory messages and
 background music, which can be toggled in the setup parameters.
 
+> **Note:** Game is still in early stages of development. Many of described functionalities are not implemented yet/in
+> prototyping stage.
+
 ## Developer Mode
 
 Developer mode provides additional features and information for developers working on the game. It can be activated
@@ -38,7 +41,8 @@ useful information such as setup parameters, documentation path, and debug messa
 
 ## Setup Parameters
 
-The game utilizes a setup file (`setup.json`) to store and retrieve various game parameters and settings. Developers can
+The game utilizes a setup file (`config.json`) to store and retrieve various game parameters and settings. Developers
+can
 modify the setup file manually to customize the game behavior or configure it using the main menu configuration option
 file. The loaded setup parameters are displayed in developer mode.
 
@@ -201,11 +205,12 @@ Each entity has initial and current action points for luck and stamina, a state,
 ## Credits
 
 - Jacek Ciesielski: original author
-- Filip Pawłowski (me): adaptation developer (2023)
+- Filip Pawłowski: adaptation developer (2024)
 
 ## Contact
 
-For any questions or suggestions, please feel free to contact me via email at filippawlowski2012@gmail.com.
+For any questions or suggestions, please feel free to contact me via email
+at [filippawlowski2012@gmail.com](mailto:filippawlowski2012@gmail.com).
 
 **Note:**
 
