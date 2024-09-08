@@ -10,7 +10,9 @@ import os
 import time
 import pygame
 import subprocess
+import tkinter as tk
 from tkinter import *
+from tkinter import ttk
 from PIL import Image, ImageTk, ImageOps
 import gamebook as gb
 import paragraphs as prg
@@ -50,8 +52,7 @@ def main_menu():
 
     func.log_event("main.py ENTRY POINT")
 
-    if cnst.setup_params["enable_GUI"]:
-        # declare additional functions for GUI
+    if cnst.setup_params['enable_GUI']:
         def center_window(window, width=512, height=512):
             screen_width = window.winfo_screenwidth()
             screen_height = window.winfo_screenheight()
@@ -60,78 +61,32 @@ def main_menu():
             window.geometry(f"{width}x{height}+{x_coordinate}+{y_coordinate}")
 
         def update_buttons_position(window, buttons, spacing=70):
-            window.update_idletasks()  # Update the window to ensure proper dimensions
+            window.update_idletasks()
             for i, button in enumerate(buttons):
                 button.place(x=window.winfo_width() / 2 - button.winfo_reqwidth() / 2,
                              y=window.winfo_height() / 2 - (len(buttons) * spacing / 2) + i * spacing)
 
-        def new_game():
-            func.clear_terminal()
-            prg._00()
-            func.debug_message("New Game pressed")
-
-        def continue_game():
-            func.debug_message("Continue pressed")
-
-        def load_game():
-            func.debug_message("Load game pressed")
-
-        def settings():
-            func.debug_message("Settings pressed")
-
-        def about():
-            func.debug_message("About pressed")
-
-        def exit_game():
-            func.debug_message("Exit pressed")
-            exit(0)
-
         def on_enter(event):
-            event.widget['background'] = '#d1d1d1'  # Change to light gray on hover
+            event.widget['background'] = '#d1d1d1'
 
         def on_leave(event):
-            event.widget['background'] = cnst.GUI_BCKG_COLOR  # Revert to original background color
+            event.widget['background'] = cnst.GUI_BCKG_COLOR
 
-        window = Tk()
-        center_window(window, width=cnst.GUI_WINDOW_WIDTH, height=cnst.GUI_WINDOW_HEIGHT)
-        window.title("Dreszcz")
+        def fade_transition(window, fade_out=True):
+            overlay = tk.Label(window, bg='black')
+            overlay.place(x=0, y=0, relwidth=1, relheight=1)
 
-        icon = PhotoImage(file=f"{cnst.GRAPHICS_MISC_DIR}/simple.png")
-        window.iconphoto(True, icon)
+            for i in range(11):
+                alpha = i / 10 if fade_out else (10 - i) / 10
+                gray_value = int(alpha * 255)
+                overlay.configure(bg=f'#{gray_value:02x}{gray_value:02x}{gray_value:02x}')
+                window.update()
+                time.sleep(0.05)
 
-        # Load background image
-        background_image = Image.open(f"{cnst.GRAPHICS_PLATES_DIR}/menu_background.png")
-        background_image = background_image.resize((cnst.GUI_WINDOW_WIDTH, cnst.GUI_WINDOW_HEIGHT),
-                                                   Image.Resampling.LANCZOS)
-        background_photo = ImageTk.PhotoImage(background_image)
+            if not fade_out:
+                overlay.destroy()
 
-        # Create a Label widget to hold the background image
-        background_label = Label(window, image=background_photo)
-        background_label.place(x=0, y=0, relwidth=1, relheight=1)
-
-        # Flags to enable or disable buttons
-        flags = {  # this dict is for dummy purposes, normally some other code would modify flags
-            "New Game": True,
-            "Continue": False,
-            "Load game": False,
-            "Settings": False,
-            "About": False,
-            "Exit": True
-        }
-
-        # Create buttons with different texts, relief styles, and commands
-        buttons_data = [
-            ("New Game", new_game),
-            ("Continue", continue_game),
-            ("Load game", load_game),
-            ("Settings", settings),
-            ("About", about),
-            ("Exit", exit_game)
-        ]
-
-        buttons = []
-        for text, command in buttons_data:
-            state = NORMAL if flags[text] else DISABLED
+        def create_button(window, text, command, state=NORMAL):
             button = Button(window,
                             text=text,
                             font=(cnst.GUI_MAIN_FONT, 24, "italic"),
@@ -143,19 +98,185 @@ def main_menu():
                             state=state)
             button.bind("<Enter>", on_enter)
             button.bind("<Leave>", on_leave)
-            buttons.append(button)
-            button.place_forget()  # Hide the button initially
+            return button
 
-        update_buttons_position(window, buttons, spacing=70)
+        def new_game(window):
+            fade_transition(window)
 
-        # Add small, italic, gray text indicating dummy version
-        dummy_label = Label(window, text="*this is dummy GUI*", font=(cnst.GUI_MAIN_FONT, 12, "italic"),
-                            bg=cnst.GUI_BCKG_COLOR, fg="#bcbcbc")
-        dummy_label.place(x=14, y=window.winfo_height() - 40)
+            difficulty_frame = Frame(window, bg=cnst.GUI_BCKG_COLOR)
+            difficulty_frame.place(relx=0.5, rely=0.5, anchor=CENTER)
 
-        # Ensure the window remains open
-        if __name__ == '__main__':
+            difficulties = ["Easy", "Normal", "Hard"]
+            for diff in difficulties:
+                button = create_button(difficulty_frame, diff, lambda d=diff: start_new_game(window, d))
+                button.pack(pady=10)
+
+            fade_transition(window, fade_out=False)
+
+        def start_new_game(window, difficulty):
+            fade_transition(window)
+            # Dummy code for starting a new game
+            game_frame = Frame(window, bg=cnst.GUI_BCKG_COLOR)
+            game_frame.place(relx=0.5, rely=0.5, anchor=CENTER)
+            Label(game_frame, text=f"Starting new game on {difficulty} difficulty",
+                  font=(cnst.GUI_MAIN_FONT, 18)).pack()
+            fade_transition(window, fade_out=False)
+
+        def continue_game(window):
+            fade_transition(window)
+            # Dummy code for continuing the game
+            game_frame = Frame(window, bg=cnst.GUI_BCKG_COLOR)
+            game_frame.place(relx=0.5, rely=0.5, anchor=CENTER)
+            Label(game_frame, text="Continuing from last saved game", font=(cnst.GUI_MAIN_FONT, 18)).pack()
+            fade_transition(window, fade_out=False)
+
+        def load_game(window):
+            fade_transition(window)
+
+            load_frame = Frame(window, bg=cnst.GUI_BCKG_COLOR)
+            load_frame.place(relx=0.5, rely=0.5, anchor=CENTER)
+
+            # Dummy saved game data
+            saved_games = [
+                {"name": "Save1", "created": "2024-09-01", "last_save": "2024-09-05"},
+                {"name": "Save2", "created": "2024-09-02", "last_save": "2024-09-06"},
+                {"name": "Save3", "created": "2024-09-03", "last_save": "2024-09-07"},
+            ]
+
+            for game in saved_games:
+                save_frame = Frame(load_frame, bg=cnst.GUI_BCKG_COLOR, relief=RAISED, borderwidth=2)
+                save_frame.pack(fill=X, padx=5, pady=5)
+                Label(save_frame, text=f"Name: {game['name']}", bg=cnst.GUI_BCKG_COLOR).pack(anchor=W)
+                Label(save_frame, text=f"Created: {game['created']}", bg=cnst.GUI_BCKG_COLOR).pack(anchor=W)
+                Label(save_frame, text=f"Last Save: {game['last_save']}", bg=cnst.GUI_BCKG_COLOR).pack(anchor=W)
+                Button(save_frame, text="Load", command=lambda g=game: load_saved_game(window, g)).pack(side=RIGHT)
+
+            fade_transition(window, fade_out=False)
+
+        def load_saved_game(window, game):
+            fade_transition(window)
+            # Dummy code for loading a saved game
+            game_frame = Frame(window, bg=cnst.GUI_BCKG_COLOR)
+            game_frame.place(relx=0.5, rely=0.5, anchor=CENTER)
+            Label(game_frame, text=f"Loading saved game: {game['name']}", font=(cnst.GUI_MAIN_FONT, 18)).pack()
+            fade_transition(window, fade_out=False)
+
+        def settings(window):
+            fade_transition(window)
+
+            settings_frame = Frame(window, bg=cnst.GUI_BCKG_COLOR)
+            settings_frame.place(relx=0.5, rely=0.5, anchor=CENTER)
+
+            settings_options = [
+                "Language", "Difficulty level", "Sound",
+                "Character name", "Randomize character attributes", "Check for updates"
+            ]
+
+            for option in settings_options:
+                button = create_button(settings_frame, option, lambda o=option: show_not_implemented(window, o))
+                button.pack(pady=5)
+
+            back_button = create_button(window, "Back", lambda: show_main_menu(window))
+            back_button.place(relx=0.95, rely=0.95, anchor=SE)
+
+            fade_transition(window, fade_out=False)
+
+        def show_not_implemented(window, option):
+            label = Label(window, text=f"{option}: Not implemented", bg='black', fg='white',
+                          font=(cnst.GUI_MAIN_FONT, 18))
+            label.place(relx=0.5, rely=0.5, anchor=CENTER)
+            window.after(1000, label.destroy)
+
+        def about(window):
+            fade_transition(window)
+
+            about_frame = Frame(window, bg=cnst.GUI_BCKG_COLOR)
+            about_frame.place(relx=0.5, rely=0.5, anchor=CENTER)
+
+            about_text = """Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."""
+
+            Label(about_frame, text="About Dreszcz", font=(cnst.GUI_MAIN_FONT, 24, "bold"),
+                  bg=cnst.GUI_BCKG_COLOR).pack(
+                pady=10)
+            Label(about_frame, text=about_text, font=(cnst.GUI_MAIN_FONT, 12), bg=cnst.GUI_BCKG_COLOR,
+                  wraplength=400).pack(
+                pady=10)
+
+            back_button = create_button(window, "Back", lambda: show_main_menu(window))
+            back_button.place(relx=0.95, rely=0.95, anchor=SE)
+
+            fade_transition(window, fade_out=False)
+
+        def exit_game(window):
+            fade_transition(window)
+
+            exit_frame = Frame(window, bg=cnst.GUI_BCKG_COLOR)
+            exit_frame.place(relx=0.5, rely=0.5, anchor=CENTER)
+
+            Label(exit_frame, text="Are you sure you want to exit?", font=(cnst.GUI_MAIN_FONT, 18),
+                  bg=cnst.GUI_BCKG_COLOR).pack(pady=20)
+
+            yes_button = create_button(exit_frame, "Yes", lambda: exit(0))
+            no_button = create_button(exit_frame, "No", lambda: show_main_menu(window))
+
+            yes_button.pack(side=LEFT, padx=10)
+            no_button.pack(side=LEFT, padx=10)
+
+            fade_transition(window, fade_out=False)
+
+        def show_main_menu(window):
+            fade_transition(window)
+
+            for widget in window.winfo_children():
+                widget.destroy()
+
+            # Load background image
+            background_image = Image.open(f"{cnst.GRAPHICS_PLATES_DIR}/menu_background.png")
+            background_image = background_image.resize((cnst.GUI_WINDOW_WIDTH, cnst.GUI_WINDOW_HEIGHT),
+                                                       Image.Resampling.LANCZOS)
+            background_photo = ImageTk.PhotoImage(background_image)
+
+            background_label = Label(window, image=background_photo)
+            background_label.image = background_photo  # Keep a reference
+            background_label.place(x=0, y=0, relwidth=1, relheight=1)
+
+            buttons_data = [
+                ("New Game", lambda: new_game(window)),
+                ("Continue", lambda: continue_game(window)),
+                ("Load game", lambda: load_game(window)),
+                ("Settings", lambda: settings(window)),
+                ("About", lambda: about(window)),
+                ("Exit", lambda: exit_game(window))
+            ]
+
+            buttons = []
+            for text, command in buttons_data:
+                button = create_button(window, text, command)
+                buttons.append(button)
+                button.place_forget()  # Hide the button initially
+
+            update_buttons_position(window, buttons, spacing=70)
+
+            dummy_label = Label(window, text="*this is dummy GUI*", font=(cnst.GUI_MAIN_FONT, 12, "italic"),
+                                bg=cnst.GUI_BCKG_COLOR, fg="#bcbcbc")
+            dummy_label.place(x=14, y=window.winfo_height() - 40)
+
+            fade_transition(window, fade_out=False)
+
+        def main():
+            window = Tk()
+            center_window(window, width=cnst.GUI_WINDOW_WIDTH, height=cnst.GUI_WINDOW_HEIGHT)
+            window.title("Dreszcz")
+
+            icon = PhotoImage(file=f"{cnst.GRAPHICS_MISC_DIR}/simple.png")
+            window.iconphoto(True, icon)
+
+            show_main_menu(window)
+
             window.mainloop()
+
+        if __name__ == '__main__':
+            main()
 
     else:  # terminal based interface
         while True:
