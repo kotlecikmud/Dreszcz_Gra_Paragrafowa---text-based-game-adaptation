@@ -12,8 +12,253 @@ from colorama import Fore
 
 import gamebook as gb
 import constants as cnst
-import paragraphs as prg  # paragraphs must be imported
+import entities as ent
+# import paragraphs as prg # Removed
 
+# Global cache for paragraph data
+_ALL_PARAGRAPHS_DATA = None
+# Define path for JSON relative to the project structure.
+# Assuming functions.py is in the root directory or Assets/game_files is accessible from cwd.
+# A more robust solution might use cnst.ROOT_DIR if available and reliable.
+JSON_PATH = os.path.join('Assets', 'game_files', 'paragraphs.json')
+
+
+# Helper function to get a specific paragraph's data from the loaded JSON
+def _get_paragraph_data(paragraph_id, all_paragraphs_data):
+    str_paragraph_id = str(paragraph_id) # Ensure ID comparison is string-to-string
+    for p_data in all_paragraphs_data:
+        if p_data.get("id") == str_paragraph_id:
+            return p_data
+    return None
+
+# Helper function to evaluate conditions from JSON
+def _evaluate_condition(condition_obj):
+    condition_type = condition_obj.get("type")
+    # Scope for eval: includes cnst, ent, random, and functions in this module (globals())
+    # Provide access to entities via 'ent' and constants via 'cnst'
+    eval_globals = {
+        "cnst": cnst,
+        "ent": ent,
+        "random": random,
+        "func": globals(), # Allows calling functions like check_for_luck from eval string
+         # Add any other specific modules or values needed by condition_string eval here
+    }
+    # For direct attribute access like cnst.w_count or ent.some_entity.property
+    # these modules (cnst, ent) must be imported in functions.py
+
+    try:
+        if condition_type == "stat_check":
+            # stat_ref should be like "cnst.w_count" or "ent.player.strength"
+            # It's evaluated to get the current value.
+            stat_value = eval(condition_obj['stat_ref'], eval_globals)
+            operator = condition_obj['operator']
+            target_value = condition_obj['value']
+            return eval(f"{stat_value} {operator} {target_value}")
+        elif condition_type == "item_check":
+            item_present = condition_obj['item_name'] in cnst.main_eq
+            return item_present if condition_obj.get('has_item', True) else not item_present
+        elif condition_type == "gold_check":
+            op = condition_obj.get('operator', '>=')
+            return eval(f"cnst.gold_amount {op} {condition_obj['value']}")
+        elif condition_type == "eval_condition":
+            # condition_string is a Python expression string
+            return bool(eval(condition_obj['condition_string'], eval_globals))
+        else:
+            error_message("_evaluate_condition", f"Unknown condition type: {condition_type}")
+            return False
+    except Exception as e:
+        error_message("_evaluate_condition", f"Error evaluating {condition_obj}: {e}")
+        return False
+
+# Placeholder for paragraph _269 logic - to be implemented if needed
+def _handle_paragraph_269_choices():
+    debug_message("Executing placeholder for _handle_paragraph_269_choices. Needs full implementation.")
+    # This would contain the complex logic from original _269 to determine choices,
+    # then it would call pth_selector with the chosen next paragraph_id based on that logic.
+    jump_paragraph_xx() # Fallback behavior
+
+# Helper function to execute actions from JSON
+def _execute_action(action_obj, current_paragraph_id_str):
+    action_type = action_obj.get("type")
+    value = action_obj.get("value")
+
+    eval_globals = {
+        "cnst": cnst,
+        "ent": ent,
+        "random": random,
+        "func": globals(), # Gives access to all functions in this module
+        "gb": gb, # gamebook for text, though ideally actions don't print directly
+        "pygame": pygame, # For mixer functions if any eval needs it
+        # Add specific functions if globals() is too broad:
+        # "update_variable": update_variable, "check_for_luck": check_for_luck, etc.
+    }
+    exec_locals = {} # For exec statements if they assign new local variables
+
+    next_paragraph_id = None
+    action_performed = True
+    terminate_processing = False
+
+    debug_message(f"Executing action: {action_type} with value: {value} for paragraph {current_paragraph_id_str}")
+
+    try:
+        if action_type == "play_audio":
+            vo = value
+            dub_play(vo.get('file_id'), vo.get('category'), vo.get('skippable', True),
+                       vo.get('with_text', False), # Usually on_load_action audio is supplementary
+                       vo.get('round_robin'))
+        elif action_type == "stat_change":
+            stat_ref_str = value['stat_ref'] # e.g., "cnst.w_count"
+            module_str, var_name = stat_ref_str.split('.', 1)
+            module = eval(module_str, eval_globals)
+
+            current_val = getattr(module, var_name)
+            limit_val_str = value.get('limit_ref')
+            limit_val = eval(limit_val_str, eval_globals) if limit_val_str else None
+
+            # Use the existing stats_change for its print logic and value capping
+            new_val = stats_change(value.get('attribute_name', var_name), current_val, value['amount'], limit_val)
+            setattr(module, var_name, new_val)
+
+        elif action_type == "item_add":
+            item_name = str(value['item_name']) # Ensure it's a string
+            # Simplified gold handling
+            if "gold" in item_name.lower() or "sztuk złota" in item_name.lower():
+                try: # Try to parse amount, e.g. "10 gold"
+                    amount = int(item_name.split()[0])
+                    cnst.gold_amount = update_variable(cnst.gold_amount, amount) # update_variable handles the addition
+                except: # Fallback if parsing fails, treat as regular item
+                     if item_name not in cnst.main_eq: cnst.main_eq.append(item_name)
+            elif item_name not in cnst.main_eq:
+                cnst.main_eq.append(item_name)
+            # Original eq_change function included an input() call for notification.
+            # This should ideally be handled by the UI layer based on an event.
+            # For now, we can call a simplified notification or rely on debug messages.
+            debug_message(f"Item added/Gold changed: {item_name}")
+            # If a visual notification like original eq_change is needed:
+            # eq_change(item_name) # But this halts for input.
+
+        elif action_type == "item_remove":
+            item_name = str(value['item_name'])
+            if item_name in cnst.main_eq: cnst.main_eq.remove(item_name)
+            debug_message(f"Item removed: {item_name}")
+
+        elif action_type == "variable_set":
+            var_ref_str = value['var_ref'] # e.g., "ent.room_364.room_state" or "cnst.some_flag"
+            new_value = value['new_value']
+
+            if '.' in var_ref_str:
+                obj_path, attr_name = var_ref_str.rsplit('.', 1)
+                target_obj = eval(obj_path, eval_globals)
+                setattr(target_obj, attr_name, new_value)
+            else: # Assume it's a variable in 'cnst' or globals for direct modification via exec
+                exec(f"{var_ref_str} = {repr(new_value)}", eval_globals) # repr to handle strings correctly
+
+        elif action_type == "variable_change":
+            var_ref_str = value['var_ref']
+            change = value['change_amount']
+
+            current_val = eval(var_ref_str, eval_globals)
+            updated_val = update_variable(current_val, change) # update_variable handles the logic + debug print
+
+            if '.' in var_ref_str:
+                obj_path, attr_name = var_ref_str.rsplit('.', 1)
+                target_obj = eval(obj_path, eval_globals)
+                setattr(target_obj, attr_name, updated_val)
+            else:
+                exec(f"{var_ref_str} = {repr(updated_val)}", eval_globals)
+
+        elif action_type == "conditional_jump":
+            condition_met = any(_evaluate_condition(cond) for cond in action_obj.get('conditions', []))
+
+            if condition_met and action_obj.get('true_target'):
+                next_paragraph_id = str(action_obj['true_target'])
+            elif not condition_met and action_obj.get('false_target'):
+                next_paragraph_id = str(action_obj['false_target'])
+
+            if next_paragraph_id: terminate_processing = True
+
+        elif action_type == "conditional_actions":
+            condition_met = any(_evaluate_condition(cond) for cond in value.get('conditions', []))
+            actions_to_run = value.get('true_actions', []) if condition_met else value.get('false_actions', [])
+            for sub_action in actions_to_run:
+                result = _execute_action(sub_action, current_paragraph_id_str)
+                if result.get('terminate_processing'):
+                    next_paragraph_id = result.get('next_paragraph_id', next_paragraph_id) # Propagate jump
+                    terminate_processing = True; break
+
+        elif action_type == "combat":
+            entity = eval(value['entity_id_ref'], eval_globals)
+            # entity_state and esc_possible are often direct booleans or references to entity attributes
+            entity_state = eval(str(value['entity_state_ref']), eval_globals) if isinstance(value['entity_state_ref'], str) else value['entity_state_ref']
+            esc_possible = eval(str(value['escape_possible_ref']), eval_globals) if isinstance(value['escape_possible_ref'], str) else value['escape_possible_ref']
+
+            # combat_main itself will eventually call pth_selector with the outcome paragraph ID.
+            combat_main(entity, entity_state, esc_possible,
+                        str(value['escape_paragraph_id']),      # escape_id in combat_main
+                        str(value.get('win_paragraph_id')),     # stay_id in combat_main (normal win)
+                        str(value.get('lose_paragraph_id', 'xx'))) # win_path in combat_main (player HP death)
+            terminate_processing = True
+
+        elif action_type == "eval_function":
+            eval(value['function_string'], eval_globals, exec_locals) # Locals can capture results if needed
+
+        elif action_type == "special_event":
+            event_val = value['value']
+            if event_val == "jump_prompt_xx":
+                jump_paragraph_xx(); terminate_processing = True
+            elif event_val == "elixir_choice_sequence":
+                # This logic is from original _00
+                while True:
+                    dub_play('elxr_chc', 'adam', False, r_robin=5)
+                    choice = input(f'{cnst.INPUT_SIGN}{cnst.DEFAULT_COLOR}')
+                    if choice == '1': cnst.potion = 'z'; break
+                    elif choice == '2': cnst.potion = 'w'; break
+                    elif choice == '3': cnst.potion = 's'; break
+                    else: clear_terminal(); print(cnst.SPECIAL_COLOR, gb.gameboook[cnst.setup_params["translation"]]['wrong_input'])
+                # After choice, the original _00 sets game state, clears terminal, dub_plays 00b, then jumps to 01.
+                # The current paragraph (_00) JSON should have a choice leading to 00b/01.
+                # This event just sets the potion. Processing continues in current paragraph.
+                terminate_processing = False
+            elif event_val == "paragraph_269_logic":
+                _handle_paragraph_269_choices(); terminate_processing = True
+            else: error_message("special_event", f"Unknown event value: {event_val}")
+
+        elif action_type == "visit_check_jump": # This action type performs an immediate jump based on room state
+            room = eval(value['room_id_ref'], eval_globals)
+            # visit_count is assumed to be incremented by pth_selector for the *current* room
+            # This action is for jumping based on the state of a (possibly different) room.
+            if room.room_state: # open
+                # visit_count for the target room_id_ref is not incremented by this action itself
+                # This needs careful thought: is visit_count for current room or target room?
+                # For now, assume it checks target room's current visit_count
+                # This implies target room's visit_count should be accurate.
+                if not hasattr(room, 'visit_count') or room.visit_count == 0 : # Target room never visited or count is 0
+                    next_paragraph_id = str(value['new_visit_target'])
+                else: # Target room already visited
+                    next_paragraph_id = str(value['revisit_target'])
+            else: # closed
+                next_paragraph_id = str(value['closed_target'])
+            if next_paragraph_id: terminate_processing = True
+
+        elif action_type == "jump":
+            next_paragraph_id = str(value)
+            terminate_processing = True
+
+        elif action_type == "compound_action":
+            for sub_action_obj in value.get('actions', []):
+                result = _execute_action(sub_action_obj, current_paragraph_id_str)
+                if result.get('terminate_processing'):
+                    next_paragraph_id = result.get('next_paragraph_id', next_paragraph_id)
+                    terminate_processing = True; break
+        else:
+            error_message("_execute_action", f"Unknown action type: {action_type}")
+            action_performed = False
+
+    except Exception as e:
+        error_message(f"_execute_action ({action_type})", f"Error: {e} while processing paragraph {current_paragraph_id_str}")
+        action_performed = False
+
+    return {"next_paragraph_id": next_paragraph_id, "action_performed": action_performed, "terminate_processing": terminate_processing}
 
 # class LoadingAnimation:
 #     def __init__(self):
@@ -638,10 +883,209 @@ def get_game_state(action, last_paragraph='00', new_game=None):
     return last_paragraph
 
 
-# get_game_state("init")
+# get_game_state("init") # Called from menu.py
+
+def jump_paragraph_xx():
+    # Moved logic from prg._xx()
+    # This function now serves as a fallback or explicit jump mechanism
+    while True:
+        debug_message("-- User Jump Prompt (_xx) --")
+        # Ensure any previous paragraph audio is stopped
+        pygame.mixer.stop()
+        odp = input(f"{cnst.DEFAULT_COLOR}\nEnter paragraph ID to jump to (or 'exit'): {cnst.INPUT_SIGN}{cnst.DEFAULT_COLOR}")
+
+        if odp.lower() == 'exit':
+            clear_terminal()
+            # Consider a more graceful exit or returning a special marker to the main game loop
+            print("Exiting game via _xx.")
+            exit()
+
+        if odp.strip().isalnum(): # Check if it's a valid looking ID (alphanumeric)
+            # Save game state before jumping via xx, with the target paragraph ID
+            # This assumes get_game_state can handle potentially invalid 'odp' if user types junk
+            get_game_state('s', odp)
+            pth_selector(odp) # Call the new pth_selector with the ID
+            break # Exit the while loop as pth_selector will take over or return
+        else:
+            error_message("jump_paragraph_xx", f"Invalid paragraph ID format: '{odp}'. Please enter alphanumeric ID.")
 
 
-def pth_selector(path_strings=None, actions=None, visit_check=False, room_id=None):
+def pth_selector(current_paragraph_id_str): # Expects string ID
+    all_paragraphs = load_all_paragraphs_data()
+    if not all_paragraphs: # Critical error if JSON is missing/corrupt
+        print(f"{cnst.ERR_COLOR}CRITICAL ERROR: Paragraph data is missing or corrupt. Cannot continue.{cnst.DEFAULT_COLOR}")
+        # A more robust game would try to return to a main menu or safe state here
+        exit()
+
+    current_paragraph_id_str = str(current_paragraph_id_str).strip() # Ensure string ID and no whitespace
+    paragraph_data = _get_paragraph_data(current_paragraph_id_str, all_paragraphs)
+
+    if paragraph_data is None:
+        error_message("pth_selector", f"Paragraph ID '{current_paragraph_id_str}' not found in JSON.")
+        jump_paragraph_xx() # Fallback to user jump prompt
+        return
+
+    # Increment visit count for the current paragraph if it's a room entity
+    # This requires 'ent' to be structured such that 'ent.room_XYZ' exists if XYZ is a room ID.
+    try:
+        # Attempt to find a room entity matching the paragraph ID (e.g., ent.room_1, ent.room_364)
+        room_entity = eval(f"ent.room_{current_paragraph_id_str}", {"ent": ent})
+        if room_entity and hasattr(room_entity, 'visit_count'):
+            # update_variable is a global function in this module
+            room_entity.visit_count = update_variable(room_entity.visit_count, 1)
+            debug_message(f"Incremented visit count for room {current_paragraph_id_str} to {room_entity.visit_count}")
+    except (AttributeError, NameError, SyntaxError): # If not a room or ent.room_XYZ doesn't exist
+        pass # Not all paragraphs correspond to rooms with visit counts
+
+    debug_message(f"--- Processing Paragraph: {current_paragraph_id_str} (Text Key: {paragraph_data.get('text_key', 'N/A')}) ---")
+    clear_terminal()
+
+    # 1. Process on_load_actions
+    if 'on_load_actions' in paragraph_data:
+        for action_obj in paragraph_data['on_load_actions']:
+            result = _execute_action(action_obj, current_paragraph_id_str)
+            if result.get('terminate_processing'):
+                if result.get('next_paragraph_id'):
+                    get_game_state('s', result['next_paragraph_id'])
+                    pth_selector(result['next_paragraph_id'])
+                return # Stop further processing for this paragraph
+
+    # 2. Handle main audio_cue (from 'audio_cue' field in JSON)
+    # Check if audio was already played by an on_load_action (e.g. conditional_actions)
+    audio_played_in_on_load = False
+    if 'on_load_actions' in paragraph_data:
+        for action_obj in paragraph_data.get('on_load_actions',[]):
+            if action_obj.get("type") == "play_audio": # Explicitly played audio
+                audio_played_in_on_load = True; break
+            if action_obj.get("type") == "conditional_actions": # Conditional actions might play audio
+                # This is a simplification; true_actions/false_actions would need inspection
+                # For now, assume if conditional_actions exists, it handles its audio if any.
+                # A more robust check would see if 'play_audio' is in the executed branch.
+                pass # Let's assume conditional_actions handles its audio, so don't play main audio_cue if it exists
+
+    main_audio_cue = paragraph_data.get('audio_cue')
+    main_text_key_associated_with_audio = None
+
+    if main_audio_cue and not audio_played_in_on_load:
+         main_text_key_associated_with_audio = main_audio_cue.get('file_id') # Used to link audio to text_key
+         dub_play(
+             main_audio_cue.get('file_id'),
+             main_audio_cue.get('category'),
+             main_audio_cue.get('skippable', True),
+             main_audio_cue.get('with_text', True), # Main audio usually prints its associated text
+             main_audio_cue.get('round_robin')
+         )
+
+    # 3. Display primary paragraph text (from 'text_key' field)
+    # Only print if not already handled by the main audio_cue's with_text=True
+    if 'text_key' in paragraph_data:
+        should_print_main_text = True
+        if main_audio_cue and main_audio_cue.get('with_text', True) and not audio_played_in_on_load:
+            # If main audio was played and IT handled text, don't print again IF text_keys match
+            if paragraph_data['text_key'] == main_text_key_associated_with_audio:
+                 should_print_main_text = False
+
+        if should_print_main_text:
+            # Fallback to text_key itself if not found in gamebook (e.g. for "xxx_no_text")
+            text_content = gb.gameboook[cnst.setup_params['translation']].get(paragraph_data['text_key'], paragraph_data['text_key'])
+            # Avoid printing keys like "xxx_no_text" or if content is identical to key
+            if text_content and text_content != paragraph_data['text_key'] or not paragraph_data['text_key'].endswith("_no_text"):
+                 print(text_content)
+            elif not gb.gameboook[cnst.setup_params['translation']].get(paragraph_data['text_key']):
+                 debug_message(f"Main text_key '{paragraph_data['text_key']}' not found in gamebook, using key as text if not a control key.")
+
+
+    # 4. Display supplementary texts
+    if 'supplementary_text_keys' in paragraph_data:
+        for key in paragraph_data['supplementary_text_keys']:
+            text_content = gb.gameboook[cnst.setup_params['translation']].get(key, key)
+            print(text_content)
+
+    # 5. Process and Display Choices
+    actual_choices = []
+    # Standard choices from "choices" array
+    if 'choices' in paragraph_data:
+        for choice_obj in paragraph_data['choices']:
+            conditions_pass = True # Assume true unless conditions exist and fail
+            if 'conditions' in choice_obj: # Check for inline conditions for a choice
+                conditions_pass = all(_evaluate_condition(cond) for cond in choice_obj['conditions'])
+            if conditions_pass:
+                actual_choices.append(choice_obj)
+
+    # Conditional choice sets from "conditional_choices" array (for complex branching like _269)
+    if not actual_choices and 'conditional_choices' in paragraph_data: # Only if no standard choices were resolved
+        for choice_set in paragraph_data['conditional_choices']:
+            all_set_conditions_met = True # Default to true for a set with empty/no conditions (fallback)
+            if choice_set.get('conditions'):
+                all_set_conditions_met = all(_evaluate_condition(cond) for cond in choice_set['conditions'])
+
+            if all_set_conditions_met: # Found the first matching set of choices
+                actual_choices.extend(choice_set['choices'])
+                break
+
+    # Special handling for paragraph _115 choices (if its JSON structure relies on this)
+    if current_paragraph_id_str == '115' and hasattr(cnst, 'choices_115'):
+        debug_message("Paragraph 115: Dynamically populating choices from cnst.choices_115.")
+        actual_choices = [] # Override any static choices in JSON for _115 if cnst.choices_115 is used
+        for text, target_func_name in cnst.choices_115.items():
+            target_para_id = target_func_name.replace("_", "")
+            actual_choices.append({
+                "text_key": text,
+                "action": {
+                    "type": "compound_action",
+                    "actions": [
+                        {"type": "item_add", "value": {"item_name": text}},
+                        {"type": "jump", "value": target_para_id}
+                    ]
+                }
+            })
+
+    if not actual_choices: # No choices resolved from any source
+        debug_message(f"No available choices for paragraph {current_paragraph_id_str}. Game may end or need fallback.")
+        # This might be an end-of-path, or might require a jump_paragraph_xx() if it's an error state.
+        # For now, if a paragraph is designed to have no choices (e.g., it only has on_load_actions that jump), this is fine.
+        return
+
+    # Display choices
+    for i, choice_obj in enumerate(actual_choices):
+        choice_text_key = choice_obj.get('text_key', f"Choice_{i+1}")
+        choice_text = gb.gameboook[cnst.setup_params['translation']].get(choice_text_key, choice_text_key)
+        print(f'{i + 1} · {choice_text}')
+        time.sleep(cnst.TIME_DELAY) # Original behavior
+
+    # Get player input
+    selected_index = -1
+    while True:
+        usr_input_str = input(f'{cnst.INPUT_SIGN}{cnst.DEFAULT_COLOR}')
+        try:
+            usr_input_idx = int(usr_input_str)
+            if 1 <= usr_input_idx <= len(actual_choices):
+                selected_index = usr_input_idx - 1; break
+        except ValueError: pass
+        print(f'/!/ {cnst.SPECIAL_COLOR}Choose number from list{cnst.DEFAULT_COLOR}')
+
+    chosen_choice_obj = actual_choices[selected_index]
+
+    # Handle audio for the chosen choice itself, if specified
+    if 'audio_cue' in chosen_choice_obj:
+        vo_choice = chosen_choice_obj['audio_cue']
+        dub_play(vo_choice.get('file_id'), vo_choice.get('category'),
+                   vo_choice.get('skippable', True), vo_choice.get('with_text', False),
+                   vo_choice.get('round_robin'))
+
+    # pygame.mixer.stop() # Stop narration before processing action. dub_play already does this.
+
+    # Execute chosen action
+    chosen_action_obj = chosen_choice_obj['action']
+    result = _execute_action(chosen_action_obj, current_paragraph_id_str)
+
+    if result.get('next_paragraph_id'):
+        get_game_state('s', result['next_paragraph_id'])
+        pth_selector(result['next_paragraph_id'])
+    # If no next_paragraph_id from action, current path of game logic ends.
+    # Could add a check here: if not result.get('terminate_processing'), maybe re-show current paragraph (though risky for loops)
+
+def kill():
     """
     Parameters:
         path_strings (list[str], optional): A list of strings representing path descriptions.
@@ -1065,9 +1509,16 @@ def combat_main(entity, state, esc_possible, escape_id, stay_id, win_path):
             if len(odp) == 0:
                 print(
                     f"{cnst.SPECIAL_COLOR}Wytrzymałość: {cnst.w_count} {cnst.INPUT_SIGN} {cnst.w_count - 2}{cnst.DEFAULT_COLOR}")
-                cnst.w_count -= 2
-                eval("prg._" + escape_id + "()")
-            elif len(odp) > 0:
-                eval("prg._" + stay_id + "()")
+            cnst.w_count = update_variable(cnst.w_count, -2) # Use update_variable
+            if escape_id: pth_selector(escape_id)
+            else: jump_paragraph_xx()
+        elif stay_id:
+            pth_selector(stay_id)
+        elif win_path: # Should be stay_id if it's main progression
+             pth_selector(win_path)
         else:
-            eval("prg._" + win_path + "()")
+            jump_paragraph_xx()
+    elif win_path: # No escape possible, direct win_path
+        pth_selector(win_path)
+    else:
+         jump_paragraph_xx()

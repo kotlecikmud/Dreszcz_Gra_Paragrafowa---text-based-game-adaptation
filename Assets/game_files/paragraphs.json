@@ -1,0 +1,643 @@
+[
+  {
+    "id": "0",
+    "text_key": "00a",
+    "audio_cue": { "file_path_ref": "dubs.adam_00a", "voice_id_ref": "voices.adam" },
+    "on_load_actions": [
+      { "type": "special_event", "value": "elixir_choice_sequence" },
+      { "type": "game_state", "value": "s", "new_game": true }
+    ],
+    "choices": [
+      { "text_key": "00b_continue", "action": { "type": "jump", "value": "1" }, "audio_cue": { "file_path_ref": "dubs.adam_00b", "voice_id_ref": "voices.adam" } }
+    ]
+  },
+  {
+    "id": "1",
+    "text_key": "01",
+    "audio_cue": { "file_path_ref": "dubs.adam_01", "voice_id_ref": "voices.adam" },
+    "choices": [ { "text_key": "implicit_continue_key", "action": { "type": "jump", "value": "25" } } ]
+  },
+  {
+    "id": "2",
+    "text_key": "02",
+    "audio_cue": { "file_path_ref": "dubs.adam_02", "voice_id_ref": "voices.adam" },
+    "on_load_actions": [
+      { "type": "combat", "value": { "entity_id_ref": "ent.entity_002", "entity_state_ref": "ent.entity_002.state", "escape_possible_ref": "ent.entity_002.esc_possible", "escape_paragraph_id": "372", "stay_paragraph_id": "", "win_paragraph_id": "380", "lose_paragraph_id": "_xx" } }
+    ],
+    "choices": []
+  },
+  {
+    "id": "3",
+    "text_key": "03",
+    "audio_cue": { "file_path_ref": "dubs.adam_03", "voice_id_ref": "voices.adam" },
+    "choices": [
+      { "text_key": "Spróbuj jeszcze raz (wymagane conajmniej 13 sztuk złota)", "action": { "type": "jump", "value": "136" } },
+      { "text_key": "Wyciągnij z plecaka linę", "action": { "type": "jump", "value": "13" } },
+      { "text_key": "Podejdź do mostu", "action": { "type": "jump", "value": "269" } },
+      { "text_key": "Spróbuj przeskoczyć przez rozpadlinę (przynajmniej 18W i 9Z)", "action": { "type": "jump", "value": "74" } }
+    ]
+  },
+  {
+    "id": "4",
+    "text_key": "04",
+    "audio_cue": { "file_path_ref": "dubs.adam_04", "voice_id_ref": "voices.adam" },
+    "choices": [
+      { "text_key": "Chwytasz za miecz i atakujesz", "action": { "type": "jump", "value": "318" } },
+      { "text_key": "Postanawiasz czekać dalej", "action": { "type": "jump", "value": "295" } }
+    ]
+  },
+  {
+    "id": "5",
+    "text_key": "05",
+    "audio_cue": { "file_path_ref": "dubs.dunmer_05", "voice_id_ref": "voices.dunmer" },
+    "choices": [
+      { "text_key": "tak", "action": { "type": "jump", "value": "312" } },
+      { "text_key": "nie", "action": { "type": "jump", "value": "140" } }
+    ]
+  },
+  {
+    "id": "6a",
+    "text_key": "06a_no_text",
+    "on_load_actions": [ { "type": "stat_change", "value": { "stat_ref": "cnst.s_count", "amount": 1, "limit_ref": null } } ],
+    "choices": [ { "text_key": "implicit_continue_key", "action": { "type": "jump", "value": "06b" } } ]
+  },
+  {
+    "id": "6b",
+    "text_key": "06",
+    "audio_cue": { "file_path_ref": "dubs.adam_06", "voice_id_ref": "voices.adam" },
+    "choices": [ { "text_key": "implicit_continue_key", "action": { "type": "jump", "value": "115" } } ]
+  },
+  {
+    "id": "7",
+    "text_key": "07",
+    "audio_cue": { "file_path_ref": "dubs.adam_07", "voice_id_ref": "voices.adam" },
+    "choices": [ { "text_key": "implicit_continue_key", "action": { "type": "jump", "value": "219" } } ]
+  },
+  {
+    "id": "8",
+    "text_key": "08",
+    "audio_cue": { "file_path_ref": "dubs.adam_08", "voice_id_ref": "voices.adam" },
+    "choices": [
+      { "text_key": "Walcz u boku prześladowanego stwora przeciw zgrai jego współplemieńców", "action": { "type": "jump", "value": "210" } },
+      { "text_key": "Ratuj się Ucieczką", "action": { "type": "jump", "value": "98" } }
+    ]
+  },
+  {
+    "id": "9",
+    "text_key": "09",
+    "audio_cue": { "file_path_ref": "dubs.adam_09", "voice_id_ref": "voices.adam" },
+    "choices": [
+      { "text_key": "Sprzedaj kamień krasnalowi", "action": { "type": "jump", "value": "289" } },
+      { "text_key": "Nie sprzedawaj kamienia", "action": { "type": "jump", "value": "375" } }
+    ]
+  },
+  {
+    "id": "10", "text_key": "10", "audio_cue": { "file_path_ref": "dubs.adam_10", "voice_id_ref": "voices.adam" },
+    "on_load_actions": [ { "type": "special_event", "value": "jump_prompt_xx" } ], "choices": []
+  },
+  {
+    "id": "11", "text_key": "11", "audio_cue": { "file_path_ref": "dubs.dunmer_11", "voice_id_ref": "voices.dunmer" },
+    "choices": [
+      { "text_key": "idziesz od razu po wodę", "action": { "type": "jump", "value": "45" } },
+      { "text_key": "dobierasz się do stwora", "action": { "type": "jump", "value": "192" } }
+    ]
+  },
+  {
+    "id": "12", "text_key": "12", "audio_cue": { "file_path_ref": "dubs.adam_12", "voice_id_ref": "voices.adam" },
+    "choices": [ { "text_key": "implicit_continue_key", "action": { "type": "jump", "value": "288" } } ]
+  },
+  {
+    "id": "13", "text_key": "13", "audio_cue": { "file_path_ref": "dubs.adam_13", "voice_id_ref": "voices.adam" },
+    "on_load_actions": [ { "type": "stat_change", "value": { "stat_ref": "cnst.w_count", "amount": -2, "limit_ref": null } } ],
+    "choices": [ { "text_key": "implicit_continue_key", "action": { "type": "jump", "value": "126" } } ]
+  },
+  {
+    "id": "14", "text_key": "14", "audio_cue": { "file_path_ref": "dubs.adam_14", "voice_id_ref": "voices.adam" },
+    "choices": [
+      { "text_key": "Wychodzisz północnymi drzwiami", "action": { "type": "jump", "value": "197" } },
+      { "text_key": "Wychodzisz wschodnimi drzwiami", "action": { "type": "jump", "value": "39" } }
+    ]
+  },
+  {
+    "id": "15", "text_key": "15", "audio_cue": { "file_path_ref": "dubs.adam_15", "voice_id_ref": "voices.adam" },
+    "choices": [
+      { "text_key": "Rezygnujesz z przepłynięcia jeziora", "action": { "type": "jump", "value": "241" } },
+      { "text_key": "Decydujesz się podjąć próbę przepłynięcia jeziora", "action": { "type": "jump", "value": "113" } }
+    ]
+  },
+  {
+    "id": "16a", "text_key": "16a", "audio_cue": { "file_path_ref": "dubs.adam_16a", "voice_id_ref": "voices.adam" },
+    "on_load_actions": [ { "type": "eval_function", "function_string": "func.eatables()" } ],
+    "choices": [ { "text_key": "16b_continue", "action": { "type": "jump", "value": "80" } } ],
+    "supplementary_text_keys": ["16b"]
+  },
+  {
+    "id": "17", "text_key": "17_no_text",
+    "choices": [
+      { "text_key": "Zobacz co za nimi jest", "action": { "type": "jump", "value": "265" } },
+      { "text_key": "Wycofaj się", "action": { "type": "jump", "value": "50" } }
+    ]
+  },
+  {
+    "id": "18", "text_key": "18", "audio_cue": { "file_path_ref": "dubs.adam_18", "voice_id_ref": "voices.adam" },
+    "choices": [
+      { "text_key": "Jeśli tak, pamiętaj że musisz mieć przynajmniej 5 sztuk złota", "action": { "type": "jump", "value": "211" } },
+      { "text_key": "Wycofujesz się", "action": { "type": "jump", "value": "286" } }
+    ]
+  },
+  {
+    "id": "19", "text_key": "19", "audio_cue": { "file_path_ref": "dubs.adam_19", "voice_id_ref": "voices.adam" },
+    "on_load_actions": [
+      { "type": "stat_change", "value": { "stat_ref": "cnst.meal_count", "amount": 1, "limit_ref": null } },
+      { "type": "stat_change", "value": { "stat_ref": "cnst.s_count", "amount": 2, "limit_ref": null } }
+    ],
+    "choices": [ { "text_key": "implicit_continue_key", "action": { "type": "jump", "value": "141" } } ]
+  },
+  {
+    "id": "20", "text_key": "20", "audio_cue": { "file_path_ref": "dubs.adam_20", "voice_id_ref": "voices.adam" },
+    "choices": [ { "text_key": "implicit_continue_key", "action": { "type": "jump", "value": "238a" } } ]
+  },
+  {
+    "id": "21", "text_key": "21_no_text",
+    "choices": [
+      { "text_key": "Zobacz co jest za drzwiami", "action": { "type": "jump", "value": "332" } },
+      { "text_key": "Zawróć", "action": { "type": "jump", "value": "212" } }
+    ]
+  },
+  {
+    "id": "22", "text_key": "22", "audio_cue": { "file_path_ref": "dubs.adam_22", "voice_id_ref": "voices.adam" },
+    "on_load_actions": [ { "type": "special_event", "value": "jump_prompt_xx" } ], "choices": []
+  },
+  {
+    "id": "23", "text_key": "23", "audio_cue": { "file_path_ref": "dubs.adam_23", "voice_id_ref": "voices.adam" },
+    "on_load_actions": [ { "type": "special_event", "value": "jump_prompt_xx" } ], "choices": []
+  },
+  {
+    "id": "24", "text_key": "24", "audio_cue": { "file_path_ref": "dubs.adam_24", "voice_id_ref": "voices.adam" },
+    "on_load_actions": [ { "type": "special_event", "value": "jump_prompt_xx" } ], "choices": []
+  },
+  {
+    "id": "25", "text_key": "25", "audio_cue": { "file_path_ref": "dubs.adam_25", "voice_id_ref": "voices.adam" },
+    "choices": [
+      { "text_key": "Idziesz na zachód", "action": { "type": "jump", "value": "200" } },
+      { "text_key": "Wybierasz drogę prowadzącą na wschód", "action": { "type": "jump", "value": "44" } }
+    ]
+  },
+  {
+    "id": "26", "text_key": "26", "audio_cue": { "file_path_ref": "dubs.adam_26", "voice_id_ref": "voices.adam" },
+    "on_load_actions": [ { "type": "special_event", "value": "jump_prompt_xx" } ], "choices": []
+  },
+  {
+    "id": "27", "text_key": "27", "audio_cue": { "file_path_ref": "dubs.adam_27", "voice_id_ref": "voices.adam" },
+    "on_load_actions": [ { "type": "special_event", "value": "jump_prompt_xx" } ], "choices": []
+  },
+  {
+    "id": "28", "text_key": "28", "audio_cue": { "file_path_ref": "dubs.adam_28", "voice_id_ref": "voices.adam" },
+    "on_load_actions": [ { "type": "conditional_jump", "conditions": [{ "type": "eval_condition", "condition_string": "cnst.w_count >= 18" }], "true_target": "177", "false_target": "330" } ],
+    "choices": []
+  },
+  {
+    "id": "29", "text_key": "29", "audio_cue": { "file_path_ref": "dubs.adam_29", "voice_id_ref": "voices.adam" },
+    "choices": [ { "text_key": "implicit_continue_key", "action": { "type": "jump", "value": "116a" } } ]
+  },
+  {
+    "id": "30", "text_key": "30", "audio_cue": { "file_path_ref": "dubs.adam_30", "voice_id_ref": "voices.adam" },
+    "on_load_actions": [ { "type": "special_event", "value": "jump_prompt_xx" } ], "choices": []
+  },
+  {
+    "id": "31", "text_key": "31", "audio_cue": { "file_path_ref": "dubs.adam_31", "voice_id_ref": "voices.adam" },
+    "choices": [ { "text_key": "implicit_continue_key", "action": { "type": "jump", "value": "119" } } ]
+  },
+  {
+    "id": "32", "text_key": "32", "audio_cue": { "file_path_ref": "dubs.adam_32", "voice_id_ref": "voices.adam" },
+    "on_load_actions": [ { "type": "special_event", "value": "jump_prompt_xx" } ], "choices": []
+  },
+  {
+    "id": "33", "text_key": "33", "audio_cue": { "file_path_ref": "dubs.adam_33", "voice_id_ref": "voices.adam" },
+    "on_load_actions": [ { "type": "special_event", "value": "jump_prompt_xx" } ], "choices": []
+  },
+  {
+    "id": "34", "text_key": "34", "audio_cue": { "file_path_ref": "dubs.adam_34", "voice_id_ref": "voices.adam" },
+    "on_load_actions": [ { "type": "special_event", "value": "jump_prompt_xx" } ], "choices": []
+  },
+  {
+    "id": "35", "text_key": "35", "audio_cue": { "file_path_ref": "dubs.adam_35", "voice_id_ref": "voices.adam" },
+    "on_load_actions": [ { "type": "special_event", "value": "jump_prompt_xx" } ], "choices": []
+  },
+  {
+    "id": "36", "text_key": "36", "audio_cue": { "file_path_ref": "dubs.adam_36", "voice_id_ref": "voices.adam" },
+    "on_load_actions": [ { "type": "special_event", "value": "jump_prompt_xx" } ], "choices": []
+  },
+  {
+    "id": "37", "text_key": "37_no_text",
+    "on_load_actions": [
+      { "type": "variable_change", "value": { "var_ref": "cnst.choice_count", "change_amount": 1 } },
+      { "type": "conditional_jump", "conditions": [{ "type": "eval_condition", "condition_string": "cnst.choice_count < 3" }], "true_target": "115", "false_target": "68" }
+    ], "choices": []
+  },
+  {
+    "id": "38", "text_key": "38", "audio_cue": { "file_path_ref": "dubs.adam_38", "voice_id_ref": "voices.adam" },
+    "on_load_actions": [ { "type": "special_event", "value": "jump_prompt_xx" } ], "choices": []
+  },
+  {
+    "id": "39", "text_key": "39", "audio_cue": { "file_path_ref": "dubs.adam_39", "voice_id_ref": "voices.adam" },
+    "choices": [
+      { "text_key": "zachód", "action": { "type": "jump", "value": "331" } },
+      { "text_key": "północ", "action": { "type": "jump", "value": "228" } },
+      { "text_key": "południe", "action": { "type": "jump", "value": "146" } }
+    ]
+  },
+  {
+    "id": "40", "text_key": "40", "audio_cue": { "file_path_ref": "dubs.adam_40", "voice_id_ref": "voices.adam" },
+    "on_load_actions": [ { "type": "special_event", "value": "jump_prompt_xx" } ], "choices": []
+  },
+  {
+    "id": "41", "text_key": "41", "audio_cue": { "file_path_ref": "dubs.adam_41", "voice_id_ref": "voices.adam" },
+    "on_load_actions": [ { "type": "special_event", "value": "jump_prompt_xx" } ], "choices": []
+  },
+  {
+    "id": "42", "text_key": "42", "audio_cue": { "file_path_ref": "dubs.adam_42", "voice_id_ref": "voices.adam" },
+    "on_load_actions": [ { "type": "special_event", "value": "jump_prompt_xx" } ], "choices": []
+  },
+  {
+    "id": "43", "text_key": "43", "audio_cue": { "file_path_ref": "dubs.adam_43", "voice_id_ref": "voices.adam" },
+    "on_load_actions": [ { "type": "special_event", "value": "jump_prompt_xx" } ], "choices": []
+  },
+  {
+    "id": "44", "text_key": "44", "audio_cue": { "file_path_ref": "dubs.adam_44", "voice_id_ref": "voices.adam" },
+    "choices": [
+      { "text_key": "Rezygnujesz", "action": { "type": "jump", "value": "75" } },
+      { "text_key": "Wyważasz drzwi", "action": { "type": "jump", "value": "105" } }
+    ]
+  },
+  {
+    "id": "45", "text_key": "45", "audio_cue": { "file_path_ref": "dubs.adam_45", "voice_id_ref": "voices.adam" },
+    "on_load_actions": [ { "type": "stat_change", "value": { "stat_ref": "cnst.s_count", "amount": 2, "limit_ref": null } } ],
+    "choices": [ { "text_key": "implicit_continue_key", "action": { "type": "jump", "value": "251" } } ]
+  },
+  {
+    "id": "46", "text_key": "46", "audio_cue": { "file_path_ref": "dubs.adam_46", "voice_id_ref": "voices.adam" },
+    "on_load_actions": [ { "type": "special_event", "value": "jump_prompt_xx" } ], "choices": []
+  },
+  {
+    "id": "47", "text_key": "47", "audio_cue": { "file_path_ref": "dubs.adam_47", "voice_id_ref": "voices.adam" },
+    "on_load_actions": [ { "type": "special_event", "value": "jump_prompt_xx" } ], "choices": []
+  },
+  {
+    "id": "48", "text_key": "48", "audio_cue": { "file_path_ref": "dubs.adam_48", "voice_id_ref": "voices.adam" },
+    "on_load_actions": [ { "type": "special_event", "value": "jump_prompt_xx" } ], "choices": []
+  },
+  {
+    "id": "49", "text_key": "49", "audio_cue": { "file_path_ref": "dubs.adam_49", "voice_id_ref": "voices.adam" },
+    "on_load_actions": [ { "type": "special_event", "value": "jump_prompt_xx" } ], "choices": []
+  },
+  {
+    "id": "50", "text_key": "50", "audio_cue": { "file_path_ref": "dubs.adam_50", "voice_id_ref": "voices.adam" },
+    "choices": [
+      { "text_key": "północ", "action": { "type": "jump", "value": "310" } },
+      { "text_key": "wschód", "action": { "type": "jump", "value": "130" } },
+      { "text_key": "zachód", "action": { "type": "jump", "value": "64" } }
+    ]
+  },
+  { "id": "51", "text_key": "51", "audio_cue": {"file_path_ref": "dubs.adam_51", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": [] },
+  { "id": "52", "text_key": "52", "audio_cue": {"file_path_ref": "dubs.adam_52", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": [] },
+  { "id": "53", "text_key": "53", "audio_cue": {"file_path_ref": "dubs.adam_53", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": [] },
+  { "id": "54", "text_key": "54", "audio_cue": {"file_path_ref": "dubs.adam_54", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": [] },
+  { "id": "55", "text_key": "55", "audio_cue": {"file_path_ref": "dubs.adam_55", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": [] },
+  { "id": "56", "text_key": "56", "audio_cue": {"file_path_ref": "dubs.adam_56", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "stat_change", "value": {"stat_ref": "cnst.w_count", "amount": -1, "limit_ref": null}}], "choices": [{"text_key": "implicit_continue_key", "action": {"type": "jump", "value": "75"}}]},
+  { "id": "57", "text_key": "57", "audio_cue": {"file_path_ref": "dubs.adam_57", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": [] },
+  { "id": "58", "text_key": "58", "audio_cue": {"file_path_ref": "dubs.adam_58", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": [] },
+  { "id": "59", "text_key": "59", "audio_cue": {"file_path_ref": "dubs.adam_59", "voice_id_ref": "voices.adam"}, "choices": [{"text_key": "tak", "action": {"type": "jump", "value": "14"}}, {"text_key": "nie", "action": {"type": "jump", "value": "70"}}]},
+  { "id": "60", "text_key": "60", "audio_cue": {"file_path_ref": "dubs.adam_60", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": [] },
+  { "id": "61", "text_key": "61", "audio_cue": {"file_path_ref": "dubs.adam_61", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": [] },
+  { "id": "64", "text_key": "64", "audio_cue": {"file_path_ref": "dubs.adam_64", "voice_id_ref": "voices.adam"}, "choices": [{"text_key": "zachód", "action": {"type": "jump", "value": "296"}}, {"text_key": "północ", "action": {"type": "jump", "value": "264"}}, {"text_key": "wschód", "action": {"type": "jump", "value": "284"}}, {"text_key": "południe", "action": {"type": "jump", "value": "224"}}]},
+  { "id": "65", "text_key": "65", "audio_cue": {"file_path_ref": "dubs.adam_65", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": [] },
+  { "id": "66", "text_key": "66", "audio_cue": {"file_path_ref": "dubs.adam_66", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": [] },
+  { "id": "67", "text_key": "67", "audio_cue": {"file_path_ref": "dubs.adam_67", "voice_id_ref": "voices.adam"}, "choices": [{"text_key": "Musisz się wycofać.", "action": {"type": "jump", "value": "50"}}]},
+  { "id": "68", "text_key": "68", "audio_cue": {"file_path_ref": "dubs.adam_68", "voice_id_ref": "voices.adam"}, "choices": [{"text_key": "implicit_continue_key", "action": {"type": "jump", "value": "212"}}]},
+  { "id": "69a", "text_key": "69a", "audio_cue": {"file_path_ref": "dubs.adam_69a", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "combat", "value": {"entity_id_ref": "ent.entity_069_1", "entity_state_ref": "ent.entity_069_1.state", "escape_possible_ref": "ent.entity_069_1.esc_possible", "escape_paragraph_id": "", "stay_paragraph_id": "", "win_paragraph_id": "69b", "lose_paragraph_id": "_xx"}}], "choices": []},
+  { "id": "69b", "text_key": "69b", "audio_cue": {"file_path_ref": "dubs.adam_69b", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "combat", "value": {"entity_id_ref": "ent.entity_069_2", "entity_state_ref": "ent.entity_069_2.state", "escape_possible_ref": "ent.entity_069_2.esc_possible", "escape_paragraph_id": "", "stay_paragraph_id": "", "win_paragraph_id": "69c", "lose_paragraph_id": "_xx"}}], "choices": []},
+  { "id": "69c", "text_key": "69c", "audio_cue": {"file_path_ref": "dubs.adam_69c", "voice_id_ref": "voices.adam"}, "choices": [{"text_key": "tak", "action": {"type": "jump", "value": "305"}}, {"text_key": "nie", "action": {"type": "jump", "value": "291"}}]},
+  { "id": "70", "text_key": "70", "audio_cue": {"file_path_ref": "dubs.adam_70", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": [] },
+  { "id": "71", "text_key": "71", "audio_cue": {"file_path_ref": "dubs.adam_71", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": [] },
+  { "id": "72", "text_key": "72", "audio_cue": {"file_path_ref": "dubs.adam_72", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": [] },
+  { "id": "73", "text_key": "73", "audio_cue": {"file_path_ref": "dubs.adam_73", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": [] },
+  { "id": "74", "text_key": "74", "audio_cue": {"file_path_ref": "dubs.adam_74", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": [] },
+  { "id": "75", "text_key": "75", "audio_cue": {"file_path_ref": "dubs.adam_75", "voice_id_ref": "voices.adam"}, "choices": [{"text_key": "implicit_continue_key", "action": {"type": "jump", "value": "200"}}]},
+  { "id": "76", "text_key": "76", "audio_cue": {"file_path_ref": "dubs.adam_76", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": [] },
+  { "id": "77", "text_key": "77", "audio_cue": {"file_path_ref": "dubs.adam_77", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": [] },
+  { "id": "78", "text_key": "78", "audio_cue": {"file_path_ref": "dubs.adam_78", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": [] },
+  { "id": "79", "text_key": "79", "audio_cue": {"file_path_ref": "dubs.adam_79", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": [] },
+  { "id": "80", "text_key": "80", "audio_cue": {"file_path_ref": "dubs.adam_80", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": [] },
+  { "id": "81", "text_key": "81", "audio_cue": {"file_path_ref": "dubs.adam_81", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": [] },
+  { "id": "82", "text_key": "82", "audio_cue": {"file_path_ref": "dubs.adam_82", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": [] },
+  { "id": "83", "text_key": "83", "audio_cue": {"file_path_ref": "dubs.adam_83", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": [] },
+  { "id": "84", "text_key": "84", "audio_cue": {"file_path_ref": "dubs.adam_84", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": [] },
+  { "id": "85", "text_key": "85", "audio_cue": {"file_path_ref": "dubs.adam_85", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": [] },
+  { "id": "86", "text_key": "86", "audio_cue": {"file_path_ref": "dubs.adam_86", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": [] },
+  { "id": "87", "text_key": "87", "audio_cue": {"file_path_ref": "dubs.adam_87", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": [] },
+  { "id": "88", "text_key": "88", "audio_cue": {"file_path_ref": "dubs.adam_88", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": [] },
+  { "id": "89", "text_key": "89a", "audio_cue": {"file_path_ref": "dubs.adam_89a", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "stat_change", "value": {"stat_ref": "cnst.s_count", "amount": 2, "limit_ref": "cnst.s_init"}}, {"type": "stat_change", "value": {"stat_ref": "cnst.gold_amount", "amount": 3, "limit_ref": null}}, {"type": "play_audio", "value": {"file_path_ref": "dubs.adam_89b", "voice_id_ref": "voices.adam"}}], "choices": [{"text_key": "implicit_continue_key", "action": {"type": "jump", "value": "120"}}]},
+  { "id": "90", "text_key": "90", "audio_cue": {"file_path_ref": "dubs.adam_90", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": [] },
+  { "id": "91", "text_key": "01", "audio_cue": {"file_path_ref": "dubs.adam_01", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": [] },
+  { "id": "92", "text_key": "92", "audio_cue": {"file_path_ref": "dubs.adam_92", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": [] },
+  { "id": "93", "text_key": "93", "audio_cue": {"file_path_ref": "dubs.adam_93", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": [] },
+  { "id": "94", "text_key": "94", "audio_cue": {"file_path_ref": "dubs.adam_94", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": [] },
+  { "id": "95", "text_key": "95_no_text", "on_load_actions": [{"type": "variable_change", "value": {"var_ref": "cnst.choice_count", "change_amount": 1}}, {"type": "conditional_jump", "conditions": [{"type": "eval_condition", "condition_string": "cnst.choice_count < 3"}], "true_target": "115", "false_target": "68"}], "choices": []},
+  { "id": "96", "text_key": "96", "audio_cue": {"file_path_ref": "dubs.adam_96", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": [] },
+  { "id": "97", "text_key": "97", "audio_cue": {"file_path_ref": "dubs.adam_97", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": [] },
+  { "id": "98", "text_key": "98", "audio_cue": {"file_path_ref": "dubs.adam_98", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": [] },
+  { "id": "99", "text_key": "99", "audio_cue": {"file_path_ref": "dubs.adam_99", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": [] },
+  { "id": "100", "text_key": "100", "audio_cue": {"file_path_ref": "dubs.adam_100", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": [] },
+  { "id": "101", "text_key": "101_grace_prompt", "choices": [{"text_key": "Darujesz mu życie", "action": {"type": "jump", "value": "362"}}, {"text_key": "Walczysz aż do końca", "action": {"type": "jump", "value": "234"}}]},
+  { "id": "102", "text_key": "102", "audio_cue": {"file_path_ref": "dubs.adam_102", "voice_id_ref": "voices.adam"}, "choices": [{"text_key": "zachód", "action": {"type": "jump", "value": "123"}}, {"text_key": "północ", "action": {"type": "jump", "value": "268"}}, {"text_key": "wschód", "action": {"type": "jump", "value": "374"}}, {"text_key": "południe", "action": {"type": "jump", "value": "351"}}]},
+  { "id": "103", "text_key": "103", "audio_cue": {"file_path_ref": "dubs.adam_103", "voice_id_ref": "voices.adam"}, "choices": [{"text_key": "implicit_continue_key", "action": {"type": "jump", "value": "345"}}]},
+  { "id": "104", "text_key": "104", "audio_cue": {"file_path_ref": "dubs.adam_104", "voice_id_ref": "voices.adam"}, "choices": [{"text_key": "implicit_continue_key", "action": {"type": "jump", "value": "121"}}]},
+  { "id": "105", "text_key": "105", "audio_cue": {"file_path_ref": "dubs.adam_105", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "stat_change", "value": {"stat_ref": "cnst.w_count", "amount": -1, "limit_ref": null}}], "choices": [{"text_key": "tak", "action": {"type": "jump", "value": "56"}}, {"text_key": "nie", "action": {"type": "jump", "value": "75"}}], "supplementary_text_keys": ["105_retry_prompt"]},
+  { "id": "106", "text_key": "106", "audio_cue": {"file_path_ref": "dubs.adam_106", "voice_id_ref": "voices.adam"}, "choices": [{"text_key": "Broń się mieczem", "action": {"type": "jump", "value": "213"}}, {"text_key": "Masz jedno albo drugie", "action": {"type": "jump", "value": "24"}}, {"text_key": "Masz jedno i drugie", "action": {"type": "jump", "value": "292"}}]},
+  { "id": "107", "text_key": "107_combat_start", "on_load_actions": [{"type": "combat", "value": {"entity_id_ref": "ent.entity_107", "entity_state_ref": "ent.entity_107.state", "escape_possible_ref": "ent.entity_107.esc_possible", "escape_paragraph_id": "", "stay_paragraph_id": "", "win_paragraph_id": "23", "lose_paragraph_id": "_xx"}}], "choices": []},
+  { "id": "108", "text_key": "108", "audio_cue": {"file_path_ref": "dubs.adam_108", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "109", "text_key": "109", "audio_cue": {"file_path_ref": "dubs.adam_109", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "110", "text_key": "110", "audio_cue": {"file_path_ref": "dubs.adam_110", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "111", "text_key": "111", "audio_cue": {"file_path_ref": "dubs.adam_111", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "112", "text_key": "112_testing_luck", "on_load_actions": [{"type": "conditional_jump", "conditions": [{"type": "eval_condition", "condition_string": "random.randint(4, 48) >= 18"}], "true_target": "28", "false_target": "291"}], "choices": []},
+  { "id": "113", "text_key": "113", "audio_cue": {"file_path_ref": "dubs.adam_113", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "114", "text_key": "114", "audio_cue": {"file_path_ref": "dubs.adam_114", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "115", "text_key": "115", "audio_cue": {"file_path_ref": "dubs.adam_115", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "variable_set", "value": {"var_ref": "cnst.choice_count", "new_value": 0}}], "choices": [ {"text_key": "PLACEHOLDER_CHOICE_TEXT_FROM_CNST_CHOICES_115", "action": {"type": "compound_action", "actions": [{"type": "item_add", "value": {"item_name": "PLACEHOLDER_CHOICE_TEXT_FROM_CNST_CHOICES_115"}}, {"type": "jump", "value": "TARGET_PARAGRAPH_ID_FROM_CNST_CHOICES_115"}]}}], "comment": "Choices for 115 are placeholders and depend on cnst.choices_115 dictionary from constants.py"},
+  { "id": "116a", "text_key": "116a", "audio_cue": {"file_path_ref": "dubs.adam_116a", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "combat", "value": {"entity_id_ref": "ent.entity_116", "entity_state_ref": "ent.entity_116.state", "escape_possible_ref": "ent.entity_116.esc_possible", "escape_paragraph_id": "", "stay_paragraph_id": "", "win_paragraph_id": "116b", "lose_paragraph_id": "_xx"}}], "choices": []},
+  { "id": "116b", "text_key": "116b", "audio_cue": {"file_path_ref": "dubs.adam_116b", "voice_id_ref": "voices.adam"}, "choices": [{"text_key": "Rozejrzyj się", "action": {"type": "jump", "value": "89"}}, {"text_key": "Opuść pieczarę", "action": {"type": "jump", "value": "120"}}]},
+  { "id": "117", "text_key": "117", "audio_cue": {"file_path_ref": "dubs.adam_117", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "118", "text_key": "118", "audio_cue": {"file_path_ref": "dubs.adam_118", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "119", "text_key": "119", "audio_cue": {"file_path_ref": "dubs.adam_119", "voice_id_ref": "voices.adam"}, "choices": [{"text_key": "Przeszukaj ciało", "action": {"type": "jump", "value": "31"}}, {"text_key": "Opuść komnatę", "action": {"type": "jump", "value": "102"}}]},
+  { "id": "120", "text_key": "120", "audio_cue": {"file_path_ref": "dubs.adam_120", "voice_id_ref": "voices.adam"}, "choices": [{"text_key": "implicit_continue_key", "action": {"type": "jump", "value": "64"}}]},
+  { "id": "121", "text_key": "121", "audio_cue": {"file_path_ref": "dubs.adam_121", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "122", "text_key": "122", "audio_cue": {"file_path_ref": "dubs.adam_122", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "123", "text_key": "123", "audio_cue": {"file_path_ref": "dubs.adam_123", "voice_id_ref": "voices.adam"}, "choices": [{"text_key": "implicit_continue_key", "action": {"type": "jump", "value": "39"}}]},
+  { "id": "124", "text_key": "124", "audio_cue": {"file_path_ref": "dubs.adam_124", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "125", "text_key": "125", "audio_cue": {"file_path_ref": "dubs.adam_125", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "126", "text_key": "126", "audio_cue": {"file_path_ref": "dubs.adam_126", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "127", "text_key": "127", "audio_cue": {"file_path_ref": "dubs.adam_127", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "128", "text_key": "128", "audio_cue": {"file_path_ref": "dubs.adam_128", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "129", "text_key": "129", "audio_cue": {"file_path_ref": "dubs.adam_129", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "130", "text_key": "130", "audio_cue": {"file_path_ref": "dubs.adam_130", "voice_id_ref": "voices.adam"}, "choices": [{"text_key": "implicit_continue_key", "action": {"type": "jump", "value": "212"}}]},
+  { "id": "131", "text_key": "131", "audio_cue": {"file_path_ref": "dubs.adam_131", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "132", "text_key": "132", "audio_cue": {"file_path_ref": "dubs.adam_132", "voice_id_ref": "voices.adam"}, "choices": [{"text_key": "Tak", "action": {"type": "jump", "value": "233"}}, {"text_key": "Nie", "action": {"type": "jump", "value": "128"}}]},
+  { "id": "133", "text_key": "133", "audio_cue": {"file_path_ref": "dubs.adam_133", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "134", "text_key": "134", "audio_cue": {"file_path_ref": "dubs.adam_134", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "135", "text_key": "135", "audio_cue": {"file_path_ref": "dubs.adam_135", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "136", "text_key": "136", "audio_cue": {"file_path_ref": "dubs.adam_136", "voice_id_ref": "voices.adam"}, "choices": [{"text_key": "implicit_continue_key", "action": {"type": "jump", "value": "186"}}]},
+  { "id": "137", "text_key": "137", "audio_cue": {"file_path_ref": "dubs.adam_137", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "138", "text_key": "138", "audio_cue": {"file_path_ref": "dubs.adam_138", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "139", "text_key": "139", "audio_cue": {"file_path_ref": "dubs.adam_139", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "140", "text_key": "140", "audio_cue": {"file_path_ref": "dubs.adam_140", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "141", "text_key": "141", "audio_cue": {"file_path_ref": "dubs.adam_141", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "142", "text_key": "142", "audio_cue": {"file_path_ref": "dubs.adam_142", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "143", "text_key": "143", "audio_cue": {"file_path_ref": "dubs.adam_143", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "144", "text_key": "144", "audio_cue": {"file_path_ref": "dubs.adam_144", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "145", "text_key": "145", "audio_cue": {"file_path_ref": "dubs.adam_145", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "146", "text_key": "146", "audio_cue": {"file_path_ref": "dubs.adam_146", "voice_id_ref": "voices.adam"}, "choices": [{"text_key": "implicit_continue_key", "action": {"type": "jump", "value": "64"}}]},
+  { "id": "147", "text_key": "147", "audio_cue": {"file_path_ref": "dubs.adam_147", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "148", "text_key": "148", "audio_cue": {"file_path_ref": "dubs.adam_148", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "149", "text_key": "149", "audio_cue": {"file_path_ref": "dubs.adam_149", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "150", "text_key": "150", "audio_cue": {"file_path_ref": "dubs.adam_150", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "151", "text_key": "151", "audio_cue": {"file_path_ref": "dubs.adam_151", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "152", "text_key": "152", "audio_cue": {"file_path_ref": "dubs.adam_152", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "153", "text_key": "153", "audio_cue": {"file_path_ref": "dubs.adam_153", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "stat_change", "value": {"stat_ref": "cnst.s_count", "amount": 1, "limit_ref": null}}, {"type": "variable_change", "value": {"var_ref": "cnst.p_hit_val_", "change_amount": 1}}], "choices": [{"text_key": "implicit_continue_key", "action": {"type": "jump", "value": "115"}}]},
+  { "id": "154", "text_key": "154", "audio_cue": {"file_path_ref": "dubs.adam_154", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "155", "text_key": "155", "audio_cue": {"file_path_ref": "dubs.adam_155", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "156", "text_key": "156", "audio_cue": {"file_path_ref": "dubs.adam_156", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "157", "text_key": "157", "audio_cue": {"file_path_ref": "dubs.adam_157", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "158", "text_key": "158", "audio_cue": {"file_path_ref": "dubs.adam_158", "voice_id_ref": "voices.adam"}, "choices": [{"text_key": "Jeszcze raz spróbuj ze Smokiem (10 sztuk złota)", "action": {"type": "jump", "value": "64"}}, {"text_key": "nie chcesz", "action": {"type": "jump", "value": "269"}}]},
+  { "id": "159", "text_key": "159", "audio_cue": {"file_path_ref": "dubs.adam_159", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "160", "text_key": "160", "audio_cue": {"file_path_ref": "dubs.adam_160", "voice_id_ref": "voices.adam"}, "choices": [{"text_key": "implicit_continue_key", "action": {"type": "jump", "value": "10"}}]},
+  { "id": "161", "text_key": "161", "audio_cue": {"file_path_ref": "dubs.adam_161", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "162", "text_key": "162", "audio_cue": {"file_path_ref": "dubs.adam_162", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "163", "text_key": "163", "audio_cue": {"file_path_ref": "dubs.adam_163", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "164", "text_key": "164", "audio_cue": {"file_path_ref": "dubs.adam_164", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "165", "text_key": "165", "audio_cue": {"file_path_ref": "dubs.adam_165", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "166", "text_key": "166", "audio_cue": {"file_path_ref": "dubs.adam_166", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "167", "text_key": "167", "audio_cue": {"file_path_ref": "dubs.adam_167", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "168", "text_key": "168", "audio_cue": {"file_path_ref": "dubs.adam_168", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "169", "text_key": "169", "audio_cue": {"file_path_ref": "dubs.adam_169", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "170", "text_key": "170", "audio_cue": {"file_path_ref": "dubs.adam_170", "voice_id_ref": "voices.adam"}, "choices": [{"text_key": "północ", "action": {"type": "jump", "value": "84"}}, {"text_key": "wschód", "action": {"type": "jump", "value": "319"}}, {"text_key": "południe", "action": {"type": "jump", "value": "357"}}]},
+  { "id": "171", "text_key": "171", "audio_cue": {"file_path_ref": "dubs.adam_171", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "172", "text_key": "172", "audio_cue": {"file_path_ref": "dubs.adam_172", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "173", "text_key": "173", "audio_cue": {"file_path_ref": "dubs.adam_173", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "174", "text_key": "174", "audio_cue": {"file_path_ref": "dubs.adam_174", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "175", "text_key": "175_no_text", "choices": [{"text_key": "implicit_continue_key", "action": {"type": "jump", "value": "373"}}]},
+  { "id": "176", "text_key": "176", "audio_cue": {"file_path_ref": "dubs.adam_176", "voice_id_ref": "voices.adam"}, "choices": [{"text_key": "północ", "action": {"type": "jump", "value": "27"}}, {"text_key": "wschód", "action": {"type": "jump", "value": "230"}}]},
+  { "id": "177", "text_key": "177", "audio_cue": {"file_path_ref": "dubs.adam_177", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "stat_change", "value": {"stat_ref": "cnst.s_count", "amount": 4, "limit_ref": null}}], "choices": [{"text_key": "implicit_continue_key", "action": {"type": "jump", "value": "330"}}]},
+  { "id": "178", "text_key": "178", "audio_cue": {"file_path_ref": "dubs.adam_178", "voice_id_ref": "voices.adam"}, "choices": [{"text_key": "implicit_continue_key", "action": {"type": "jump", "value": "15"}}]},
+  { "id": "179", "text_key": "179_no_text", "choices": [{"text_key": "implicit_continue_key", "action": {"type": "jump", "value": "373"}}]},
+  { "id": "180", "text_key": "180_base_text_or_conditional", "on_load_actions": [{"type": "conditional_actions", "conditions": [{"type": "eval_condition", "condition_string": "ent.room_364.visit_count <= 2"}], "true_actions": [{"type": "play_audio", "value": {"file_path_ref": "dubs.adam_180", "voice_id_ref": "voices.adam"}}, {"type": "item_add", "value": {"item_name": "key;45"}}, {"type": "eval_function", "function_string": "func.eq_change(\"klucz z liczbą '45'\")"}], "false_actions": []}], "choices": [{"text_key": "implicit_continue_key", "action": {"type": "jump", "value": "120"}}]},
+  { "id": "181", "text_key": "181", "audio_cue": {"file_path_ref": "dubs.adam_181", "voice_id_ref": "voices.adam"}, "choices": [{"text_key": "Masz linę", "action": {"type": "jump", "value": "329"}}, {"text_key": "Nie masz liny", "action": {"type": "jump", "value": "32"}}]},
+  { "id": "182", "text_key": "182", "audio_cue": {"file_path_ref": "dubs.adam_182", "voice_id_ref": "voices.adam"}, "choices": [{"text_key": "tak", "action": {"type": "jump", "value": "30"}}, {"text_key": "nie", "action": {"type": "jump", "value": "259"}}]},
+  { "id": "183", "text_key": "183", "audio_cue": {"file_path_ref": "dubs.adam_183", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "184", "text_key": "184", "audio_cue": {"file_path_ref": "dubs.adam_184", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "combat", "value": {"entity_id_ref": "ent.entity_184", "entity_state_ref": "ent.entity_184.state", "escape_possible_ref": "ent.entity_184.esc_possible", "escape_paragraph_id": "385", "stay_paragraph_id": "226", "win_paragraph_id": "234", "lose_paragraph_id": "_xx"}}], "choices": []},
+  { "id": "185", "text_key": "dreszcz_p_185.mp3", "audio_cue": {"file_path_ref": "dubs.None_dreszcz_p_185.mp3", "voice_id_ref": "voices.None"}, "choices": [{"text_key": "implicit_continue_key", "action": {"type": "jump", "value": "252"}}]},
+  { "id": "186", "text_key": "186", "audio_cue": {"file_path_ref": "dubs.adam_186", "voice_id_ref": "voices.adam"}, "choices": [{"text_key": "A", "action": {"type": "jump", "value": "368"}}, {"text_key": "B", "action": {"type": "jump", "value": "117"}}, {"text_key": "C", "action": {"type": "jump", "value": "360"}}]},
+  { "id": "187", "text_key": "187", "audio_cue": {"file_path_ref": "dubs.adam_187", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "188", "text_key": "188", "audio_cue": {"file_path_ref": "dubs.adam_188", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "189", "text_key": "189", "audio_cue": {"file_path_ref": "dubs.adam_189", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "190", "text_key": "190", "audio_cue": {"file_path_ref": "dubs.adam_190", "voice_id_ref": "voices.adam"}, "choices": [{"text_key": "implicit_continue_key", "action": {"type": "jump", "value": "115"}}]},
+  { "id": "191", "text_key": "191", "audio_cue": {"file_path_ref": "dubs.adam_191", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "192", "text_key": "192", "audio_cue": {"file_path_ref": "dubs.adam_192", "voice_id_ref": "voices.adam"}, "choices": [{"text_key": "Wybierasz wodę", "action": {"type": "jump", "value": "306"}}, {"text_key": "Wybierz przedmiot", "action": {"type": "jump", "value": "220"}}]},
+  { "id": "193", "text_key": "193", "audio_cue": {"file_path_ref": "dubs.adam_193", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "194", "text_key": "194", "audio_cue": {"file_path_ref": "dubs.adam_194", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "195", "text_key": "195", "audio_cue": {"file_path_ref": "dubs.adam_195", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "196", "text_key": "196", "audio_cue": {"file_path_ref": "dubs.adam_196", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "197", "text_key": "197", "audio_cue": {"file_path_ref": "dubs.adam_197", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "198", "text_key": "198", "audio_cue": {"file_path_ref": "dubs.adam_198", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "199", "text_key": "199", "audio_cue": {"file_path_ref": "dubs.adam_199", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "200", "text_key": "200", "audio_cue": {"file_path_ref": "dubs.adam_200", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "visit_check_jump", "value": {"room_id_ref": "ent.room_364", "action_new_visit": "301", "action_revisit": "120", "action_closed": "301"}}], "choices": []},
+  { "id": "201", "text_key": "201", "audio_cue": {"file_path_ref": "dubs.adam_201", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "202", "text_key": "202", "audio_cue": {"file_path_ref": "dubs.adam_202", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "203", "text_key": "203", "audio_cue": {"file_path_ref": "dubs.adam_203", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "204", "text_key": "204", "audio_cue": {"file_path_ref": "dubs.adam_204", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "205", "text_key": "205", "audio_cue": {"file_path_ref": "dubs.adam_205", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "206", "text_key": "206", "audio_cue": {"file_path_ref": "dubs.adam_206", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "207", "text_key": "207", "audio_cue": {"file_path_ref": "dubs.adam_207", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "208", "text_key": "208", "audio_cue": {"file_path_ref": "dubs.adam_208", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "209", "text_key": "209", "audio_cue": {"file_path_ref": "dubs.adam_209", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "210", "text_key": "210", "audio_cue": {"file_path_ref": "dubs.adam_210", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "211", "text_key": "211", "audio_cue": {"file_path_ref": "dubs.adam_211", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "212", "text_key": "212", "audio_cue": {"file_path_ref": "dubs.adam_212", "voice_id_ref": "voices.adam"}, "choices": [{"text_key": "zachód", "action": {"type": "jump", "value": "287"}}, {"text_key": "północ", "action": {"type": "jump", "value": "38"}}, {"text_key": "wschód", "action": {"type": "jump", "value": "82"}}, {"text_key": "połódnie", "action": {"type": "jump", "value": "336"}}]},
+  { "id": "213", "text_key": "213", "audio_cue": {"file_path_ref": "dubs.adam_213", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "214", "text_key": "214", "audio_cue": {"file_path_ref": "dubs.adam_214", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "215", "text_key": "215", "audio_cue": {"file_path_ref": "dubs.adam_215", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "216", "text_key": "216", "audio_cue": {"file_path_ref": "dubs.adam_216", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "217", "text_key": "217", "audio_cue": {"file_path_ref": "dubs.adam_217", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "218", "text_key": "218", "audio_cue": {"file_path_ref": "dubs.adam_218", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "219", "text_key": "219", "audio_cue": {"file_path_ref": "dubs.adam_219", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "220", "text_key": "220", "audio_cue": {"file_path_ref": "dubs.adam_220", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "221", "text_key": "221", "audio_cue": {"file_path_ref": "dubs.adam_221", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "222", "text_key": "222", "audio_cue": {"file_path_ref": "dubs.adam_222", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "223", "text_key": "223", "audio_cue": {"file_path_ref": "dubs.adam_223", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "224", "text_key": "224", "audio_cue": {"file_path_ref": "dubs.adam_224", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "visit_check_jump", "value": {"room_id_ref": "ent.room_364", "new_visit_target": "301", "revisit_target": "180", "closed_target": "301"}}], "choices": []},
+  { "id": "225", "text_key": "225", "audio_cue": {"file_path_ref": "dubs.adam_225", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "226", "text_key": "226", "audio_cue": {"file_path_ref": "dubs.adam_226", "voice_id_ref": "voices.adam"}, "choices": [{"text_key": "tak", "action": {"type": "jump", "value": "101"}}, {"text_key": "nie", "action": {"type": "jump", "value": "385"}}]},
+  { "id": "227", "text_key": "227", "audio_cue": {"file_path_ref": "dubs.adam_227", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "228", "text_key": "228", "audio_cue": {"file_path_ref": "dubs.adam_228", "voice_id_ref": "voices.adam"}, "choices": [{"text_key": "implicit_continue_key", "action": {"type": "jump", "value": "102"}}]},
+  { "id": "229", "text_key": "229", "audio_cue": {"file_path_ref": "dubs.adam_229", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "230", "text_key": "230", "audio_cue": {"file_path_ref": "dubs.adam_230", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "231", "text_key": "231", "audio_cue": {"file_path_ref": "dubs.adam_231", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "232", "text_key": "232_no_text", "on_load_actions": [{"type": "variable_change", "value": {"var_ref": "cnst.choice_count", "change_amount": 1}}, {"type": "conditional_jump", "conditions": [{"type": "eval_condition", "condition_string": "cnst.choice_count < 3"}], "true_target": "271", "false_target": "68"}], "choices": []},
+  { "id": "233", "text_key": "233", "audio_cue": {"file_path_ref": "dubs.adam_233", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "234", "text_key": "234", "audio_cue": {"file_path_ref": "dubs.adam_234", "voice_id_ref": "voices.adam"}, "choices": [{"text_key": "tak", "action": {"type": "jump", "value": "205"}}, {"text_key": "nie", "action": {"type": "jump", "value": "199"}}]},
+  { "id": "235", "text_key": "235", "audio_cue": {"file_path_ref": "dubs.adam_235", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "236", "text_key": "236", "audio_cue": {"file_path_ref": "dubs.adam_236", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "237", "text_key": "237", "audio_cue": {"file_path_ref": "dubs.adam_237", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "238a", "text_key": "238a", "audio_cue": {"file_path_ref": "dubs.adam_238a", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "combat", "value": {"entity_id_ref": "ent.entity_238_1", "entity_state_ref": "ent.entity_238_1.state", "escape_possible_ref": "ent.entity_238_1.esc_possible", "escape_paragraph_id": "316", "win_paragraph_id": "238b", "lose_paragraph_id": "xx"}}], "choices": []},
+  { "id": "238b", "text_key": "238b_combat", "on_load_actions": [{"type": "combat", "value": {"entity_id_ref": "ent.entity_238_2", "entity_state_ref": "ent.entity_238_2.state", "escape_possible_ref": "ent.entity_238_2.esc_possible", "escape_paragraph_id": "316", "win_paragraph_id": "238c", "lose_paragraph_id": "xx"}}], "choices": []},
+  { "id": "238c", "text_key": "238c_combat", "on_load_actions": [{"type": "combat", "value": {"entity_id_ref": "ent.entity_238_3", "entity_state_ref": "ent.entity_238_3.state", "escape_possible_ref": "ent.entity_238_3.esc_possible", "escape_paragraph_id": "316", "win_paragraph_id": "238d", "lose_paragraph_id": "xx"}}], "choices": []},
+  { "id": "238d", "text_key": "238d_combat", "on_load_actions": [{"type": "combat", "value": {"entity_id_ref": "ent.entity_238_4", "entity_state_ref": "ent.entity_238_4.state", "escape_possible_ref": "ent.entity_238_4.esc_possible", "escape_paragraph_id": "316", "win_paragraph_id": "238e", "lose_paragraph_id": "xx"}}], "choices": []},
+  { "id": "238e", "text_key": "238e_combat", "on_load_actions": [{"type": "combat", "value": {"entity_id_ref": "ent.entity_238_5", "entity_state_ref": "ent.entity_238_5.state", "escape_possible_ref": "ent.entity_238_5.esc_possible", "escape_paragraph_id": "316", "win_paragraph_id": "xx", "lose_paragraph_id": "xx"}}], "choices": []},
+  { "id": "239", "text_key": "239", "audio_cue": {"file_path_ref": "dubs.adam_239", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "240", "text_key": "240", "audio_cue": {"file_path_ref": "dubs.adam_240", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "241", "text_key": "241", "audio_cue": {"file_path_ref": "dubs.adam_241", "voice_id_ref": "voices.adam"}, "choices": [{"text_key": "implicit_continue_key", "action": {"type": "jump", "value": "132"}}]},
+  { "id": "242", "text_key": "242", "audio_cue": {"file_path_ref": "dubs.adam_242", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "243", "text_key": "243", "audio_cue": {"file_path_ref": "dubs.adam_243", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "244", "text_key": "244", "audio_cue": {"file_path_ref": "dubs.adam_244", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "245", "text_key": "245", "audio_cue": {"file_path_ref": "dubs.adam_245", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "246", "text_key": "246", "audio_cue": {"file_path_ref": "dubs.adam_246", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "247", "text_key": "247", "audio_cue": {"file_path_ref": "dubs.adam_247", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "248", "text_key": "248", "audio_cue": {"file_path_ref": "dubs.adam_248", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "249", "text_key": "249", "audio_cue": {"file_path_ref": "dubs.adam_249", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "250", "text_key": "250", "audio_cue": {"file_path_ref": "dubs.adam_250", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "251", "text_key": "251", "audio_cue": {"file_path_ref": "dubs.adam_251", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "eval_function", "function_string": "func.get_music('main', 1500)"}], "choices": [{"text_key": "implicit_continue_key", "action": {"type": "jump", "value": "39"}}]},
+  { "id": "252", "text_key": "252", "audio_cue": {"file_path_ref": "dubs.adam_252", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "253", "text_key": "253", "audio_cue": {"file_path_ref": "dubs.adam_253", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "254", "text_key": "254", "audio_cue": {"file_path_ref": "dubs.adam_254", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "255", "text_key": "255", "audio_cue": {"file_path_ref": "dubs.adam_255", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "256", "text_key": "256", "audio_cue": {"file_path_ref": "dubs.adam_256", "voice_id_ref": "voices.adam"}, "choices": [{"text_key": "implicit_continue_key", "action": {"type": "jump", "value": "378"}}]},
+  { "id": "257", "text_key": "257", "audio_cue": {"file_path_ref": "dubs.adam_257", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "258", "text_key": "258", "audio_cue": {"file_path_ref": "dubs.adam_258", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "259", "text_key": "259", "audio_cue": {"file_path_ref": "dubs.adam_259", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "260", "text_key": "260", "audio_cue": {"file_path_ref": "dubs.adam_260", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "261", "text_key": "261", "audio_cue": {"file_path_ref": "dubs.adam_261", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "262", "text_key": "262", "audio_cue": {"file_path_ref": "dubs.adam_262", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "263", "text_key": "263", "audio_cue": {"file_path_ref": "dubs.adam_263", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "264", "text_key": "264", "audio_cue": {"file_path_ref": "dubs.adam_264", "voice_id_ref": "voices.adam"}, "choices": [{"text_key": "implicit_continue_key", "action": {"type": "jump", "value": "102"}}]},
+  { "id": "265", "text_key": "265", "audio_cue": {"file_path_ref": "dubs.adam_265", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "266", "text_key": "266", "audio_cue": {"file_path_ref": "dubs.adam_266", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "267", "text_key": "267", "audio_cue": {"file_path_ref": "dubs.adam_267", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "268", "text_key": "268", "audio_cue": {"file_path_ref": "dubs.adam_268", "voice_id_ref": "voices.adam"}, "choices": [{"text_key": "Jeśli jeszcze za nimi nie byłeś, możesz wejść.", "action": {"type": "jump", "value": "317a"}}, {"text_key": "Wolisz zawrócić", "action": {"type": "jump", "value": "102"}}]},
+  { "id": "269", "text_key": "269", "audio_cue": {"file_path_ref": "dubs.adam_269", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "stat_change", "value": {"stat_ref": "cnst.w_count", "amount": -2, "limit_ref": null}}, {"type": "special_event", "value": "paragraph_269_logic"}], "choices": []},
+  { "id": "270", "text_key": "270", "audio_cue": {"file_path_ref": "dubs.adam_270", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "271", "text_key": "271a", "audio_cue": {"file_path_ref": "dubs.adam_271a", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "stat_change", "value": {"stat_ref": "cnst.w_count", "amount": -1, "limit_ref": null}}, {"type": "play_audio", "value": {"file_path_ref": "sfx.dreszcz_p_271b", "voice_id_ref": null}}], "choices": [{"text_key": "wymień", "action": {"type": "jump", "value": "190"}}, {"text_key": "nie wymieniaj", "action": {"type": "jump", "value": "153"}}]},
+  { "id": "272", "text_key": "272", "audio_cue": {"file_path_ref": "dubs.adam_272", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "273", "text_key": "273", "audio_cue": {"file_path_ref": "dubs.adam_273", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "274", "text_key": "274", "audio_cue": {"file_path_ref": "dubs.adam_274", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "275", "text_key": "275", "audio_cue": {"file_path_ref": "dubs.adam_275", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "276", "text_key": "276", "audio_cue": {"file_path_ref": "dubs.adam_276", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "277", "text_key": "277", "audio_cue": {"file_path_ref": "dubs.adam_277", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "278", "text_key": "278", "audio_cue": {"file_path_ref": "dubs.adam_278", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "279", "text_key": "279", "audio_cue": {"file_path_ref": "dubs.adam_279", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "280", "text_key": "280", "audio_cue": {"file_path_ref": "dubs.adam_280", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "281", "text_key": "281", "audio_cue": {"file_path_ref": "dubs.adam_281", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "282", "text_key": "282", "audio_cue": {"file_path_ref": "dubs.adam_282", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "283", "text_key": "283", "audio_cue": {"file_path_ref": "dubs.adam_283", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "284", "text_key": "284", "audio_cue": {"file_path_ref": "dubs.adam_284", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "conditional_actions", "conditions": [{"type": "eval_condition", "condition_string": "not func.check_for_luck()"}], "true_actions": [{"type": "stat_change", "value": {"stat_ref": "cnst.w_count", "amount": -2, "limit_ref": null}}], "false_actions": []}], "choices": [{"text_key": "implicit_continue_key", "action": {"type": "jump", "value": "50"}}]},
+  { "id": "285", "text_key": "285", "audio_cue": {"file_path_ref": "dubs.adam_285", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "286", "text_key": "286", "audio_cue": {"file_path_ref": "dubs.adam_286", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "287", "text_key": "287", "audio_cue": {"file_path_ref": "dubs.adam_287", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "288", "text_key": "288", "audio_cue": {"file_path_ref": "dubs.adam_288", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "289", "text_key": "289", "audio_cue": {"file_path_ref": "dubs.adam_289", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "290", "text_key": "290", "audio_cue": {"file_path_ref": "dubs.adam_290", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "291", "text_key": "291", "audio_cue": {"file_path_ref": "dubs.adam_291", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "stat_change", "value": {"stat_ref": "cnst.w_count", "amount": -2, "limit_ref": null}}], "choices": [{"text_key": "implicit_continue_key", "action": {"type": "jump", "value": "330"}}]},
+  { "id": "292", "text_key": "292", "audio_cue": {"file_path_ref": "dubs.adam_292", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "293", "text_key": "293", "audio_cue": {"file_path_ref": "dubs.adam_293", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "294", "text_key": "294", "audio_cue": {"file_path_ref": "dubs.adam_294", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "295", "text_key": "295", "audio_cue": {"file_path_ref": "dubs.adam_295", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "296", "text_key": "296a", "audio_cue": {"file_path_ref": "dubs.dunmer_296a", "voice_id_ref": "voices.dunmer"}, "on_load_actions": [{"type": "eval_function", "function_string": "func.eatables()"}, {"type": "play_audio", "value": {"file_path_ref": "dubs.dunmer_296b", "voice_id_ref": "voices.dunmer"}}], "choices": [{"text_key": "implicit_continue_key", "action": {"type": "jump", "value": "39"}}]},
+  { "id": "297", "text_key": "297", "audio_cue": {"file_path_ref": "dubs.adam_297", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "298", "text_key": "298_no_text", "on_load_actions": [{"type": "variable_change", "value": {"var_ref": "cnst.choice_count", "change_amount": 1}}, {"type": "conditional_jump", "conditions": [{"type": "eval_condition", "condition_string": "cnst.choice_count < 3"}], "true_target": "115", "false_target": "68"}], "choices": []},
+  { "id": "299", "text_key": "299", "audio_cue": {"file_path_ref": "dubs.adam_299", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "300", "text_key": "300", "audio_cue": {"file_path_ref": "dubs.adam_300", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "301", "text_key": "301", "audio_cue": {"file_path_ref": "dubs.adam_301", "voice_id_ref": "voices.adam"}, "choices": [{"text_key": "Spróbuj otworzyć drzwi", "action": {"type": "jump", "value": "364"}}, {"text_key": "Zawróć", "action": {"type": "jump", "value": "120"}}]},
+  { "id": "302", "text_key": "302", "audio_cue": {"file_path_ref": "dubs.adam_302", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "303", "text_key": "303", "audio_cue": {"file_path_ref": "dubs.adam_303", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "304", "text_key": "304", "audio_cue": {"file_path_ref": "dubs.adam_304", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "305", "text_key": "305", "audio_cue": {"file_path_ref": "dubs.adam_305", "voice_id_ref": "voices.adam"}, "choices": [{"text_key": "zdaj się na los", "action": {"type": "jump", "value": "112"}}, {"text_key": "sprawdź czy masz szczęście", "action": {"type": "jump", "value": "381"}}]},
+  { "id": "306", "text_key": "306", "audio_cue": {"file_path_ref": "dubs.adam_306", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "307", "text_key": "307", "audio_cue": {"file_path_ref": "dubs.adam_307", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "308", "text_key": "308", "audio_cue": {"file_path_ref": "dubs.adam_308", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "309", "text_key": "309", "audio_cue": {"file_path_ref": "dubs.adam_309", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "310", "text_key": "310", "audio_cue": {"file_path_ref": "dubs.adam_310", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "visit_check_jump", "value": {"room_id_ref": "ent.room_310", "new_visit_target": "17", "revisit_target": "67", "closed_target": "17"}}], "choices": []},
+  { "id": "311", "text_key": "311", "audio_cue": {"file_path_ref": "dubs.adam_311", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "312", "text_key": "312", "audio_cue": {"file_path_ref": "dubs.adam_312", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "313", "text_key": "313", "audio_cue": {"file_path_ref": "dubs.adam_313", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "314", "text_key": "314", "audio_cue": {"file_path_ref": "dubs.adam_314", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "315", "text_key": "315", "audio_cue": {"file_path_ref": "dubs.adam_315", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "316", "text_key": "316", "audio_cue": {"file_path_ref": "dubs.adam_316", "voice_id_ref": "voices.adam"}, "choices": [{"text_key": "implicit_continue_key", "action": {"type": "jump", "value": "176"}}]},
+  { "id": "317a", "text_key": "317a", "audio_cue": {"file_path_ref": "dubs.adam_317a", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "combat", "value": {"entity_id_ref": "ent.entity_317", "entity_state_ref": "ent.entity_317.state", "escape_possible_ref": "ent.entity_317.esc_possible", "escape_paragraph_id": "", "win_paragraph_id": "317b", "lose_paragraph_id": "_xx"}}], "choices": []},
+  { "id": "317b", "text_key": "317b", "audio_cue": {"file_path_ref": "dubs.adam_317b", "voice_id_ref": "voices.adam"}, "choices": [{"text_key": "Rozejrzyj się chociaż po ścianch", "action": {"type": "jump", "value": "119"}}, {"text_key": "Nie brzydzę się", "action": {"type": "jump", "value": "31"}}]},
+  { "id": "318", "text_key": "318", "audio_cue": {"file_path_ref": "dubs.adam_318", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "319", "text_key": "319", "audio_cue": {"file_path_ref": "dubs.adam_319", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "320", "text_key": "320", "audio_cue": {"file_path_ref": "dubs.adam_320", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "321", "text_key": "321", "audio_cue": {"file_path_ref": "dubs.adam_321", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "322", "text_key": "322", "audio_cue": {"file_path_ref": "dubs.adam_322", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "323", "text_key": "323", "audio_cue": {"file_path_ref": "dubs.adam_323", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "324", "text_key": "324_no_text", "on_load_actions": [{"type": "variable_change", "value": {"var_ref": "cnst.choice_count", "change_amount": 1}}, {"type": "conditional_jump", "conditions": [{"type": "eval_condition", "condition_string": "cnst.choice_count < 3"}], "true_target": "115", "false_target": "68"}], "choices": []},
+  { "id": "325", "text_key": "325", "audio_cue": {"file_path_ref": "dubs.adam_325", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "326", "text_key": "326", "audio_cue": {"file_path_ref": "dubs.adam_326", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "327", "text_key": "327", "audio_cue": {"file_path_ref": "dubs.adam_327", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "328", "text_key": "328", "audio_cue": {"file_path_ref": "dubs.adam_328", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "329", "text_key": "329", "audio_cue": {"file_path_ref": "dubs.adam_329", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "330", "text_key": "330", "audio_cue": {"file_path_ref": "dubs.adam_330", "voice_id_ref": "voices.adam"}, "choices": [{"text_key": "implicit_continue_key", "action": {"type": "jump", "value": "170"}}]},
+  { "id": "331", "text_key": "331", "audio_cue": {"file_path_ref": "dubs.adam_331", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "visit_check_jump", "value": {"room_id_ref": "ent.room_331", "new_visit_target": "11", "revisit_target": "59", "closed_target": "11"}}], "choices": []},
+  { "id": "332", "text_key": "332a", "audio_cue": {"file_path_ref": "dubs.adam_332a", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "stat_change", "value": {"stat_ref": "cnst.w_count", "amount": -2, "limit_ref": null}}, {"type": "play_audio", "value": {"file_path_ref": "dubs.adam_332b", "voice_id_ref": "voices.adam"}}, {"type": "combat", "value": {"entity_id_ref": "ent.entity_332", "entity_state_ref": "ent.entity_332.state", "escape_possible_ref": "ent.entity_332.esc_possible", "escape_paragraph_id": "", "win_paragraph_id": "06a", "lose_paragraph_id": "_xx"}}], "choices": []},
+  { "id": "333", "text_key": "333", "audio_cue": {"file_path_ref": "dubs.adam_333", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "334", "text_key": "334", "audio_cue": {"file_path_ref": "dubs.adam_334", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "335", "text_key": "335", "audio_cue": {"file_path_ref": "dubs.adam_335", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "336", "text_key": "336", "audio_cue": {"file_path_ref": "dubs.adam_336", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "visit_check_jump", "value": {"room_id_ref": "ent.room_336", "new_visit_target": "21", "revisit_target": "06b", "closed_target": "21"}}], "choices": []},
+  { "id": "337", "text_key": "337", "audio_cue": {"file_path_ref": "dubs.adam_337", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "338", "text_key": "338", "audio_cue": {"file_path_ref": "dubs.adam_338", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "339", "text_key": "339", "audio_cue": {"file_path_ref": "dubs.adam_339", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "340", "text_key": "340", "audio_cue": {"file_path_ref": "dubs.adam_340", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "341", "text_key": "341", "audio_cue": {"file_path_ref": "dubs.adam_341", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "342", "text_key": "342", "audio_cue": {"file_path_ref": "dubs.adam_342", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "343", "text_key": "343", "audio_cue": {"file_path_ref": "dubs.adam_343", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "344", "text_key": "344", "audio_cue": {"file_path_ref": "dubs.adam_344", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "combat", "value": {"entity_id_ref": "ent.entity_344", "entity_state_ref": "ent.entity_344.state", "escape_possible_ref": "ent.entity_344.esc_possible", "escape_paragraph_id": "", "win_paragraph_id": "23", "lose_paragraph_id": "_xx"}}], "choices": []},
+  { "id": "345", "text_key": "345", "audio_cue": {"file_path_ref": "dubs.adam_345", "voice_id_ref": "voices.adam"}, "choices": [{"text_key": "zachód", "action": {"type": "jump", "value": "218"}}, {"text_key": "północ", "action": {"type": "jump", "value": "267"}}]},
+  { "id": "346", "text_key": "346", "audio_cue": {"file_path_ref": "dubs.adam_346", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "347", "text_key": "347", "audio_cue": {"file_path_ref": "dubs.adam_347", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "348", "text_key": "348", "audio_cue": {"file_path_ref": "dubs.adam_348", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "349", "text_key": "349", "audio_cue": {"file_path_ref": "dubs.adam_349", "voice_id_ref": "voices.adam"}, "choices": [{"text_key": "tak", "action": {"type": "jump", "value": "385"}}, {"text_key": "nie", "action": {"type": "jump", "value": "48"}}]},
+  { "id": "350", "text_key": "350", "audio_cue": {"file_path_ref": "dubs.adam_350", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "351", "text_key": "351", "audio_cue": {"file_path_ref": "dubs.adam_351", "voice_id_ref": "voices.adam"}, "choices": [{"text_key": "implicit_continue_key", "action": {"type": "jump", "value": "64"}}]},
+  { "id": "352", "text_key": "352", "audio_cue": {"file_path_ref": "dubs.adam_352", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "353", "text_key": "353", "audio_cue": {"file_path_ref": "dubs.adam_353", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "354", "text_key": "354", "audio_cue": {"file_path_ref": "dubs.adam_354", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "355", "text_key": "355", "audio_cue": {"file_path_ref": "dubs.adam_355", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "356", "text_key": "356", "audio_cue": {"file_path_ref": "dubs.adam_356", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "357", "text_key": "357", "audio_cue": {"file_path_ref": "dubs.adam_357", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "358", "text_key": "358", "audio_cue": {"file_path_ref": "dubs.adam_358", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "359", "text_key": "359", "audio_cue": {"file_path_ref": "dubs.adam_359", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "360", "text_key": "360", "audio_cue": {"file_path_ref": "dubs.adam_360", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "361", "text_key": "361", "audio_cue": {"file_path_ref": "dubs.adam_361", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "362", "text_key": "362", "audio_cue": {"file_path_ref": "dubs.adam_362", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "363", "text_key": "363", "audio_cue": {"file_path_ref": "dubs.adam_363", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "364", "text_key": "364", "audio_cue": {"file_path_ref": "dubs.adam_364", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "variable_set", "value": {"var_ref": "ent.room_364.room_state", "new_value": true}}], "choices": [{"text_key": "Próbujesz zabrać ukradkiem pudełko", "action": {"type": "jump", "value": "29"}}, {"text_key": "Decydujesz się podjąć walkę", "action": {"type": "jump", "value": "116a"}}]},
+  { "id": "365", "text_key": "365", "audio_cue": {"file_path_ref": "dubs.adam_365", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "366", "text_key": "366", "audio_cue": {"file_path_ref": "dubs.adam_366", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "367", "text_key": "367", "audio_cue": {"file_path_ref": "dubs.adam_367", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "368", "text_key": "368", "audio_cue": {"file_path_ref": "dubs.adam_368", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "369", "text_key": "369", "audio_cue": {"file_path_ref": "dubs.adam_369", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "370", "text_key": "370", "audio_cue": {"file_path_ref": "dubs.adam_370", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "371", "text_key": "371", "audio_cue": {"file_path_ref": "dubs.adam_371", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "372", "text_key": "372", "audio_cue": {"file_path_ref": "dubs.adam_372", "voice_id_ref": "voices.adam"}, "choices": [{"text_key": "implicit_continue_key", "action": {"type": "jump", "value": "xx"}}]},
+  { "id": "373", "text_key": "373", "audio_cue": {"file_path_ref": "dubs.adam_373", "voice_id_ref": "voices.adam"}, "choices": [{"text_key": "implicit_continue_key", "action": {"type": "jump", "value": "xx"}}]},
+  { "id": "374", "text_key": "374", "audio_cue": {"file_path_ref": "dubs.adam_374", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "eval_function", "function_string": "func.eatables()"}], "choices": [{"text_key": "implicit_continue_key", "action": {"type": "jump", "value": "178"}}]},
+  { "id": "375", "text_key": "375", "audio_cue": {"file_path_ref": "dubs.adam_375", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "376", "text_key": "376", "audio_cue": {"file_path_ref": "dubs.adam_376", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "377", "text_key": "377", "audio_cue": {"file_path_ref": "dubs.adam_377", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "378", "text_key": "378", "audio_cue": {"file_path_ref": "dubs.adam_378", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "379", "text_key": "379", "audio_cue": {"file_path_ref": "dubs.adam_379", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "380", "text_key": "380", "audio_cue": {"file_path_ref": "dubs.adam_380", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "381", "text_key": "381_no_text", "on_load_actions": [{"type": "conditional_jump", "conditions": [{"type": "eval_condition", "condition_string": "func.check_for_luck()"}], "true_target": "28", "false_target": "291"}], "choices": []},
+  { "id": "382", "text_key": "382", "audio_cue": {"file_path_ref": "dubs.adam_382", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "383", "text_key": "383", "audio_cue": {"file_path_ref": "dubs.adam_383", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "384", "text_key": "384", "audio_cue": {"file_path_ref": "dubs.adam_384", "voice_id_ref": "voices.adam"}, "on_load_actions": [{"type": "special_event", "value": "jump_prompt_xx"}], "choices": []},
+  { "id": "385", "text_key": "385", "audio_cue": {"file_path_ref": "dubs.adam_385", "voice_id_ref": "voices.adam"}, "choices": [{"text_key": "Wybierz drzwi zachodnie", "action": {"type": "jump", "value": "345"}}, {"text_key": "Wybierz drzwi wschodnie", "action": {"type": "jump", "value": "242"}}]}
+]

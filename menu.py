@@ -15,9 +15,9 @@ from tkinter import *
 from tkinter import ttk
 from PIL import Image, ImageTk, ImageOps
 import gamebook as gb
-import paragraphs as prg
 import functions as func
 import constants as cnst
+# import paragraphs as prg # Removed
 from colorama import Fore, Style
 
 
@@ -395,13 +395,19 @@ def main_menu():
                     # continue last gameplay
                     if choice_main_menu == gb.infoboook[cnst.setup_params['translation']]['Mmenu0']:
                         last_paragraph = func.get_game_state('c')
-                        func.pth_selector(actions=[f'{last_paragraph}'])
+                        # func.pth_selector(actions=[f'{last_paragraph}']) # Old call
+                        if last_paragraph: # Ensure last_paragraph is not None
+                            func.pth_selector(f'{last_paragraph}')
+                        else: # Fallback if no last_paragraph (e.g. active_gameplay was null)
+                            func.debug_message("No last paragraph found to continue.")
+                            # Optionally, go to new game or show error. For now, just debug.
 
                     # new game
                     elif choice_main_menu == gb.infoboook[cnst.setup_params['translation']]['Mmenu1']:
                         func.clear_terminal()
                         print(f"/ {choice_main_menu}{cnst.DEFAULT_COLOR}")
-                        prg._00()
+                        # prg._00() # Old call
+                        func.pth_selector('00') # Start with paragraph "00"
 
                     # load game
                     elif choice_main_menu == gb.infoboook[cnst.setup_params['translation']]['Mmenu2']:
@@ -410,8 +416,14 @@ def main_menu():
 
                         last_paragraph = func.get_game_state('l')
 
-                        if not last_paragraph == '00':
-                            func.pth_selector([], [f'{last_paragraph}'])
+                        # last_paragraph from get_game_state('l') might be None if user cancels load
+                        if last_paragraph and last_paragraph != '00': # Original condition might have been to prevent loading into title screen
+                            # func.pth_selector([], [f'{last_paragraph}']) # Old call
+                            func.pth_selector(f'{last_paragraph}')
+                        elif last_paragraph == '00': # If '00' is returned, it might mean main menu or new game
+                            func.debug_message("Load game returned to main menu or start.")
+                        else: # No file selected or error
+                            func.debug_message("No game loaded or load was cancelled.")
 
 
                     # rules
@@ -715,7 +727,8 @@ def main_menu():
                             # set active gameplay to dummy file
                             cnst.setup_params["active_gameplay"] = str(cnst.DUMMY_GAMESTATE_NAME)
                             func.log_event(f"set active gameplay to {cnst.DUMMY_GAMESTATE_NAME}")
-                            prg._xx()  # calling placeholder function
+                            # prg._xx()  # calling placeholder function # Old call
+                            func.jump_paragraph_xx() # New call
 
                         else:
                             func.error_message('', f"Dummy gamestate file was not found. Enable 'use_dummy' in config.\
