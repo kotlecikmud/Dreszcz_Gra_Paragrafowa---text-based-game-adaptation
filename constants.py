@@ -27,24 +27,28 @@ AUDIO_EXTENSION = '.mp3'  # extension of voice and fx files, other will be ignor
 
 # directories
 ASSETS_DIR = "Assets"
-GAME_FILES_DIR = rf"{ASSETS_DIR}\game_files"
-AUDIO_ASSETS_DIR = rf"{ASSETS_DIR}\Audio"  # Path to audio assets
-GRAPHICS_ASSETS_DIR = rf"{ASSETS_DIR}\Graphics"  # Path to graphics assets
-GRAPHICS_MISC_DIR = rf"{GRAPHICS_ASSETS_DIR}\misc"  # Path to misc graphics like icons, buttons etc.
-GRAPHICS_PLATES_DIR = rf"{GRAPHICS_ASSETS_DIR}\plates"  # Path to background graphics
-AUDIO_VOICE_DIR = rf"{AUDIO_ASSETS_DIR}\voice"  # Path to voice lines audio files
-AUDIO_FX_DIR = rf"{AUDIO_ASSETS_DIR}\fx"  # Path to sound effects
-AUDIO_MUSIC_DIR = rf"{AUDIO_ASSETS_DIR}\music"  # Path to music
-DOCUMENTATION_DIR = rf"{ASSETS_DIR}\Documentation"  # Path to documentation of project
-GAMESTATE_DIR = os.path.join(os.path.expanduser('~\\Documents'),
-                             r"Jacek Ciesielski - Dreszcz\saves")  # Path for managings gamestate (gmsf) files
+GAME_FILES_DIR = os.path.join(ASSETS_DIR, "game_files")
+AUDIO_ASSETS_DIR = os.path.join(ASSETS_DIR, "Audio")  # Path to audio assets
+GRAPHICS_ASSETS_DIR = os.path.join(ASSETS_DIR, "Graphics")  # Path to graphics assets
+GRAPHICS_MISC_DIR = os.path.join(GRAPHICS_ASSETS_DIR, "misc")  # Path to misc graphics like icons, buttons etc.
+GRAPHICS_PLATES_DIR = os.path.join(GRAPHICS_ASSETS_DIR, "plates")  # Path to background graphics
+AUDIO_VOICE_DIR = os.path.join(AUDIO_ASSETS_DIR, "voice")  # Path to voice lines audio files
+AUDIO_FX_DIR = os.path.join(AUDIO_ASSETS_DIR, "fx")  # Path to sound effects
+AUDIO_MUSIC_DIR = os.path.join(AUDIO_ASSETS_DIR, "music")  # Path to music
+DOCUMENTATION_DIR = os.path.join(ASSETS_DIR, "Documentation")  # Path to documentation of project
+# For GAMESTATE_DIR, os.path.expanduser already handles '~' correctly.
+# The subdirectory part should also use os.path.join for consistency if it were multi-level.
+# However, "Jacek Ciesielski - Dreszcz\saves" is a single component here after expansion.
+# For full cross-platform compatibility, if user's home might not be on a drive supporting backslashes (unlikely for Documents),
+# this could be made more robust, but it's often fine as is for typical desktop systems.
+GAMESTATE_DIR = os.path.join(os.path.expanduser('~'), "Documents", "Jacek Ciesielski - Dreszcz", "saves") # Path for managings gamestate (gmsf) files
 
 # paths
-LOG_NAME = rf"{GAME_FILES_DIR}\.log"
-CFG_NAME = rf"{GAME_FILES_DIR}\config.json"
-VER_FILE = rf"{GAME_FILES_DIR}\.ver"
-CHLOG_NAME = rf"{GAME_FILES_DIR}\changelog.json"
-DUMMY_GAMESTATE_NAME = rf"{GAMESTATE_DIR}\dreszcz_dummy{GAMESTATE_EXTENSION}"
+LOG_NAME = os.path.join(GAME_FILES_DIR, ".log")
+CFG_NAME = os.path.join(GAME_FILES_DIR, "config.json")
+VER_FILE = os.path.join(GAME_FILES_DIR, ".ver")
+CHLOG_NAME = os.path.join(GAME_FILES_DIR, "changelog.json")
+DUMMY_GAMESTATE_NAME = os.path.join(GAMESTATE_DIR, f"dreszcz_dummy{GAMESTATE_EXTENSION}")
 
 # GUI settings
 GUI_BCKG_COLOR = "#ac733c"  # sepia

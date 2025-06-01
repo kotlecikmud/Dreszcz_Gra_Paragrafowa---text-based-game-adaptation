@@ -2,9 +2,15 @@ import os
 import json
 import time
 import random
-import msvcrt
 import platform
 import datetime
+# Conditional import for msvcrt
+if os.name == 'nt':
+    import msvcrt
+else:
+    # Provide a placeholder or alternative for non-Windows systems if needed elsewhere
+    # For kbhit specifically, we'll check os.name again at the point of use.
+    pass
 import subprocess
 
 import pygame
@@ -21,6 +27,53 @@ _ALL_PARAGRAPHS_DATA = None
 # Assuming functions.py is in the root directory or Assets/game_files is accessible from cwd.
 # A more robust solution might use cnst.ROOT_DIR if available and reliable.
 JSON_PATH = os.path.join('Assets', 'game_files', 'paragraphs.json')
+
+
+def load_all_paragraphs_data():
+    """
+    Loads all paragraph data from the JSON file.
+
+    Returns:
+        list: A list of paragraph data objects, or None if an error occurs.
+    """
+    global _ALL_PARAGRAPHS_DATA
+
+    if _ALL_PARAGRAPHS_DATA is not None:
+        return _ALL_PARAGRAPHS_DATA
+
+    try:
+        # Construct the full path to the JSON file
+        # Assuming JSON_PATH is already correctly defined relative to the project root
+        # If functions.py is not at the root, JSON_PATH might need adjustment
+        # or be based on an absolute path derived from __file__ or a constant.
+        paragraphs_file_path = JSON_PATH # Use the global JSON_PATH directly
+
+        if not os.path.exists(paragraphs_file_path):
+             # If JSON_PATH is relative and file not found, try resolving from script's dir
+             # This is a fallback, ideally JSON_PATH is robustly defined.
+            base_dir = os.path.dirname(os.path.abspath(__file__))
+            alt_path = os.path.join(base_dir, JSON_PATH)
+            if os.path.exists(alt_path):
+                paragraphs_file_path = alt_path
+            else:
+                # If primary JSON_PATH and alternative path both fail.
+                raise FileNotFoundError(f"Paragraphs JSON file not found at '{JSON_PATH}' or '{alt_path}'")
+
+        with open(paragraphs_file_path, 'r', encoding='utf-8') as f:
+            _ALL_PARAGRAPHS_DATA = json.load(f)
+        return _ALL_PARAGRAPHS_DATA
+    except FileNotFoundError:
+        error_message("load_all_paragraphs_data", f"Paragraphs JSON file not found at '{JSON_PATH}'. Critical error.")
+        _ALL_PARAGRAPHS_DATA = None # Ensure it's reset on error
+        return None
+    except json.JSONDecodeError:
+        error_message("load_all_paragraphs_data", f"Invalid JSON in paragraphs file: '{JSON_PATH}'. Critical error.")
+        _ALL_PARAGRAPHS_DATA = None # Ensure it's reset on error
+        return None
+    except Exception as e: # Catch any other unexpected errors during loading
+        error_message("load_all_paragraphs_data", f"An unexpected error occurred: {e}")
+        _ALL_PARAGRAPHS_DATA = None
+        return None
 
 
 # Helper function to get a specific paragraph's data from the loaded JSON
@@ -283,12 +336,26 @@ def _execute_action(action_obj, current_paragraph_id_str):
 
 def log_event(entry):
     if cnst.setup_params['logging']:
-        current_user = os.getlogin()
+        try:
+            current_user = os.getlogin()
+        except OSError:
+            current_user = "unknown_user"  # Fallback user
         time_stamp = datetime.datetime.now().strftime('[%d-%m-%y %H:%M:%S.%f]')
 
-        with open(cnst.LOG_NAME, 'a') as f:
-            f.write(
-                f"{time_stamp} | v.{cnst.__version__} | user:{current_user} |> {entry}\n")  # write to log file
+        try:
+            with open(cnst.LOG_NAME, 'a') as f:
+                f.write(
+                    f"{time_stamp} | v.{cnst.__version__} | user:{current_user} |> {entry}\n")  # write to log file
+        except FileNotFoundError:
+            # Handle cases where the log file path might be initially problematic
+            # This can happen if GAME_FILES_DIR isn't created yet by some other part of the app
+            # For now, we'll just print a debug message if logging fails due to FileNotFoundError
+            # A more robust solution might ensure the directory exists.
+            if cnst.setup_params['debug_msg']: # Check if debug messages are enabled
+                 print(f"{cnst.DEBUG_COLOR}DEBUG: Could not write to log file {cnst.LOG_NAME}. File or directory may not exist yet.{cnst.DEFAULT_COLOR}")
+        except Exception as e:
+            if cnst.setup_params['debug_msg']: # Check if debug messages are enabled
+                 print(f"{cnst.DEBUG_COLOR}DEBUG: An error occurred while writing to log: {e}{cnst.DEFAULT_COLOR}")
 
 
 def debug_message(msg):
@@ -478,9 +545,19 @@ def dub_play(string_id, category=None, skippable=True, with_text=True, r_robin=N
             # continue looping while the channel is busy playing a sound
             while channel.get_busy():
                 # check if any key is pressed
-                if msvcrt.kbhit():
+                if os.name == 'nt' and msvcrt.kbhit():
                     pygame.mixer.stop()  # stop any sound currently being played
                     break
+                elif os.name != 'nt':
+                    # On non-Windows, kbhit is not available.
+                    # Pygame event loop would be the way for GUI, but this is console.
+                    # For now, this means audio might not be skippable with a key press here
+                    # in the same way on Linux in a pure CLI mode.
+                    # A more complex solution involving select() could be used for non-blocking input.
+                    # Or, if a Pygame window is expected to be active, its event queue should be checked.
+                    # We'll let the loop continue and rely on Pygame's sound duration or other skip logic.
+                    pass # Allow pygame sound to play out or be stopped by other means
+                pygame.time.wait(10) # Small wait to prevent busy-looping if sound ends quickly
 
     else:
         debug_message(f"dubbing disabled: {cnst.CFG_NAME}")
@@ -674,10 +751,15 @@ def update_config_file(manual=False, backup=False):
         json.dump(setup_data, json_file)
     debug_message("config.json has been updated")
 
-    if backup or manual:
+    if manual: # Only require input if it's a manual update by the user
         input(
             f"{cnst.SPECIAL_COLOR}Please restart the game for the changes to take effect.\
             \n{cnst.INPUT_SIGN}{cnst.DEFAULT_COLOR}")
+    elif backup:
+        # For backup restoration, a print message should suffice, no input needed.
+        print(
+            f"{cnst.SPECIAL_COLOR}Config restored from backup. Consider restarting if issues persist.\
+            \n{cnst.DEFAULT_COLOR}")
 
 
 def get_game_state(action, last_paragraph='00', new_game=None):

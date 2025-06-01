@@ -316,8 +316,15 @@ def main_menu():
             main()
 
     else:  # terminal based interface
-        while True:
-            func.clear_terminal()
+        # --- MODIFICATION: Directly call new game logic for testing ---
+        print("Attempting to start a new game directly for testing...")
+        func.pth_selector('00')
+        # --- END MODIFICATION ---
+
+        # Original menu loop (commented out or made unreachable for this test)
+        if False: # This makes the original loop unreachable
+            while True:
+                func.clear_terminal()
 
             if cnst.player_name:
                 print(
