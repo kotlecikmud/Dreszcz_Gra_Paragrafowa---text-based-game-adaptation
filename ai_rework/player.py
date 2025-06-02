@@ -1,50 +1,88 @@
 import random
+import pickle # For serializing PlayerCharacter instances
 
 def roll_k6(num_dice=1):
     """Rolls num_dice six-sided dice and returns the sum."""
     return sum(random.randint(1, 6) for _ in range(num_dice))
 
 class PlayerCharacter:
-    def __init__(self):
-        # Initialize stats
-        Z = roll_k6(1) + 6
+    def __init__(self, is_new_character: bool = True):
+        if is_new_character:
+            # Initialize stats for a new character
+            Z = roll_k6(1) + 6
         W = roll_k6(2) + 12
         S = roll_k6(1) + 6
 
         self.stats = {'dexterity': Z, 'stamina': W, 'luck': S}
-        self.initial_stats = self.stats.copy()
+            self.initial_stats = self.stats.copy()
 
-        print("--- Tworzenie Postaci ---")
-        print(f"Początkowa Zręczność (Z): {self.stats['dexterity']} (rzut 1K6+6)")
-        print(f"Początkowa Wytrzymałość (W): {self.stats['stamina']} (rzut 2K6+12)")
-        print(f"Początkowe Szczęście (S): {self.stats['luck']} (rzut 1K6+6)")
+            print("--- Tworzenie Postaci ---")
+            print(f"Początkowa Zręczność (Z): {self.stats['dexterity']} (rzut 1K6+6)")
+            print(f"Początkowa Wytrzymałość (W): {self.stats['stamina']} (rzut 2K6+12)")
+            print(f"Początkowe Szczęście (S): {self.stats['luck']} (rzut 1K6+6)")
 
-        # Elixir selection
-        valid_elixirs = {
-            "ZRĘCZNOŚCI": "ZRĘCZNOŚCI", "Z": "ZRĘCZNOŚCI",
-            "WYTRZYMAŁOŚCI": "WYTRZYMAŁOŚCI", "W": "WYTRZYMAŁOŚCI", "WYTRZYMALOSCI": "WYTRZYMAŁOŚCI",
-            "SZCZĘŚCIA": "SZCZĘŚCIA", "S": "SZCZĘŚCIA", "SZCZESCIA": "SZCZĘŚCIA"
-        }
-        while True:
-            elixir_choice_input = input("Wybierz eliksir (dostępne: Zręczności (Z), Wytrzymałości (W), Szczęścia (S)): ").strip().upper()
-            if elixir_choice_input in valid_elixirs:
-                self.elixir_type = valid_elixirs[elixir_choice_input]
-                break
-            else:
-                print("Nieprawidłowy wybór. Wpisz Z, W, S lub pełną nazwę (np. 'Zręczności').")
+            # Elixir selection
+            valid_elixirs = {
+                "ZRĘCZNOŚCI": "ZRĘCZNOŚCI", "Z": "ZRĘCZNOŚCI",
+                "WYTRZYMAŁOŚCI": "WYTRZYMAŁOŚCI", "W": "WYTRZYMAŁOŚCI", "WYTRZYMALOSCI": "WYTRZYMAŁOŚCI",
+                "SZCZĘŚCIA": "SZCZĘŚCIA", "S": "SZCZĘŚCIA", "SZCZESCIA": "SZCZĘŚCIA"
+            }
+            while True:
+                elixir_choice_input = input("Wybierz eliksir (dostępne: Zręczności (Z), Wytrzymałości (W), Szczęścia (S)): ").strip().upper()
+                if elixir_choice_input in valid_elixirs:
+                    self.elixir_type = valid_elixirs[elixir_choice_input]
+                    break
+                else:
+                    print("Nieprawidłowy wybór. Wpisz Z, W, S lub pełną nazwę (np. 'Zręczności').")
 
-        self.elixir_uses_left = 2
-
-        self.inventory = ["miecz", "tarcza", "plecak na Prowiant", "latarnia", f"eliksir {self.elixir_type.lower()}"]
-        self.provisions = 8
-        self.gold = 0
-
-        self.current_paragraph_id = 1
-        print(f"Wybrano eliksir: {self.elixir_type.capitalize()}. Masz {self.elixir_uses_left} użycia.")
-        print("-------------------------")
+            self.elixir_uses_left = 2
+            self.inventory = ["miecz", "tarcza", "plecak na Prowiant", "latarnia", f"eliksir {self.elixir_type.lower()}"]
+            self.provisions = 8
+            self.gold = 0
+            self.current_paragraph_id = 1 # Default starting paragraph for new characters
+            
+            print(f"Wybrano eliksir: {self.elixir_type.capitalize()}. Masz {self.elixir_uses_left} użycia.")
+            print("-------------------------")
+        else:
+            # This path is taken if is_new_character=False, meaning the object is being
+            # re-initialized by pickle or similar, or we intend to populate it from loaded data.
+            # Ensure essential attributes exist if they weren't set by the loading mechanism itself.
+            # However, pickle will restore all attributes, so this 'else' block might only be
+            # relevant if one were to call PlayerCharacter(is_new_character=False) manually
+            # without immediately populating it from a loaded state.
+            # For pickle, __init__ is typically NOT called on unpickling if the object was pickled
+            # normally. If it IS called (e.g. due to specific __getnewargs__ or custom unpickling),
+            # then we must ensure vital attributes are at least initialized to default/empty states.
+            # Given standard pickling, this 'else' might not be strictly necessary for load_game.
+            if not hasattr(self, 'stats'):
+                self.stats = {}
+            if not hasattr(self, 'initial_stats'):
+                self.initial_stats = {}
+            if not hasattr(self, 'elixir_type'):
+                self.elixir_type = "" # Default empty value
+            if not hasattr(self, 'elixir_uses_left'):
+                self.elixir_uses_left = 0
+            if not hasattr(self, 'inventory'):
+                self.inventory = []
+            if not hasattr(self, 'provisions'):
+                self.provisions = 0
+            if not hasattr(self, 'gold'):
+                self.gold = 0
+            if not hasattr(self, 'current_paragraph_id'):
+                self.current_paragraph_id = 1 # Or some other safe default
 
     def display_stats(self):
+        # Ensure initial_stats exists for display, especially if character was loaded
+        # and somehow __init__(is_new_character=False) path was taken and didn't fully init.
+        # This is a defensive check. For standard pickle, initial_stats would be restored.
+        dex_initial = self.initial_stats.get('dexterity', self.stats.get('dexterity', 0))
+        sta_initial = self.initial_stats.get('stamina', self.stats.get('stamina', 0))
+        luc_initial = self.initial_stats.get('luck', self.stats.get('luck', 0))
+
         print("\n=== TWOJA POSTAĆ ===")
+        print(f"  Zręczność (Z):    {self.stats.get('dexterity', 0):<2} / {dex_initial}")
+        print(f"  Wytrzymałość (W): {self.stats.get('stamina', 0):<2} / {sta_initial}")
+        print(f"  Szczęście (S):    {self.stats.get('luck', 0):<2} / {luc_initial}")
         print(f"  Zręczność (Z):    {self.stats['dexterity']:<2} / {self.initial_stats['dexterity']}")
         print(f"  Wytrzymałość (W): {self.stats['stamina']:<2} / {self.initial_stats['stamina']}")
         print(f"  Szczęście (S):    {self.stats['luck']:<2} / {self.initial_stats['luck']}")

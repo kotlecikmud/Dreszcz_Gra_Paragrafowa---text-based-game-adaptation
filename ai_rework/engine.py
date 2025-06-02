@@ -1,10 +1,17 @@
 import os
 import time  # For potential pauses, if desired
-from player import PlayerCharacter, roll_k6
+
+# from player import PlayerCharacter # PlayerCharacter type hint will be handled by TYPE_CHECKING
+from player import roll_k6  # roll_k6 is used directly
 from game_data import load_game_data, get_paragraph
+from .game_io import save_game  # For saving game state
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from player import PlayerCharacter  # For type hinting
 
 
-def perform_sss(player_character: PlayerCharacter):
+def perform_sss(player_character: "PlayerCharacter"):
     """
     Performs a 'Sprawdzenie Swojego Szczęścia' (SSS) test.
     Returns True if lucky, False otherwise.
@@ -49,7 +56,7 @@ import re  # For parsing details in handle_actions
 
 
 def handle_actions(
-    player: PlayerCharacter,
+    player: "PlayerCharacter",
     paragraph_actions: list,
     current_paragraph_data: dict,
     game_paragraphs: list,
@@ -323,7 +330,7 @@ def handle_actions(
 
 
 def initiate_combat(
-    player_character: PlayerCharacter,
+    player_character: "PlayerCharacter",
     monster_data: dict,
     current_paragraph_data: dict,
     game_paragraphs: list,
@@ -479,13 +486,25 @@ def cls_term():
     os.system("cls" if os.name == "nt" else "clear")
 
 
-def start_game():
+def start_game(
+    active_profile_path: str, player: "PlayerCharacter"
+):  # Added player parameter
+    if not active_profile_path or not os.path.isdir(active_profile_path):
+        print(
+            f"Błąd krytyczny: Ścieżka profilu '{active_profile_path}' jest nieprawidłowa lub nie istnieje. Nie można uruchomić gry."
+        )
+        return
+
+    if player is None:  # Should be handled by main.py, but as a safeguard
+        print(f"Błąd krytyczny: Brak obiektu gracza. Nie można uruchomić gry.")
+        return
+
     game_paragraphs = load_game_data()
     if not game_paragraphs:
         print("Błąd krytyczny: Nie udało się załadować danych gry. Koniec programu.")
         return
 
-    player = PlayerCharacter()
+    # player = PlayerCharacter() # Removed: player instance is now passed as an argument
     paragraph_allows_eating_current_turn = False
 
     while True:
@@ -602,9 +621,28 @@ def start_game():
         actual_choices_for_display = current_paragraph_data["choices"]
         for i, choice_data in enumerate(actual_choices_for_display):
             choice_text = choice_data.get("text", "")
-            target_id = choice_data["target_paragraph_id"]
-            # If choice text is just a number, or seems like a direct reference.
-            if (
+            target_id = choice_data.get(
+                "target_paragraph_id"
+            )  # Ensure target_id is fetched safely
+
+            # New condition: Check for "-patrz XYZ" or "patrz XYZ" as a redirection instruction
+            # and ensure target_id exists.
+            if target_id is not None and re.search(
+                r"(-?\s*patrz\s+\d+)", choice_text, re.IGNORECASE
+            ):
+                # Check if the core part of the text IS the "patrz" reference or very close to it.
+                # This aims to differentiate "Walka - patrz 123" (redirect) from "Zobacz notatkę (patrz 123)" (descriptive with reference)
+                # A simple heuristic: if "patrz" is a significant part of the string.
+                # For now, let's assume if "patrz XYZ" is found, and it's a choice with a target, it's a redirect.
+                # The problem description implies "Walka - patrz 123" should become "Idź do paragrafu 123".
+                match = re.search(r"(-?\s*patrz\s+(\d+))", choice_text, re.IGNORECASE)
+                if match:  # If the pattern is found
+                    # The original request implies if "patrz XYZ" is present, it should be simplified.
+                    display_text = f"Idź do paragrafu {target_id}"
+                else:  # Should not happen if outer re.search found it, but as a fallback
+                    display_text = f"Przejdź do paragrafu {target_id}"  # Fallback, or could be choice_text
+            # Original condition: If choice text is just a number, or seems like a direct reference like "patrz 123" by itself.
+            elif target_id is not None and (
                 not choice_text
                 or choice_text.isdigit()
                 or (
@@ -614,15 +652,24 @@ def start_game():
             ):
                 display_text = f"Idź do paragrafu {target_id}"
             else:
-                # Clean up "Patrz XYZ" if it's part of a longer description
-                display_text = re.sub(
+                # Standard descriptive text. Clean up any trailing "patrz XYZ" if it's part of a longer description
+                # but the main text is not just the "patrz" instruction.
+                temp_display_text = re.sub(
                     r"\s*-\s*patrz\s+\d+\s*\.?$", "", choice_text, flags=re.IGNORECASE
                 ).strip()
-                display_text = re.sub(
-                    r"\s*patrz\s+\d+\s*\.?$", "", display_text, flags=re.IGNORECASE
+                temp_display_text = re.sub(
+                    r"\s*patrz\s+\d+\s*\.?$", "", temp_display_text, flags=re.IGNORECASE
                 ).strip()
-                if not display_text:
-                    display_text = f"Przejdź do paragrafu {target_id}"  # Fallback
+                if (
+                    not temp_display_text and target_id is not None
+                ):  # If stripping "patrz" left nothing, but it's a valid choice
+                    display_text = f"Przejdź do paragrafu {target_id}"
+                elif (
+                    not temp_display_text and target_id is None
+                ):  # Should not happen with valid choices
+                    display_text = choice_text  # Fallback to original text if it became empty and no target
+                else:
+                    display_text = temp_display_text
             print(f"  {i+1}. {display_text.strip()}")
 
         general_actions_menu = {}
@@ -648,6 +695,14 @@ def start_game():
             "action": "display_stats",
         }
         print(f"  {current_choice_offset}. Pokaż statystyki ponownie")
+        current_choice_offset += 1
+
+        general_actions_menu[current_choice_offset] = {
+            "text": "Zapisz grę",
+            "action": "save_game",
+        }
+        print(f"  {current_choice_offset}. Zapisz grę")
+        # current_choice_offset += 1 # Not needed if it's the last static option added
 
         while True:
             try:
@@ -682,13 +737,35 @@ def start_game():
                             )
                     elif chosen_general_action_key == "display_stats":
                         player.display_stats()
+                    elif chosen_general_action_key == "save_game":
+                        if save_game(player, active_profile_path):
+                            print("Postęp gry został zapisany.")
+                        else:
+                            print("Nie udało się zapisać postępu gry.")
+                        # Game continues, re-list choices
 
                     # Re-list choices for the current paragraph as these actions don't change paragraph
                     print("\n=== Dostępne opcje po akcji ===")
                     for i, choice_data_rep in enumerate(actual_choices_for_display):
                         choice_text_rep = choice_data_rep.get("text", "")
-                        target_id_rep = choice_data_rep["target_paragraph_id"]
-                        if (
+                        target_id_rep = choice_data_rep.get(
+                            "target_paragraph_id"
+                        )  # Safe fetch
+
+                        # Apply the same logic as above for re-listing choices
+                        if target_id_rep is not None and re.search(
+                            r"(-?\s*patrz\s+\d+)", choice_text_rep, re.IGNORECASE
+                        ):
+                            match_rep = re.search(
+                                r"(-?\s*patrz\s+(\d+))", choice_text_rep, re.IGNORECASE
+                            )
+                            if match_rep:
+                                display_text_rep = f"Idź do paragrafu {target_id_rep}"
+                            else:
+                                display_text_rep = (
+                                    f"Przejdź do paragrafu {target_id_rep}"
+                                )
+                        elif target_id_rep is not None and (
                             not choice_text_rep
                             or choice_text_rep.isdigit()
                             or (
@@ -700,22 +777,26 @@ def start_game():
                         ):
                             display_text_rep = f"Idź do paragrafu {target_id_rep}"
                         else:
-                            display_text_rep = re.sub(
+                            temp_display_text_rep = re.sub(
                                 r"\s*-\s*patrz\s+\d+\s*\.?$",
                                 "",
                                 choice_text_rep,
                                 flags=re.IGNORECASE,
                             ).strip()
-                            display_text_rep = re.sub(
+                            temp_display_text_rep = re.sub(
                                 r"\s*patrz\s+\d+\s*\.?$",
                                 "",
-                                display_text_rep,
+                                temp_display_text_rep,
                                 flags=re.IGNORECASE,
                             ).strip()
-                            if not display_text_rep:
+                            if not temp_display_text_rep and target_id_rep is not None:
                                 display_text_rep = (
                                     f"Przejdź do paragrafu {target_id_rep}"
                                 )
+                            elif not temp_display_text_rep and target_id_rep is None:
+                                display_text_rep = choice_text_rep
+                            else:
+                                display_text_rep = temp_display_text_rep
                         print(f"  {i+1}. {display_text_rep.strip()}")
 
                     temp_offset_display = len(actual_choices_for_display) + 1
