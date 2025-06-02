@@ -2,13 +2,13 @@ import os
 import time  # For potential pauses, if desired
 
 # from player import PlayerCharacter # PlayerCharacter type hint will be handled by TYPE_CHECKING
-from player import roll_k6  # roll_k6 is used directly
-from game_data import load_game_data, get_paragraph
+from .player import roll_k6  # roll_k6 is used directly
+from .game_data import load_game_data, get_paragraph
 from .game_io import save_game  # For saving game state
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from player import PlayerCharacter  # For type hinting
+    from .player import PlayerCharacter  # For type hinting
 
 
 def perform_sss(player_character: "PlayerCharacter"):

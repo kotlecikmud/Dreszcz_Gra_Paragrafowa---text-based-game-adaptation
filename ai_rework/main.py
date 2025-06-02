@@ -1,4 +1,4 @@
-from engine import start_game
+from .engine import start_game
 from .profiles import load_profiles, create_profile, select_profile
 from .game_io import load_game # Added for loading game
 from .player import PlayerCharacter # Added for creating new player instance

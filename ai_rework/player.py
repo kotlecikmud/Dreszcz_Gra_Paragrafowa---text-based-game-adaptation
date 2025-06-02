@@ -10,10 +10,10 @@ class PlayerCharacter:
         if is_new_character:
             # Initialize stats for a new character
             Z = roll_k6(1) + 6
-        W = roll_k6(2) + 12
-        S = roll_k6(1) + 6
+            W = roll_k6(2) + 12
+            S = roll_k6(1) + 6
 
-        self.stats = {'dexterity': Z, 'stamina': W, 'luck': S}
+            self.stats = {'dexterity': Z, 'stamina': W, 'luck': S}
             self.initial_stats = self.stats.copy()
 
             print("--- Tworzenie Postaci ---")
