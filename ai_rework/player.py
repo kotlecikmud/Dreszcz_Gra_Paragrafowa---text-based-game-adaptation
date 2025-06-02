@@ -83,9 +83,6 @@ class PlayerCharacter:
         print(f"  Zręczność (Z):    {self.stats.get('dexterity', 0):<2} / {dex_initial}")
         print(f"  Wytrzymałość (W): {self.stats.get('stamina', 0):<2} / {sta_initial}")
         print(f"  Szczęście (S):    {self.stats.get('luck', 0):<2} / {luc_initial}")
-        print(f"  Zręczność (Z):    {self.stats['dexterity']:<2} / {self.initial_stats['dexterity']}")
-        print(f"  Wytrzymałość (W): {self.stats['stamina']:<2} / {self.initial_stats['stamina']}")
-        print(f"  Szczęście (S):    {self.stats['luck']:<2} / {self.initial_stats['luck']}")
         print(f"  Prowiant:         {self.provisions}")
         print(f"  Złoto:            {self.gold}")
 

@@ -71,9 +71,11 @@ def handle_actions(
     action_taken_by_event = False
     game_should_end = False
     paragraph_allows_eating_provision = False
+    gold_action_processed_explicitly = False # Flag for gold handling
 
     if not paragraph_actions:
-        return False, False, False
+        # Even if no actions, check for implicit gold in text if not handled
+        pass # Continue to implicit check if needed
 
     print("\n--- Akcje Specjalne w Paragrafie ---")
     for action in paragraph_actions:
@@ -145,6 +147,16 @@ def handle_actions(
         if action_type == "stat_change":
             stat_name_from_json = details.get("stat", "").lower()
             amount = details.get("amount", 0)
+            
+            # Resolve stat_key for gold check even if original_detail was used for parsing
+            stat_key_for_gold_check = stat_name_from_json
+            if "original_detail" in details and action_type == "stat_change":
+                # Re-check mapping if details were parsed from string for stat_change
+                # This part is simplified; assumes stat_key was correctly derived if details was a string
+                # and then put into temp_details_dict.
+                # The important part is that stat_name_from_json *is* the potentially mapped key here.
+                pass # stat_name_from_json should be the mapped one like "gold"
+
             if (
                 amount == 0 and "original_detail" in details
             ):  # If parsing failed to get amount
@@ -152,15 +164,27 @@ def handle_actions(
                     f"    Nie udało się przetworzyć wartości dla zmiany statystyk: {details.get('original_detail')}"
                 )
                 continue
+            
             player.change_stat(
                 stat_name_from_json, amount
-            )  # player.change_stat has mapping
+            )
+            # Check if the stat change affected gold, considering aliases player.change_stat might use
+            gold_aliases = ["gold", "złoto", "zloto", "sztuki złota", "sztuk złota"]
+            if stat_name_from_json in gold_aliases:
+                gold_action_processed_explicitly = True
+                print(f"    [DEBUG] Explicit gold change by stat_change: {amount} for {stat_name_from_json}")
 
         elif action_type == "get_item" or action_type == "item_gain":
             item_name = details.get("item_name")
             quantity = details.get("quantity", 1)
             if item_name:
                 player.add_item(item_name, quantity)
+                # Check if the item added was gold
+                # player.add_item handles "sztuka złota" vs "złoto" internally and adds to player.gold
+                if "złot" in item_name.lower(): # Covers "złoto", "sztuk złota", etc.
+                    gold_action_processed_explicitly = True
+                    # Amount is tricky here as add_item handles it. This flag is mostly to prevent double text scan.
+                    print(f"    [DEBUG] Explicit gold change by get_item: {item_name}")
             else:
                 print("    Błąd w akcji GET_ITEM: brak 'item_name' w 'details'.")
 
@@ -325,7 +349,57 @@ def handle_actions(
             game_should_end = True
             action_taken_by_event = True
             break
-    print("--- Koniec Akcji Specjalnych ---")
+    
+    if not paragraph_actions and not gold_action_processed_explicitly: # Handle case where paragraph_actions might be empty
+        print("--- Brak Akcji Specjalnych, sprawdzanie tekstu pod kątem złota ---")
+    elif paragraph_actions: # Only print this if there were actions
+        print("--- Koniec Akcji Specjalnych ---")
+
+
+    # Fallback for implicit gold changes in paragraph text
+    if not gold_action_processed_explicitly and current_paragraph_data and 'text' in current_paragraph_data:
+        paragraph_text = current_paragraph_data['text']
+        
+        # Regex for direct gain/loss statements
+        # Covers: otrzymujesz/dostajesz/zyskujesz/znajdujesz/tracisz/kosztuje/płacisz/oddajesz X złota/sztuk(i/ę) złota
+        implicit_gold_regex = re.compile(
+            r"(otrzymujesz|dostajesz|zyskujesz|znajdujesz|tracisz|kosztuje|płacisz|oddajesz)\s+"
+            r"(\d+)\s+"
+            r"(złota|sztuk[iaę]?\s+złota)",
+            re.IGNORECASE
+        )
+        match = implicit_gold_regex.search(paragraph_text)
+
+        if match:
+            verb, amount_str, currency_form = match.groups()
+            amount = int(amount_str)
+            verb = verb.lower()
+
+            gain_verbs = ["otrzymujesz", "dostajesz", "zyskujesz", "znajdujesz"]
+            loss_verbs = ["tracisz", "kosztuje", "płacisz", "oddajesz"]
+
+            if verb in loss_verbs:
+                amount = -amount
+            
+            if verb in gain_verbs or verb in loss_verbs:
+                player.change_stat("gold", amount)
+                print(f"    [DEBUG] Implicit gold change from text: {amount} gold (verb: {verb}, currency: {currency_form})")
+                gold_action_processed_explicitly = True # Mark as processed
+
+        # Regex for "X sztuk/i złota. Możesz je wziąć." pattern (only if not already found by verb-based regex)
+        if not gold_action_processed_explicitly:
+            specific_find_regex = re.compile(
+                r"(\d+)\s+(sztuk[iaę]?\s+złota)\.\s*Możesz\s+je\s+wziąć",
+                re.IGNORECASE
+            )
+            match_specific = specific_find_regex.search(paragraph_text)
+            if match_specific:
+                amount_str, currency_form = match_specific.groups()
+                amount = int(amount_str)
+                player.change_stat("gold", amount)
+                print(f"    [DEBUG] Implicit gold change from text (specific find pattern): {amount} gold (currency: {currency_form})")
+                gold_action_processed_explicitly = True # Mark as processed
+                
     return action_taken_by_event, game_should_end, paragraph_allows_eating_provision
 
 
@@ -525,8 +599,73 @@ def start_game(
             f"                     Paragraf {current_paragraph_data['id']}                     "
         )
         print(f"======================================================\n")
+
+        # --- Start of text processing for embedding target_ids ---
+        processed_text = current_paragraph_data["text"]
+        choices = current_paragraph_data.get("choices", [])
+
+        # Pattern 1: Directional placeholders (e.g., paragraph 64)
+        # Assumes order of patterns matches order of choices.
+        direction_rules = [
+            (r"(·\s*zach(?:ó|o)d\s*-\s*patrz\s*,)", "· zachód - patrz {target_id},"),
+            (r"(·\s*północ\s*-\s*patrz\s*,)", "· północ - patrz {target_id},"),
+            (r"(·\s*wsch(?:ó|o)d\s*-\s*patrz\s*,)", "· wschód - patrz {target_id},"),
+            (r"(·\s*południe\s*-\s*patrz\s*,)", "· południe - patrz {target_id},")
+        ]
+
+        # This simple loop assumes that the Nth rule corresponds to the Nth choice.
+        # This is true for paragraph 64.
+        # A more complex paragraph might require matching choice text to rule,
+        # or having more explicit links between rules and choices.
+        for i, (pattern_regex, replacement_format) in enumerate(direction_rules):
+            if i < len(choices):
+                target_id = choices[i].get("target_paragraph_id")
+                if target_id is not None:
+                    # Build the replacement string using the original prefix from the matched pattern
+                    # e.g. for "· zachód - patrz ," the prefix is "· zachód"
+                    # The pattern_regex needs to be structured to replace only "patrz ," part or the whole thing carefully
+                    
+                    # Simpler: replacement_format string is already complete, just needs target_id
+                    # However, the prefix (e.g. "· zachód") should be preserved from the original text.
+                    # Let's use re.sub with a function or careful formatting.
+                    
+                    # For "· zachód - patrz ," to "· zachód - patrz ID,"
+                    # The match.group(0) is the whole "· zachód - patrz ,"
+                    # The part before " - patrz ," needs to be extracted from the match itself.
+                    
+                    # Replacement function for re.sub
+                    def make_replacement(match_obj):
+                        original_placeholder = match_obj.group(0) # e.g., "· zachód - patrz ,"
+                        # Extract the prefix part (e.g., "· zachód")
+                        prefix = original_placeholder.split(" - patrz ,")[0]
+                        return f"{prefix} - patrz {target_id},"
+
+                    processed_text, num_replacements = re.subn(pattern_regex, make_replacement, processed_text, count=1, flags=re.IGNORECASE)
+                    if num_replacements > 0:
+                        # Mark choice as "used" by this rule if we needed to prevent reuse for other patterns
+                        # For now, this simple ordered replacement is fine for para 64.
+                        pass 
+            else:
+                break # No more choices to map to direction_rules
+
+        # Pattern 2: Trailing "Patrz ." for single choice paragraphs
+        # Check only if not fully processed by directional (e.g. choices might be > dir_rules or different structure)
+        # This specific rule should only apply if there's ONE choice overall and it's a "Patrz ." situation.
+        if len(choices) == 1:
+            target_id = choices[0].get("target_paragraph_id")
+            if target_id is not None:
+                # Regex to find "Patrz ." at the very end of the text, possibly preceded by a space.
+                # (?i) is for inline ignorecase flag
+                # It replaces "Patrz ." with "Patrz {target_id}."
+                processed_text, num_replacements = re.subn(r"(?i)(Patrz\s*\.)\s*$", f"Patrz {target_id}.", processed_text, count=1)
+                if num_replacements > 0:
+                     # This choice was used by the trailing "Patrz ." rule.
+                     pass
+        
+        # --- End of text processing ---
+
         # Word wrap paragraph text for better readability
-        text_lines = current_paragraph_data["text"].split("\n")
+        text_lines = processed_text.split("\n")
         for line in text_lines:
             # Simple wrap for now, could use textwrap module for more sophistication
             words = line.split(" ")
@@ -575,6 +714,8 @@ def start_game(
                     break
                 elif combat_result == "fled":
                     print(f"Uciekłeś do paragrafu {player.current_paragraph_id}.")
+                    # Add autosave here:
+                    save_game(player, active_profile_path)
                     time.sleep(0.5)  # Brief pause before showing next paragraph
                     continue
                 elif combat_result == "victory":
@@ -607,6 +748,9 @@ def start_game(
             break
 
         if action_taken_by_event:
+            # Add autosave here:
+            # This implies player.current_paragraph_id might have changed in handle_actions
+            save_game(player, active_profile_path)
             time.sleep(0.5)
             continue
 
@@ -719,6 +863,8 @@ def start_game(
                     player.current_paragraph_id = selected_choice_data[
                         "target_paragraph_id"
                     ]
+                    # Add autosave here:
+                    save_game(player, active_profile_path)
                     break
                 elif choice_num in general_actions_menu:
                     cls_term()
