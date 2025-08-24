@@ -22,7 +22,7 @@
       "version number will now be retained after restoring config file",
       "changed paragraphs evaluation method (new formatting)",
       "new function get_state() for checking if required value",
-      "corrected formatting in path_string (replaced \"/\" with \"\\\")",
+      "corrected formatting in path_string (replaced \"/\" with \"/\")",
       "obj_class.py",
       "removed unnecessary code",
       "simplified Entity __init__ code",

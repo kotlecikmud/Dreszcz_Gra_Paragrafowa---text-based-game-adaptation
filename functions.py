@@ -1,9 +1,11 @@
 import os
+import sys
 import json
 import time
 import random
-import msvcrt
+from pynput import keyboard
 import platform
+import threading
 import datetime
 import subprocess
 
@@ -17,18 +19,18 @@ import paragraphs as prg  # paragraphs must be imported
 
 # class LoadingAnimation:
 #     def __init__(self):
-#         self.animation_signs = ['|', '/', '-', '\\']
+#         self.animation_signs = ['|', '/', '-', '/']
 #         self.sign_index = 0
 #         self.finished = False
-# 
+#
 #     def start(self):
 #         import threading
 #         self.finished = False
 #         threading.Thread(target=self._animate).start()
-# 
+#
 #     def stop(self):
 #         self.finished = True
-# 
+#
 #     def _animate(self):
 #         while not self.finished:
 #             print('- ' + self.animation_signs[self.sign_index % len(self.animation_signs)] + ' -', end='\r')
@@ -85,53 +87,79 @@ def check_for_update():
         error_message(f"Error while checking for update {str(e)}")
 
 
+skip_pressed = False
+
+
+def on_press(key):
+    global skip_pressed
+    try:
+        if key.char == ']':  # Only reacts to ]
+            skip_pressed = True
+    except AttributeError:
+        pass  # special keys ignored
+
+
+listener = keyboard.Listener(on_press=on_press)
+listener.start()
+
+music_player_thread = None
+stop_music_thread = threading.Event()
+current_category = None
+
+
+def music_player_worker():
+    """
+    This worker function runs in a separate thread and handles continuous music playback.
+    It plays tracks from the 'current_category' global variable.
+    """
+    global current_category
+    while not stop_music_thread.is_set():
+        if current_category:
+            category_before_play = current_category
+            track_list = list(cnst.music_tracks[current_category])
+            random.shuffle(track_list)
+
+            for track in track_list:
+                if stop_music_thread.is_set() or current_category != category_before_play:
+                    break  # Stop or category changed
+
+                pygame.mixer.music.load(track)
+                pygame.mixer.music.set_volume(cnst.setup_params["bckg_volume"])
+                pygame.mixer.music.play()
+
+                while pygame.mixer.music.get_busy():
+                    if stop_music_thread.is_set() or current_category != category_before_play:
+                        pygame.mixer.music.stop()
+                        break
+                    time.sleep(0.1)
+        else:
+            time.sleep(0.1)  # Wait if no category is set
+
+
 def get_music(category=None, fadeout=None, update=None):
     """
-    Play music based on the provided category.
-
-    Args:
-        category (str, optional): The category of music to play. Valid values are 'main', 'combat', or 'menu'.
-                                 If not provided or set to None, no music will be played. Defaults to None.
-        fadeout (int, optional): The duration in milliseconds for the fadeout effect before playing the new music.
-                                 If not provided or set to None, no fadeout effect will be applied. Defaults to None.
-        update (bool, optional): If True, update the background music volume to the value specified in cnst.setup_params["bckg_volume"].
-                                 If False or not provided, the volume will not be updated. Defaults to None.
-
-    Returns:
-        None
-
-    Raises:
-        None
-
-    Note:
-        - The function requires the Pygame library to be imported and initialized before calling this function.
-        - The music tracks for each category should be defined in the cnst.music_tracks dictionary.
-
-    Example usage:
-        # Play main music with a fadeout effect
-        get_music(category='main', fadeout=1000)
-
-        # Update the background music volume
-        get_music(update=True)
+    Play music based on the provided category using a background thread.
     """
+    global music_player_thread, stop_music_thread, current_category
+
+    # Start the music player thread if it's not already running
+    if music_player_thread is None:
+        stop_music_thread.clear()
+        music_player_thread = threading.Thread(target=music_player_worker)
+        music_player_thread.daemon = True
+        music_player_thread.start()
 
     if update:
         pygame.mixer.music.set_volume(cnst.setup_params["bckg_volume"])
 
     elif cnst.setup_params["get_music"]:
         if category in ['main', 'combat', 'menu']:
-            random_track = random.choice(cnst.music_tracks[category])
+            if current_category != category:
+                if fadeout:
+                    pygame.mixer.music.fadeout(fadeout)
+                    time.sleep(fadeout / 1000.0)  # Give fadeout time to complete
 
-            if fadeout:
-                pygame.mixer.music.fadeout(fadeout)
-
-            debug_message(f"Playing {category}: {random_track}")
-
-            pygame.mixer.music.load(random_track)
-            pygame.mixer.music.set_volume(cnst.setup_params["bckg_volume"])
-
-            if not pygame.mixer.music.get_busy():
-                pygame.mixer.music.play(-1)  # play in loop --> (-1)
+                current_category = category
 
     elif cnst.setup_params["dev_mode"]:
         debug_message(f"get_music() disabled - wanted to play: {category}")
@@ -160,6 +188,8 @@ def dub_play(string_id, category=None, skippable=True, with_text=True, r_robin=N
         - The audio file path is constructed based on the provided parameters.
         - If dubbing is disabled, the user is prompted to continue with a specific input sign.
     """
+    global skip_pressed
+
     if r_robin:
         r_robin = "_" + str(random.randint(1, r_robin))
 
@@ -173,18 +203,18 @@ def dub_play(string_id, category=None, skippable=True, with_text=True, r_robin=N
     if category:
         category = category.lower()
         if category == 'adam' or category == 'dub':
-            audio_path = f'{cnst.AUDIO_VOICE_DIR}\\Adam'
+            audio_path = f'{cnst.AUDIO_VOICE_DIR}/Adam'
             is_voice = True
 
         elif category == 'dunmer' or category == 'dub':
-            audio_path = f'{cnst.AUDIO_VOICE_DIR}\\Dunmer'
+            audio_path = f'{cnst.AUDIO_VOICE_DIR}/Dunmer'
             is_voice = True
 
         elif category == 'fx':
-            audio_file_id = f'{cnst.AUDIO_FX_DIR}\\audiobook_{string_id}{r_robin}{cnst.AUDIO_EXTENSION}'
+            audio_file_id = f'{cnst.AUDIO_FX_DIR}/audiobook_{string_id}{r_robin}{cnst.AUDIO_EXTENSION}'
 
         if is_voice:
-            audio_file_id = f'{audio_path}\\{cnst.setup_params["translation"]}\\audiobook_{category}_{cnst.setup_params["translation"]}_{string_id}{r_robin}{cnst.AUDIO_EXTENSION}'
+            audio_file_id = f'{audio_path}/{cnst.setup_params["translation"]}/audiobook_{category}_{cnst.setup_params["translation"]}_{string_id}{r_robin}{cnst.AUDIO_EXTENSION}'
 
     try:
         current_sound = pygame.mixer.Sound(audio_file_id)
@@ -193,11 +223,10 @@ def dub_play(string_id, category=None, skippable=True, with_text=True, r_robin=N
         error_message('FileNotFoundError ', f'Could not find: {audio_file_id}')
 
         if is_voice:
-            current_sound = pygame.mixer.Sound(f'{cnst.AUDIO_FX_DIR}\\AudioFileUnavailable.mp3')
+            current_sound = pygame.mixer.Sound(f'{cnst.AUDIO_FX_DIR}/AudioFileUnavailable.mp3')
         else:
-            current_sound = pygame.mixer.Sound(f'{cnst.AUDIO_FX_DIR}\\audiobook_click_snd.mp3')
+            current_sound = pygame.mixer.Sound(f'{cnst.AUDIO_FX_DIR}/audiobook_click_snd.mp3')
 
-    pygame.mixer.stop()  # stop any sound currently being played
     current_sound.set_volume(cnst.setup_params["action_volume"])  # ensure that volume is on default
 
     # find empty channel
@@ -217,7 +246,7 @@ def dub_play(string_id, category=None, skippable=True, with_text=True, r_robin=N
                 print(gb.gameboook[cnst.setup_params["translation"]][string_id])
 
         except KeyError:
-            channel.play(pygame.mixer.Sound(f'{cnst.AUDIO_FX_DIR}\\audiobook_click_snd.mp3'))
+            channel.play(pygame.mixer.Sound(f'{cnst.AUDIO_FX_DIR}/audiobook_click_snd.mp3'))
             error_message('KeyError', f'Could not find string: {string_id}')
 
     # if dubbing is enabled
@@ -227,15 +256,16 @@ def dub_play(string_id, category=None, skippable=True, with_text=True, r_robin=N
         debug_message(f'Now playing: {audio_file_id}')
 
         if skippable:
-            # print a message indicating that we're skipping the input sign
             print(f"skip {cnst.INPUT_SIGN}")
 
-            # continue looping while the channel is busy playing a sound
             while channel.get_busy():
-                # check if any key is pressed
-                if msvcrt.kbhit():
-                    pygame.mixer.stop()  # stop any sound currently being played
+                if skip_pressed:
+                    channel.stop()
+                    skip_pressed = False  # reset
                     break
+        else:
+            while channel.get_busy():  # for unskippable audio just let it play until the end
+                pass
 
     else:
         debug_message(f"dubbing disabled: {cnst.CFG_NAME}")
@@ -468,7 +498,7 @@ def get_game_state(action, last_paragraph='00', new_game=None):
     # list of json files in folder_path
     valid_json_files = []
 
-    debug_message(f"Looking for game states in '~\\Documents' folder path for saving json file")
+    debug_message(f"Looking for game states in '~/Documents' folder path for saving json file")
     if os.path.exists(cnst.GAMESTATE_DIR):
         json_files = [file for file in os.listdir(cnst.GAMESTATE_DIR) if file.endswith(cnst.GAMESTATE_EXTENSION)]
 
@@ -486,8 +516,8 @@ def get_game_state(action, last_paragraph='00', new_game=None):
     if action == 's':
         if new_game:
             # Create new file path and update active gameplay file_path
-            cnst.setup_params['active_gameplay'] = os.path.join(cnst.GAMESTATE_DIR,
-                                                                f"dreszcz_{datetime.datetime.now().strftime('%y-%m-%d_%S')}{cnst.GAMESTATE_EXTENSION}")
+            cnst.setup_params[
+                'active_gameplay'] = f"{cnst.GAMESTATE_DIR}/dreszcz_{datetime.datetime.now().strftime('%y-%m-%d_%S')}{cnst.GAMESTATE_EXTENSION}"
         # Load game state to variables
         game_state = {
             "last_paragraph": last_paragraph,
@@ -533,7 +563,7 @@ def get_game_state(action, last_paragraph='00', new_game=None):
 
                     if 1 <= file_number <= len(valid_json_files):
                         selected_file = valid_json_files[file_number - 1]
-                        cnst.setup_params['active_gameplay'] = os.path.join(cnst.GAMESTATE_DIR, selected_file)
+                        cnst.setup_params['active_gameplay'] = f"{cnst.GAMESTATE_DIR}/{selected_file}"
                         with open(cnst.setup_params['active_gameplay'], "r") as f:
                             game_state = json.load(f)
                         debug_message(f'Game state loaded from: {selected_file}')
@@ -618,7 +648,7 @@ def get_game_state(action, last_paragraph='00', new_game=None):
                 }
 
                 # Saving dummy game state if one doesn't exist
-                with open(os.path.join(os.path.expanduser('~\\Documents'), cnst.DUMMY_GAMESTATE_NAME), "w") as f:
+                with open(os.path.join(os.path.expanduser('~/Documents'), cnst.DUMMY_GAMESTATE_NAME), "w") as f:
                     json.dump(game_state, f)
 
                 cnst.setup_params["active_gameplay"] = str(cnst.DUMMY_GAMESTATE_NAME)

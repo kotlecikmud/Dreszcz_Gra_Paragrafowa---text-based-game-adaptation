@@ -51,7 +51,7 @@ class TestProfiles(unittest.TestCase):
         self.assertFalse(profiles.create_profile("   ")) # Just spaces
 
     def test_create_profile_sanitized(self):
-        profile_name = "Test User/\\:*?\"<>|3"
+        profile_name = "Test User//:*?\"<>|3"
         sanitized_name = "Test User3"
         self.assertTrue(profiles.create_profile(profile_name))
         profile_path = os.path.join(self.test_dir, sanitized_name)

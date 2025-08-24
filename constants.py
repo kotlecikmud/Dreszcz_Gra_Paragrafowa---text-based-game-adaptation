@@ -27,24 +27,24 @@ AUDIO_EXTENSION = '.mp3'  # extension of voice and fx files, other will be ignor
 
 # directories
 ASSETS_DIR = "Assets"
-GAME_FILES_DIR = rf"{ASSETS_DIR}\game_files"
-AUDIO_ASSETS_DIR = rf"{ASSETS_DIR}\Audio"  # Path to audio assets
-GRAPHICS_ASSETS_DIR = rf"{ASSETS_DIR}\Graphics"  # Path to graphics assets
-GRAPHICS_MISC_DIR = rf"{GRAPHICS_ASSETS_DIR}\misc"  # Path to misc graphics like icons, buttons etc.
-GRAPHICS_PLATES_DIR = rf"{GRAPHICS_ASSETS_DIR}\plates"  # Path to background graphics
-AUDIO_VOICE_DIR = rf"{AUDIO_ASSETS_DIR}\voice"  # Path to voice lines audio files
-AUDIO_FX_DIR = rf"{AUDIO_ASSETS_DIR}\fx"  # Path to sound effects
-AUDIO_MUSIC_DIR = rf"{AUDIO_ASSETS_DIR}\music"  # Path to music
-DOCUMENTATION_DIR = rf"{ASSETS_DIR}\Documentation"  # Path to documentation of project
-GAMESTATE_DIR = os.path.join(os.path.expanduser('~\\Documents'),
-                             r"Jacek Ciesielski - Dreszcz\saves")  # Path for managings gamestate (gmsf) files
+GAME_FILES_DIR = f"{ASSETS_DIR}/game_files"
+AUDIO_ASSETS_DIR = f"{ASSETS_DIR}/Audio"  # Path to audio assets
+GRAPHICS_ASSETS_DIR = f"{ASSETS_DIR}/Graphics"  # Path to graphics assets
+GRAPHICS_MISC_DIR = f"{GRAPHICS_ASSETS_DIR}/misc"  # Path to misc graphics like icons, buttons etc.
+GRAPHICS_PLATES_DIR = f"{GRAPHICS_ASSETS_DIR}/plates"  # Path to background graphics
+AUDIO_VOICE_DIR = f"{AUDIO_ASSETS_DIR}/voice"  # Path to voice lines audio files
+AUDIO_FX_DIR = f"{AUDIO_ASSETS_DIR}/fx"  # Path to sound effects
+AUDIO_MUSIC_DIR = f"{AUDIO_ASSETS_DIR}/music"  # Path to music
+DOCUMENTATION_DIR = f"{ASSETS_DIR}/Documentation"  # Path to documentation of project
+GAMESTATE_DIR = os.path.join(os.path.expanduser('~/Documents'),
+                             "Jacek_Ciesielski_Dreszcz/saves")  # Path for managings gamestate (gmsf) files
 
 # paths
-LOG_NAME = rf"{GAME_FILES_DIR}\.log"
-CFG_NAME = rf"{GAME_FILES_DIR}\config.json"
-VER_FILE = rf"{GAME_FILES_DIR}\.ver"
-CHLOG_NAME = rf"{GAME_FILES_DIR}\changelog.json"
-DUMMY_GAMESTATE_NAME = rf"{GAMESTATE_DIR}\dreszcz_dummy{GAMESTATE_EXTENSION}"
+LOG_NAME = f"{GAME_FILES_DIR}/.log"
+CFG_NAME = f"{GAME_FILES_DIR}/config.json"
+VER_FILE = f"{GAME_FILES_DIR}/.ver"
+CHLOG_NAME = f"{GAME_FILES_DIR}/changelog.json"
+DUMMY_GAMESTATE_NAME = f"{GAMESTATE_DIR}\dreszcz_dummy{GAMESTATE_EXTENSION}"
 
 # GUI settings
 GUI_BCKG_COLOR = "#ac733c"  # sepia
