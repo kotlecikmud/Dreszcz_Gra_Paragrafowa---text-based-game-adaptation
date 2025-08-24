@@ -15,6 +15,8 @@ from colorama import Fore
 import gamebook as gb
 import constants as cnst
 import paragraphs as prg  # paragraphs must be imported
+import entities as ent
+import obj_class
 
 
 # class LoadingAnimation:
@@ -93,7 +95,7 @@ skip_pressed = False
 def on_press(key):
     global skip_pressed
     try:
-        if key.char == ']':  # Only reacts to ]
+        if key.char == 'l':  # Only reacts to l
             skip_pressed = True
     except AttributeError:
         pass  # special keys ignored
@@ -224,6 +226,7 @@ def dub_play(string_id, category=None, skippable=True, with_text=True, r_robin=N
 
         if is_voice:
             current_sound = pygame.mixer.Sound(f'{cnst.AUDIO_FX_DIR}/AudioFileUnavailable.mp3')
+            debug_message(f"AudioFileUnavailable: {audio_file_id}")
         else:
             current_sound = pygame.mixer.Sound(f'{cnst.AUDIO_FX_DIR}/audiobook_click_snd.mp3')
 
@@ -256,7 +259,7 @@ def dub_play(string_id, category=None, skippable=True, with_text=True, r_robin=N
         debug_message(f'Now playing: {audio_file_id}')
 
         if skippable:
-            print(f"skip (press ']'){cnst.INPUT_SIGN}")
+            print(f"to skip dialog press 'l' key {cnst.INPUT_SIGN}")
 
             while channel.get_busy():
                 if skip_pressed:
@@ -519,6 +522,11 @@ def get_game_state(action, last_paragraph='00', new_game=None):
             cnst.setup_params[
                 'active_gameplay'] = f"{cnst.GAMESTATE_DIR}/dreszcz_{datetime.datetime.now().strftime('%y-%m-%d_%S')}{cnst.GAMESTATE_EXTENSION}"
         # Load game state to variables
+        room_visits = {}
+        for name, obj in ent.__dict__.items():
+            if isinstance(obj, obj_class.Room):
+                room_visits[obj.room_num] = obj.visit_count
+
         game_state = {
             "last_paragraph": last_paragraph,
             "player_name": cnst.player_name,
@@ -534,6 +542,7 @@ def get_game_state(action, last_paragraph='00', new_game=None):
             "potion_count": cnst.potion_count,
             "meal_count": cnst.meal_count,
             "gold_amount": cnst.gold_amount,
+            "room_visits": room_visits,
             "version": cnst.__version__,
             # save information abaut version number that game state was generated in
         }
@@ -573,6 +582,12 @@ def get_game_state(action, last_paragraph='00', new_game=None):
                     debug_message("Incorrect file number provided.")
 
             # Assigning the loaded data back to variables.
+            if 'room_visits' in game_state:
+                for room_num, visit_count in game_state['room_visits'].items():
+                    for name, obj in ent.__dict__.items():
+                        if isinstance(obj, obj_class.Room) and obj.room_num == room_num:
+                            obj.visit_count = visit_count
+                            break
             last_paragraph = game_state.get("last_paragraph")
             cnst.player_name = game_state.get("player_name")
             cnst.difficulty = game_state.get("difficulty")
@@ -597,6 +612,12 @@ def get_game_state(action, last_paragraph='00', new_game=None):
             game_state = json.load(f)
 
             # Assigning the loaded data back to variables.
+            if 'room_visits' in game_state:
+                for room_num, visit_count in game_state['room_visits'].items():
+                    for name, obj in ent.__dict__.items():
+                        if isinstance(obj, obj_class.Room) and obj.room_num == room_num:
+                            obj.visit_count = visit_count
+                            break
             last_paragraph = game_state.get("last_paragraph")
             cnst.player_name = game_state.get("player_name")
             cnst.difficulty = game_state.get("difficulty")
@@ -644,6 +665,7 @@ def get_game_state(action, last_paragraph='00', new_game=None):
                     "potion_count": 2,
                     "meal_count": 8,
                     "gold_amount": 0,
+                    "room_visits": {},
                     "version": cnst.__version__
                 }
 
@@ -735,10 +757,6 @@ def pth_selector(path_strings=None, actions=None, visit_check=False, room_id=Non
     if path_strings is None:
         path_strings = []
 
-    if room_id:  # add visit count if room number was given
-        room_id.visit_count = update_variable(room_id.visit_count, 1)
-        debug_message(f'added visit: visit count of room number {room_id.room_num} = {room_id.visit_count}')
-
     if visit_check:
         if room_id.room_state:  # if open
             print(
@@ -746,7 +764,9 @@ def pth_selector(path_strings=None, actions=None, visit_check=False, room_id=Non
             dub_play('opened', 'adam', False, False)
 
             # Player is visiting the room more times than the allowed number.
-            if not room_id.visit_count - 1 >= room_id.max_visit_count:
+            if not room_id.visit_count >= room_id.max_visit_count:
+                room_id.visit_count = update_variable(room_id.visit_count, 1)
+                debug_message(f'added visit: visit count of room number {room_id.room_num} = {room_id.visit_count}')
                 if room_id.visit_count == 1:  # Player first time in room
                     get_game_state('s', actions[1])
 
@@ -762,6 +782,10 @@ def pth_selector(path_strings=None, actions=None, visit_check=False, room_id=Non
 
             else:
                 print("Nothing to find here")
+                with open(cnst.setup_params["active_gameplay"], "r") as f:
+                    game_state = json.load(f)
+                    last_paragraph = game_state.get("last_paragraph")
+                    eval("prg._" + last_paragraph + "()")
 
         else:  # if closed
             try:
