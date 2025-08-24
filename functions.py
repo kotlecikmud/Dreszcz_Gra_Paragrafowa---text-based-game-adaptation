@@ -256,7 +256,7 @@ def dub_play(string_id, category=None, skippable=True, with_text=True, r_robin=N
         debug_message(f'Now playing: {audio_file_id}')
 
         if skippable:
-            print(f"skip {cnst.INPUT_SIGN}")
+            print(f"skip (press ']'){cnst.INPUT_SIGN}")
 
             while channel.get_busy():
                 if skip_pressed:
@@ -671,6 +671,31 @@ def get_game_state(action, last_paragraph='00', new_game=None):
 # get_game_state("init")
 
 
+pressed_key = None
+
+
+def on_press_specific(key):
+    global pressed_key
+    try:
+        pressed_key = key.char
+    except AttributeError:
+        pressed_key = None
+    return False  # Stop listener
+
+
+def wait_for_specific_keys(keys_to_wait_for):
+    global pressed_key
+    pressed_key = None  # Reset the key
+    listener = keyboard.Listener(on_press=on_press_specific)
+    listener.start()
+
+    while pressed_key not in keys_to_wait_for:
+        time.sleep(0.01)  # Small delay to prevent busy-waiting
+
+    listener.stop()
+    return pressed_key
+
+
 def pth_selector(path_strings=None, actions=None, visit_check=False, room_id=None):
     """
     Parameters:
@@ -757,17 +782,9 @@ def pth_selector(path_strings=None, actions=None, visit_check=False, room_id=Non
                 print(f'{i + 1} · {path}')
                 time.sleep(cnst.TIME_DELAY)
 
-            while True:
-                usr_input = input(f'{cnst.INPUT_SIGN}')
-
-                try:
-                    usr_input = int(usr_input)
-
-                    if 0 < usr_input <= len(path_strings):
-                        break
-
-                except ValueError:
-                    print(f'/!/ {cnst.SPECIAL_COLOR}Choose number from list{cnst.DEFAULT_COLOR}')
+            keys_to_wait_for = [str(i) for i in range(1, len(path_strings) + 1)]
+            usr_input = wait_for_specific_keys(keys_to_wait_for)
+            usr_input = int(usr_input)
 
             clear_terminal()
             pygame.mixer.stop()  # Abort any dubbing currently being played
